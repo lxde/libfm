@@ -2,7 +2,7 @@
  *      fm-config.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -101,6 +101,7 @@ static void fm_config_finalize(GObject *object)
     g_strfreev(cfg->modules_whitelist);
     g_free(cfg->format_cmd);
     g_free(cfg->list_view_size_units);
+    g_free(cfg->saved_search);
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
@@ -127,6 +128,7 @@ static void fm_config_init(FmConfig *self)
     /* modules_blacklist and modules_whitelist defaulted to NULL */
     /* format_cmd defaulted to NULL */
     /* list_view_size_units defaulted to NULL */
+    /* saved_search defaulted to NULL */
     self->advanced_mode = FALSE;
     self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
     self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
@@ -271,6 +273,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "ui", "shadow_hidden", &cfg->shadow_hidden);
     g_free(cfg->list_view_size_units);
     cfg->list_view_size_units = g_key_file_get_string(kf, "ui", "list_view_size_units", NULL);
+    g_free(cfg->saved_search);
+    cfg->saved_search = g_key_file_get_string(kf, "ui", "saved_search", NULL);
 
     fm_key_file_get_bool(kf, "places", "places_home", &cfg->places_home);
     fm_key_file_get_bool(kf, "places", "places_desktop", &cfg->places_desktop);
@@ -465,6 +469,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 if (cfg->list_view_size_units && cfg->list_view_size_units[0])
                     cfg->list_view_size_units[1] = '\0'; /* leave only 1 char */
                 _save_config_string(str, cfg, list_view_size_units);
+                _save_config_string(str, cfg, saved_search);
             g_string_append(str, "\n[places]\n");
                 _save_config_bool(str, cfg, places_home);
                 _save_config_bool(str, cfg, places_desktop);

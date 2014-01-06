@@ -382,6 +382,9 @@ Changes on 1.2.0 since 1.1.0:
     the displayable name) as alternative to file type for some old-style
     users.
 
+* Search dialog options are remembered now between searches. Search path
+    and 'Properties' tab are not saved though.
+
 * A whole lot of bugfixes.
 
 

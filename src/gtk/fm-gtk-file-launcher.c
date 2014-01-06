@@ -55,6 +55,9 @@
 /* for read() */
 #include <unistd.h>
 
+/* for strtoul() */
+#include <stdlib.h>
+
 typedef struct _LaunchData LaunchData;
 struct _LaunchData
 {
@@ -474,6 +477,22 @@ static gchar * document_mime_types[] = {
 };
 #endif
 
+typedef enum
+{
+    FM_SAVED_SEARCH_NAME_CI = 1<<0,
+    FM_SAVED_SEARCH_NAME_REGEXP = 1<<1,
+    FM_SAVED_SEARCH_RECURSION = 1<<2,
+    FM_SAVED_SEARCH_HIDDEN = 1<<3,
+    FM_SAVED_SEARCH_TYPE_TEXT = 1<<4,
+    FM_SAVED_SEARCH_TYPE_IMAGE = 1<<5,
+    FM_SAVED_SEARCH_TYPE_AUDIO = 1<<6,
+    FM_SAVED_SEARCH_TYPE_VIDEO = 1<<7,
+    FM_SAVED_SEARCH_TYPE_DOCS = 1<<8,
+    FM_SAVED_SEARCH_TYPE_DIRS = 1<<9,
+    FM_SAVED_SEARCH_CONTENT_CI = 1<<10,
+    FM_SAVED_SEARCH_CONTENT_REGEXP = 1<<11
+} FmSavedSearch;
+
 /* UI Signal Handlers */
 
 static gboolean launch_search(FileSearchUI* ui)
@@ -483,6 +502,7 @@ static gboolean launch_search(FileSearchUI* ui)
     GtkTreeModel* model;
     GtkTreeIter it;
     gboolean ret;
+    FmSavedSearch saved = 0;
 
     /* build the search:// URI to perform the search */
     g_string_append(search_uri, "search://");
@@ -494,10 +514,11 @@ static gboolean launch_search(FileSearchUI* ui)
         gboolean show_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->search_hidden_files_checkbutton));
         const char* name_patterns = gtk_entry_get_text(ui->name_entry);
         gboolean name_ci = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_case_insensitive_checkbutton));
-        //gboolean name_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_regex_checkbutton));
+        gboolean name_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_regex_checkbutton));
         const char* content_pattern = gtk_entry_get_text(ui->content_entry);
         gboolean content_ci = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->content_case_insensitive_checkbutton));
         gboolean content_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->content_regex_checkbutton));
+        const char *other_file_pattern = gtk_entry_get_text(ui->other_file_entry);
         const guint unit_bytes[] = {1, (1024), (1024*1024), (1024*1024*1024)};
         GSList* mime_types = NULL;
         FmPath* search_path;
@@ -536,7 +557,10 @@ static gboolean launch_search(FileSearchUI* ui)
         {
             /* escape ampersands in pattern */
             escaped = g_uri_escape_string(name_patterns, ":/?#[]@!$'()*+,;", TRUE);
-            g_string_append_printf(search_uri, "&name=%s", escaped);
+            if(name_regex)
+                g_string_append_printf(search_uri, "&name_regex=%s", escaped);
+            else
+                g_string_append_printf(search_uri, "&name=%s", escaped);
             if(name_ci)
                 g_string_append_printf(search_uri, "&name_ci=%c", name_ci ? '1' : '0');
             g_free(escaped);
@@ -579,12 +603,14 @@ static gboolean launch_search(FileSearchUI* ui)
             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->dir_file_checkbutton)))
             mime_types = g_slist_prepend(mime_types, (gpointer)"inode/directory");
         if (ui->other_file_checkbutton &&
-            gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->other_file_checkbutton)))
+            gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->other_file_checkbutton)) &&
+            other_file_pattern && other_file_pattern[0] &&
+            strchr(other_file_pattern, '&') == NULL) /* & is invalid here */
         {
-            const char *txt = gtk_entry_get_text(ui->other_file_entry);
-            if (txt && txt[0] && strchr(txt, '&') == NULL) /* & is invalid here */
-                mime_types = g_slist_prepend(mime_types, (gpointer)txt);
+            mime_types = g_slist_prepend(mime_types, (gpointer)other_file_pattern);
         }
+        else
+            other_file_pattern = NULL;
 
         if(mime_types)
         {
@@ -651,7 +677,38 @@ static gboolean launch_search(FileSearchUI* ui)
 
         g_list_free(search_path_list);
         fm_path_unref(search_path);
-        g_string_free(search_uri, TRUE);
+        /* save search */
+        if (name_ci)
+            saved = FM_SAVED_SEARCH_NAME_CI;
+        if (name_regex)
+            saved |= FM_SAVED_SEARCH_NAME_REGEXP;
+        if (recursive)
+            saved |= FM_SAVED_SEARCH_RECURSION;
+        if (show_hidden)
+            saved |= FM_SAVED_SEARCH_HIDDEN;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->text_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_TEXT;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->image_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_IMAGE;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->audio_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_AUDIO;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->video_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_VIDEO;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->doc_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_DOCS;
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->dir_file_checkbutton)))
+            saved |= FM_SAVED_SEARCH_TYPE_DIRS;
+        if (content_ci)
+            saved |= FM_SAVED_SEARCH_CONTENT_CI;
+        if (content_regex)
+            saved |= FM_SAVED_SEARCH_CONTENT_REGEXP;
+        g_string_printf(search_uri, "%lx", (long int)saved);
+        if (other_file_pattern)
+            g_string_append_printf(search_uri, "&%s&", other_file_pattern);
+        g_string_append_printf(search_uri, "/%s/%s", name_patterns, content_pattern);
+        g_free(fm_config->saved_search);
+        fm_config->saved_search = g_string_free(search_uri, FALSE);
+        fm_config_emit_changed(fm_config, "saved_search");
         if(_ctx)
             g_object_unref(_ctx);
     }
@@ -763,6 +820,8 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
                                  gpointer user_data)
 {
     FileSearchUI * ui;
+    char *c, *expr, *mask;
+    FmSavedSearch saved;
 
     g_return_val_if_fail(func != NULL, FALSE);
     ui = g_slice_new0(FileSearchUI);
@@ -823,6 +882,62 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
     ui->date_dlg = GTK_DIALOG(gtk_builder_get_object(builder, "date_dlg"));
     gtk_dialog_set_alternative_button_order(GTK_DIALOG(ui->date_dlg), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL);
     ui->calendar = GTK_CALENDAR(gtk_builder_get_object(builder, "calendar"));
+
+    /* check for saved config */
+    if (fm_config->saved_search)
+    {
+        saved = strtoul(fm_config->saved_search, &c, 16);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->name_case_insensitive_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_NAME_CI) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->name_regex_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_NAME_REGEXP) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->search_recursive_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_RECURSION) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->search_hidden_files_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_HIDDEN) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->text_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_TEXT) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->image_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_IMAGE) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->audio_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_AUDIO) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->video_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_VIDEO) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->doc_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_DOCS) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->dir_file_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_TYPE_DIRS) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->content_case_insensitive_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_CONTENT_CI) != 0);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->content_regex_checkbutton),
+                                    (saved & FM_SAVED_SEARCH_CONTENT_REGEXP) != 0);
+        expr = g_strdup(&c[1]);
+        if (*c == '&')
+        {
+            mask = strchr(expr, '&');
+            if (mask)
+                *mask++ = '\0';
+            if (ui->other_file_checkbutton)
+            {
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->other_file_checkbutton), TRUE);
+                gtk_entry_set_text(ui->other_file_entry, expr);
+            }
+        }
+        else
+            mask = expr;
+        if (*mask == '/') /* else corrupted */
+        {
+            mask++;
+            c = strchr(mask, '/');
+            if (c)
+                *c++ = '\0';
+            if (mask[0])
+                gtk_entry_set_text(ui->name_entry, mask);
+            if (c && c[0])
+                gtk_entry_set_text(ui->content_entry, c);
+        }
+        g_free(expr);
+    }
 
     filesearch_glade_connect_signals(builder, ui);
     g_object_unref(builder);
