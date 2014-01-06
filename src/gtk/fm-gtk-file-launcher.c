@@ -911,9 +911,9 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
                                     (saved & FM_SAVED_SEARCH_CONTENT_CI) != 0);
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ui->content_regex_checkbutton),
                                     (saved & FM_SAVED_SEARCH_CONTENT_REGEXP) != 0);
-        expr = g_strdup(&c[1]);
         if (*c == '&')
         {
+            expr = g_strdup(&c[1]);
             mask = strchr(expr, '&');
             if (mask)
                 *mask++ = '\0';
@@ -924,7 +924,7 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
             }
         }
         else
-            mask = expr;
+            mask = expr = g_strdup(c);
         if (*mask == '/') /* else corrupted */
         {
             mask++;
