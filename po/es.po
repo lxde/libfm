@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-29 22:23+0200\n"
-"PO-Revision-Date: 2013-12-29 22:23+0000\n"
+"POT-Creation-Date: 2014-01-04 23:48+0200\n"
+"PO-Revision-Date: 2014-01-06 08:32+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1388355824.0\n"
+"X-POOTLE-MTIME: 1388997140.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -202,131 +202,137 @@ msgstr ""
 "Seleccione la aplicación utilizada para abrir los archivos de este tipo "
 
 #: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total count of files:</b>"
+msgstr "<b>N.º total de archivos:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Tamaño total de los archivos:</b>"
 
-#: ../data/ui/file-prop.glade.h:10
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Tamaño en el disco:</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
 msgstr "<b>Última modificación:</b>"
 
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
 msgstr "<b>Último acceso:</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Última modificación de permisos:</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "_General"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
 msgstr "<b>Pr_opietario:</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
 msgstr "<b>G_rupo:</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>_Ver contenido:</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "<b>C_hange content:</b>"
 msgstr "<b>Ca_mbiar contenido:</b>"
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
 msgstr "<b>_Ejecutar:</b>"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
 msgstr "<b>Bits especiales:</b>"
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
 msgstr "Quién puede leer el contenido del archivo/directorio"
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
 msgstr "Quién puede cambiar el contenido del archivo/directorio"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
 msgstr "Quién puede ejecutar el archivo o entrar al directorio"
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
 msgstr "Atributos especiales para la ejecución de archivos"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
 msgstr "Atributos especiales para el acceso a carpetas"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>Control de accesso</b>"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
 msgstr "Archivo oculto"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
 msgstr "_Permisos"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:30
 msgid "---"
 msgstr "---"
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:31
 msgid "None"
 msgstr "Ninguna"
 
-#: ../data/ui/file-prop.glade.h:31
-msgctxt "It is a directory access bit - "
+#: ../data/ui/file-prop.glade.h:32
+msgctxt ""
+"It is a directory access bit - 'sticky' - where only owner can delete a file "
+"from it"
 msgid "Sticky"
 msgstr "Persistente"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
 msgstr "Establecer el GID"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
 msgstr "Persistente y establecer GID"
 
-#: ../data/ui/file-prop.glade.h:34
-msgctxt "this is a file access mode bit, also known as "
+#: ../data/ui/file-prop.glade.h:35
+msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Establecer el UID"
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
 msgstr "Establecer UID y GID"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:37
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
 msgstr "Solo el propietario"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
 msgstr "Solo el propietario y el grupo"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
 msgstr "Cualquiera"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
 msgstr "Nadie"
 
@@ -419,47 +425,55 @@ msgid "_Documents"
 msgstr "_Documentos"
 
 #: ../data/ui/filesearch.glade.h:23
+msgid "Folde_rs"
+msgstr "Ca_rpetas"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "Ot_her:"
+msgstr "O_tros:"
+
+#: ../data/ui/filesearch.glade.h:25
 msgid "File _Type"
 msgstr "_Tipo de archivo"
 
-#: ../data/ui/filesearch.glade.h:24
+#: ../data/ui/filesearch.glade.h:26
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>El archivo con_tiene:</b>"
 
-#: ../data/ui/filesearch.glade.h:25
+#: ../data/ui/filesearch.glade.h:27
 msgid "C_ontent"
 msgstr "C_ontenido"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:28
 msgid "<b>File Size</b>"
 msgstr "<b>Tamaño de archivo:</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:29
 msgid "_Smaller than:"
 msgstr "_Menor que:"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Bigger than:"
 msgstr "Ma_yor que:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:31
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Última modificación:</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
-#: ../src/gtk/fm-gtk-file-launcher.c:620
+#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
+#: ../src/gtk/fm-gtk-file-launcher.c:633
 msgid "(None)"
 msgstr "(Ninguna)"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Earlier than:"
 msgstr "An_terior que:"
 
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:34
 msgid "L_ater than:"
 msgstr "_Posterior que:"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:35
 msgid "_Properties"
 msgstr "_Propiedades"
 
@@ -713,15 +727,15 @@ msgstr "<b>Elija una aplicación para abrir archivos «%s»</b>"
 msgid "Installed Applications"
 msgstr "Aplicaciones instaladas"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
 msgstr "<No hay subcarpetas>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../src/gtk/fm-dir-tree-view.c:482
+#: ../src/gtk/fm-dir-tree-view.c:550
 msgid "Shows tree of directories in sidebar"
 msgstr "Muestra el árbol de carpetas en la barra lateral"
 
@@ -803,41 +817,46 @@ msgstr "Mover a la _papelera"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Esta carpeta ya está incluida en los marcadores."
 
-#: ../src/gtk/fm-file-properties.c:364
+#: ../src/gtk/fm-file-properties.c:367
 msgid "Image files"
 msgstr "Archivos de imagen"
 
-#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
+#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "bytes"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:509
+#, c-format
+msgid "scanning... %d"
+msgstr "explorando… %d"
+
+#: ../src/gtk/fm-file-properties.c:587
 msgid "Please enter a valid user name or numeric id."
 msgstr "Escriba un nombre de usuario o un id. numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:617
 msgid "Please enter a valid group name or numeric id."
 msgstr "Escriba un nombre de grupo o un id. numérico válido."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:810
+#: ../src/gtk/fm-file-properties.c:826
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "¿Quiere aplicar estos cambios recurrentemente a todos los archivos y "
 "subcarpetas?"
 
-#: ../src/gtk/fm-file-properties.c:943
+#: ../src/gtk/fm-file-properties.c:959
 msgid "Hide or unhide the file"
 msgstr "Ocultar o revelar el archivo"
 
-#: ../src/gtk/fm-file-properties.c:948
+#: ../src/gtk/fm-file-properties.c:964
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Este archivo está oculto porque su nombre comienza con un punto («.»)."
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:968
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -845,19 +864,23 @@ msgstr ""
 "Los archivos en este sistema están ocultos si sus nombres comienzan con un "
 "punto. Pulse <Ctrl+H> para revelar u ocultar estos archivos."
 
-#: ../src/gtk/fm-file-properties.c:1057
+#: ../src/gtk/fm-file-properties.c:1025
+msgid "scanning..."
+msgstr "explorando…"
+
+#: ../src/gtk/fm-file-properties.c:1087
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Acceder al contenido:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1198
+#: ../src/gtk/fm-file-properties.c:1241
 msgid "Files of different types"
 msgstr "Archivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1285
 msgid "<b>File:</b>"
 msgstr "<b>Archivo:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1307
+#: ../src/gtk/fm-file-properties.c:1351
 msgid "Multiple files"
 msgstr "Archivos múltiples"
 
@@ -931,53 +954,53 @@ msgstr "Me_zclar archivos y carpetas"
 msgid "_Ignore Name Case"
 msgstr "_Ignorar mayús./minús. en los nombres"
 
-#: ../src/gtk/fm-folder-view.c:221
+#: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
 msgstr "Por _nombre"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr "Por fecha de _modificación"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "Por t_amaño"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
 msgstr "Por _tipo de archivo"
 
-#: ../src/gtk/fm-folder-view.c:847
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
 msgstr "Introduzca un nombre para la carpeta recién creada:"
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
 msgstr "Crear una carpeta nueva"
 
-#: ../src/gtk/fm-folder-view.c:861
+#: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
 msgstr "Escriba un nombre para el archivo vacío:"
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
 msgstr "Creando…"
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "Nuevo"
 
-#: ../src/gtk/fm-folder-view.c:878
+#: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Escriba un nombre para el elemento «%s» nuevo:"
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
 msgstr "Creando %s"
 
-#: ../src/gtk/fm-folder-view.c:885
+#: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
 msgstr "A_brir el archivo con la aplicación predeterminada luego de crearlo"
 
@@ -996,11 +1019,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "El archivo «%s» es ejecutable. ¿Quiere ejecutarlo?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:648
+#: ../src/gtk/fm-gtk-file-launcher.c:661
 msgid "No folders are specified."
 msgstr "No se especificó ninguna carpeta."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Seleccione una carpeta"
 
@@ -1081,53 +1104,53 @@ msgstr "Aplicaciones"
 msgid "Filesystem Root"
 msgstr "Raíz del sistema de archivos"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
 msgstr "_Montar volumen"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
 msgstr "Desmontar vol_umen"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
 msgstr "_Expulsar medio extraíble"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
 msgstr "_Formatear el volumen"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
 msgstr "_Renombrar marcador"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
 msgstr "_Quitar de los marcadores"
 
-#: ../src/gtk/fm-places-view.c:145
+#: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
 msgstr "_Subir el marcador"
 
-#: ../src/gtk/fm-places-view.c:146
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "_Bajar el marcador"
 
-#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr "_Vaciar la papelera"
 
-#: ../src/gtk/fm-places-view.c:526
+#: ../src/gtk/fm-places-view.c:533
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 "Muestra una lista de lugares comunes, dispositivos y marcadores en la barra "
 "lateral"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
-#: ../src/gtk/fm-places-view.c:1092
+#: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
 msgstr "Escriba un nombre nuevo:"
 
@@ -1301,19 +1324,19 @@ msgstr "Mostrar %s"
 msgid "_Forget Width"
 msgstr "_Olvidar la anchura"
 
-#: ../src/gtk/fm-standard-view.c:1821
+#: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
 msgstr "Vista de _iconos"
 
-#: ../src/gtk/fm-standard-view.c:1822
+#: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
 msgstr "Vista _compacta"
 
-#: ../src/gtk/fm-standard-view.c:1823
+#: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
 msgstr "Vista de _miniaturas"
 
-#: ../src/gtk/fm-standard-view.c:1824
+#: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
 msgstr "Vista de _lista detallada"
 
@@ -1718,6 +1741,14 @@ msgstr "Disco óptico en blanco"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
+
+#~ msgctxt "It is a directory access bit - "
+#~ msgid "Sticky"
+#~ msgstr "Persistente"
+
+#~ msgctxt "this is a file access mode bit, also known as "
+#~ msgid "Set UID"
+#~ msgstr "Establecer el UID"
 
 #~ msgid "Sticky"
 #~ msgstr "Persistente"
