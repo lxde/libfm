@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 23:48+0200\n"
+"POT-Creation-Date: 2014-01-07 01:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,7 +354,9 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
@@ -418,47 +420,53 @@ msgid "Ot_her:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:25
-msgid "File _Type"
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
-msgid "<b>File Contain_s:</b>"
+msgid "File _Type"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:27
-msgid "C_ontent"
+msgid "<b>File Contain_s:</b>"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:28
-msgid "<b>File Size</b>"
+msgid "C_ontent"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:29
-msgid "_Smaller than:"
+msgid "<b>File Size</b>"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:30
-msgid "_Bigger than:"
+msgid "_Smaller than:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:31
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
-#: ../src/gtk/fm-gtk-file-launcher.c:633
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:34
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:35
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr ""
 
@@ -879,6 +887,10 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr ""
@@ -970,24 +982,24 @@ msgstr ""
 msgid "_Run default application on file after creation"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:661
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr ""
 
