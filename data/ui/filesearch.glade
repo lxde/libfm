@@ -224,7 +224,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="has_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">Pattern may be either POSIX shell pattern list (with ',' as delimiter) or POSIX regular expression.</property>
+                            <property name="tooltip_text" translatable="yes">Pattern may be either POSIX shell pattern list (with ',' as separator) or POSIX regular expression.</property>
                             <property name="activates_default">True</property>
                             <property name="text">*</property>
                             <property name="invisible_char_set">True</property>
@@ -615,7 +615,7 @@
                             <child>
                               <object class="GtkEntry" id="other_file_entry">
                                 <property name="can_focus">True</property>
-                                <property name="tooltip_text" translatable="yes">Any valid content type can be entered here. Wildcard '*' is allowed at end of the type. Multiple types should be delimited with ';'.</property>
+                                <property name="tooltip_text" translatable="yes">Any valid content type can be entered here. Wildcard '*' is allowed at end of the type. Multiple types should be separated with ';'.</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
                                 <property name="primary_icon_sensitive">True</property>
