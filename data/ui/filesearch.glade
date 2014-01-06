@@ -615,7 +615,7 @@
                             <child>
                               <object class="GtkEntry" id="other_file_entry">
                                 <property name="can_focus">True</property>
-                                <property name="tooltip_text" translatable="yes">Any valid content type can be entered here. Wildcard '*' is allowed at end of the type. Multiple types chould be delimited with ';'.</property>
+                                <property name="tooltip_text" translatable="yes">Any valid content type can be entered here. Wildcard '*' is allowed at end of the type. Multiple types should be delimited with ';'.</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
                                 <property name="primary_icon_sensitive">True</property>
