@@ -585,6 +585,46 @@ FmSidePaneMode fm_side_pane_get_mode_by_name(const char *str)
 }
 
 /**
+ * fm_side_pane_get_n_modes
+ *
+ * Tests how many view modes are known to create #FmSidePane widget. The
+ * returned value is the highest FmSidePaneMode that can be used due to
+ * historical reasons since FmSidePaneMode equal to 0 is invalid.
+ *
+ * Returns: number of known modes for side pane.
+ *
+ * Since: 1.2.0
+ */
+gint fm_side_pane_get_n_modes(void)
+{
+    return (FM_SP_DIR_TREE + 1);
+}
+
+/**
+ * fm_side_pane_get_mode_label
+ * @mode: the view mode
+ *
+ * Retrieves label for @mode which can be used in menus. Returned
+ * data should not be freed by caller.
+ *
+ * Returns: desription or %NULL if @mode is invalid.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_side_pane_get_mode_label(FmSidePaneMode mode)
+{
+    switch (mode)
+    {
+        case FM_SP_PLACES:
+            return _("Places");
+        case FM_SP_DIR_TREE:
+            return _("Directory Tree");
+        default:
+            return NULL;
+    }
+}
+
+/**
  * fm_side_pane_set_show_hidden
  * @sp: a widget to apply
  * @show_hidden: %TRUE to show hidden files in side pane

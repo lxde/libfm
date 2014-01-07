@@ -346,7 +346,13 @@ Changes on 1.2.0 since 1.1.0:
 * Added support for adding an optional icon in FmTabLabel before the text
     in the label.
 
-* New API fm_side_pane_set_show_hidden() for future usage.
+* New API fm_side_pane_set_show_hidden() for change visibility of hidden
+    file in side pane (if the mode supports that).
+
+* Implemented support for hidden files in FmDirTreeModel.
+
+* Implemented more flex access to FmSidePane modes to allow extensions
+    in the future.
 
 * Added option 'Copy Path(s)' into selection context menu to allow user
     copy text representation of path(s) as simple text list delimited by
@@ -375,8 +381,6 @@ Changes on 1.2.0 since 1.1.0:
 * If files that file properties dialog is open for contain a directory
     then file properties dialog will show file counting progress with
     total number of files involved.
-
-* Implemented support for hidden files in FmDirTreeModel.
 
 * Added new built-in column in FmFolderModel - Extension (last suffix of
     the displayable name) as alternative to file type for some old-style
