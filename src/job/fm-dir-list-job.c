@@ -2,7 +2,7 @@
  *      fm-dir-list-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -285,19 +285,33 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
         _retry:
             fi = _new_info_for_native_file(job, new_path, fpath->str, &err);
-            if(fi)
-            {
-                fm_dir_list_job_add_found_file(job, fi);
-                fm_file_info_unref(fi);
-            }
-            else /* failed! */
+            if (fi == NULL) /* we got a damaged file */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
+                GFile *gf;
+                GFileInfo *inf;
+                gchar *disp_basename;
+
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
                     goto _retry;
+                /* bug #3615271: Damaged mountpoint isn't shown
+                   let make a simple file info then */
+                inf = g_file_info_new();
+                gf = fm_path_to_gfile(new_path);
+                g_file_info_set_file_type(inf, G_FILE_TYPE_UNKNOWN);
+                g_file_info_set_name(inf, name);
+                disp_basename = g_filename_display_basename(fpath->str);
+                g_file_info_set_display_name(inf, disp_basename);
+                g_free(disp_basename);
+                g_file_info_set_content_type(inf, "inode/x-corrupted");
+                fi = fm_file_info_new_from_g_file_data(gf, inf, new_path);
+                g_object_unref(inf);
+                g_object_unref(gf);
             }
+            fm_dir_list_job_add_found_file(job, fi);
+            fm_file_info_unref(fi);
             fm_path_unref(new_path);
         }
         g_string_free(fpath, TRUE);
