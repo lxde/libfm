@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 23:48+0200\n"
-"PO-Revision-Date: 2014-01-05 00:12+0200\n"
+"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"PO-Revision-Date: 2014-01-07 02:05+0200\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -367,8 +367,12 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Шаблон _назви файлу:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
+"Шаблон може бути або шаблоном оболонки згідно POSIX (декілька шаблонів мають "
+"бути розділені комою), або POSIX регулярний вираз."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -431,47 +435,55 @@ msgid "Ot_her:"
 msgstr "_Інше"
 
 #: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+"Введіть потрібний тип файлу. Шаблон '*' можна застосовувати на кінці типу. "
+"Декілька значень мають бути розділені ';'."
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "_Тип файлу"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>_Файл містить:</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "_Вміст"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>Розмір файлу</b>"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "_Менші ніж:"
 
-#: ../data/ui/filesearch.glade.h:30
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "_Більші ніж:"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Час останньої зміни</b>"
 
-#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
-#: ../src/gtk/fm-gtk-file-launcher.c:633
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(Немає)"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "Д_авніші ніж:"
 
-#: ../data/ui/filesearch.glade.h:34
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "_Новіші ніж:"
 
-#: ../data/ui/filesearch.glade.h:35
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "В_ластивості"
 
@@ -907,6 +919,10 @@ msgstr "Змінено"
 msgid "Location"
 msgstr "Місцезнаходження"
 
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr "Розширення"
+
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr "С_творити..."
@@ -998,7 +1014,7 @@ msgstr "Створення %s"
 msgid "_Run default application on file after creation"
 msgstr "_Запустити типову програму для новоствореного файлу"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -1007,17 +1023,17 @@ msgstr ""
 "Цей текстовий файл '%s' схоже є скриптом запуску.\n"
 "Що Ви бажаєте зробити з ним?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Цей файл '%s' можна запустити. Ви бажаєте запустити його?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:661
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "Жодної теки не вибрано."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Вибрати теку"
 
@@ -1734,6 +1750,9 @@ msgstr "Чистий оптичний диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Оптичний диск"
+
+#~ msgid "*"
+#~ msgstr "*"
 
 #~ msgid "<b>Processing:</b>"
 #~ msgstr "<b>Обробляю:</b>"
