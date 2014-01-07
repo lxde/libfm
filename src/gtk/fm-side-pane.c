@@ -625,6 +625,30 @@ const char *fm_side_pane_get_mode_label(FmSidePaneMode mode)
 }
 
 /**
+ * fm_side_pane_get_mode_tooltip
+ * @mode: the view mode
+ *
+ * Retrieves tooltip for @mode which can be used in menus. Returned
+ * data should not be freed by caller.
+ *
+ * Returns: desription or %NULL if @mode is invalid.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_side_pane_get_mode_tooltip(FmSidePaneMode mode)
+{
+    switch (mode)
+    {
+        case FM_SP_PLACES:
+            return _("Shows list of common places, devices, and bookmarks in sidebar");
+        case FM_SP_DIR_TREE:
+            return _("Shows tree of directories in sidebar");
+        default:
+            return NULL;
+    }
+}
+
+/**
  * fm_side_pane_set_show_hidden
  * @sp: a widget to apply
  * @show_hidden: %TRUE to show hidden files in side pane

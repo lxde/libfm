@@ -1096,6 +1096,7 @@ fm_side_pane_get_mode
 fm_side_pane_get_mode_by_name
 fm_side_pane_get_mode_label
 fm_side_pane_get_mode_name
+fm_side_pane_get_mode_tooltip
 fm_side_pane_get_n_modes
 fm_side_pane_get_title_bar
 fm_side_pane_new
