@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-07 01:52+0200\n"
-"PO-Revision-Date: 2014-01-07 02:05+0200\n"
+"PO-Revision-Date: 2014-01-07 03:14+0200\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -384,7 +384,7 @@ msgstr "Ви_користовувати регулярний вираз"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Де шукати:</b>"
+msgstr "<b>Д_е шукати:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -432,7 +432,7 @@ msgstr "Тек_и"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr "_Інше"
+msgstr "_Інше:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
