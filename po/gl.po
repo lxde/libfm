@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 23:48+0200\n"
-"PO-Revision-Date: 2014-01-05 09:59+0000\n"
+"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"PO-Revision-Date: 2014-01-07 11:00+0000\n"
 "Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1388915997.0\n"
+"X-POOTLE-MTIME: 1389092455.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -367,8 +367,12 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Patróns de _nome de ficheiro:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
+"O patrón pode ser unha lista de patróns POSIX (cunha «,» como separador) ou "
+"expresións regulares POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -431,47 +435,56 @@ msgid "Ot_her:"
 msgstr "O_utros:"
 
 #: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+"Aquí pode introducir calquera tipo de contido correcto. Permítese o uso do "
+"comodín «*» na fin da clase. Os múltiples tipos deben estar separados por "
+"«;»."
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "_Tipo de ficheiro"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>O ficheiro co_ntén:</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "C_ontido"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>Tamaño do ficheiro:</b>"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "_Menor que:"
 
-#: ../data/ui/filesearch.glade.h:30
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "M_aior que:"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Data da última modificación</b>"
 
-#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
-#: ../src/gtk/fm-gtk-file-launcher.c:633
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(Ningún)"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "Ant_erior a:"
 
-#: ../data/ui/filesearch.glade.h:34
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "Posterior _a:"
 
-#: ../data/ui/filesearch.glade.h:35
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "_Propiedades"
 
@@ -910,6 +923,10 @@ msgstr "Modificado"
 msgid "Location"
 msgstr "Localización"
 
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr "Extensión"
+
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr "Crear _novo..."
@@ -1002,7 +1019,7 @@ msgid "_Run default application on file after creation"
 msgstr ""
 "E_xecutar o aplicativo predeterminado no ficheiro despois da súa creación"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -1011,17 +1028,17 @@ msgstr ""
 "Este ficheiro de texto «%s» semella ser un script executábel.\n"
 "Que desexa facer con el?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Este ficheiro «%s» é executábel. Desexa executalo?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:661
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "Non especificou ningún cartafol."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Seleccione un cartafol"
 
@@ -1738,6 +1755,9 @@ msgstr "Disco óptico baleiro"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
+
+#~ msgid "*"
+#~ msgstr "*"
 
 #~ msgctxt "It is a directory access bit - "
 #~ msgid "Sticky"
