@@ -921,6 +921,7 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
  *
  * Creates string representation of @path. It can be either file path in
  * local encoding or URI with non-ASCII characters escaped (RFC 3986).
+ * Returned data should be freed with g_free() after usage.
  *
  * Returns: (transfer full): path string.
  *
@@ -938,6 +939,7 @@ char* fm_path_to_str(FmPath* path)
  * @path: a path
  *
  * Creates URI representation of @path.
+ * Returned data should be freed with g_free() after usage.
  *
  * Returns: path URI.
  *
@@ -972,8 +974,9 @@ char* fm_path_to_uri(FmPath* path)
  * The main purpose for this API is to create displayable path for the
  * path entry. Applications are encouraged to use g_file_get_parse_name()
  * instead for any other purposes.
+ * Returned data should be freed with g_free() after usage.
  *
- * See also: fm_path_display_basename().
+ * See also: fm_path_display_basename(), fm_path_to_str().
  *
  * Returns: (transfer full): path string.
  *
@@ -1042,6 +1045,7 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
  * paths displayable basename may be reliable only if there was already
  * #FmFileInfo retrieved for the @path, otherwise some estimation will be
  * done instead, be careful with this API.
+ * Returned data should be freed with g_free() after usage.
  *
  * See also: fm_file_info_get_disp_name().
  *
@@ -1134,6 +1138,7 @@ const char *_fm_path_get_display_name(FmPath *path)
  * @path: a path
  *
  * Creates #GFile representation of @path.
+ * Returned data should be freed with g_object_unref() after usage.
  *
  * Returns: (transfer full): a #GFile object.
  *
