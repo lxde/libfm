@@ -327,7 +327,7 @@ void fm_folder_config_set_integer(FmFolderConfig *fc, const char *key, gint val)
 void fm_folder_config_set_uint64(FmFolderConfig *fc, const char *key, guint64 val)
 {
     fc->changed = TRUE;
-#if GLIB_CHECK_CONFIG(2, 26, 0)
+#if GLIB_CHECK_VERSION(2, 26, 0)
     g_key_file_set_uint64(fc->kf, fc->group, key, val);
 #else
     gchar *result = g_strdup_printf("%" G_GUINT64_FORMAT, val);
