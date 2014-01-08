@@ -191,12 +191,28 @@ gboolean fm_folder_config_get_uint64(FmFolderConfig *fc, const char *key,
                                      guint64 *val)
 {
     GError *error = NULL;
+#if GLIB_CHECK_VERSION(2, 26, 0)
     guint64 ret = g_key_file_get_uint64(fc->kf, fc->group, key, &error);
+#else
+    gchar *s, *end;
+    guint64 ret;
+
+    s = g_key_file_get_value(fc->kf, fc->group, key, &error);
+#endif
     if (error)
     {
         g_error_free(error);
         return FALSE;
     }
+#if !GLIB_CHECK_VERSION(2, 26, 0)
+    ret = g_ascii_strtoull(s, &end, 10);
+    if (*s == '\0' || *end != '\0')
+    {
+        g_free(s);
+        return FALSE;
+    }
+    g_free(s);
+#endif
     *val = ret;
     return TRUE;
 }
@@ -311,7 +327,13 @@ void fm_folder_config_set_integer(FmFolderConfig *fc, const char *key, gint val)
 void fm_folder_config_set_uint64(FmFolderConfig *fc, const char *key, guint64 val)
 {
     fc->changed = TRUE;
+#if GLIB_CHECK_CONFIG(2, 26, 0)
     g_key_file_set_uint64(fc->kf, fc->group, key, val);
+#else
+    gchar *result = g_strdup_printf("%" G_GUINT64_FORMAT, val);
+    g_key_file_set_value(fc->kf, fc->group, key, result);
+    g_free(result);
+#endif
 }
 
 /**
