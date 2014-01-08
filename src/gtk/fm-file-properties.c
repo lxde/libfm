@@ -346,6 +346,7 @@ static void _change_icon(GtkWidget *dlg, FmFilePropData *data)
     IconThreadData thread_data;
 
     builder = gtk_builder_new();
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/choose-icon.ui", NULL);
     chooser_dlg = GTK_WIDGET(gtk_builder_get_object(builder, "dlg"));
     chooser = GTK_FILE_CHOOSER(gtk_builder_get_object(builder, "chooser"));
