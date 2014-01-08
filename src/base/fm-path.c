@@ -345,8 +345,13 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
         GSequenceIter *iter;
 
         /* try to reuse existing path */
+#if GLIB_CHECK_VERSION(2, 28, 0)
         iter = g_sequence_lookup(parent->children, path,
                                  (GCompareDataFunc)fm_path_compare, NULL);
+#else
+        iter = g_sequence_search(parent->children, path,
+                                 (GCompareDataFunc)fm_path_compare, NULL);
+#endif
         if (iter)
         {
                 /* g_debug("found reusable path '%.*s'", name_len, basename); */
