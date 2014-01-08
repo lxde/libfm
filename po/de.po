@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-07 01:52+0200\n"
-"PO-Revision-Date: 2014-01-08 16:07+0000\n"
+"PO-Revision-Date: 2014-01-08 16:44+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389197250.0\n"
+"X-POOTLE-MTIME: 1389199468.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -24,7 +24,7 @@ msgstr "Bevorzugte Anwendungen"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
+msgstr "Anwendung für Weblinks oder E-mail Adressen auswählen"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -35,7 +35,6 @@ msgid "Create new or change existing desktop entry"
 msgstr "Verknüpfungs-Editor"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
 msgstr "Anwendung auswählen"
 
@@ -202,29 +201,24 @@ msgid "<b>Total count of files:</b>"
 msgstr "<b>Anzahl der Dateien:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Gesamtgröße der Dateien:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
-msgstr "<b>Benutzter Speicherplatz:</b>"
+msgstr "<b>Größe auf Datenträger:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Geändert:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
-msgstr "<b>LetzterZugriff:</b>"
+msgstr "<b>Letzter Zugriff:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>Letzte Berechtigungsänderungen:</b>"
+msgstr "<b>Letzte Berechtigungsänderung:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -354,9 +348,8 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
-msgstr "Ein Datum auswählen"
+msgstr "Datum auswählen"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
@@ -375,6 +368,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Das Muster entspricht entweder der POSIX shell Musterliste (mit ',' als "
+"Trennzeichen) oder POSIX regulären Ausdruck."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -429,19 +424,20 @@ msgid "_Documents"
 msgstr "_Dokumente"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Ordner"
+msgstr "Ordne_r"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Andere:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Jeder beliebige Content-Type kann eingegeben werden. Wildcard '*' ist am "
+"Ende des Typus erlaubt. Mehrere Typen müssen mit einem ';' getrennt werden."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -496,19 +492,18 @@ msgstr "<b>Web-Browser</b>"
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks genutzt."
 
+# Aus stilistischen Gründen würde ich hier auf das "E-" in E-Mail verzichten da hier sonst 2 Bindestriche sind.
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
-msgstr "<b>E-Mail-Client</b>"
+msgstr "<b>Mail-Client</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail-Adressen klicken."
+"Der bevorzugte Mail-Client wird zum Verfassen von E-Mails benutzt, wenn Sie "
+"auf Mail-Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -541,9 +536,8 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Verbleibende Zeit:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>Einige Fehler sind aufgetreten:</b>"
+msgstr "<b>Fehler aufgetreten:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -573,7 +567,7 @@ msgstr "Keine vorgegebene Anwendung für MIME-Typ %s festgelegt."
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Geräte"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -735,16 +729,15 @@ msgstr "Anpassen"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr ""
+msgstr "<b>Anwendung wählen um \"%s\" Dateien zu öffnen</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<Kein Unterordner>"
+msgstr "<Keine Unterordner>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -903,7 +896,6 @@ msgid "<b>File:</b>"
 msgstr "<b>Datei:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1351
-#, fuzzy
 msgid "Multiple files"
 msgstr "Mehrere Dateien"
 
@@ -938,7 +930,7 @@ msgstr "Ort"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Erweiterung"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -961,9 +953,8 @@ msgid "_Sort Files"
 msgstr "Dateien _sortieren"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "Ordne_r umbenennen"
+msgstr "Ordne_r umbenennen..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -975,14 +966,12 @@ msgstr "_Versteckte Dateien anzeigen"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "_Dateien und Ordner vermischen"
+msgstr "Dateien und Ordner _vereinen"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "Groß-/Kleinschreibung in Namen _ignorieren"
+msgstr "Groß-/Kleinschreibung  _ignorieren"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
@@ -1005,7 +994,6 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Geben Sie einen Namen für den neu erstellten Ordner an:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
 msgstr "Neuen Ordner anlegen"
 
@@ -1055,7 +1043,6 @@ msgid "No folders are specified."
 msgstr "Es sind keine Ordner angegeben."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "Einen Ordner wählen"
 
@@ -1113,14 +1100,12 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
 #: ../src/gtk/fm-path-entry.c:668
-#, fuzzy
 msgid "Pa_ste and Go"
-msgstr "Einfügen und lo_s"
+msgstr "_Einfügen und weiter"
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Dateizuordnungen"
+msgstr "Adressleiste"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 #, fuzzy
@@ -1277,23 +1262,23 @@ msgstr ""
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
 msgid "Symlinking"
-msgstr ""
+msgstr "Symlinking"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
 msgid "Changing attributes of"
-msgstr ""
+msgstr "Attribute ändern von"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
 msgid "Restoring"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
 #, c-format
 msgid "%s files"
-msgstr ""
+msgstr "%s Dateien"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
