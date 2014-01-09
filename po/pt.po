@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2013-12-27 15:44+0000\n"
+"PO-Revision-Date: 2014-01-09 15:37+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1388159078.0\n"
+"X-POOTLE-MTIME: 1389281827.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -200,9 +200,8 @@ msgid "Select the application used to open files of this type "
 msgstr "Selecione a aplicação utilizada para abrir ficheiros deste tipo "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Tamanho total dos ficheiros:</b>"
+msgstr "<b>Total de ficheiros:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
@@ -293,7 +292,6 @@ msgid "None"
 msgstr "Nenhum"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -309,7 +307,6 @@ msgid "Sticky & set GID"
 msgstr "Fixo e definir GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Definir UID"
@@ -319,7 +316,6 @@ msgid "Set UID & GID"
 msgstr "Definir UID e GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -375,6 +371,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Pode ser uma lista de padrões de consola POSIX (com ',' como separador) ou "
+"uma expressão regular POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -429,19 +427,20 @@ msgid "_Documents"
 msgstr "_Documentos"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Pasta"
+msgstr "Pas_tas"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "O_utros:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Pode introduzir aqui todos os tipos de conteúdo. O carácter * pode ser "
+"utilizado no fim do tipo. Os tipos devem ser separados com ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -539,9 +538,8 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Tempo restante:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>Ocorreram alguns erros:</b>"
+msgstr "<b>Ocorreram erros:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -824,7 +822,7 @@ msgstr "Mover para o li_xo"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Esta pasta já existe nos marcadores."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -839,7 +837,7 @@ msgstr[1] "bytes"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "analisando... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -872,9 +870,8 @@ msgstr ""
 "final. Utilize <Ctrl+H> para alternar a sua visualização."
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "A carregar..."
+msgstr "analisando..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -923,7 +920,7 @@ msgstr "Localização"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Extensão"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1137,7 +1134,6 @@ msgid "_Rename Bookmark Item"
 msgstr "Muda_r nome do marcador"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
 msgstr "Re_mover dos marcadores"
 
@@ -1191,16 +1187,15 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Ocorreram alguns erros antes da operação ser terminada.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Cancelada"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "A operação foi cancelada pois ocorreram alguns errros."
+msgstr "<b>A operação de ficheiros foi concluída com erros.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1230,66 +1225,60 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
 msgid "Moving"
-msgstr "Mover ficheiros"
+msgstr "A mover"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
 msgid "Copying"
-msgstr "Copiar ficheiros"
+msgstr "A copiar"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
 msgid "Trashing"
-msgstr "Destruir ficheiros"
+msgstr "A destruir"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
 msgid "Deleting"
-msgstr "Eliminar ficheiros"
+msgstr "A eliminar"
 
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
 msgid "Symlinking"
-msgstr ""
+msgstr "A criar ligação simbólica"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "Modificar atributos do ficheiro"
+msgstr "A mudar atributos de"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
 msgid "Restoring"
-msgstr "_Restaurar"
+msgstr "A restaurar"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "imagens"
+msgstr "%s ficheiros"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Operação de ficheiros em curso...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Ficheiro:</b>"
+msgstr "<b>%s ficheiro:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Ficheiro:</b>"
+msgstr "<b>%s ficheiros:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
