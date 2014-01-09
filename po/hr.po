@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2013-12-24 05:38+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1387863534.0\n"
 
@@ -197,126 +197,141 @@ msgid "Select the application used to open files of this type "
 msgstr "Izaberi program koji je otvarao datoteke ovog tipa "
 
 #: ../data/ui/file-prop.glade.h:9
-msgid "<b>Total size of files:</b>"
+#, fuzzy
+msgid "<b>Total count of files:</b>"
 msgstr "<b>Ukupna veličina datoteka:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
+msgid "<b>Total size of files:</b>"
+msgstr "<b>Ukupna veličina datoteka:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Veličina na disku:</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
 msgstr "<b>Zadnja promjena:</b>"
 
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
 msgstr "<b>Zadnji pristup:</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Zadnja promjena dozvola:</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "_Osnovno"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
 msgstr "<b>V_lasnik:</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
 msgstr "<b>G_rupa:</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>_Pogledaj sadržaj:</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "<b>C_hange content:</b>"
 msgstr "<b>P_romjeni sadržaj:</b>"
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
 msgstr "<b>_Izvrši:</b>"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
 msgstr "Tko može čitati sadržaj datoteke/direktorija"
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
 msgstr "Tko može promjeniti sadržaj datoteke/direktorija"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
 msgstr "Tko može izvršiti datoteku ili ući u direktorij"
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
 msgstr "Posebne zastave za izvršenje datoteke"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
 msgstr "Posebne zatave za pristup direktoriju"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>Kontrola pristupa</b>"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
 msgstr "Skrivena datoteka"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
 msgstr "_Dozvole"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:30
 msgid "---"
 msgstr "---"
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:31
 msgid "None"
 msgstr "Nijedan"
 
-#: ../data/ui/file-prop.glade.h:31
+#: ../data/ui/file-prop.glade.h:32
+#, fuzzy
+msgctxt ""
+"It is a directory access bit - 'sticky' - where only owner can delete a file "
+"from it"
 msgid "Sticky"
 msgstr "Ljepljivi"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
 msgstr "Postavi GID"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
 msgstr "Ljepljivi & postavi GID"
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
+#, fuzzy
+msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Postavi UID"
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
 msgstr "Postavi UID & GID"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:37
+#, fuzzy
+msgctxt ""
+"this is a file access mode - only owner can access the file, for others "
+"access is denied"
 msgid "Only owner"
 msgstr "Samo vlasnik"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
 msgstr "Samo vlasnik i grupa"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
 msgstr "Bilo tko"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
 msgstr "Nitko"
 
@@ -353,8 +368,10 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Uzorci_datotečnih imena:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -409,47 +426,62 @@ msgid "_Documents"
 msgstr "_Dokumenti"
 
 #: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "Folde_rs"
+msgstr "Mapa"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "Ot_her:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "Vrsta _datoteke"
 
-#: ../data/ui/filesearch.glade.h:24
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>Datoteka sadrž_i:</b>"
 
-#: ../data/ui/filesearch.glade.h:25
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "S_adržaj"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>Veličina datoteke</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "_Manje nego:"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "_Veće nego:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Zadnja promjena</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
-#: ../src/gtk/fm-gtk-file-launcher.c:620
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(Nijedan)"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "_Ranije nego:"
 
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "K_asnije nego:"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "_Svojstva"
 
@@ -489,31 +521,23 @@ msgstr "Programi sustava"
 msgid "File Associations"
 msgstr "Pridruživanje datoteke"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:2
-msgid "Preparing..."
-msgstr "Pripremam..."
-
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Processing:</b>"
-msgstr "<b>Procesiranje:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
 msgstr "<b>Za:</b>"
 
-#: ../data/ui/progress.glade.h:7
-msgid "<b>Progress:</b>"
-msgstr "<b>Napredak:</b>"
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:4
+msgid "Preparing..."
+msgstr "Pripremam..."
 
-#: ../data/ui/progress.glade.h:8
+#: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
 msgstr "<b>Preostalo vrijeme:</b>"
 
-#: ../data/ui/progress.glade.h:9
-msgid "<b>Some errors occurred:</b>"
+#: ../data/ui/progress.glade.h:6
+#, fuzzy
+msgid "<b>Errors occurred:</b>"
 msgstr "<b>Došlo je do greške:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
@@ -551,7 +575,7 @@ msgstr "Uređaji"
 msgid "Network"
 msgstr "Mreža"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Smeće"
 
@@ -700,36 +724,36 @@ msgstr ""
 msgid "Installed Applications"
 msgstr "Instalirani programi"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
 msgstr "<Nema podmape>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
 msgstr "Učitavam..."
 
-#: ../src/gtk/fm-dir-tree-view.c:482
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:411
+#: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
 msgstr "_Otkaži"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
 msgstr "K_opiraj ovdje"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
 msgstr "_Pomakni ovdje"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:415
+#: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
 msgstr "_Poveži ovdje"
 
-#: ../src/gtk/fm-dnd-dest.c:861
+#: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
 msgstr ""
 
@@ -790,58 +814,69 @@ msgstr "Pomakni u _smeće"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:364
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "Slikovne datoteke"
 
-#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "byte-ovi"
 msgstr[2] "byte-ova"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:510
+#, c-format
+msgid "scanning... %d"
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Unesite valjano korisničko ime ili brojčani id."
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite valjano ime grupe ili brojčani id."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:810
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
+msgstr ""
+"Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
 
-#: ../src/gtk/fm-file-properties.c:943
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:948
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Datoteka je skrivena jer joj ime započinje sa točkom ('.')."
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1057
+#: ../src/gtk/fm-file-properties.c:1026
+#, fuzzy
+msgid "scanning..."
+msgstr "Učitavam..."
+
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Sadržaj pristupa:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1198
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Datoteke različitog tipa"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>Tip datoteke:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1307
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "Višestruke datoteke"
 
@@ -873,6 +908,10 @@ msgstr "Izmjenjeno"
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
 msgstr "Lokacija"
+
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -915,57 +954,57 @@ msgstr ""
 msgid "_Ignore Name Case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:221
+#: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
 msgstr "Po _imenu"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr "Po _vremenu izmjene"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "Po _veličini"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
 msgstr "Po tipu _datoteke"
 
-#: ../src/gtk/fm-folder-view.c:847
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
 msgstr "Unesite ime za novostvorenu mapu:"
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
 msgstr "Stvaram novu mapu"
 
-#: ../src/gtk/fm-folder-view.c:861
+#: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
 msgstr "Unesite ime za praznu datoteku:"
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
 msgstr "Stvaram ..."
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "Novi"
 
-#: ../src/gtk/fm-folder-view.c:878
+#: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Unesite ime za novi %s:"
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
 msgstr "Stvaram %s"
 
-#: ../src/gtk/fm-folder-view.c:885
+#: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -974,17 +1013,17 @@ msgstr ""
 "Ova tekstualna datoteka '%s' je izvršna skripta.\n"
 "Što želite učiniti s njom?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Ova datoteka '%s' je izvršna. Želite li je izvršiti?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:648
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "Mape nisu određene."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Odaberite mapu"
 
@@ -1042,11 +1081,11 @@ msgstr "Unesite novo ime:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Jeste li sigurni da želite isprazniti smeće?"
 
-#: ../src/gtk/fm-path-entry.c:639
+#: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
 msgstr "Za_lijepi i idi"
 
-#: ../src/gtk/fm-path-entry.c:698
+#: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
 msgstr "Lokacijska traka mape"
 
@@ -1067,59 +1106,60 @@ msgstr "Programi"
 msgid "Filesystem Root"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
 msgstr "_Montiraj disk"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
 msgstr "_Odmontiraj disk"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
 msgstr "_Izbaci uklonjivi medij"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
 msgstr "_Formatiraj disk"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
 msgstr "_Preimenuj stavku zabilješke"
 
-#: ../src/gtk/fm-places-view.c:144
-msgid "Re_move from Bookmark"
+#: ../src/gtk/fm-places-view.c:151
+#, fuzzy
+msgid "Re_move from Bookmarks"
 msgstr "Uklo_ni iz zabilješki"
 
-#: ../src/gtk/fm-places-view.c:145
+#: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
 msgstr "Pomakni bilješku _gore"
 
-#: ../src/gtk/fm-places-view.c:146
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "Pomakni bilješku _dolje"
 
-#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr "_Isprazni smeće"
 
-#: ../src/gtk/fm-places-view.c:526
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "Pokaži listu mjesta, uređaja i zabilješki u bočnom stupcu"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj stavku zabilješke"
 
-#: ../src/gtk/fm-places-view.c:1092
+#: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
 msgstr "Unesi novo ime:"
 
-#: ../src/gtk/fm-progress-dlg.c:123
+#: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1130,7 +1170,7 @@ msgstr ""
 "Veličina: %s\n"
 "Izmjenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1139,23 +1179,24 @@ msgstr ""
 "Tip: %s\n"
 "Izmjenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
-msgid "The file operation is cancelled and there are some errors."
-msgstr "Datotečna operacija je otkazana i postoje neke greške."
+#: ../src/gtk/fm-progress-dlg.c:326
+msgid "<b>Errors occured before file operation was stopped.</b>"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Otkazano"
 
-#: ../src/gtk/fm-progress-dlg.c:318
-msgid "The file operation is finished, but there are some errors."
-msgstr "Datotečna operacije je završena, ali ima grešaka."
+#: ../src/gtk/fm-progress-dlg.c:332
+#, fuzzy
+msgid "<b>The file operation was completed with errors.</b>"
+msgstr "Datotečna operacija je otkazana i postoje neke greške."
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
 msgstr "Završeno"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1165,41 +1206,80 @@ msgstr ""
 "ovu operaciju.\n"
 "Želite li ih izbrisati?"
 
-#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
 msgstr "_Pauza"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
 msgstr "_Nastavi"
 
-#: ../src/gtk/fm-progress-dlg.c:544
+#: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving Files"
+#. translators: it is part of "Moving files:" or "Moving xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:579
+#, fuzzy
+msgid "Moving"
 msgstr "Pomicanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying Files"
+#. translators: it is part of "Copying files:" or "Copying xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:583
+#, fuzzy
+msgid "Copying"
 msgstr "Kopiranje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing Files"
+#. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:587
+#, fuzzy
+msgid "Trashing"
 msgstr "Bacanje datoteka u smeće"
 
-#: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting Files"
+#. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:591
+#, fuzzy
+msgid "Deleting"
 msgstr "Brisanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating Symlinks"
-msgstr "Stvaranje simboličkih poveznica"
+#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:595
+msgid "Symlinking"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing File Attributes"
+#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:602
+#, fuzzy
+msgid "Changing attributes of"
 msgstr "Promjena atributa datoteke"
+
+#. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:606
+#, fuzzy
+msgid "Restoring"
+msgstr "_Obnovi"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:613
+#, fuzzy, c-format
+msgid "%s files"
+msgstr "Slikovne datoteke"
+
+#: ../src/gtk/fm-progress-dlg.c:615
+msgid "<b>File operation is in progress...</b>"
+msgstr ""
+
+#. note to translators: resulting string is such as "Deleting file"
+#: ../src/gtk/fm-progress-dlg.c:619
+#, fuzzy, c-format
+msgid "<b>%s file:</b>"
+msgstr "<b>Tip datoteke:</b>"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:622
+#, fuzzy, c-format
+msgid "<b>%s files:</b>"
+msgstr "<b>Tip datoteke:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1217,53 +1297,53 @@ msgstr "_Stablo direktorija"
 msgid "_Remote"
 msgstr "_Udaljeno"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "Mjesta"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "Stablo direktorija"
 
-#: ../src/gtk/fm-standard-view.c:244
+#: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
 msgstr "_Sakrij %s"
 
-#: ../src/gtk/fm-standard-view.c:821
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
 msgstr "_Pomakni lijevo"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
 msgstr "Pomakni _desno"
 
-#: ../src/gtk/fm-standard-view.c:850
+#: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
 msgstr "Pokaži %s"
 
-#: ../src/gtk/fm-standard-view.c:862
+#: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1803
+#: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
 msgstr "_Prikaz ikona"
 
-#: ../src/gtk/fm-standard-view.c:1804
+#: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
 msgstr "_Zbijeni pregled"
 
-#: ../src/gtk/fm-standard-view.c:1805
+#: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
 msgstr "_Pogled sa sličicama"
 
-#: ../src/gtk/fm-standard-view.c:1806
+#: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
 msgstr "Pogled _detaljne liste"
 
@@ -1272,7 +1352,7 @@ msgid "Changes active tab"
 msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Određeni direktorij '%s' nije valjan"
@@ -1667,6 +1747,21 @@ msgstr "Prazni optički disk"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optički disk"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<b>Processing:</b>"
+#~ msgstr "<b>Procesiranje:</b>"
+
+#~ msgid "<b>Progress:</b>"
+#~ msgstr "<b>Napredak:</b>"
+
+#~ msgid "The file operation is finished, but there are some errors."
+#~ msgstr "Datotečna operacije je završena, ali ima grešaka."
+
+#~ msgid "Creating Symlinks"
+#~ msgstr "Stvaranje simboličkih poveznica"
 
 #~ msgid "_Rename Folder"
 #~ msgstr "_Preimenuj mapu"

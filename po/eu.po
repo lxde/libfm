@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2013-09-07 12:38+0000\n"
 "Last-Translator: Asier <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -581,7 +581,7 @@ msgstr ""
 msgid "Network"
 msgstr "Sarea"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Zakarrontzia"
 
@@ -742,7 +742,7 @@ msgstr "<Azpikarpetarik ez>"
 msgid "Loading..."
 msgstr "Kargatzen..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "Direktorioen zuhaitza erakusten du alboko barran"
 
@@ -828,68 +828,68 @@ msgstr "Eraman e_skuinera"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:367
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "Irudi-fitxategiak"
 
-#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "byte"
 
-#: ../src/gtk/fm-file-properties.c:509
+#: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:587
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Mesedez sartu baliozko erabiltzaile-izen edo zenbakizko id bat."
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Mesedez sartu baliozko talde-izen edo zenbakizko id bat."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:826
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Aldaketa hauek errekurtsiboki aplikatu nahi dizkiezu fitxategi eta azpi-"
 "karpeta guztiei?"
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:964
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:968
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1025
+#: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1087
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Atzitu edukia:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Mota desberdinetako fitxategiak"
 
-#: ../src/gtk/fm-file-properties.c:1285
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>Fitxategia:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1351
+#: ../src/gtk/fm-file-properties.c:1352
 #, fuzzy
 msgid "Multiple files"
 msgstr "Hainbat fitxategi"
@@ -1011,13 +1011,11 @@ msgid "New"
 msgstr "Berria"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, c-format
 #, fuzzy, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Sartu izen bat fitxategi sortu berriarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, c-format
 #, fuzzy, c-format
 msgid "Creating %s"
 msgstr "Esteka sinbolikoak sortzen"
@@ -1067,13 +1065,11 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Sistemaren administratzaileek soilik dute honetarako baimena."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
@@ -1081,13 +1077,11 @@ msgstr[0] "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
 msgstr[1] "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "Hautatutako fitxategiak ezabatu nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1172,7 +1166,7 @@ msgstr "_Kendu laster-markatik"
 msgid "_Empty Trash Can"
 msgstr "_Hustu zakarrontzia"
 
-#: ../src/gtk/fm-places-view.c:533
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
@@ -1320,11 +1314,11 @@ msgstr "_Direktorio-zuhaitza"
 msgid "_Remote"
 msgstr "_Urrunekoa"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "Lekuak"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "Direktorio-zuhaitza"
 
@@ -1378,8 +1372,7 @@ msgid "Changes active tab"
 msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
-#, c-format
+#: ../src/job/fm-dir-list-job.c:362
 #, fuzzy, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Zehazturiko direktorioa ez da baliozkoa"
@@ -1393,7 +1386,6 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Leheneratu fitxategiak jatorrizko lekuetara"
@@ -1415,7 +1407,6 @@ msgid "Destination is a sub folder of source"
 msgstr "Helburua jatorriaren azpikarpeta bat da"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Ezin da karpeta bat bere azpikarpetara kopiatu"
@@ -1469,7 +1460,6 @@ msgid "Menu item name cannot be empty"
 msgstr "Menuko elementuaren izena ezin da hutsik utzi"
 
 #: ../src/modules/vfs-menu.c:1507
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Menu-direktorio baliogabea"
@@ -1489,19 +1479,16 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
-#, c-format
 #, fuzzy, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "Onartu gabeko eragiketa"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "Fitxategi-izen baliogabea: %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, c-format
 #, fuzzy, c-format
 msgid "The '%s' is a menu directory"
 msgstr "Menu-direktorio baliogabea"
@@ -1856,8 +1843,8 @@ msgstr "Disko optikoa"
 
 #~ msgid "_Set selected application as default action of this file type"
 #~ msgstr ""
-#~ "_Ezarri hautatutako aplikazioa fitxategi-mota honentzako ekintza lehenetsi "
-#~ "bezala"
+#~ "_Ezarri hautatutako aplikazioa fitxategi-mota honentzako ekintza "
+#~ "lehenetsi bezala"
 
 #~ msgid "_Browse"
 #~ msgstr "_Arakatu"

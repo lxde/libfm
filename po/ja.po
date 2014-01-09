@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2.0-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 22:15+0100\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2013-11-25 11:35+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -24,6 +24,10 @@ msgstr ""
 msgid "Preferred Applications"
 msgstr "既定のアプリケーション"
 
+#: ../data/libfm-pref-apps.desktop.in.h:2
+msgid "Select applications called on click on Web link or e-mail address"
+msgstr ""
+
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
 msgstr "ショートカット・エディタ"
@@ -37,11 +41,12 @@ msgid "Choose Application"
 msgstr "アプリケーションの選択"
 
 #: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File type to be opened:</b>"
-msgstr "<b>開くファイルタイプ:</b>"
+msgid "Use selected application to open files"
+msgstr "選択したアプリケーションでファイルを開く"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Application"
+#, fuzzy
+msgid "_Installed Applications"
 msgstr "インストールされたアプリケーション(_I)"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -85,11 +90,16 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>アプリケーションの名前(_A) (オプション; 関連付けの保持に使う)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+msgid "Execute custom command line to open files"
+msgstr "コマンドラインを実行してファイルを開く"
+
+#: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
 msgstr "コマンドラインを指定(_U)"
 
-#: ../data/ui/app-chooser.glade.h:16
-msgid "_Set selected application as default action of this file type"
+#: ../data/ui/app-chooser.glade.h:17
+#, fuzzy
+msgid "_Set selected application as default action for this file type"
 msgstr ""
 "選択したアプリケーションをこのファイルタイプのデフォルトのアクションとする"
 "(_S)"
@@ -102,7 +112,7 @@ msgstr "ファイルを置き換えるときは確認する"
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr "別の名前で(_R)"
 
@@ -191,126 +201,141 @@ msgid "Select the application used to open files of this type "
 msgstr "このタイプのファイルを開くアプリケーションを選んでください "
 
 #: ../data/ui/file-prop.glade.h:9
-msgid "<b>Total size of files:</b>"
+#, fuzzy
+msgid "<b>Total count of files:</b>"
 msgstr "<b>ファイルの総サイズ:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
+msgid "<b>Total size of files:</b>"
+msgstr "<b>ファイルの総サイズ:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
 msgstr "<b>ディスク上のサイズ:</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
 msgstr "<b>最終更新時刻:</b>"
 
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
 msgstr "<b>最終アクセス時刻:</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>最終パーミッション変更時刻:</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "一般(_G)"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
 msgstr "<b>所有者(_W):</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
 msgstr "<b>グループ(_R):</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>内容の閲覧(_V):</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "<b>C_hange content:</b>"
 msgstr "<b>内容の変更(_H):</b>"
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
 msgstr "<b>実行(_E):</b>"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
 msgstr "<b>特別なビット:</b>"
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
 msgstr "誰がファイル/ディレクトリを読むことができるか"
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
 msgstr "誰がファイル/ディレクトリを変更することができるか"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
 msgstr "誰がファイルを実行、またはディレクトリに入ることができるか"
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
 msgstr "ファイル実行の特別なフラグ"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
 msgstr "ディレクトリへのアクセスの特別なフラグ"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>アクセス制御</b>"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
 msgstr "隠しファイル"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
 msgstr "パーミッション(_P)"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:30
 msgid "---"
 msgstr "---"
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:31
 msgid "None"
 msgstr "なし"
 
-#: ../data/ui/file-prop.glade.h:31
+#: ../data/ui/file-prop.glade.h:32
+#, fuzzy
+msgctxt ""
+"It is a directory access bit - 'sticky' - where only owner can delete a file "
+"from it"
 msgid "Sticky"
 msgstr "スティッキー"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
 msgstr "Set GID"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
 msgstr "スティッキー & set GID"
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
+#, fuzzy
+msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Set UID"
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
 msgstr "Set UID & GID"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:37
+#, fuzzy
+msgctxt ""
+"this is a file access mode - only owner can access the file, for others "
+"access is denied"
 msgid "Only owner"
 msgstr "所有者のみ"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
 msgstr "所有者とグループのみ"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
 msgstr "すべて"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
 msgstr "なし"
 
@@ -347,8 +372,10 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>ファイル名のパターン(_N):</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -403,47 +430,62 @@ msgid "_Documents"
 msgstr "文書(_D)"
 
 #: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "Folde_rs"
+msgstr "フォルダ"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "Ot_her:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "ファイルタイプ(_T)"
 
-#: ../data/ui/filesearch.glade.h:24
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>…を含むファイル(_S):</b>"
 
-#: ../data/ui/filesearch.glade.h:25
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "内容(_C)"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>ファイルサイズ</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "…より小さい:"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "…より大きい:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>最終更新時刻</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
-#: ../src/gtk/fm-gtk-file-launcher.c:624
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(なし)"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "…より以前:"
 
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "…以後:"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
@@ -483,31 +525,23 @@ msgstr "システムのアプリケーション"
 msgid "File Associations"
 msgstr "ファイルの関連づけ"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:2
-msgid "Preparing..."
-msgstr "準備中..."
-
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Processing:</b>"
-msgstr "<b>処理中:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
 msgstr "<b>送り先:</b>"
 
-#: ../data/ui/progress.glade.h:7
-msgid "<b>Progress:</b>"
-msgstr "<b>進行中:</b>"
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:4
+msgid "Preparing..."
+msgstr "準備中..."
 
-#: ../data/ui/progress.glade.h:8
+#: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
 msgstr "<b>残り時間:</b>"
 
-#: ../data/ui/progress.glade.h:9
-msgid "<b>Some errors occurred:</b>"
+#: ../data/ui/progress.glade.h:6
+#, fuzzy
+msgid "<b>Errors occurred:</b>"
 msgstr "<b>何らかのエラーが発生しました:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
@@ -515,22 +549,25 @@ msgstr "<b>何らかのエラーが発生しました:</b>"
 msgid "Invalid desktop entry file: '%s'"
 msgstr "不正なデスクトップエントリ名 '%s'"
 
-#: ../src/base/fm-file-launcher.c:201
+#: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "URI %s:// を立ち上げようとしましたが、デフォルトのアプリケーションが設定されていません"
+msgstr ""
+"URI %s:// を立ち上げようとしましたが、デフォルトのアプリケーションが設定され"
+"ていません"
 
-#: ../src/base/fm-file-launcher.c:282
+#: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "作業ディレクトリを '%s' へ移動出来ませんでした: %s"
 
-#: ../src/base/fm-file-launcher.c:329
+#: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "'%s' を立ち上げようとしましたが、そのコンテントタイプを決定できませんでした"
+msgstr ""
+"'%s' を立ち上げようとしましたが、そのコンテントタイプを決定できませんでした"
 
-#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
+#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "MIME タイプ %s にデフォルトのアプリケーションが設定されていません"
@@ -545,7 +582,7 @@ msgstr "デバイス"
 msgid "Network"
 msgstr "ネットワーク"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "ゴミ箱"
 
@@ -553,7 +590,7 @@ msgstr "ゴミ箱"
 msgid "shortcut to URI"
 msgstr "URI のショートカット"
 
-#: ../src/base/fm-templates.c:1019
+#: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: 不正な引数"
 
@@ -610,7 +647,9 @@ msgstr "タグ <%s> に対するハンドラを複製"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr "'%-.*s' のパースに失敗しました。&#234 のような数値文字参照の一部と見られますが、おそらく数値が大き過ぎます"
+msgstr ""
+"'%-.*s' のパースに失敗しました。&#234 のような数値文字参照の一部と見られます"
+"が、おそらく数値が大き過ぎます"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -619,7 +658,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではないでしょうか… '&amp;' のようにエスケープしてください"
+"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではな"
+"いでしょうか… '&amp;' のようにエスケープしてください"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -630,7 +670,9 @@ msgstr "文字実体参照 '%-.*s' が指す文字はここでは使用出来ま
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr "空の文字実体参照 '&;' があります。&amp; &quot; &lt; &gt; &apos; のいずれかだけが有効です。"
+msgstr ""
+"空の文字実体参照 '&;' があります。&amp; &quot; &lt; &gt; &apos; のいずれかだ"
+"けが有効です。"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -643,7 +685,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではないでしょうか… '&amp;' のようにエスケープしてください"
+"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではな"
+"いでしょうか… '&amp;' のようにエスケープしてください"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -685,142 +728,169 @@ msgstr "fm_xml_file_to_data: XML データのエラーです"
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:161
-msgid "Use selected application to open files"
+#: ../src/gtk/fm-app-chooser-dlg.c:266
+#, fuzzy, c-format
+msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "選択したアプリケーションでファイルを開く"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:168
-msgid "Execute custom command line to open files"
-msgstr "コマンドラインを実行してファイルを開く"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "インストールされているアプリケーション"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
 msgstr "<サブフォルダはありません>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
 msgstr "読み込み中..."
 
-#: ../src/gtk/fm-dir-tree-view.c:481
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "サイドバーにディレクトリツリーを表示する"
 
-#: ../src/gtk/fm-dnd-dest.c:411
+#: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
 msgstr "ここにコピー(_O)"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
 msgstr "ここへ移動(_M)"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:415
+#: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
 msgstr "ここにリンク(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:861
+#: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
 msgstr "XDirectSave に失敗。"
 
-#: ../src/gtk/fm-file-menu.c:148
+#: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
 msgstr "アプリケーションで開く(_W)"
 
-#: ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:153
+#, fuzzy
+msgid "Open _With"
+msgstr "アプリケーションで開く(_W)"
+
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
 msgstr "隠しファイルにする(_I)"
 
-#: ../src/gtk/fm-file-menu.c:156
+#: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
 msgstr "隠しファイルの解除"
 
-#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "ブックマークに追加する(_A)"
 
-#: ../src/gtk/fm-file-menu.c:159
+#: ../src/gtk/fm-file-menu.c:162
+#, fuzzy
+msgid "_Rename..."
+msgstr "別の名前で(_R)"
+
+#: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
 msgstr "ファイルを圧縮する(_M)"
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
 msgstr "ここでファイルを展開(_H)"
 
-#: ../src/gtk/fm-file-menu.c:161
+#: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
 msgstr "指定先にファイルを展開(_X)"
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "ファイルのプロパティ(_E)"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
 msgstr "ゴミ箱へ移動(_T)"
 
-#: ../src/gtk/fm-file-properties.c:364
+#: ../src/gtk/fm-file-menu.c:773
+msgid "Your bookmarks already have a bookmark for this folder."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "画像ファイル"
 
-#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "バイト"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:510
+#, c-format
+msgid "scanning... %d"
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "正しいユーザ名、またはIDの数値を入力してください。"
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "正しいグループ名、またはIDの数値を入力してください。"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:810
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "これらの変更をすべてのファイルと下位フォルダに適用しますか?"
 
-#: ../src/gtk/fm-file-properties.c:943
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr "ファイルを隠しファイルにする、あるいはそれを解除します"
 
-#: ../src/gtk/fm-file-properties.c:948
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "名前が . で始まっているので、このファイルは隠しファイルとなります。"
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr "このシステムでは、名前が . で始まるファイルは隠しファイルとなります。<Ctrl+H> を押すことで、隠しファイルの表示を切り替え出来ます。"
+msgstr ""
+"このシステムでは、名前が . で始まるファイルは隠しファイルとなります。<Ctrl"
+"+H> を押すことで、隠しファイルの表示を切り替え出来ます。"
 
-#: ../src/gtk/fm-file-properties.c:1057
+#: ../src/gtk/fm-file-properties.c:1026
+#, fuzzy
+msgid "scanning..."
+msgstr "読み込み中..."
+
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>内容へのアクセス(_A):</b>"
 
-#: ../src/gtk/fm-file-properties.c:1198
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "異なるタイプのファイル"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>ファイル:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1307
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "複数のファイル"
 
@@ -853,6 +923,10 @@ msgstr "更新時刻"
 msgid "Location"
 msgstr "場所"
 
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr "新規作成(_N)..."
@@ -874,7 +948,8 @@ msgid "_Sort Files"
 msgstr "ファイルのソート(_S)"
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
+#, fuzzy
+msgid "_Rename Folder..."
 msgstr "フォルダ名の変更(_R)"
 
 #: ../src/gtk/fm-folder-view.c:197
@@ -894,57 +969,57 @@ msgstr "ファイルとフォルダを混ぜる(_F)"
 msgid "_Ignore Name Case"
 msgstr "大文字/小文字を区別しない(_I)"
 
-#: ../src/gtk/fm-folder-view.c:221
+#: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
 msgstr "名前(_N)"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr "変更時刻(_M)"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "サイズ(_S)"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
 msgstr "ファイルタイプ(_T)"
 
-#: ../src/gtk/fm-folder-view.c:847
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
 msgstr "新しいフォルダの名前を入力してください:"
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
 msgstr "フォルダの新規作成"
 
-#: ../src/gtk/fm-folder-view.c:861
+#: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
 msgstr "空のファイルにつける名前を入力してください:"
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
 msgstr "新規作成..."
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "新規"
 
-#: ../src/gtk/fm-folder-view.c:878
+#: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "新しい %s の名前を入力してください:"
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
 msgstr "%s の新規作成"
 
-#: ../src/gtk/fm-folder-view.c:885
+#: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
 msgstr "ファイルの作成後、デフォルトのアプリケーションでそれを開く(_R)"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -953,17 +1028,17 @@ msgstr ""
 "このテキストファイル '%s' は実行可能スクリプトのようです。\n"
 "これをどうしますか?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "このファイル '%s' は実行可能ファイルです。実行しますか?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "フォルダが指定されていません。"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "フォルダの選択"
 
@@ -979,49 +1054,49 @@ msgstr "確認"
 msgid "Question"
 msgstr "質問"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "システム管理者だけがこれを行うことができます。"
 
-#: ../src/gtk/fm-gtk-utils.c:919
+#: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "ファイル '%s' をゴミ箱に移動しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:924
+#: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "選択した %d 個のファイルをゴミ箱に移動しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:984
+#: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "ファイル '%s' を削除しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:989
+#: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "選択した '%d' 個のファイルを削除しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:1088
+#: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
 msgstr "ファイル名の変更"
 
-#: ../src/gtk/fm-gtk-utils.c:1089
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
 msgstr "新しい名前を入力してください:"
 
-#: ../src/gtk/fm-gtk-utils.c:1156
+#: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "本当にゴミ箱を空にしますか?"
 
-#: ../src/gtk/fm-path-entry.c:631
+#: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
 msgstr "ペーストし、移動(_S)"
 
-#: ../src/gtk/fm-path-entry.c:690
+#: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
 msgstr "フォルダ移動バー"
 
@@ -1042,59 +1117,60 @@ msgstr "アプリケーション"
 msgid "Filesystem Root"
 msgstr "ファイルシステムのルート"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
 msgstr "ボリュームをマウントする(_M)"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
 msgstr "ボリュームをマウント解除する(_U)"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
 msgstr "リムーバブル・メディアを取り出す(_E)"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
 msgstr "ボリュームをフォーマットする(_F)"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する(_R)"
 
-#: ../src/gtk/fm-places-view.c:144
-msgid "Re_move from Bookmark"
+#: ../src/gtk/fm-places-view.c:151
+#, fuzzy
+msgid "Re_move from Bookmarks"
 msgstr "ブックマークから削除する(_M)"
 
-#: ../src/gtk/fm-places-view.c:145
+#: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
 msgstr "ブックマークを上へ移動(_U)"
 
-#: ../src/gtk/fm-places-view.c:146
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "ブックマークを下へ移動(_D)"
 
-#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr "ゴミ箱を空にする(_E)"
 
-#: ../src/gtk/fm-places-view.c:526
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "よく使う場所・デバイス・ブックマークのリストをサイドバーで表示する"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する"
 
-#: ../src/gtk/fm-places-view.c:1092
+#: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
 msgstr "新しい名前を入力してください:"
 
-#: ../src/gtk/fm-progress-dlg.c:123
+#: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1105,7 +1181,7 @@ msgstr ""
 "サイズ: %s\n"
 "更新時刻: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1114,23 +1190,24 @@ msgstr ""
 "ファイルタイプ: %s\n"
 "更新時刻: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
-msgid "The file operation is cancelled and there are some errors."
-msgstr "ファイル操作はキャンセルされました。エラーがあります。"
+#: ../src/gtk/fm-progress-dlg.c:326
+msgid "<b>Errors occured before file operation was stopped.</b>"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "キャンセルされました"
 
-#: ../src/gtk/fm-progress-dlg.c:318
-msgid "The file operation is finished, but there are some errors."
-msgstr "ファイル操作は完了しましたが、エラーがあります。"
+#: ../src/gtk/fm-progress-dlg.c:332
+#, fuzzy
+msgid "<b>The file operation was completed with errors.</b>"
+msgstr "ファイル操作はキャンセルされました。エラーがあります。"
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
 msgstr "完了しました"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1140,41 +1217,80 @@ msgstr ""
 "す。\n"
 "かわりにこれらを削除しますか?"
 
-#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
 msgstr "中断(_P)"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
 msgstr "再開(_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:544
+#: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving Files"
+#. translators: it is part of "Moving files:" or "Moving xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:579
+#, fuzzy
+msgid "Moving"
 msgstr "ファイルの移動"
 
-#: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying Files"
+#. translators: it is part of "Copying files:" or "Copying xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:583
+#, fuzzy
+msgid "Copying"
 msgstr "ファイルのコピー"
 
-#: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing Files"
+#. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:587
+#, fuzzy
+msgid "Trashing"
 msgstr "ファイルのゴミ箱への移動"
 
-#: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting Files"
+#. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:591
+#, fuzzy
+msgid "Deleting"
 msgstr "ファイルの削除"
 
-#: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating Symlinks"
-msgstr "シンボリック・リンクの作成"
+#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:595
+msgid "Symlinking"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing File Attributes"
+#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:602
+#, fuzzy
+msgid "Changing attributes of"
 msgstr "ファイルの属性変更"
+
+#. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:606
+#, fuzzy
+msgid "Restoring"
+msgstr "元に戻す(_R)"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:613
+#, fuzzy, c-format
+msgid "%s files"
+msgstr "画像ファイル"
+
+#: ../src/gtk/fm-progress-dlg.c:615
+msgid "<b>File operation is in progress...</b>"
+msgstr ""
+
+#. note to translators: resulting string is such as "Deleting file"
+#: ../src/gtk/fm-progress-dlg.c:619
+#, fuzzy, c-format
+msgid "<b>%s file:</b>"
+msgstr "<b>ファイル:</b>"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:622
+#, fuzzy, c-format
+msgid "<b>%s files:</b>"
+msgstr "<b>ファイル:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1192,53 +1308,53 @@ msgstr "ディレクトリツリー(_D)"
 msgid "_Remote"
 msgstr "リモート(_R)"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "場所"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "ディレクトリツリー"
 
-#: ../src/gtk/fm-standard-view.c:244
+#: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
 msgstr "フォルダの内容を表示する"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
 msgstr "%s を隠す(_H)"
 
-#: ../src/gtk/fm-standard-view.c:821
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
 msgstr "左へ移動(_M)"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
 msgstr "右へ移動(_R)"
 
-#: ../src/gtk/fm-standard-view.c:850
+#: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
 msgstr "%s を表示する"
 
-#: ../src/gtk/fm-standard-view.c:862
+#: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
 msgstr "幅を記憶しない(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1803
+#: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
 msgstr "アイコン(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1804
+#: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
 msgstr "コンパクト(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1805
+#: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
 msgstr "サムネイル(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1806
+#: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
 msgstr "詳細(_L)"
 
@@ -1247,7 +1363,7 @@ msgid "Changes active tab"
 msgstr "アクティブなタブを切り替える"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "指定されたディレクトリ '%s' は無効です"
@@ -1322,7 +1438,7 @@ msgid "Menu cache error"
 msgstr "メニュー・キャッシュのエラー"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
 msgstr "サポートされていない動作"
 
@@ -1400,11 +1516,11 @@ msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: フォルダ '%s' はメニューキャッシュに見つかりません"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:982
+#: ../src/modules/vfs-search.c:985
 msgid "Search"
 msgstr "検索"
 
-#: ../src/modules/vfs-search.c:1049
+#: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
 msgstr "検索結果"
 
@@ -1642,6 +1758,24 @@ msgstr "空の光ディスク"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "光ディスク"
+
+#~ msgid "<b>File type to be opened:</b>"
+#~ msgstr "<b>開くファイルタイプ:</b>"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<b>Processing:</b>"
+#~ msgstr "<b>処理中:</b>"
+
+#~ msgid "<b>Progress:</b>"
+#~ msgstr "<b>進行中:</b>"
+
+#~ msgid "The file operation is finished, but there are some errors."
+#~ msgstr "ファイル操作は完了しましたが、エラーがあります。"
+
+#~ msgid "Creating Symlinks"
+#~ msgstr "シンボリック・リンクの作成"
 
 #~ msgid "_Browse"
 #~ msgstr "ダイアログで選択(_B)"

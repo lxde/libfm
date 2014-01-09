@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2013-12-22 07:33+0000\n"
 "Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -195,126 +195,141 @@ msgid "Select the application used to open files of this type "
 msgstr "选择用于打开此类文件的应用程序 "
 
 #: ../data/ui/file-prop.glade.h:9
-msgid "<b>Total size of files:</b>"
+#, fuzzy
+msgid "<b>Total count of files:</b>"
 msgstr "<b>文件总大小：</b>"
 
 #: ../data/ui/file-prop.glade.h:10
+msgid "<b>Total size of files:</b>"
+msgstr "<b>文件总大小：</b>"
+
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
 msgstr "<b>磁盘上的大小：</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
 msgstr "<b>上次修改：</b>"
 
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
 msgstr "<b>上次访问：</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>上次权限更改：</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "常规(_G)"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
 msgstr "<b>所有者(_W)：</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
 msgstr "<b>组(_R)：</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>查看内容(_V)：</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "<b>C_hange content:</b>"
 msgstr "<b>更改内容(_H)：</b>"
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
 msgstr "<b>执行(_E)：</b>"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
 msgstr "<b>特殊位：</b>"
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
 msgstr "谁可以查看文件/目录的内容"
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
 msgstr "谁可以修改文件/目录的内容"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
 msgstr "谁可以执行文件或进入目录"
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
 msgstr "文件执行的特殊标志"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
 msgstr "目录访问的特殊标志"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>访问控制</b>"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
 msgstr "隐藏文件"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
 msgstr "权限(_P)"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:30
 msgid "---"
 msgstr "---"
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:31
 msgid "None"
 msgstr "无"
 
-#: ../data/ui/file-prop.glade.h:31
+#: ../data/ui/file-prop.glade.h:32
+#, fuzzy
+msgctxt ""
+"It is a directory access bit - 'sticky' - where only owner can delete a file "
+"from it"
 msgid "Sticky"
 msgstr "粘住"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
 msgstr "设置 GID"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
 msgstr "粘住并设置 GID"
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
+#, fuzzy
+msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "设置 UID"
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
 msgstr "设置 UID 和 GID"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:37
+#, fuzzy
+msgctxt ""
+"this is a file access mode - only owner can access the file, for others "
+"access is denied"
 msgid "Only owner"
 msgstr "仅所有者"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
 msgstr "仅所有者和组"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
 msgstr "任何人"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
 msgstr "无人"
 
@@ -351,8 +366,10 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>文件名模式(_N)：</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -407,47 +424,62 @@ msgid "_Documents"
 msgstr "文档(_D)"
 
 #: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "Folde_rs"
+msgstr "文件夹"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "Ot_her:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "文件类型(_T)"
 
-#: ../data/ui/filesearch.glade.h:24
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>文件中包含(_S)：</b>"
 
-#: ../data/ui/filesearch.glade.h:25
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "内容(_O)"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>文件大小</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "小于(_S)："
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "大于(_B)："
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>上次修改时间</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
-#: ../src/gtk/fm-gtk-file-launcher.c:620
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(无)"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "早于(_E)："
 
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "晚于(_A)："
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "属性(_P)"
 
@@ -485,31 +517,23 @@ msgstr "系统应用程序"
 msgid "File Associations"
 msgstr "文件关联"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:2
-msgid "Preparing..."
-msgstr "正在准备..."
-
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Processing:</b>"
-msgstr "<b>处理：</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
 msgstr "<b>到：</b>"
 
-#: ../data/ui/progress.glade.h:7
-msgid "<b>Progress:</b>"
-msgstr "<b>进度：</b>"
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:4
+msgid "Preparing..."
+msgstr "正在准备..."
 
-#: ../data/ui/progress.glade.h:8
+#: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
 msgstr "<b>剩余时间：</b>"
 
-#: ../data/ui/progress.glade.h:9
-msgid "<b>Some errors occurred:</b>"
+#: ../data/ui/progress.glade.h:6
+#, fuzzy
+msgid "<b>Errors occurred:</b>"
 msgstr "<b>出现了一些错误：</b>"
 
 #: ../src/base/fm-file-launcher.c:85
@@ -547,7 +571,7 @@ msgstr "设备"
 msgid "Network"
 msgstr "网络"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "回收站"
 
@@ -612,7 +636,8 @@ msgstr "标记 <%s> 的处理程序重复"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr "解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
+msgstr ""
+"解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -620,7 +645,9 @@ msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr "字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
+msgstr ""
+"字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变"
+"为 &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -643,7 +670,9 @@ msgstr "未知的实体名“%-.*s”"
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr "实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
+msgstr ""
+"实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 "
+"&amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -694,36 +723,36 @@ msgstr "<b>选择打开“%s”使用的应用程序</b>"
 msgid "Installed Applications"
 msgstr "已安装的应用程序"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
 msgstr "<无子文件夹>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
 msgstr "正在加载..."
 
-#: ../src/gtk/fm-dir-tree-view.c:482
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "在侧栏中显示目录树"
 
-#: ../src/gtk/fm-dnd-dest.c:411
+#: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
 msgstr "复制到这里(_O)"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
 msgstr "移到这里(_M)"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:415
+#: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
 msgstr "链接到这里(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:861
+#: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失败。"
 
@@ -784,56 +813,66 @@ msgstr "移到回收站(_T)"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "您的书签中已经有了一条对应此文件夹的书签。"
 
-#: ../src/gtk/fm-file-properties.c:364
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "图像文件"
 
-#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "字节"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:510
+#, c-format
+msgid "scanning... %d"
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "请输入一个有效的用户名或数字标识。"
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "请输入一个有效的组名或数字标识。"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:810
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "您想递归地将这些操作应用于所有的文件及子文件夹吗？"
 
-#: ../src/gtk/fm-file-properties.c:943
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr "隐藏或显示文件"
 
-#: ../src/gtk/fm-file-properties.c:948
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "该文件是隐藏的，因为它的名字以点(“.”)开头。"
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr "系统中名字以点(“.”)开头的文件会隐藏。按<Ctrl+H>切换显示隐藏文件。"
 
-#: ../src/gtk/fm-file-properties.c:1057
+#: ../src/gtk/fm-file-properties.c:1026
+#, fuzzy
+msgid "scanning..."
+msgstr "正在加载..."
+
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>访问内容(_A)：</b>"
 
-#: ../src/gtk/fm-file-properties.c:1198
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "不同类型的文件"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>文件：</b>"
 
-#: ../src/gtk/fm-file-properties.c:1307
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "多个文件"
 
@@ -865,6 +904,10 @@ msgstr "修改"
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
 msgstr "位置"
+
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -907,57 +950,57 @@ msgstr "同等对待文件和文件夹(_F)"
 msgid "_Ignore Name Case"
 msgstr "忽略名称大小写(_I)"
 
-#: ../src/gtk/fm-folder-view.c:221
+#: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
 msgstr "按名称(_N)"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr "按修改日期(_M)"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "按大小(_N)"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
 msgstr "按文件类型(_T)"
 
-#: ../src/gtk/fm-folder-view.c:847
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
 msgstr "输入新创建文件夹的名称："
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
 msgstr "创建新文件夹"
 
-#: ../src/gtk/fm-folder-view.c:861
+#: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
 msgstr "输入空文件的名称："
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
 msgstr "正在创建..."
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "新建"
 
-#: ../src/gtk/fm-folder-view.c:878
+#: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "输入新 %s 的名称："
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
 msgstr "正在创建 %s"
 
-#: ../src/gtk/fm-folder-view.c:885
+#: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
 msgstr "创建后对文件运行默认应用程序(_R)"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -966,17 +1009,17 @@ msgstr ""
 "“%s”这个文本文件好像是可执行脚本。\n"
 "您想如何处理它？"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "“%s”这个文件是可执行文件。您想执行它吗？"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:648
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "未指定文件夹。"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "选择文件夹"
 
@@ -1030,11 +1073,11 @@ msgstr "请输入一个新名称："
 msgid "Are you sure you want to empty the trash can?"
 msgstr "您确定想清空回收站吗？"
 
-#: ../src/gtk/fm-path-entry.c:639
+#: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
 msgstr "粘贴并执行(_S)"
 
-#: ../src/gtk/fm-path-entry.c:698
+#: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
 msgstr "文件夹位置栏"
 
@@ -1055,59 +1098,60 @@ msgstr "应用程序"
 msgid "Filesystem Root"
 msgstr "文件系统根目录"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
 msgstr "挂载卷(_M)"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
 msgstr "卸载卷(_U)"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
 msgstr "弹出可移动媒质(_E)"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
 msgstr "格式化卷(_F)"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
 msgstr "重命名书签项(_R)"
 
-#: ../src/gtk/fm-places-view.c:144
-msgid "Re_move from Bookmark"
+#: ../src/gtk/fm-places-view.c:151
+#, fuzzy
+msgid "Re_move from Bookmarks"
 msgstr "从书签中移除(_M)"
 
-#: ../src/gtk/fm-places-view.c:145
+#: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
 msgstr "上移书签(_U)"
 
-#: ../src/gtk/fm-places-view.c:146
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "下移书签(_D)"
 
-#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr "清空回收站(_E)"
 
-#: ../src/gtk/fm-places-view.c:526
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "在侧栏中显示常用位置、设备和书签列表"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
 msgstr "重命名书签项"
 
-#: ../src/gtk/fm-places-view.c:1092
+#: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
 msgstr "输入新名称："
 
-#: ../src/gtk/fm-progress-dlg.c:123
+#: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
 msgstr "："
 
-#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1118,7 +1162,7 @@ msgstr ""
 "大小：%s\n"
 "修改时间：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1127,23 +1171,24 @@ msgstr ""
 "类型：%s\n"
 "修改时间：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
-msgid "The file operation is cancelled and there are some errors."
-msgstr "文件操作被取消，并且出现了一些错误。"
+#: ../src/gtk/fm-progress-dlg.c:326
+msgid "<b>Errors occured before file operation was stopped.</b>"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "取消"
 
-#: ../src/gtk/fm-progress-dlg.c:318
-msgid "The file operation is finished, but there are some errors."
-msgstr "文件操作完成，但出现了一些错误。"
+#: ../src/gtk/fm-progress-dlg.c:332
+#, fuzzy
+msgid "<b>The file operation was completed with errors.</b>"
+msgstr "文件操作被取消，并且出现了一些错误。"
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
 msgstr "完成"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1152,41 +1197,80 @@ msgstr ""
 "有些文件无法移到回收站，因为所处的文件系统不支持该操作。\n"
 "您想直接删除它们吗？"
 
-#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
 msgstr "暂停(_P)"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
 msgstr "继续(_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:544
+#: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
 msgstr "，"
 
-#: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving Files"
+#. translators: it is part of "Moving files:" or "Moving xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:579
+#, fuzzy
+msgid "Moving"
 msgstr "移动文件"
 
-#: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying Files"
+#. translators: it is part of "Copying files:" or "Copying xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:583
+#, fuzzy
+msgid "Copying"
 msgstr "正在复制文件"
 
-#: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing Files"
+#. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:587
+#, fuzzy
+msgid "Trashing"
 msgstr "将文件移到回收站"
 
-#: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting Files"
+#. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:591
+#, fuzzy
+msgid "Deleting"
 msgstr "删除文件"
 
-#: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating Symlinks"
-msgstr "创建符号链接"
+#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:595
+msgid "Symlinking"
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing File Attributes"
+#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:602
+#, fuzzy
+msgid "Changing attributes of"
 msgstr "修改文件属性"
+
+#. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:606
+#, fuzzy
+msgid "Restoring"
+msgstr "还原(_R)"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:613
+#, fuzzy, c-format
+msgid "%s files"
+msgstr "图像文件"
+
+#: ../src/gtk/fm-progress-dlg.c:615
+msgid "<b>File operation is in progress...</b>"
+msgstr ""
+
+#. note to translators: resulting string is such as "Deleting file"
+#: ../src/gtk/fm-progress-dlg.c:619
+#, fuzzy, c-format
+msgid "<b>%s file:</b>"
+msgstr "<b>文件：</b>"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:622
+#, fuzzy, c-format
+msgid "<b>%s files:</b>"
+msgstr "<b>文件：</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1204,53 +1288,53 @@ msgstr "目录树(_D)"
 msgid "_Remote"
 msgstr "远程(_R)"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "位置"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "目录树"
 
-#: ../src/gtk/fm-standard-view.c:244
+#: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
 msgstr "文件夹内容视图"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
 msgstr "隐藏 %s (_H)"
 
-#: ../src/gtk/fm-standard-view.c:821
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
 msgstr "左移(_M)"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
 msgstr "右移(_R)"
 
-#: ../src/gtk/fm-standard-view.c:850
+#: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
 msgstr "显示 %s"
 
-#: ../src/gtk/fm-standard-view.c:862
+#: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
 msgstr "忘记宽度(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1803
+#: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
 msgstr "图标视图(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1804
+#: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
 msgstr "紧缩视图(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1805
+#: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
 msgstr "缩略视图(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1806
+#: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
 msgstr "详细列表视图(_L)"
 
@@ -1259,7 +1343,7 @@ msgid "Changes active tab"
 msgstr "更改活动标签"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "指定的目录“%s”无效"
@@ -1654,6 +1738,21 @@ msgstr "空光盘"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "光盘"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<b>Processing:</b>"
+#~ msgstr "<b>处理：</b>"
+
+#~ msgid "<b>Progress:</b>"
+#~ msgstr "<b>进度：</b>"
+
+#~ msgid "The file operation is finished, but there are some errors."
+#~ msgstr "文件操作完成，但出现了一些错误。"
+
+#~ msgid "Creating Symlinks"
+#~ msgstr "创建符号链接"
 
 #~ msgid "_Rename Folder"
 #~ msgstr "重命名文件夹(_R)"

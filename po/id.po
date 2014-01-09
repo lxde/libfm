@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2014-01-09 06:31+0000\n"
 "Last-Translator: Andika <andika@gmail.com>\n"
 "Language-Team: Indonesian Translation Team <id@li.org>\n"
@@ -571,7 +571,7 @@ msgstr "Perangkat"
 msgid "Network"
 msgstr "Jaringan"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Tong Sampah"
 
@@ -736,7 +736,7 @@ msgstr "<Tak ada sub folder>"
 msgid "Loading..."
 msgstr "Memuat..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "Tunjukkan pohon direktori di bilah sisi"
 
@@ -818,45 +818,45 @@ msgstr "Buang ke _Tong Sampah"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Tanda taut Anda telah ada untuk folder ini."
 
-#: ../src/gtk/fm-file-properties.c:367
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "Berkas gambar"
 
-#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 
-#: ../src/gtk/fm-file-properties.c:509
+#: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
 msgstr "memindai... %d"
 
-#: ../src/gtk/fm-file-properties.c:587
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Silakan masukkan suatu nama pengguna yang valid atau id numerik."
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Silakan masukkan suatu nama grup yang valid atau id numerik."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:826
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Apakah Anda ingin menerapkan perubahan ini secara rekursif pada semua berkas "
 "dan sub folder?"
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr "Sembunyikan atau munculkan berkas"
 
-#: ../src/gtk/fm-file-properties.c:964
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Berkas tersebut tersembunyi karena namanya dimulai dengan titik ('.')."
 
-#: ../src/gtk/fm-file-properties.c:968
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -864,23 +864,23 @@ msgstr ""
 "Berkas pada sistem ini tersembunyi bila namanya diawali dengan titik ('.'). "
 "Tekan <Ctrl+H> untuk menjungkitkan penampilan berkas tersembunyi."
 
-#: ../src/gtk/fm-file-properties.c:1025
+#: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
 msgstr "memindai..."
 
-#: ../src/gtk/fm-file-properties.c:1087
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Akses isi:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Berkas yang berbeda jenis"
 
-#: ../src/gtk/fm-file-properties.c:1285
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>Berkas:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1351
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "Berkas berganda"
 
@@ -1142,9 +1142,10 @@ msgstr "Pin_dah Penanda Taut Turun"
 msgid "_Empty Trash Can"
 msgstr "_Kosongkan Tong Sampah"
 
-#: ../src/gtk/fm-places-view.c:533
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
+msgstr ""
+"Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1289,11 +1290,11 @@ msgstr "Pohon _Direktori"
 msgid "_Remote"
 msgstr "Ja_rak Jauh"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "Lokasi"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "Pohon Direktori"
 
@@ -1344,7 +1345,7 @@ msgid "Changes active tab"
 msgstr "Mengubah tab aktif"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Direktori '%s' yang dinyatakan tak valid"
@@ -1800,7 +1801,8 @@ msgstr "Cakram Optik"
 #~ msgstr "Apl_ikasi Terpasang"
 
 #~ msgid "_Set selected application as default action of this file type"
-#~ msgstr "Tata aplika_si yang dipilih sebagai aksi bawaan dari jenis berkas ini"
+#~ msgstr ""
+#~ "Tata aplika_si yang dipilih sebagai aksi bawaan dari jenis berkas ini"
 
 #~ msgid "_Browse"
 #~ msgstr "Ram_ban"

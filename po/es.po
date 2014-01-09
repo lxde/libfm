@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 23:48+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2014-01-06 08:32+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
@@ -369,8 +369,10 @@ msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Patrones de _nombres de archivo:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+msgid ""
+"Pattern may be either POSIX shell pattern list (with ',' as separator) or "
+"POSIX regular expression."
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -433,47 +435,53 @@ msgid "Ot_her:"
 msgstr "O_tros:"
 
 #: ../data/ui/filesearch.glade.h:25
+msgid ""
+"Any valid content type can be entered here. Wildcard '*' is allowed at end "
+"of the type. Multiple types should be separated with ';'."
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "_Tipo de archivo"
 
-#: ../data/ui/filesearch.glade.h:26
+#: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>El archivo con_tiene:</b>"
 
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr "C_ontenido"
 
-#: ../data/ui/filesearch.glade.h:28
+#: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
 msgstr "<b>Tamaño de archivo:</b>"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
 msgstr "_Menor que:"
 
-#: ../data/ui/filesearch.glade.h:30
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
 msgstr "Ma_yor que:"
 
-#: ../data/ui/filesearch.glade.h:31
+#: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Última modificación:</b>"
 
-#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
-#: ../src/gtk/fm-gtk-file-launcher.c:633
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
 msgstr "(Ninguna)"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
 msgstr "An_terior que:"
 
-#: ../data/ui/filesearch.glade.h:34
+#: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
 msgstr "_Posterior que:"
 
-#: ../data/ui/filesearch.glade.h:35
+#: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
 msgstr "_Propiedades"
 
@@ -567,7 +575,7 @@ msgstr "Dispositivos"
 msgid "Network"
 msgstr "Red"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Papelera"
 
@@ -735,7 +743,7 @@ msgstr "<No hay subcarpetas>"
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../src/gtk/fm-dir-tree-view.c:550
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "Muestra el árbol de carpetas en la barra lateral"
 
@@ -817,46 +825,46 @@ msgstr "Mover a la _papelera"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Esta carpeta ya está incluida en los marcadores."
 
-#: ../src/gtk/fm-file-properties.c:367
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "Archivos de imagen"
 
-#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "bytes"
 
-#: ../src/gtk/fm-file-properties.c:509
+#: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
 msgstr "explorando… %d"
 
-#: ../src/gtk/fm-file-properties.c:587
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Escriba un nombre de usuario o un id. numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Escriba un nombre de grupo o un id. numérico válido."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:826
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "¿Quiere aplicar estos cambios recurrentemente a todos los archivos y "
 "subcarpetas?"
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr "Ocultar o revelar el archivo"
 
-#: ../src/gtk/fm-file-properties.c:964
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Este archivo está oculto porque su nombre comienza con un punto («.»)."
 
-#: ../src/gtk/fm-file-properties.c:968
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -864,23 +872,23 @@ msgstr ""
 "Los archivos en este sistema están ocultos si sus nombres comienzan con un "
 "punto. Pulse <Ctrl+H> para revelar u ocultar estos archivos."
 
-#: ../src/gtk/fm-file-properties.c:1025
+#: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
 msgstr "explorando…"
 
-#: ../src/gtk/fm-file-properties.c:1087
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Acceder al contenido:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Archivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:1285
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>Archivo:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1351
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "Archivos múltiples"
 
@@ -912,6 +920,10 @@ msgstr "Modificado"
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
 msgstr "Ubicación"
+
+#: ../src/gtk/fm-folder-model.c:197
+msgid "Extension"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1004,7 +1016,7 @@ msgstr "Creando %s"
 msgid "_Run default application on file after creation"
 msgstr "A_brir el archivo con la aplicación predeterminada luego de crearlo"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:138
+#: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -1013,17 +1025,17 @@ msgstr ""
 "El archivo de texto «%s» parece ser un script ejecutable.\n"
 "¿Qué quiere hacer con él?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:145
+#: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "El archivo «%s» es ejecutable. ¿Quiere ejecutarlo?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:661
+#: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
 msgstr "No se especificó ninguna carpeta."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Seleccione una carpeta"
 
@@ -1140,7 +1152,7 @@ msgstr "_Bajar el marcador"
 msgid "_Empty Trash Can"
 msgstr "_Vaciar la papelera"
 
-#: ../src/gtk/fm-places-view.c:533
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 "Muestra una lista de lugares comunes, dispositivos y marcadores en la barra "
@@ -1290,11 +1302,11 @@ msgstr "Árbol de _directorios"
 msgid "_Remote"
 msgstr "_Remoto"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "Lugares"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "Árbol de directorios"
 
@@ -1345,7 +1357,7 @@ msgid "Changes active tab"
 msgstr "Cambia la pestaña activa"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "La carpeta especificada «%s» no es válida"
@@ -1496,7 +1508,8 @@ msgstr "El destino no es válido"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
+msgstr ""
+"FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1742,6 +1755,9 @@ msgstr "Disco óptico en blanco"
 msgid "Optical Disc"
 msgstr "Disco óptico"
 
+#~ msgid "*"
+#~ msgstr "*"
+
 #~ msgctxt "It is a directory access bit - "
 #~ msgid "Sticky"
 #~ msgstr "Persistente"
@@ -1775,7 +1791,8 @@ msgstr "Disco óptico"
 #~ msgstr "La operación de archivos se ha cancelado y hay algunos errores."
 
 #~ msgid "The file operation is finished, but there are some errors."
-#~ msgstr "La operación sobre archivos ha finalizado, pero hay algunos errores."
+#~ msgstr ""
+#~ "La operación sobre archivos ha finalizado, pero hay algunos errores."
 
 #~ msgid "Moving Files"
 #~ msgstr "Moviendo los archivos"
@@ -1806,8 +1823,8 @@ msgstr "Disco óptico"
 
 #~ msgid "_Set selected application as default action of this file type"
 #~ msgstr ""
-#~ "_Definir aplicación seleccionada como predeterminada para abrir archivos de "
-#~ "este tipo"
+#~ "_Definir aplicación seleccionada como predeterminada para abrir archivos "
+#~ "de este tipo"
 
 #~ msgid "_Browse"
 #~ msgstr "_Examinar"

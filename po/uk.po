@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
 "PO-Revision-Date: 2014-01-07 03:14+0200\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -577,7 +577,7 @@ msgstr "Пристрої"
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Смітник"
 
@@ -742,7 +742,7 @@ msgstr "<Немає підтеки>"
 msgid "Loading..."
 msgstr "Завантажую..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr "Показує дерево тек у боковій панелі"
 
@@ -824,45 +824,45 @@ msgstr "Перенести до с_мітника"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Ви вже маєте цю теку у закладках."
 
-#: ../src/gtk/fm-file-properties.c:367
+#: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
 msgstr "Файли зображень"
 
-#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 msgstr[1] "байти"
 msgstr[2] "байт"
 
-#: ../src/gtk/fm-file-properties.c:509
+#: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
 msgstr "сканування... %d"
 
-#: ../src/gtk/fm-file-properties.c:587
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введіть дійсну назву користувача або чисельне id."
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть дійсну назву групи або чисельне id."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:826
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
 msgstr "Сховати чи відновити файл"
 
-#: ../src/gtk/fm-file-properties.c:964
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Цей файл приховано, тому що його назва починається з крапки."
 
-#: ../src/gtk/fm-file-properties.c:968
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -870,23 +870,23 @@ msgstr ""
 "Файли у цїй системі є прихованими, якщо їх назви починаються з крапки. "
 "Натисніть <Ctrl+H> для зміни стану показування прихованих файлів."
 
-#: ../src/gtk/fm-file-properties.c:1025
+#: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
 msgstr "сканування..."
 
-#: ../src/gtk/fm-file-properties.c:1087
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>Д_оступ до вмісту:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Файли різних типів"
 
-#: ../src/gtk/fm-file-properties.c:1285
+#: ../src/gtk/fm-file-properties.c:1286
 msgid "<b>File:</b>"
 msgstr "<b>Файл:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1351
+#: ../src/gtk/fm-file-properties.c:1352
 msgid "Multiple files"
 msgstr "Кілька файлів"
 
@@ -1152,7 +1152,7 @@ msgstr "_Опустити закладку нижче"
 msgid "_Empty Trash Can"
 msgstr "_Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:533
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 "Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
@@ -1300,11 +1300,11 @@ msgstr "_Дерево тек"
 msgid "_Remote"
 msgstr "_Віддалене"
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
 msgstr "Місця"
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
 msgstr "Дерево тек"
 
@@ -1355,7 +1355,7 @@ msgid "Changes active tab"
 msgstr "Змінює активну вкладку"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Вказана тека '%s' не є дійсна"
