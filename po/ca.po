@@ -1,76 +1,80 @@
-# Chinese (Taiwan) translations for libfm package.
+# Catalan translations for libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 01:52+0200\n"
-"PO-Revision-Date: 2013-12-25 02:33+0000\n"
-"Last-Translator: wwycheuk <wwycheuk@gmail.com>\n"
-"Language-Team: zh_TW <zh_TW@li.org>\n"
+"POT-Creation-Date: 2014-01-09 09:02+0100\n"
+"PO-Revision-Date: 2010-05-03 18:37+0100\n"
+"Last-Translator: el_libre -- www.catmidia.cat <el.libre@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
-"X-POOTLE-MTIME: 1387938795.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "Preferred Applications"
 msgstr "Aplicacions preferides"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr "選取當點擊網頁連結或電郵位址時開啟的應用程式"
+msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
+#, fuzzy
 msgid "Shortcut Editor"
-msgstr "捷徑編輯器"
+msgstr "Dreceres"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "建立新的或變更現有的桌面項目"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
+#, fuzzy
 msgid "Choose Application"
-msgstr "選擇應用程式"
+msgstr "Trieu una aplicació"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "Use selected application to open files"
 msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
 
 #: ../data/ui/app-chooser.glade.h:3
+#, fuzzy
 msgid "_Installed Applications"
-msgstr "已安裝應用程式(_I)"
+msgstr "Aplicació instal·lada"
 
 #: ../data/ui/app-chooser.glade.h:4
+#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>要執行的指令(_O)：</b>"
+msgstr "<b>Ordre a executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
+#, fuzzy
 msgid "_Browse..."
-msgstr "瀏覽(_B)..."
+msgstr "_Navega"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
+#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "在終端機模擬器執行(_E)"
+msgstr "Executa-ho a un emulador de terminal"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "執行指令後保持終端機視窗開啟(_K)"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -86,44 +90,42 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>應用程式名稱(_A) (可有可無，設定來保持關聯)</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:15
-#, fuzzy
 msgid "Execute custom command line to open files"
 msgstr "Executa la línia de comandes personalitzada per obrir arxius"
 
 #: ../data/ui/app-chooser.glade.h:16
+#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "自訂指令列(_U)"
+msgstr "Intèrpret d'ordres personalitzat"
 
 #: ../data/ui/app-chooser.glade.h:17
 #, fuzzy
 msgid "_Set selected application as default action for this file type"
-msgstr "將選取的應用程式設定為這類型檔案的預設處理程式(_S)"
+msgstr ""
+"Defineix l'aplicació seleccionada com a la predeterminada per a aquest tipus "
+"de fitxer"
 
 #: ../data/ui/ask-rename.glade.h:1
 #, fuzzy
 msgid "Confirm File Replacing"
-msgstr "確認取代檔案"
+msgstr "Confirmeu per a reemplaçar els fitxers"
 
 #: ../data/ui/ask-rename.glade.h:2
-#, fuzzy
 msgid "_Skip"
 msgstr "_Salta"
 
 #: ../data/ui/ask-rename.glade.h:3
-#, fuzzy
 msgid "_Rename"
 msgstr "_Reanomena"
 
 #: ../data/ui/ask-rename.glade.h:4
-#, fuzzy
 msgid "_Overwrite"
 msgstr "S_obreescriu"
 
 #: ../data/ui/ask-rename.glade.h:5
-#, fuzzy
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -134,168 +136,180 @@ msgstr ""
 "Voleu reemplaçar el fitxer existent"
 
 #: ../data/ui/ask-rename.glade.h:8
-#, fuzzy
 msgid "with the following file?"
 msgstr "amb el següent nom?"
 
 #: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
 msgid "_File name:"
-msgstr "檔案名稱(_F)："
+msgstr "Nom del fitxer:"
 
 #: ../data/ui/ask-rename.glade.h:10
+#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "將此選項套用到所有檔案(_A)"
+msgstr "Aplica aquesta opció a tots els fitxers existents"
 
 #: ../data/ui/choose-icon.ui.h:1
+#, fuzzy
 msgid "Choose An Icon..."
-msgstr "選擇圖示..."
+msgstr "Trieu una aplicació"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
+#, fuzzy
 msgid "system icon theme"
-msgstr "系統圖示佈景主題"
+msgstr "Aplicacions de sistema"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
+#, fuzzy
 msgid "image files"
-msgstr "圖片檔案"
+msgstr "Enviant arxius a la paperera"
 
 #: ../data/ui/choose-icon.ui.h:6
+#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>選擇圖示來源：</b>"
+msgstr "<b>Destí:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
+#, fuzzy
 msgid "Execute File"
-msgstr "執行檔案"
+msgstr "diversos fitxers"
 
 #: ../data/ui/exec-file.glade.h:2
+#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "在終端機執行(_T)"
+msgstr "Executa-ho a un emulador de terminal"
 
 #: ../data/ui/file-prop.glade.h:1
-#, fuzzy
 msgid "File Properties"
 msgstr "Propietats del fitxer"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr "該檔案在「資料夾檢視」的圖示"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:3
+#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>名稱(_N)：</b>"
+msgstr "<b>Pr_opietari:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
-#, fuzzy
 msgid "<b>Location:</b>"
 msgstr "<b>Ubicació:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
+#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>目標檔案：</b>"
+msgstr "<b>Destí:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
+#, fuzzy
 msgid "<b>File type:</b>"
-msgstr "<b>檔案類型：</b>"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
-#, fuzzy
 msgid "<b>Open _with:</b>"
 msgstr "<b>Obre _amb:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "Select the application used to open files of this type "
 msgstr "Trieu l'aplicació que s'emprarà per a obrir fitxers d'aquest tipus "
 
 #: ../data/ui/file-prop.glade.h:9
+#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr ""
+msgstr "<b>Mida total dels fitxers:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
+#, fuzzy
 msgid "<b>Total size of files:</b>"
-msgstr "<b>檔案大小總計：</b>"
+msgstr "<b>Mida total dels fitxers:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 #, fuzzy
 msgid "<b>Size on disk:</b>"
-msgstr "<b>磁碟上的大小：</b>"
+msgstr "<b>Mida en disc:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 #, fuzzy
 msgid "<b>Last modification:</b>"
-msgstr "<b>最後修改：</b>"
+msgstr "<b>Última modificació:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 #, fuzzy
 msgid "<b>Last access:</b>"
-msgstr "<b>最後存取：</b>"
+msgstr "<b>Últim accés:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 #, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>最後權限變更：</b>"
+msgstr "<b>Últim accés:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "_General"
 msgstr "_General"
 
 #: ../data/ui/file-prop.glade.h:16
+#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>擁有者(_W)：</b>"
+msgstr "<b>Propietari:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
+#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>群組(_R)：</b>"
+msgstr "<b>Grup:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
+#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>檢視內容(_V)：</b>"
+msgstr "<b>Client de correu</b>"
 
 #: ../data/ui/file-prop.glade.h:19
+#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>變更內容(_H)：</b>"
+msgstr "<b>Destí:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
+#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>執行(_E)：</b>"
+msgstr "<b>Altres:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
+#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>特別位元：</b>"
+msgstr "<b>Obre _amb:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr "誰可讀取檔案或目錄內容"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr "誰可變更檔案或目錄內容"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr "誰可執行檔案或目錄"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr "執行檔案的特別旗標"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr "存取目錄的特別旗標"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
-#, fuzzy
 msgid "<b>Access Control</b>"
 msgstr "<b>Control d'accés</b>"
 
 #: ../data/ui/file-prop.glade.h:28
+#, fuzzy
 msgid "Hidden file"
-msgstr "隱藏檔案"
+msgstr "S'estan movent els fitxers"
 
 #: ../data/ui/file-prop.glade.h:29
-#, fuzzy
 msgid "_Permissions"
 msgstr "_Permisos"
 
@@ -304,7 +318,6 @@ msgid "---"
 msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:31
-#, fuzzy
 msgid "None"
 msgstr "Cap"
 
@@ -317,11 +330,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
-msgstr "設定 GID"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
-msgstr "駐留(Sticky)及設定 GID"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
@@ -330,7 +343,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
-msgstr "設定 UID 及 GID"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:37
 msgctxt ""
@@ -341,19 +354,19 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
-msgstr "只有擁有者及群組"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
-msgstr "所有人"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
-msgstr "無人"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr "位元組"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -369,20 +382,21 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr "選擇日期"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "在下面月曆選擇日期"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:7
+#, fuzzy
 msgid "Search Files"
-msgstr "搜尋檔案"
+msgstr "Canvia el nom del fitxer"
 
 #: ../data/ui/filesearch.glade.h:8
 #, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>檔案名稱式樣(_N)：</b>"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
@@ -392,59 +406,63 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "不區分大小寫(_V)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr "使用 regular expression(_U)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>要搜尋地點(_E)：</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "搜尋子目錄(_S)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "搜尋隱藏檔(_H)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "名稱/地點(_L)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:16
+#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>檔案類型</b>"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr "只搜尋以下類型檔案："
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:18
+#, fuzzy
 msgid "Te_xt files"
-msgstr "文字檔案(_X)"
+msgstr "S'estan suprimint els fitxers"
 
 #: ../data/ui/filesearch.glade.h:19
+#, fuzzy
 msgid "_Image files"
-msgstr "圖片檔案(_I)"
+msgstr "Enviant arxius a la paperera"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "聲音檔案(_A)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr "視像檔案(_V)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr "文件(_D)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:23
+#, fuzzy
 msgid "Folde_rs"
-msgstr ""
+msgstr "Canvia el nom del fitxer"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -457,139 +475,137 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
+#, fuzzy
 msgid "File _Type"
-msgstr "檔案類型(_T)"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/filesearch.glade.h:27
+#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>檔案包含(_S)：</b>"
+msgstr "<b>Mida en disc:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
-msgstr "內容(_O)"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:29
+#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>檔案大小</b>"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr "小於(_S)："
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr "大於(_B)："
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:32
+#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>最後修改時間</b>"
+msgstr "<b>Última modificació:</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
+#, fuzzy
 msgid "(None)"
-msgstr "(無)"
+msgstr "Cap"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr "早於(_E)："
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
-msgstr "晚於(_A)："
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:36
+#, fuzzy
 msgid "_Properties"
-msgstr "特性(_P)"
+msgstr "Propietats del fitxer"
 
 #: ../data/ui/preferred-apps.glade.h:2
-#, fuzzy
 msgid "<b>Web Browser</b>"
 msgstr "<b>Navegador web</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "S'emprarà el navegador web preferit per a obrir els hiperenllaços"
 
 #: ../data/ui/preferred-apps.glade.h:4
 #, fuzzy
 msgid "<b>Mail Client</b>"
-msgstr "<b>郵件軟體</b>"
+msgstr "<b>Client de correu</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
 #, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
-msgstr "當點擊電子郵件位址時，會用偏好的郵件軟體來編輯信件。"
+msgstr ""
+"S'emprarà el client de correu preferit per a redactar correus quan feu clic "
+"damunt adreces de correu electrònic"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "<b>Terminal Emulator</b>"
 msgstr "<b>Emulador de terminal</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "Command line:"
 msgstr "Intèrpret d'ordres:"
 
 #: ../data/ui/preferred-apps.glade.h:8
-#, fuzzy
 msgid "System Applications"
 msgstr "Aplicacions de sistema"
 
 #: ../data/ui/preferred-apps.glade.h:9
-#, fuzzy
 msgid "File Associations"
 msgstr "Associació de fitxer"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:2
-#, fuzzy
 msgid "<b>To:</b>"
 msgstr "<b>A:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:4
-#, fuzzy
 msgid "Preparing..."
 msgstr "S'està preparant..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
 msgstr "<b>Temps per a la finalització:</b>"
 
 #: ../data/ui/progress.glade.h:6
+#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr ""
+msgstr "<b>S'han produït alguns errors:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "桌面項目檔案：「%s」無效"
+msgstr ""
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
-#, fuzzy, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "未有設定用來開啟 URI %s:// 的應用程式"
+msgstr ""
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "不能將工作目錄切換至「%s」：%s"
+msgstr ""
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
-#, fuzzy, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "無法判斷「%s」檔案的內容類型，故無法開啟"
+msgstr ""
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "未有為 MIME 類型 %s 設定預設應用程式"
+msgstr ""
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
@@ -598,43 +614,40 @@ msgstr ""
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
-#, fuzzy
 msgid "Network"
 msgstr "Xarxa"
 
-#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
-#, fuzzy
+#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Paperera"
 
 #: ../src/base/fm-mime-type.c:86
 #, fuzzy
 msgid "shortcut to URI"
-msgstr "至 URI 的捷徑"
+msgstr "Dreceres"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr "fm_template_create_file：引數無效"
+msgstr ""
 
 #: ../src/base/fm-terminal.c:248
-#, fuzzy
 msgid "No terminal emulator is set in libfm config"
-msgstr "libfm 配置未有設定終端機模擬器"
+msgstr ""
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr "縮圖應用程式的說明無效"
+msgstr ""
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr "kB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
 msgstr "TB"
 
 #: ../src/base/fm-utils.c:164
-#, c-format, fuzzy
+#, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
@@ -659,7 +672,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "URI 子路徑「%s」包含的溢出字元無效"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -702,11 +715,11 @@ msgstr ""
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr "實體並非以分號結尾；很可能您想使用 & 字符但未將它變為實體 ─ 請將 & 轉換為 &amp;"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr "結束標記不能有空格"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
@@ -730,227 +743,231 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr "文件不正常結束"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr "文件完全空白或只含有空白字元"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr "fm_xml_file_to_data：XML 資料出錯"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
-#, fuzzy
 msgid "Customize"
 msgstr "Personalitza"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
+#, fuzzy, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>選取用來開啟「%s」檔案的應用程式</b>"
+msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
 
 #: ../src/gtk/fm-app-menu-view.c:224
-#, fuzzy
 msgid "Installed Applications"
 msgstr "Aplicacions instal·lades"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<沒有子資料夾>"
+msgstr ""
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
+#, fuzzy
 msgid "Loading..."
-msgstr "載入中..."
+msgstr "S'està preparant..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550
+#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
-msgstr "在側欄顯示目錄樹"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
+#, fuzzy
 msgid "_Cancel"
-msgstr "取消(_C)"
+msgstr "Cancel·lat"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr "複製到這裡(_O)"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
-msgstr "移到這裡(_M)"
+msgstr ""
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
-msgstr "連結到這裡(_L)"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:870
-#, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallit."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
-msgstr "開啟(_O)"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:152
+#, fuzzy
 msgid "Open _With..."
-msgstr "以其他程式開啟(_W)..."
+msgstr "Obre amb..."
 
 #: ../src/gtk/fm-file-menu.c:153
 #, fuzzy
 msgid "Open _With"
-msgstr "以其他程式開啟(_W)..."
+msgstr "Obre amb..."
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr "複製路徑(_T)"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
-msgstr "隱藏(_I)"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr "取消隱藏(_I)"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
+#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "新增到書籤(_A)"
+msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-file-menu.c:162
 #, fuzzy
 msgid "_Rename..."
-msgstr "重新命名(_R)..."
+msgstr "_Reanomena"
 
 #: ../src/gtk/fm-file-menu.c:163
+#, fuzzy
 msgid "Co_mpress..."
-msgstr "壓縮(_M)..."
+msgstr "Comprimeix"
 
 #: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
 msgid "Extract _Here"
-msgstr "解壓縮到此處(_H)"
+msgstr "Extreu aquí"
 
 #: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
 msgid "E_xtract To..."
-msgstr "解壓縮到(_X)..."
+msgstr "Extreu a..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
+#, fuzzy
 msgid "Prop_erties"
-msgstr "特性(_E)"
+msgstr "Propietats del fitxer"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 #, fuzzy
 msgid "Move to _Trash"
-msgstr "移至回收筒(_T)"
+msgstr "Paperera"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr "您已有此資料夾的書籤。"
+msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:367
+#: ../src/gtk/fm-file-properties.c:368
+#, fuzzy
 msgid "Image files"
-msgstr "圖片檔案"
+msgstr "Enviant arxius a la paperera"
 
-#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
+#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "位元組"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
 
-#: ../src/gtk/fm-file-properties.c:509
+#: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:587
-#, fuzzy
+#: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
 msgstr "Si us plau, introdueix un nom d'usuari/a vàlid o id numèrica."
 
-#: ../src/gtk/fm-file-properties.c:617
-#, fuzzy
+#: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
 msgstr "Si us plau, introdueix un nom de grup vàlid o id numèrica."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:826
-#, fuzzy
+#: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Vols aplicar aquests canvis de forma recursiva a tots els arxius i "
 "subcarpetes?"
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr "隱藏或取消隱藏檔案"
+msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:964
+#: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "此為隱藏檔，因為其名稱以「點號」(.) 開首。"
+msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:968
+#: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr "本系統的檔案若其名稱以「點號」(.) 就表示其為隱藏檔。按 <Ctrl+H> 切換是否顯示隱藏檔。"
-
-#: ../src/gtk/fm-file-properties.c:1025
-msgid "scanning..."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1087
-msgid "<b>_Access content:</b>"
-msgstr "<b>存取內容(_A)：</b>"
-
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1026
 #, fuzzy
+msgid "scanning..."
+msgstr "S'està preparant..."
+
+#: ../src/gtk/fm-file-properties.c:1088
+#, fuzzy
+msgid "<b>_Access content:</b>"
+msgstr "<b>Control d'accés</b>"
+
+#: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Arxius de diferents tipus"
 
-#: ../src/gtk/fm-file-properties.c:1285
+#: ../src/gtk/fm-file-properties.c:1286
+#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>檔案：</b>"
+msgstr "<b>Tipus de fitxer:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1351
+#: ../src/gtk/fm-file-properties.c:1352
 #, fuzzy
 msgid "Multiple files"
-msgstr "多個檔案"
+msgstr "diversos fitxers"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
-#, fuzzy
 msgid "Name"
 msgstr "Nom"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Description"
 msgstr "Descripció"
 
 #: ../src/gtk/fm-folder-model.c:192
-#, fuzzy
 msgid "Size"
 msgstr "Mida"
 
 #: ../src/gtk/fm-folder-model.c:193
+#, fuzzy
 msgid "Permissions"
-msgstr "權限"
+msgstr "_Permisos"
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
-msgstr "擁有者"
+msgstr ""
 
 #: ../src/gtk/fm-folder-model.c:195
-#, fuzzy
 msgid "Modified"
 msgstr "Modificat"
 
 #: ../src/gtk/fm-folder-model.c:196
+#, fuzzy
 msgid "Location"
-msgstr "位置"
+msgstr "<b>Ubicació:</b>"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
@@ -958,98 +975,105 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
-msgstr "建立新的(_N)..."
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
-msgstr "資料夾"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:182
+#, fuzzy
 msgid "Empty File"
-msgstr "空白檔案"
+msgstr "diversos fitxers"
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
-msgstr "反向選擇(_I)"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
-msgstr "排序檔案(_S)"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:196
 #, fuzzy
 msgid "_Rename Folder..."
-msgstr "重新命名資料來(_R)"
+msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:197
+#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "檔案特性(_E)"
+msgstr "Propietats del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr "顯示隱藏檔案(_H)"
+msgstr ""
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
 #, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "混合檔案與資料夾(_F)"
+msgstr "Si us plau, Selecciona una carpeta."
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "不理會名稱大小寫(_I)"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:219
+#, fuzzy
 msgid "By _Name"
-msgstr "依名稱(_N)"
+msgstr "Nom"
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
-msgstr "依修改時間(_M)"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:221
+#, fuzzy
 msgid "By _Size"
-msgstr "依大小(_S)"
+msgstr "Mida"
 
 #: ../src/gtk/fm-folder-view.c:222
+#, fuzzy
 msgid "By File _Type"
-msgstr "依檔案類型(_T)"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
-msgstr "為新建資料夾輸入名稱："
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:846
 #, fuzzy
 msgid "Creating New Folder"
-msgstr "正在新建資料夾"
+msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:859
+#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "為空白檔案輸入名稱："
+msgstr "Introdueix el nou nom: "
 
 #: ../src/gtk/fm-folder-view.c:860
+#, fuzzy
 msgid "Creating ..."
-msgstr "正在建立 ..."
+msgstr "Creant enllaços simbòlics"
 
 #: ../src/gtk/fm-folder-view.c:866
+#, fuzzy
 msgid "New"
-msgstr "新增"
+msgstr "Xarxa"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Enter a name for the new %s:"
-msgstr "為新建%s輸入名稱："
+msgstr "Introdueix el nou nom: "
 
 #: ../src/gtk/fm-folder-view.c:879
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Creating %s"
-msgstr "正在建立 %s"
+msgstr "Creant enllaços simbòlics"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "新建後為該檔案執行預設應用程式(_R)"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1057,165 +1081,166 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"這個文字檔 '%s' 似乎是可執行的 script。\n"
-"想要進行什麼操作？"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "這個檔案 '%s' 是可執行檔，是否想要執行？"
+msgstr ""
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr "未指定資料夾。"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 #, fuzzy
 msgid "Select Folder"
-msgstr "選取資料夾"
+msgstr "Si us plau, Selecciona una carpeta."
 
 #: ../src/gtk/fm-gtk-utils.c:70
-#, fuzzy
 msgid "Error"
 msgstr "Error"
 
 #: ../src/gtk/fm-gtk-utils.c:99 ../src/gtk/fm-gtk-utils.c:130
 msgid "Confirm"
-msgstr "確認"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:184
+#, fuzzy
 msgid "Question"
-msgstr "問題"
+msgstr "Descripció"
 
 #: ../src/gtk/fm-gtk-utils.c:708
-#, fuzzy
 msgid "Only system administrators have the permission to do this."
 msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "要將「%s」檔案移到垃圾桶嗎？"
+msgstr "Vols moure els fitxers seleccionats a la paperera?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "要將選取的 %d 個檔案移到垃圾桶嗎？"
+msgstr[0] "Vols moure els fitxers seleccionats a la paperera?"
+msgstr[1] "Vols moure els fitxers seleccionats a la paperera?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "真的要刪除已選的「%s」檔案？"
+msgstr "Vols suprimir els arxius seleccionats?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "真的要刪除已選的 %d 個檔案？"
+msgstr[0] "Vols suprimir els arxius seleccionats?"
+msgstr[1] "Vols suprimir els arxius seleccionats?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
-#, fuzzy
 msgid "Rename File"
 msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-gtk-utils.c:1093
-#, fuzzy
 msgid "Please enter a new name:"
 msgstr "Si us plau, escriu un nom nou:"
 
 #: ../src/gtk/fm-gtk-utils.c:1160
-#, fuzzy
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Estàs segur/a que vols buidar la paperera?"
 
 #: ../src/gtk/fm-path-entry.c:668
-#, fuzzy
 msgid "Pa_ste and Go"
-msgstr "貼上並前往(_S)"
+msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:727
+#, fuzzy
 msgid "Folder location bar"
-msgstr "資料夾位置列"
+msgstr "Associació de fitxer"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+#, fuzzy
 msgid "Home Folder"
-msgstr "家目錄"
+msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
-#, fuzzy
 msgid "Desktop"
 msgstr "Escriptori"
 
 #: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
 #: ../src/modules/vfs-menu.c:1565
-#, fuzzy
 msgid "Applications"
 msgstr "Aplicacions"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 #, fuzzy
 msgid "Filesystem Root"
-msgstr "檔案系統根目錄"
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../src/gtk/fm-places-view.c:131
+#, fuzzy
 msgid "_Mount Volume"
-msgstr "掛載磁碟(_M)"
+msgstr "Munta el volum"
 
 #: ../src/gtk/fm-places-view.c:132
+#, fuzzy
 msgid "_Unmount Volume"
-msgstr "卸載磁碟(_U)"
+msgstr "Desmunta el volum"
 
 #: ../src/gtk/fm-places-view.c:133
+#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "退出移除式媒體(_E)"
+msgstr "Expulsa els suports extraïbles"
 
 #: ../src/gtk/fm-places-view.c:134
+#, fuzzy
 msgid "_Format Volume"
-msgstr "格式化儲存區(_F)"
+msgstr "Munta el volum"
 
 #: ../src/gtk/fm-places-view.c:150
+#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "重新命名書籤項目(_R)"
+msgstr "Canvia el nom del marcador"
 
 #: ../src/gtk/fm-places-view.c:151
+#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr ""
+msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:152
+#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "上移書籤(_U)"
+msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:153
+#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "下移書籤(_D)"
+msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
+#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "清空垃圾桶(_E)"
+msgstr "Buida la paperera"
 
-#: ../src/gtk/fm-places-view.c:533
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "在側欄顯示常用地點、裝置和書籤清單"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:1102
-#, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Canvia el nom del marcador"
 
 #: ../src/gtk/fm-places-view.c:1103
-#, fuzzy
 msgid "Enter a new name:"
 msgstr "Introdueix el nou nom: "
 
 #: ../src/gtk/fm-progress-dlg.c:127
-#, fuzzy
 msgid ": "
 msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
@@ -1226,7 +1251,7 @@ msgstr ""
 "Modificat: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
@@ -1239,21 +1264,19 @@ msgid "<b>Errors occured before file operation was stopped.</b>"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:328
-#, fuzzy
 msgid "Cancelled"
 msgstr "Cancel·lat"
 
 #: ../src/gtk/fm-progress-dlg.c:332
+#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr ""
+msgstr "S'ha cancel·lat l'operació de fitxer i s'han produït alguns errors."
 
 #: ../src/gtk/fm-progress-dlg.c:334
-#, fuzzy
 msgid "Finished"
 msgstr "S'ha finalitzat"
 
 #: ../src/gtk/fm-progress-dlg.c:356
-#, fuzzy
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1265,36 +1288,40 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr "暫停(_P)"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:405
+#, fuzzy
 msgid "_Resume"
-msgstr "恢復(_R)"
+msgstr "_Restaura"
 
 #: ../src/gtk/fm-progress-dlg.c:562
-#, fuzzy
 msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
+#, fuzzy
 msgid "Moving"
-msgstr ""
+msgstr "S'estan movent els fitxers"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
+#, fuzzy
 msgid "Copying"
-msgstr ""
+msgstr "S'estan copiant els fitxers"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
+#, fuzzy
 msgid "Trashing"
-msgstr ""
+msgstr "Enviant arxius a la paperera"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
+#, fuzzy
 msgid "Deleting"
-msgstr ""
+msgstr "S'estan suprimint els fitxers"
 
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
@@ -1303,19 +1330,21 @@ msgstr ""
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
+#, fuzzy
 msgid "Changing attributes of"
-msgstr ""
+msgstr "Canvia atributs d'arxiu"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
+#, fuzzy
 msgid "Restoring"
-msgstr ""
+msgstr "_Restaura"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, c-format
+#, fuzzy, c-format
 msgid "%s files"
-msgstr ""
+msgstr "Enviant arxius a la paperera"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
@@ -1323,143 +1352,140 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, c-format
+#, fuzzy, c-format
 msgid "<b>%s file:</b>"
-msgstr ""
+msgstr "<b>Tipus de fitxer:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, c-format
+#, fuzzy, c-format
 msgid "<b>%s files:</b>"
-msgstr ""
+msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr "關(_O)"
+msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
-msgstr "地點(_P)"
+msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:68
 msgid "_Directory Tree"
-msgstr "目錄樹(_D)"
+msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
-msgstr "遠端(_R)"
+msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:426
+#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
-msgstr "位置"
+msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:436
+#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
-msgstr "目錄樹"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr "資料來內容檢視"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
-msgstr "隱藏(_H) %s"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:839
-#, fuzzy
 msgid "_Move Left"
-msgstr "左移(_M)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:845
-#, fuzzy
 msgid "Move _Right"
-msgstr "右移(_R)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
-msgstr "顯示 %s"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:880
-#, fuzzy
 msgid "_Forget Width"
-msgstr "忘記寬度(_F)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr "圖示檢視(_I)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr "簡潔清單檢視(_C)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr "縮圖檢視(_T)"
+msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr "詳細清單檢視(_L)"
+msgstr ""
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr "變更作用中的分頁"
+msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:348
-#, c-format, c-format
+#: ../src/job/fm-dir-list-job.c:362
+#, fuzzy, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "指定的「%s」目錄無效"
+msgstr "El directori especificat no és vàlid"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr "不能存取目的地檔案"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
-msgstr "不能在非原生檔案系統建立連結"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format, c-format
+#, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "無法將刪除的檔案「%s」還原：不知道原來的路徑"
+msgstr "Restaura arxius de la paperera a les seves rutes originals"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr "來源和目的檔案相同"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
-msgstr "無法將資料夾移動到子資料夾內"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
-msgstr "無法將資料夾複製到子資料夾內"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr "目的資料夾是來源資料夾的子資料夾"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "無法複製「%s」檔案：不支援"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr "只能為單一檔案設定顯示名稱"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr "只能為單一檔案設定目標"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML 檔案「%s」出錯 (%d:%d)："
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1469,82 +1495,82 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "不能為「%s」建立 XML 定義"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "選單路徑「%s」已經存在"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
-msgstr "選單快取出錯"
+msgstr ""
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr "不支援此作業"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr "選單目錄無效"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
-msgstr "選單項目名稱不能是空的。"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "選單目錄「%s」無效"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr "選單項目無效"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "選單項目「%s」沒有合適的項目檔案"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr "選單目錄不支援變更隱藏狀態"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "不支援「%s」屬性"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "屬性「%s」的值無效"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr "「%s」並非選單目錄"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "「%s」並非選單項目"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "「%s」項目檔已損毀"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "無法建立選單項目「%s」"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "選單目錄的名稱不能以 \".desktop\" 結尾"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
@@ -1552,276 +1578,269 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
-msgstr "目的地無效"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor：選單快取中找不到「%s」資料夾"
+msgstr ""
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
 msgid "Search"
-msgstr "搜尋"
+msgstr ""
 
 #: ../src/modules/vfs-search.c:1052
+#, fuzzy
 msgid "Search Results"
-msgstr "搜尋結果"
+msgstr "Canvia el nom del fitxer"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 #, fuzzy
 msgid "Choose Executable File"
-msgstr "選擇執行檔"
+msgstr "diversos fitxers"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 #, fuzzy
 msgid "Executable files"
-msgstr "執行檔"
+msgstr "diversos fitxers"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
+#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>指令(_M)：</b>"
+msgstr "<b>A:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr "啟動應用程式圖示時執行的指令"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
+#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>說明(_E)：</b>"
+msgstr "<b>Ubicació:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "應用程式通用名稱"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
+#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>工作目錄(_W)：</b>"
+msgstr "<b>Pr_opietari:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr "用來執行程式的工作目錄"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
+#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>工具提示(_T)：</b>"
+msgstr "<b>A:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
+#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "在應用程式顯示的工具提示"
+msgstr "Trieu una aplicació"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr "使用啟動通知(_U)"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 #, fuzzy
 msgid "_Desktop Entry"
-msgstr "桌面項目(_D)"
+msgstr "Escriptori"
 
 #: ../src/modules/gtk-menu-trash.c:72
-#, fuzzy
 msgid "_Restore"
 msgstr "_Restaura"
 
 #: ../src/modules/gtk-menu-trash.c:73
-#, fuzzy
 msgid "Restore trashed files to original paths"
 msgstr "Restaura arxius de la paperera a les seves rutes originals"
 
 #: ../src/tools/lxshortcut.c:42
-#, fuzzy
 msgid "source file name or desktop id"
-msgstr "來源檔案名稱或桌面ID"
+msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr "來源"
+msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr "結果檔案名稱"
+msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr "結果"
+msgstr ""
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "CD-ROM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "空白 CD-ROM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr "CD-R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "空白 CD-R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr "CD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "空白 CD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr "DVD-ROM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "空白 DVD-ROM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr "DVD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "空白 DVD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr "DVD-RAM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "空白 DVD-RAM 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr "DVD+R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "空白 DVD+R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr "DVD+RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "空白 DVD+RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "DVD+R 雙層光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "空白 DVD+R 雙層光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr "DVD+RW 雙層光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "空白 DVD+RW 雙層光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr "Blu-Ray 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr "空白 Blu-Ray 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr "Blu-Ray R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr "空白 Blu-Ray R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr "Blu-Ray RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "空白 Blu-Ray RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr "HD DVD 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "空白 HD DVD 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr "HD DVD-R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "空白 HD DVD-R 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr "HD DVD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "空白 HD DVD-RW 光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr "MO 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr "空白 MO 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr "MRW 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr "空白 MRW 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr "MRW/W 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr "空白 MRW/W 碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "空白光碟"
+msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "光碟"
+msgstr ""
 
 #, fuzzy
 #~ msgid "<b>File type to be opened:</b>"
 #~ msgstr "<b>Tipus de fitxer a obrir:</b>"
-
-#, fuzzy
-#~ msgid "_Installed Application"
-#~ msgstr "Aplicació instal·lada"
-
-#, fuzzy
-#~ msgid "_Set selected application as default action of this file type"
-#~ msgstr ""
-#~ "Defineix l'aplicació seleccionada com a la predeterminada per a aquest tipus "
-#~ "de fitxer"
 
 #~ msgid "<b>Processing:</b>"
 #~ msgstr "<b>S'està processant:</b>"
@@ -1829,46 +1848,13 @@ msgstr "光碟"
 #~ msgid "<b>Progress:</b>"
 #~ msgstr "<b>Progrès:</b>"
 
-#~ msgid "<b>Some errors occurred:</b>"
-#~ msgstr "<b>S'han produït alguns errors:</b>"
-
-#, fuzzy
-#~ msgid "_Rename Folder"
-#~ msgstr "Canvia el nom del fitxer"
-
-#, fuzzy
-#~ msgid "Re_move from Bookmark"
-#~ msgstr "Suprimeix de les adreces d'interès"
-
-#~ msgid "The file operation is cancelled and there are some errors."
-#~ msgstr "S'ha cancel·lat l'operació de fitxer i s'han produït alguns errors."
-
 #~ msgid "The file operation is finished, but there are some errors."
-#~ msgstr "Ha finalitzat l'operació de fitxer, però s'han produït alguns errors."
-
-#, fuzzy
-#~ msgid "Moving Files"
-#~ msgstr "S'estan movent els fitxers"
-
-#, fuzzy
-#~ msgid "Copying Files"
-#~ msgstr "S'estan copiant els fitxers"
-
-#, fuzzy
-#~ msgid "Trashing Files"
-#~ msgstr "Enviant arxius a la paperera"
-
-#, fuzzy
-#~ msgid "Deleting Files"
-#~ msgstr "S'estan suprimint els fitxers"
+#~ msgstr ""
+#~ "Ha finalitzat l'operació de fitxer, però s'han produït alguns errors."
 
 #, fuzzy
 #~ msgid "Creating Symlinks"
 #~ msgstr "Creant enllaços simbòlics"
-
-#, fuzzy
-#~ msgid "Changing File Attributes"
-#~ msgstr "Canvia atributs d'arxiu"
 
 #~ msgid "_Browse"
 #~ msgstr "_Navega"
@@ -1934,205 +1920,3 @@ msgstr "光碟"
 
 #~ msgid "Write only"
 #~ msgstr "Només escriptura"
-
-#~ msgid "Sticky"
-#~ msgstr "駐留(Sticky)"
-
-#~ msgid "Set UID"
-#~ msgstr "設定 UID"
-
-#~ msgid "Only owner"
-#~ msgstr "只有擁有者"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "<b>Processing:</b>"
-#~ msgstr "<b>正在處理：</b>"
-
-#~ msgid "<b>Progress:</b>"
-#~ msgstr "<b>進度：</b>"
-
-#~ msgid "<b>Some errors occurred:</b>"
-#~ msgstr "<b>有錯誤發生：</b>"
-
-#~ msgid "Re_move from Bookmark"
-#~ msgstr "從書籤刪除(_M)"
-
-#~ msgid "The file operation is cancelled and there are some errors."
-#~ msgstr "檔案操作已取消，且過程中有錯誤發生。"
-
-#~ msgid "The file operation is finished, but there are some errors."
-#~ msgstr "檔案操作已完成，但過程中有錯誤發生。"
-
-#, fuzzy
-#~ msgid "Moving Files"
-#~ msgstr "正在移動檔案"
-
-#, fuzzy
-#~ msgid "Copying Files"
-#~ msgstr "正在複製檔案"
-
-#, fuzzy
-#~ msgid "Trashing Files"
-#~ msgstr "正將檔案移到垃圾桶"
-
-#, fuzzy
-#~ msgid "Deleting Files"
-#~ msgstr "正在刪除檔案"
-
-#, fuzzy
-#~ msgid "Creating Symlinks"
-#~ msgstr "建立符號連結"
-
-#, fuzzy
-#~ msgid "Changing File Attributes"
-#~ msgstr "變更檔案屬性"
-
-#~ msgid "_Rename Folder"
-#~ msgstr "重新命名資料來(_R)"
-
-#, fuzzy
-#~ msgid "<b>File type to be opened:</b>"
-#~ msgstr "<b>要開啟的檔案類型：</b>"
-
-#~ msgid "_Installed Application"
-#~ msgstr "已安裝應用程式(_I)"
-
-#~ msgid "_Set selected application as default action of this file type"
-#~ msgstr "將選取的應用程式設定為這類型檔案的預設處理程式(_S)"
-
-#~ msgid "_Browse"
-#~ msgstr "瀏覽(_B)"
-
-#~ msgid "My Computer"
-#~ msgstr "我的電腦"
-
-#~ msgid "_Move"
-#~ msgstr "移動(_M)"
-
-#~ msgid "_Trash"
-#~ msgstr "垃圾桶(_T)"
-
-#~ msgid "_Only for this folder"
-#~ msgstr "只在此資料夾(_O)"
-
-#~ msgid "Check to remember sort as folder setting rather than global one"
-#~ msgstr "勾選記住資料夾排序設定，而非全域設定"
-
-#~ msgid "Please select a folder"
-#~ msgstr "請選擇資料夾"
-
-#~ msgid "Entry for folder path"
-#~ msgstr "資料夾路徑項目"
-
-#~ msgid "Computer"
-#~ msgstr "電腦"
-
-#~ msgid "Network Drives"
-#~ msgstr "網路磁碟"
-
-#~ msgid "_Run in terminal emulator"
-#~ msgstr "在終端機模擬器執行(_R)"
-
-#~ msgid "_Keep terminal window open after run"
-#~ msgstr "執行後保持終端機視窗開啟(_K)"
-
-#~ msgid "Shortcuts"
-#~ msgstr "捷徑"
-
-#~ msgid "Mount Point"
-#~ msgstr "掛載點"
-
-#~ msgid "Create _Symlink"
-#~ msgstr "建立符號連結(_S)"
-
-#~ msgid "Se_nd To"
-#~ msgstr "傳送到(_N)"
-
-#~ msgid "Blank File"
-#~ msgstr "空白檔案"
-
-#~ msgid "Error, lxshortcut not installed"
-#~ msgstr "錯誤，未安裝 lxshortcut"
-
-#~ msgid "Failed to start lxshortcut"
-#~ msgstr "未能啟動 lxshortcut"
-
-#~ msgid "<b>_Group:</b>"
-#~ msgstr "<b>群組(_G)：</b>"
-
-#~ msgid "Rename"
-#~ msgstr "重新命名"
-
-#~ msgid "Make the file executable"
-#~ msgstr "將檔案標示為可執行"
-
-#~ msgid "Operations that all other users can do"
-#~ msgstr "所有使用者都能進行的操作"
-
-#~ msgid "Operations that the owner of the file can do"
-#~ msgstr "檔案擁有者能夠進行的操作"
-
-#~ msgid ""
-#~ "Operations that users in the same group as the owner of the file can do"
-#~ msgstr "和檔案擁有者同群組的使用者能夠進行的操作"
-
-#~ msgid "Read and Write"
-#~ msgstr "讀和寫"
-
-#~ msgid "Read only"
-#~ msgstr "只能讀取"
-
-#~ msgid "Write only"
-#~ msgstr "只能寫入"
-
-#, fuzzy
-#~ msgid "Selection mode"
-#~ msgstr "反相選取"
-
-#, fuzzy
-#~ msgid "The selection mode"
-#~ msgstr "選擇一個資料夾"
-
-#~ msgid "_File"
-#~ msgstr "檔案(_F)"
-
-#~ msgid "_New Window"
-#~ msgstr "開新視窗"
-
-#~ msgid "_Close Window"
-#~ msgstr "關閉視窗(_C)"
-
-#~ msgid "_Edit"
-#~ msgstr "編輯(_E)"
-
-#~ msgid "Move To..."
-#~ msgstr "移動到..."
-
-#~ msgid "Copy To..."
-#~ msgstr "複製到..."
-
-#~ msgid "_View"
-#~ msgstr "檢視(_V)"
-
-#~ msgid "_Help"
-#~ msgstr "說明(_H)"
-
-#~ msgid "_Go"
-#~ msgstr "到(_G)"
-
-#~ msgid "Previous Folder"
-#~ msgstr "上一個資料夾"
-
-#~ msgid "Parent Folder"
-#~ msgstr "上一層資料夾"
-
-#~ msgid "Go to parent Folder"
-#~ msgstr "到上一層資料夾"
-
-#~ msgid "_Bookmarks"
-#~ msgstr "書籤(_B)"
-
-#~ msgid "Open in New Window"
-#~ msgstr "在新視窗中開啟"
