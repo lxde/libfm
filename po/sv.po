@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2013-12-04 21:51+0000\n"
+"POT-Creation-Date: 2014-01-07 01:52+0200\n"
+"PO-Revision-Date: 2014-01-09 08:29+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1386193914.0\n"
+"X-POOTLE-MTIME: 1389256143.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -195,9 +195,8 @@ msgid "Select the application used to open files of this type "
 msgstr "Ange program för att öppna filer av denna typ "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Total storlek på filer:</b>"
+msgstr "<b>Totalt antal filer:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
@@ -288,7 +287,6 @@ msgid "None"
 msgstr "Ingen"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -304,7 +302,6 @@ msgid "Sticky & set GID"
 msgstr "Sticky och ange GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Ange UID"
@@ -314,7 +311,6 @@ msgid "Set UID & GID"
 msgstr "Ange UID och GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -370,6 +366,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Mönster kan vara antingen en POSIX-skal-lista (med \",\" som avdelare) eller "
+"ett reguljärt uttryck (POSIX)."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -424,19 +422,20 @@ msgid "_Documents"
 msgstr "_Dokument"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Katalog"
+msgstr "Kataloge_r"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "A_nnat:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Innehållstyp kan anges här. Jokertecken \"*\" är tillåtet i slutet på typen. "
+"Flera typer separeras med \";\"."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -535,7 +534,6 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Tid kvar:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Fel uppstod:</b>"
 
@@ -574,7 +572,7 @@ msgstr "Enheter"
 msgid "Network"
 msgstr "Nätverk"
 
-#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Papperskorg"
 
@@ -651,8 +649,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett &-"
-"tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
+"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett "
+"&-tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -694,8 +692,7 @@ msgstr "Elementet \"%s\" avslutades men hade aldrig öppnats"
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
-"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är "
-"\"%s\""
+"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är \"%s\""
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -705,8 +702,7 @@ msgstr "Otillåtet tecken \"%c\" i början på attributvärde"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
-"Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
+msgstr "Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -741,7 +737,7 @@ msgstr "<Ingen underkatalog>"
 msgid "Loading..."
 msgstr "Läser..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-dir-tree-view.c:550
 msgid "Shows tree of directories in sidebar"
 msgstr "Visar katalogträdet i sidovyn"
 
@@ -775,9 +771,8 @@ msgid "Open _With..."
 msgstr "_Öppna med..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "_Öppna med..."
+msgstr "_Öppna med"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -796,9 +791,8 @@ msgid "_Add to Bookmarks"
 msgstr "_Lägg till bland bokmärken"
 
 #: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
 msgid "_Rename..."
-msgstr "_Byt namn"
+msgstr "_Byt namn..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -825,45 +819,45 @@ msgstr "Flytta till _Papperskorgen"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Det finns redan ett bokmärke för denna mapp."
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:367
 msgid "Image files"
 msgstr "Bildfiler"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "byte"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:509
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "söker av... %d"
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:587
 msgid "Please enter a valid user name or numeric id."
 msgstr "Ange ett korrekt användarnamn eller numeriskt ID."
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:617
 msgid "Please enter a valid group name or numeric id."
 msgstr "Ange ett korrekt gruppnamn eller numeriskt ID."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:826
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Vill du utföra förändringarna rekursivt på alla filer och underkataloger?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:959
 msgid "Hide or unhide the file"
 msgstr "Göm eller visa filen"
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:964
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Filen är gömd eftersom namnet börjar med en punkt (\".\")."
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:968
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -871,24 +865,23 @@ msgstr ""
 "Filer på detta system är gömda när deras namn börjar med en punkt (\".\"). "
 "Använg <Ctrl+H> för att styra visningen av gömda filer."
 
-#: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
+#: ../src/gtk/fm-file-properties.c:1025
 msgid "scanning..."
-msgstr "Läser..."
+msgstr "söker..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1087
 msgid "<b>_Access content:</b>"
 msgstr "<b>K_an komma åt informationen:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1241
 msgid "Files of different types"
 msgstr "Filer av olika typ"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1285
 msgid "<b>File:</b>"
 msgstr "<b>Fil:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1351
 msgid "Multiple files"
 msgstr "Flera filer"
 
@@ -923,7 +916,7 @@ msgstr "Plats"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Filändelse"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -946,9 +939,8 @@ msgid "_Sort Files"
 msgstr "_Sortera filer"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "_Byt namn på katalog"
+msgstr "_Byt namn på katalog..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -1138,9 +1130,8 @@ msgid "_Rename Bookmark Item"
 msgstr "_Byt namn på bokmärke"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "_Ta bort bokmärke"
+msgstr "_Ta bort från bokmärken"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
@@ -1154,7 +1145,7 @@ msgstr "Flytta bokmärke ne_dåt"
 msgid "_Empty Trash Can"
 msgstr "Töm _papperskorgen"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
+#: ../src/gtk/fm-places-view.c:533
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "Visar en lista med vanliga platser, enhet och bokmärken i sidovyn"
 
@@ -1192,16 +1183,15 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Fel inträffade innan filoperationen stoppades.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Avbruten"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Filoperationen avbröts och fel rapporterades."
+msgstr "<b>Filoperationen avslutades med fel.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1231,66 +1221,61 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
 msgid "Moving"
-msgstr "Flyttar filer"
+msgstr "Flyttar"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
 msgid "Copying"
-msgstr "Kopierar filer"
+msgstr "Kopierar"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
 msgid "Trashing"
-msgstr "Kastar filer"
+msgstr "Slänger"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
 msgid "Deleting"
-msgstr "Raderar filer"
+msgstr "Tar bort"
 
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
+#, fuzzy
 msgid "Symlinking"
-msgstr ""
+msgstr "Mjuklänkar"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "Byter filegenskaper"
+msgstr "Ändrar egenskaper"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
 msgid "Restoring"
-msgstr "_Återställ"
+msgstr "Återställer"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "bildfiler"
+msgstr "%s filer"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Filoperation genomförs...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Fil:</b>"
+msgstr "<b>%s filer:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Fil:</b>"
+msgstr "<b>%s filer:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1308,11 +1293,11 @@ msgstr "_Katalogträd"
 msgid "_Remote"
 msgstr "_Fjärr"
 
-#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
+#: ../src/gtk/fm-side-pane.c:426
 msgid "Places"
 msgstr "Platser"
 
-#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
+#: ../src/gtk/fm-side-pane.c:436
 msgid "Directory Tree"
 msgstr "Katalogträd"
 
@@ -1363,7 +1348,7 @@ msgid "Changes active tab"
 msgstr "Byter aktuell flik"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:362
+#: ../src/job/fm-dir-list-job.c:348
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Katalogen \"%s\" som angavs är inte korrekt"
@@ -1759,6 +1744,15 @@ msgstr "Tom optisk skiva"
 msgid "Optical Disc"
 msgstr "Optisk skiva"
 
+#~ msgid "Sticky"
+#~ msgstr "Sticky"
+
+#~ msgid "Set UID"
+#~ msgstr "Ange UID"
+
+#~ msgid "Only owner"
+#~ msgstr "Endast ägare"
+
 #~ msgid "*"
 #~ msgstr "*"
 
@@ -1768,11 +1762,38 @@ msgstr "Optisk skiva"
 #~ msgid "<b>Progress:</b>"
 #~ msgstr "<b>Förlopp:</b>"
 
+#~ msgid "<b>Some errors occurred:</b>"
+#~ msgstr "<b>Fel uppstod:</b>"
+
+#~ msgid "_Rename Folder"
+#~ msgstr "_Byt namn på katalog"
+
+#~ msgid "Re_move from Bookmark"
+#~ msgstr "_Ta bort bokmärke"
+
+#~ msgid "The file operation is cancelled and there are some errors."
+#~ msgstr "Filoperationen avbröts och fel rapporterades."
+
 #~ msgid "The file operation is finished, but there are some errors."
 #~ msgstr "Filoperationen avslutade men fel förekom."
 
+#~ msgid "Moving Files"
+#~ msgstr "Flyttar filer"
+
+#~ msgid "Copying Files"
+#~ msgstr "Kopierar filer"
+
+#~ msgid "Trashing Files"
+#~ msgstr "Kastar filer"
+
+#~ msgid "Deleting Files"
+#~ msgstr "Raderar filer"
+
 #~ msgid "Creating Symlinks"
 #~ msgstr "Skapar symboliska länkar"
+
+#~ msgid "Changing File Attributes"
+#~ msgstr "Byter filegenskaper"
 
 #~ msgid "<b>File type to be opened:</b>"
 #~ msgstr "<b>Filtyp att öppna:</b>"
