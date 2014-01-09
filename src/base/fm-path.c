@@ -351,6 +351,15 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
 #else
         iter = g_sequence_search(parent->children, path,
                                  (GCompareDataFunc)fm_path_compare, NULL);
+        if (iter)
+        {
+            FmPath *pp = NULL;
+            iter = g_sequence_iter_prev(iter);
+            if (iter)
+                pp = g_sequence_get(iter);
+            if (fm_path_compare(pp, path) != 0)
+                iter = NULL;
+        }
 #endif
         if (iter)
         {
