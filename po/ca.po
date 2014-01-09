@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2010-05-03 18:37+0100\n"
-"Last-Translator: el_libre -- www.catmidia.cat <el.libre@gmail.com>\n"
+"PO-Revision-Date: 2014-01-09 18:04+0100\n"
+"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-POOTLE-MTIME: 1389286690.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -27,45 +28,39 @@ msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Dreceres"
+msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Trieu una aplicació"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
 msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "Aplicació instal·lada"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Ordre a executar:</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Navega"
+msgstr ""
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Executa-ho a un emulador de terminal"
+msgstr ""
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
@@ -97,9 +92,8 @@ msgid "Execute custom command line to open files"
 msgstr "Executa la línia de comandes personalitzada per obrir arxius"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "Intèrpret d'ordres personalitzat"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:17
 #, fuzzy
@@ -140,46 +134,38 @@ msgid "with the following file?"
 msgstr "amb el següent nom?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
-msgstr "Nom del fitxer:"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Aplica aquesta opció a tots els fitxers existents"
+msgstr ""
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Trieu una aplicació"
+msgstr ""
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
-msgstr "Aplicacions de sistema"
+msgstr ""
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
-msgstr "Enviant arxius a la paperera"
+msgstr ""
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Destí:</b>"
+msgstr ""
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "diversos fitxers"
+msgstr ""
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Executa-ho a un emulador de terminal"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -190,23 +176,20 @@ msgid "Icon of the file in folder view"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:3
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>Pr_opietari:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
 msgstr "<b>Ubicació:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Destí:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Open _with:</b>"
@@ -222,9 +205,8 @@ msgid "<b>Total count of files:</b>"
 msgstr "<b>Mida total dels fitxers:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
-msgstr "<b>Mida total dels fitxers:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:11
 #, fuzzy
@@ -251,34 +233,28 @@ msgid "_General"
 msgstr "_General"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Propietari:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grup:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:18
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Client de correu</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:19
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Destí:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:20
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Altres:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Obre _amb:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
@@ -305,9 +281,8 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Control d'accés</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "S'estan movent els fitxers"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -389,9 +364,8 @@ msgid "Choose a date from the following calendar"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "Canvia el nom del fitxer"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:8
 #, fuzzy
@@ -429,23 +403,20 @@ msgid "Name/_Location"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "S'estan suprimint els fitxers"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Enviant arxius a la paperera"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
@@ -475,23 +446,20 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "File _Type"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Mida en disc:</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
@@ -502,15 +470,13 @@ msgid "_Bigger than:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:32
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Última modificació:</b>"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
-#, fuzzy
 msgid "(None)"
-msgstr "Cap"
+msgstr ""
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
@@ -521,9 +487,8 @@ msgid "L_ater than:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:36
-#, fuzzy
 msgid "_Properties"
-msgstr "Propietats del fitxer"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -640,7 +605,7 @@ msgstr ""
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
@@ -758,9 +723,9 @@ msgid "Customize"
 msgstr "Personalitza"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -771,18 +736,16 @@ msgid "<No subfolders>"
 msgstr ""
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
-#, fuzzy
 msgid "Loading..."
-msgstr "S'està preparant..."
+msgstr ""
 
 #: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "_Cancel"
-msgstr "Cancel·lat"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
@@ -806,9 +769,8 @@ msgid "_Open"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:152
-#, fuzzy
 msgid "Open _With..."
-msgstr "Obre amb..."
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:153
 #, fuzzy
@@ -828,9 +790,8 @@ msgid "Unh_ide"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "Suprimeix de les adreces d'interès"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:162
 #, fuzzy
@@ -838,24 +799,20 @@ msgid "_Rename..."
 msgstr "_Reanomena"
 
 #: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Comprimeix"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Extreu aquí"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Extreu a..."
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Propietats del fitxer"
+msgstr ""
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
@@ -868,16 +825,14 @@ msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:368
-#, fuzzy
 msgid "Image files"
-msgstr "Enviant arxius a la paperera"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
@@ -920,18 +875,16 @@ msgid "scanning..."
 msgstr "S'està preparant..."
 
 #: ../src/gtk/fm-file-properties.c:1088
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Control d'accés</b>"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Arxius de diferents tipus"
 
 #: ../src/gtk/fm-file-properties.c:1286
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1352
 #, fuzzy
@@ -952,9 +905,8 @@ msgid "Size"
 msgstr "Mida"
 
 #: ../src/gtk/fm-folder-model.c:193
-#, fuzzy
 msgid "Permissions"
-msgstr "_Permisos"
+msgstr ""
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
@@ -965,9 +917,8 @@ msgid "Modified"
 msgstr "Modificat"
 
 #: ../src/gtk/fm-folder-model.c:196
-#, fuzzy
 msgid "Location"
-msgstr "<b>Ubicació:</b>"
+msgstr ""
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
@@ -982,9 +933,8 @@ msgid "Folder"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:182
-#, fuzzy
 msgid "Empty File"
-msgstr "diversos fitxers"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
@@ -1000,9 +950,8 @@ msgid "_Rename Folder..."
 msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Propietats del fitxer"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
@@ -1019,23 +968,20 @@ msgid "_Ignore Name Case"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:219
-#, fuzzy
 msgid "By _Name"
-msgstr "Nom"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:221
-#, fuzzy
 msgid "By _Size"
-msgstr "Mida"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:222
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Tipus de fitxer:</b>"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
@@ -1047,29 +993,26 @@ msgid "Creating New Folder"
 msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:859
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Introdueix el nou nom: "
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:860
-#, fuzzy
 msgid "Creating ..."
-msgstr "Creant enllaços simbòlics"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:866
-#, fuzzy
 msgid "New"
-msgstr "Xarxa"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Introdueix el nou nom: "
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Creant enllaços simbòlics"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1106,37 +1049,36 @@ msgid "Confirm"
 msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:184
-#, fuzzy
 msgid "Question"
-msgstr "Descripció"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Vols moure els fitxers seleccionats a la paperera?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Vols moure els fitxers seleccionats a la paperera?"
-msgstr[1] "Vols moure els fitxers seleccionats a la paperera?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Vols suprimir els arxius seleccionats?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Vols suprimir els arxius seleccionats?"
-msgstr[1] "Vols suprimir els arxius seleccionats?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1155,14 +1097,12 @@ msgid "Pa_ste and Go"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Associació de fitxer"
+msgstr ""
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "Canvia el nom del fitxer"
+msgstr ""
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1179,29 +1119,24 @@ msgid "Filesystem Root"
 msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../src/gtk/fm-places-view.c:131
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Munta el volum"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:132
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Desmunta el volum"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:133
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Expulsa els suports extraïbles"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Munta el volum"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:150
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Canvia el nom del marcador"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:151
 #, fuzzy
@@ -1209,19 +1144,16 @@ msgid "Re_move from Bookmarks"
 msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Suprimeix de les adreces d'interès"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Suprimeix de les adreces d'interès"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Buida la paperera"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1291,9 +1223,8 @@ msgid "_Pause"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
-msgstr "_Restaura"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
@@ -1434,9 +1365,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "El directori especificat no és vàlid"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1447,9 +1378,9 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Restaura arxius de la paperera a les seves rutes originals"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1591,9 +1522,8 @@ msgid "Search"
 msgstr ""
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
-msgstr "Canvia el nom del fitxer"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 #, fuzzy
@@ -1606,41 +1536,36 @@ msgid "Executable files"
 msgstr "diversos fitxers"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>A:</b>"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Ubicació:</b>"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Pr_opietari:</b>"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>A:</b>"
+msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Trieu una aplicació"
+msgstr ""
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
