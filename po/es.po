@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-06 08:32+0000\n"
+"PO-Revision-Date: 2014-01-10 12:18+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1388997140.0\n"
+"X-POOTLE-MTIME: 1389356285.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -373,6 +373,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Das Muster entspricht entweder der POSIX shell Musterliste (mit ',' als "
+"Trennzeichen) oder POSIX regulären Ausdruck."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -439,6 +441,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Jeder beliebige Content-Type kann eingegeben werden. Wildcard '*' ist am "
+"Ende des Typus erlaubt. Mehrere Typen müssen mit einem ';' getrennt werden."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -643,7 +647,7 @@ msgid ""
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "No se pudo analizar «%-.*s», que debería tener un dígito en una referencia "
-"de carácter (p.ej.: &#234;), quizás el dígito es demasiado grande"
+"de carácter (p.ej., &#234;), quizás el dígito es demasiado grande"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -923,7 +927,7 @@ msgstr "Ubicación"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Erweiterung"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1022,7 +1026,7 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"El archivo de texto «%s» parece ser un script ejecutable.\n"
+"El archivo de texto «%s» parece ser un <i>script</i> ejecutable.\n"
 "¿Qué quiere hacer con él?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
