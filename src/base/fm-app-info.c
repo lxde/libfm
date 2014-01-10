@@ -345,6 +345,9 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
+#if GLIB_CHECK_VERSION(2,24,0)
+            if (!supported) /* it was launched otherwise, see above */
+#endif
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))
