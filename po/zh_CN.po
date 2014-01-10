@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2013-12-22 07:33+0000\n"
+"PO-Revision-Date: 2014-01-10 09:10+0000\n"
 "Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1387697596.0\n"
+"X-POOTLE-MTIME: 1389345045.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -195,9 +195,8 @@ msgid "Select the application used to open files of this type "
 msgstr "选择用于打开此类文件的应用程序 "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>文件总大小：</b>"
+msgstr "<b>文件总数：</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
@@ -288,7 +287,6 @@ msgid "None"
 msgstr "无"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -304,7 +302,6 @@ msgid "Sticky & set GID"
 msgstr "粘住并设置 GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "设置 UID"
@@ -314,7 +311,6 @@ msgid "Set UID & GID"
 msgstr "设置 UID 和 GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -369,7 +365,7 @@ msgstr "<b>文件名模式(_N)：</b>"
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
-msgstr ""
+msgstr "模式可以是 POSIX shell 模式列表(以“,”分隔)，或 POSIX 正则表达式。"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -424,19 +420,18 @@ msgid "_Documents"
 msgstr "文档(_D)"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "文件夹"
+msgstr "文件夹(_R)"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "其他(_H)："
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
-msgstr ""
+msgstr "可以在此输入任意有效的内容类型。类型的末尾可以带“*”通配符。多种类型可以“;”分隔。"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -532,9 +527,8 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>剩余时间：</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>出现了一些错误：</b>"
+msgstr "<b>出现了错误：</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -825,7 +819,7 @@ msgstr[0] "字节"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "正在扫描... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -856,9 +850,8 @@ msgid ""
 msgstr "系统中名字以点(“.”)开头的文件会隐藏。按<Ctrl+H>切换显示隐藏文件。"
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "正在加载..."
+msgstr "正在扫描..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -907,7 +900,7 @@ msgstr "位置"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "扩展名"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1119,7 +1112,6 @@ msgid "_Rename Bookmark Item"
 msgstr "重命名书签项(_R)"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
 msgstr "从书签中移除(_M)"
 
@@ -1173,16 +1165,15 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>文件操作停止前出现了错误。</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "取消"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "文件操作被取消，并且出现了一些错误。"
+msgstr "<b>文件操作完成，但出现了一些错误。</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1211,66 +1202,60 @@ msgstr "，"
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
 msgid "Moving"
-msgstr "移动文件"
+msgstr "正在移动"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
 msgid "Copying"
-msgstr "正在复制文件"
+msgstr "正在复制"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
 msgid "Trashing"
-msgstr "将文件移到回收站"
+msgstr "正在移到回收站"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
 msgid "Deleting"
-msgstr "删除文件"
+msgstr "正在删除"
 
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
 msgid "Symlinking"
-msgstr ""
+msgstr "正在建立符号链接"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "修改文件属性"
+msgstr "正在修改文件属性"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
 msgid "Restoring"
-msgstr "还原(_R)"
+msgstr "正在还原"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "图像文件"
+msgstr "%s 个文件"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>正在进行文件操作...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>文件：</b>"
+msgstr "<b>%s 文件：</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>文件：</b>"
+msgstr "<b>%s 个文件：</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
