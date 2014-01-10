@@ -1179,9 +1179,6 @@ static void update_ui(FmFilePropData* data)
             {
                 /* enable icon change if file allows that */
                 gtk_widget_set_can_focus(data->icon_eventbox, TRUE);
-                /* the dialog isn't realized yet so set cursor in callback */
-                g_signal_connect(data->icon_eventbox, "enter-notify-event",
-                                 G_CALLBACK(on_icon_enter_notify), data);
             }
         }
 
@@ -1487,6 +1484,13 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
         GSList *l, *l2;
         for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
             l2->data = ((FmFilePropExt*)l->data)->cb.init(builder, data, data->files);
+    }
+    /* add this after all updates from extensions was made */
+    if (gtk_widget_get_can_focus(data->icon_eventbox))
+    {
+        /* the dialog isn't realized yet so set cursor in callback */
+        g_signal_connect(data->icon_eventbox, "enter-notify-event",
+                         G_CALLBACK(on_icon_enter_notify), data);
     }
 
     g_object_unref(builder);
