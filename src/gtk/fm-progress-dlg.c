@@ -596,7 +596,7 @@ static gboolean _on_show_dlg(gpointer user_data)
         /* translators: it is part of "Creating link /path/xxx.txt" */
         data->op_text = _("Creating link");
         /* translators: 'In:' string is followed by destination folder path */
-        gtk_label_set_markup(GTK_LABEL(to_label), _("In:"));
+        gtk_label_set_markup(GTK_LABEL(to_label), _("<b>In:</b>"));
         title = _("Creating links to files");
         /* NOTE: on creating single symlink or shortcut all operation
            is done in single I/O therefore it should fit into 0.5s
