@@ -574,52 +574,65 @@ static gboolean _on_show_dlg(gpointer user_data)
     /* FIXME: direct access to job struct! */
     switch(data->job->type)
     {
+    /* we set title here if text is complex so may be different from
+       the op_text when is translated to other languages */
     case FM_FILE_OP_MOVE:
         /* translators: it is part of "Moving files:" or "Moving xxx.txt" */
-        title = _("Moving");
+        data->op_text = _("Moving");
         break;
     case FM_FILE_OP_COPY:
         /* translators: it is part of "Copying files:" or "Copying xxx.txt" */
-        title = _("Copying");
+        data->op_text = _("Copying");
         break;
     case FM_FILE_OP_TRASH:
         /* translators: it is part of "Trashing files:" or "Trashing xxx.txt" */
-        title = _("Trashing");
+        data->op_text = _("Trashing");
         break;
     case FM_FILE_OP_DELETE:
         /* translators: it is part of "Deleting files:" or "Deleting xxx.txt" */
-        title = _("Deleting");
+        data->op_text = _("Deleting");
         break;
     case FM_FILE_OP_LINK:
-        /* translators: it is part of "Symlinking files:" or "Symlinking xxx.txt" */
-        title = _("Symlinking");
-        /* NOTE: it creates shortcuts if source is non-native but
-           in most of cases such operation will not create progress
-           dialog window therefore the "Symlinking" is still OK */
+        /* translators: it is part of "Creating link /path/xxx.txt" */
+        data->op_text = _("Creating link");
+        title = _("Creating links to files");
+        gtk_label_set_markup(GTK_LABEL(to_label), _("In"));
+        /* NOTE: on creating single symlink or shortcut all operation
+           is done in single I/O therefore it should fit into 0.5s
+           timeout and progress window will never be shown */
         break;
     case FM_FILE_OP_CHANGE_ATTR:
-        /* translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt" */
-        title = _("Changing attributes of");
+        /* translators: it is part of "Changing attributes of xxx.txt" */
+        data->op_text = _("Changing attributes of");
+        title = _("Changing attributes of files");
+        /* NOTE: the same about single symlink is appliable here so
+           there is no need to add never used string for translation */
         break;
     case FM_FILE_OP_UNTRASH:
         /* translators: it is part of "Restoring files:" or "Restoring xxx.txt" */
-        title = _("Restoring");
+        data->op_text = _("Restoring");
         break;
     case FM_FILE_OP_NONE: ;
     }
-    data->op_text = title;
     data->str = g_string_sized_new(64);
-    /* note to translators: resulting string is such as "Deleting files" */
-    g_string_printf(data->str, _("%s files"), title);
-    gtk_window_set_title(GTK_WINDOW(data->dlg), data->str->str);
+    if (title)
+        gtk_window_set_title(GTK_WINDOW(data->dlg), title);
+    else
+    {
+        /* note to translators: resulting string is such as "Deleting files" */
+        g_string_printf(data->str, _("%s files"), data->op_text);
+        gtk_window_set_title(GTK_WINDOW(data->dlg), data->str->str);
+    }
     gtk_label_set_markup(data->msg, _("<b>File operation is in progress...</b>"));
     gtk_widget_show(GTK_WIDGET(data->msg));
-    if (fm_path_list_get_length(data->job->srcs) == 1)
+    if (title) /* we already know the exact string */
+        g_string_printf(data->str, "<b>%s:</b>", title);
+    else if (fm_path_list_get_length(data->job->srcs) == 1)
         /* note to translators: resulting string is such as "Deleting file" */
-        g_string_printf(data->str, _("<b>%s file:</b>"), title);
+        g_string_printf(data->str, _("<b>%s file:</b>"), data->op_text);
     else
         /* note to translators: resulting string is such as "Deleting files" */
-        g_string_printf(data->str, _("<b>%s files:</b>"), title);
+        g_string_printf(data->str, _("<b>%s files:</b>"), data->op_text);
     gtk_label_set_markup(data->act, data->str->str);
 
     dest = fm_file_ops_job_get_dest(data->job);
