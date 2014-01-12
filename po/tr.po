@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-12 02:30+0000\n"
+"PO-Revision-Date: 2014-01-12 02:34+0000\n"
 "Last-Translator: vgezer <volkangezer@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389493813.0\n"
+"X-POOTLE-MTIME: 1389494074.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -122,8 +122,9 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Bu konumda aynı isimde başka bir dosya bulunuyor.</b>Varolan dosyayı "
-"değiştirmek istiyor musunuz"
+"<b>Bu konumda aynı isimde başka bir dosya bulunuyor.</b>\n"
+"\n"
+"Varolan dosyayı değiştirmek istiyor musunuz"
 
 # Doesn't this line need some explanation?
 #: ../data/ui/ask-rename.glade.h:8
@@ -724,7 +725,7 @@ msgstr "Özelleştir"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Dosyaları seçilen uygulamayla aç"
+msgstr "<b>\"%s\" dosyalarını açmak için bir uygulama seç</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1218,7 +1219,7 @@ msgstr "_Devam et"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
@@ -1335,7 +1336,7 @@ msgstr "Sağa _Taşı"
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
-msgstr "%1 Göster"
+msgstr "%s Göster"
 
 #: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
@@ -1424,7 +1425,7 @@ msgstr "XML dosyası Applications kökü içermiyor"
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "%s için XML tanımlaması oluşturulamıyor"
+msgstr "'%s' için XML tanımlaması oluşturulamıyor"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
