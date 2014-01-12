@@ -2600,9 +2600,6 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
               exo_icon_view_item_activated (icon_view, path);
               gtk_tree_path_free (path);
               /* bug #3615031: don't start DnD by double click */
-              if (icon_view->priv->selection_mode == GTK_SELECTION_MULTIPLE &&
-                  gtk_widget_get_realized(widget))
-                exo_icon_view_start_rubberbanding (icon_view, event->x, event->y);
             }
         }
 
