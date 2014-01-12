@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-09 15:03+0000\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"PO-Revision-Date: 2014-01-12 09:26+0000\n"
 "Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389279785.0\n"
+"X-POOTLE-MTIME: 1389518811.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -593,8 +593,7 @@ msgstr "fm_template_create_file: argumento incorrecto"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
-"Non foi estabelecido o emulador de terminal na configuración de «libfm»"
+msgstr "Non foi estabelecido o emulador de terminal na configuración de «libfm»"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
@@ -883,15 +882,15 @@ msgstr "analizando…"
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Acceso ao contido:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Ficheiros de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
 msgstr "<b>Ficheiro:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
 msgstr "Múltiplos ficheiros"
 
@@ -1234,58 +1233,71 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
 msgstr "Movendo"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
 msgstr "Copiando"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
 msgstr "Enviando ao lixo"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
 msgstr "Eliminando"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
-msgstr "Facendo a ligazón simbólica"
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+msgid "Creating link"
+msgstr "Creando unha ligazón"
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+msgid "<b>In:</b>"
+msgstr "<b>En:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+msgid "Creating links to files"
+msgstr "Creando ligazóns aos ficheiros"
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
 msgstr "Cambiando os atributos de"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+msgid "Changing attributes of files"
+msgstr "Cambiando os atributos dos ficheiros"
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
 msgstr "Restaurando"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
 msgstr "%s ficheiros"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>Operación do ficheiro en proceso...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
+#: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s ficheiro:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
+#: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s ficheiros:</b>"
@@ -1756,6 +1768,9 @@ msgstr "Disco óptico baleiro"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
+
+#~ msgid "Symlinking"
+#~ msgstr "Facendo a ligazón simbólica"
 
 #~ msgid "*"
 #~ msgstr "*"
