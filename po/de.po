@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-09 16:21+0000\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"PO-Revision-Date: 2014-01-14 16:26+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389284515.0\n"
+"X-POOTLE-MTIME: 1389716812.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -652,8 +652,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein &-"
-"Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
+"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
 "umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
@@ -680,8 +680,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein &-"
-"Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
+"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
 "umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
@@ -752,10 +752,12 @@ msgid "_Cancel"
 msgstr "_Abbrechen"
 
 #: ../src/gtk/fm-dnd-dest.c:413
+#, fuzzy
 msgid "C_opy Here"
 msgstr "Kopiraj _sem"
 
 #: ../src/gtk/fm-dnd-dest.c:414
+#, fuzzy
 msgid "_Move Here"
 msgstr "Premakni s_em"
 
@@ -781,6 +783,7 @@ msgid "Open _With"
 msgstr "Öffnen _mit"
 
 #: ../src/gtk/fm-file-menu.c:158
+#, fuzzy
 msgid "Copy Pa_th(s)"
 msgstr "Copiar ru_ta(s)"
 
@@ -797,6 +800,7 @@ msgid "_Add to Bookmarks"
 msgstr "_Zu Lesezeichen hinzufügen"
 
 #: ../src/gtk/fm-file-menu.c:162
+#, fuzzy
 msgid "_Rename..."
 msgstr "_Renombrar…"
 
@@ -818,10 +822,12 @@ msgstr "_Dateieigenschaften"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
+#, fuzzy
 msgid "Move to _Trash"
 msgstr "Premakni v _smeti"
 
 #: ../src/gtk/fm-file-menu.c:773
+#, fuzzy
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Esta carpeta ya está incluida en los marcadores."
 
@@ -836,7 +842,7 @@ msgstr[0] "Byte"
 msgstr[1] "Bytes"
 
 #: ../src/gtk/fm-file-properties.c:510
-#, c-format
+#, c-format, fuzzy
 msgid "scanning... %d"
 msgstr "explorando… %d"
 
@@ -875,6 +881,7 @@ msgstr ""
 "beginnt('.'). Umschalten auf ausgeblendete Dateien anzeigen mit <Ctrl+H> "
 
 #: ../src/gtk/fm-file-properties.c:1026
+#, fuzzy
 msgid "scanning..."
 msgstr "explorando…"
 
@@ -882,15 +889,15 @@ msgstr "explorando…"
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Auf Inhalt zugreifen:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Dateien unterschiedlicher Typen"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
 msgstr "<b>Datei:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
 msgstr "Mehrere Dateien"
 
@@ -1068,8 +1075,7 @@ msgstr "Soll die gewählte Datei '%s' in den Papierkorb verschoben werden?"
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Soll die gewählte Datei %d in den Papierkorb verschoben werden?"
-msgstr[1] ""
-"Sollen die gewählten Dateien %d in den Papierkorb verschoben werden?"
+msgstr[1] "Sollen die gewählten Dateien %d in den Papierkorb verschoben werden?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
@@ -1104,6 +1110,7 @@ msgid "Folder location bar"
 msgstr "Adressleiste"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+#, fuzzy
 msgid "Home Folder"
 msgstr "Domača mapa"
 
@@ -1117,6 +1124,7 @@ msgid "Applications"
 msgstr "Anwendungen"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
+#, fuzzy
 msgid "Filesystem Root"
 msgstr "Koren datotečnega sistema"
 
@@ -1172,7 +1180,7 @@ msgstr "Neuen Namen eingeben:"
 
 #: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
@@ -1195,6 +1203,7 @@ msgstr ""
 "geändert: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:326
+#, fuzzy
 msgid "<b>Errors occured before file operation was stopped.</b>"
 msgstr "<b>Se produjeron errores antes de detener la operación.</b>"
 
@@ -1203,6 +1212,7 @@ msgid "Cancelled"
 msgstr "Abgebrochen"
 
 #: ../src/gtk/fm-progress-dlg.c:332
+#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr "<b>Se completó la operación con errores.</b>"
 
@@ -1230,62 +1240,84 @@ msgstr "Wiede_rherstellen"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
+#, fuzzy
 msgid "Moving"
 msgstr "Moviendo"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
+#, fuzzy
 msgid "Copying"
 msgstr "Copiando"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
+#, fuzzy
 msgid "Trashing"
 msgstr "Moviendo a la papelera"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
+#, fuzzy
 msgid "Deleting"
 msgstr "Eliminando"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
-msgstr "Symlinking"
+# Verknüpfung oder Link?
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+#, fuzzy
+msgid "Creating link"
+msgstr "Symbolische Verknüpfung werden erstellt"
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+#, fuzzy
+msgid "<b>In:</b>"
+msgstr "<b>Nach:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+msgid "Creating links to files"
+msgstr ""
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
 msgstr "Attribute ändern von"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+#, fuzzy
+msgid "Changing attributes of files"
+msgstr "Attribute ändern von"
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
 msgstr "Wiederherstellen"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
 msgstr "%s Dateien"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
+#, fuzzy
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>Operación en progreso…</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
-#, c-format
+#: ../src/gtk/fm-progress-dlg.c:633
+#, c-format, fuzzy
 msgid "<b>%s file:</b>"
 msgstr "<b>%s el archivo:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
-#, c-format
+#: ../src/gtk/fm-progress-dlg.c:636
+#, c-format, fuzzy
 msgid "<b>%s files:</b>"
 msgstr "<b>%s los archivos:</b>"
 
@@ -1323,10 +1355,12 @@ msgid "_Hide %s"
 msgstr "%1 _verstecken"
 
 #: ../src/gtk/fm-standard-view.c:839
+#, fuzzy
 msgid "_Move Left"
 msgstr "Premakni _levo"
 
 #: ../src/gtk/fm-standard-view.c:845
+#, fuzzy
 msgid "Move _Right"
 msgstr "Premakni _desno"
 
@@ -1336,6 +1370,7 @@ msgid "Show %s"
 msgstr "%s anzeigen"
 
 #: ../src/gtk/fm-standard-view.c:880
+#, fuzzy
 msgid "_Forget Width"
 msgstr "Pozabi _širino"
 
@@ -1518,10 +1553,12 @@ msgid "Search"
 msgstr "Suchen"
 
 #: ../src/modules/vfs-search.c:1052
+#, fuzzy
 msgid "Search Results"
 msgstr "Rezultati iskanja"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
+#, fuzzy
 msgid "Choose Executable File"
 msgstr "Izberite izvedljivo datoteko"
 
@@ -1554,10 +1591,12 @@ msgid "The working directory to run the program in"
 msgstr "Das Arbeitsverzeichnis, in dem das Programm ausgeführt werden soll"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
+#, fuzzy
 msgid "<b>_Tooltip:</b>"
 msgstr "<b>_Tooltip:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
+#, fuzzy
 msgid "Tooltip to show on application"
 msgstr "Tooltips, die in der Anwendung angezeigt werden sollen"
 
@@ -1755,6 +1794,9 @@ msgstr "Leeres optisches Medium"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optisches Medium"
+
+#~ msgid "Symlinking"
+#~ msgstr "Symlinking"
 
 #~ msgid "*"
 #~ msgstr "*"
