@@ -6,18 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2013-12-24 05:38+0000\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"PO-Revision-Date: 2014-01-14 00:50+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1387863534.0\n"
+"X-POOTLE-MTIME: 1389660613.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -197,7 +197,6 @@ msgid "Select the application used to open files of this type "
 msgstr "Izaberi program koji je otvarao datoteke ovog tipa "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
 msgstr "<b>Ukupna veličina datoteka:</b>"
 
@@ -290,7 +289,6 @@ msgid "None"
 msgstr "Nijedan"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -306,7 +304,6 @@ msgid "Sticky & set GID"
 msgstr "Ljepljivi & postavi GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Postavi UID"
@@ -316,7 +313,6 @@ msgid "Set UID & GID"
 msgstr "Postavi UID & GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -426,9 +422,8 @@ msgid "_Documents"
 msgstr "_Dokumenti"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Mapa"
+msgstr "Map_e"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -536,7 +531,6 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Preostalo vrijeme:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Došlo je do greške:</b>"
 
@@ -842,8 +836,7 @@ msgstr "Unesite valjano ime grupe ili brojčani id."
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
+msgstr "Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
@@ -860,23 +853,22 @@ msgid ""
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Učitavam..."
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Sadržaj pristupa:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Datoteke različitog tipa"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
 msgstr "<b>Tip datoteke:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
 msgstr "Višestruke datoteke"
 
@@ -1127,7 +1119,6 @@ msgid "_Rename Bookmark Item"
 msgstr "_Preimenuj stavku zabilješke"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
 msgstr "Uklo_ni iz zabilješki"
 
@@ -1188,9 +1179,8 @@ msgid "Cancelled"
 msgstr "Otkazano"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Datotečna operacija je otkazana i postoje neke greške."
+msgstr "<b>Datotečna operacija je završena s greškama.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1219,67 +1209,74 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr "Pomicanje datoteka"
+msgstr "Pomicanje"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr "Kopiranje datoteka"
+msgstr "Kopiranje"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
 msgstr "Bacanje datoteka u smeće"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr "Brisanje datoteka"
+msgstr "Brisanje"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+msgid "Creating link"
+msgstr "Stvaranje poveznice"
+
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+msgid "<b>In:</b>"
+msgstr "<b>U:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+msgid "Creating links to files"
 msgstr ""
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
+msgstr "Promjena atributa"
+
+#: ../src/gtk/fm-progress-dlg.c:608
+msgid "Changing attributes of files"
 msgstr "Promjena atributa datoteke"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr "_Obnovi"
+msgstr "Obnovljam"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#: ../src/gtk/fm-progress-dlg.c:624
+#, c-format, c-format
 msgid "%s files"
-msgstr "Slikovne datoteke"
+msgstr "%s datoteke"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#: ../src/gtk/fm-progress-dlg.c:633
+#, c-format, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Tip datoteke:</b>"
+msgstr "<b>%s datoteka:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#: ../src/gtk/fm-progress-dlg.c:636
+#, c-format, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Tip datoteke:</b>"
+msgstr "<b>%datoteke:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
