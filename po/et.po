@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-15 12:43+0000\n"
+"PO-Revision-Date: 2014-01-16 23:09+0000\n"
 "Last-Translator: mahfiaz <mahfiaz@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389789815.0\n"
+"X-POOTLE-MTIME: 1389913762.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -332,7 +332,7 @@ msgstr "Mitte keegi"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr "Baidid"
+msgstr "baiti"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -356,7 +356,7 @@ msgstr "Vali kuupäev järgnevast kalendrist"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr "Otsi faile"
+msgstr "Failide otsimine"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
@@ -376,7 +376,7 @@ msgstr "_Tõstutundetu"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr "Regulaaravaldise kasutamine"
+msgstr "_Regulaaravaldis"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
@@ -388,7 +388,7 @@ msgstr "_Alamkataloogidest otsimine"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "Otsi _peidetud faile"
+msgstr "_Peidetud failide otsimine"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
@@ -464,7 +464,7 @@ msgstr "_Suurem kui:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Viimati muudetud</b>"
+msgstr "<b>Viimane muutmine</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
