@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-17 22:23+0000\n"
+"PO-Revision-Date: 2014-01-17 23:13+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389997430.0\n"
+"X-POOTLE-MTIME: 1390000400.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -32,7 +32,7 @@ msgstr "Verknüpfungs-Editor"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "Verknüpfungs-Editor"
+msgstr "Erstelle neuen oder ändere existieren .desktop-Datei Eintrag"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 "<b>Eine Datei mit diesem Namen existiert bereits an diesem Ort.</b>\n"
 "\n"
-"Wollen sie die vorhandene Datei "
+"Wollen Sie die vorhandene Datei"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
@@ -140,7 +140,7 @@ msgstr "_Auswahl auf alle Dateien anwenden"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
-msgstr "Wählen Sie ein Symbol aus …"
+msgstr "Wählen Sie ein Symbol aus…"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
@@ -162,7 +162,7 @@ msgstr "Datei ausführen"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Im Terminal ausführen"
+msgstr "Im _Terminal ausführen"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -194,7 +194,7 @@ msgstr "<b>Öffnen _mit:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Wählen Sie die Anwendung zum Öffnen dieses Dateityps"
+msgstr "Wählen Sie die Anwendung zum Öffnen dieses Dateityps "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -288,20 +288,22 @@ msgstr "---"
 msgid "None"
 msgstr "Keine"
 
+# Nicht übersetzen! Sonst Sinnfehler!
 #: ../data/ui/file-prop.glade.h:32
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr "Klebrig"
+msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
 msgstr "GID setzen"
 
+# Sticky nicht übersetzen da sonst Sinnfehler!
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
-msgstr "Klebrig & GID festlegen"
+msgstr "Sticky & GID festlegen"
 
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
@@ -441,7 +443,7 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
-msgstr "_Dateityp"
+msgstr "Datei_typ"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
@@ -457,11 +459,11 @@ msgstr "<b>Dateigröße</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr "Kleiner als:"
+msgstr "_Kleiner als:"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr "Größer als:"
+msgstr "_Größer als:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
@@ -930,7 +932,7 @@ msgstr "Erweiterung"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
-msgstr "Neu erstellen …"
+msgstr "_Neu…"
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
@@ -967,7 +969,7 @@ msgstr "Dateien und Ordner _vereinen"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
-msgstr "Groß-/Kleinschreibung  _ignorieren"
+msgstr "Groß-/Kleinschreibung _ignorieren"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
@@ -979,11 +981,11 @@ msgstr "Nach letzter Än_derung"
 
 #: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
-msgstr "Nach Größe"
+msgstr "Nach _Größe"
 
 #: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
-msgstr "Nach _Dateityp"
+msgstr "Nach Datei_typ"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
@@ -1146,11 +1148,11 @@ msgstr "Lesezeichen _entfernen"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
-msgstr "Lesezeichen nach oben verschieben"
+msgstr "Lesezeichen nach _oben verschieben"
 
 #: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
-msgstr "Lesezeichen nach unten verschieben"
+msgstr "Lesezeichen nach _unten verschieben"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
@@ -1209,7 +1211,7 @@ msgstr "<b>Die Dateioperation wurde mit Fehlern abgeschlossen.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
-msgstr "Beendet"
+msgstr " Abgeschlossen"
 
 #: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
@@ -1318,7 +1320,7 @@ msgstr "_Verzeichnisbaum"
 
 #: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
-msgstr "_Entfernt"
+msgstr "_Remote"
 
 #: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
@@ -1335,7 +1337,7 @@ msgstr "Ansicht von Ordnerinhalten"
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
-msgstr "%1 _verstecken"
+msgstr "%s _verstecken"
 
 #: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
@@ -1364,11 +1366,11 @@ msgstr "_Listenansicht"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr "_Miniatur-Vorschaubilder"
+msgstr "Minia_turansicht"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr "_Detailansicht"
+msgstr "Detai_lansicht"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1427,7 +1429,7 @@ msgstr "Zieladresse definieren nur für eine einzelne Datei möglich"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML Datei '%s' Fehler (%d:%d):"
+msgstr "XML Datei '%s' Fehler (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1474,7 +1476,7 @@ msgstr "Ungültiger Menüeintrag"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "Das Menüobjekt '%s' hat keine enstrpechende Desktop-Datei"
+msgstr "Das Menüobjekt '%s' hat keinen enstrpechenden Dateieintrag"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
@@ -1493,7 +1495,7 @@ msgstr "Ungültiger Wert für Attribut '%s'"
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr "'%s' ist ein Menü Ordner"
+msgstr "'%s' ist ein Menüverzeichnis"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
@@ -1503,7 +1505,7 @@ msgstr "'%s' ist kein Menüeintrag"
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "Die Desktop-Datei '%s' ist korrupt"
+msgstr "'%s' Dateieintrag ist korrupt"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
@@ -1584,7 +1586,7 @@ msgstr "Vis_uelle Rückmeldung über Programmstart geben"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
-msgstr "_Desktop-Datei"
+msgstr "_.desktop-Datei Eintrag"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
