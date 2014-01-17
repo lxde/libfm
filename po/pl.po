@@ -1,22 +1,23 @@
 # Polish translation of libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
-# Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012, 2013.
+# Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012, 2013, 2014.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2013-12-06 10:46+0000\n"
-"Last-Translator: Piotr <strebski@o2.pl>\n"
+"PO-Revision-Date: 2014-01-17 10:33+0100\n"
+"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.5.0\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
+"%100<10 || n%100>=20)) ? 1 : 2));\n"
+"X-Generator: Gtranslator 2.91.5\n"
 "X-POOTLE-MTIME: 1386326774.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
@@ -39,11 +40,11 @@ msgstr "Utwórz nowy lub zmień istniejący element pulpitu"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
-msgstr "Wybierz program"
+msgstr "Wybór programu"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Użyj wybranego programu do otwierana plików"
+msgstr "Otwiera plik za pomocą wybranego programu"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
@@ -62,13 +63,13 @@ msgstr "P_rzeglądaj..."
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
-msgstr "Uruchomi_enie w emulatorze terminala"
+msgstr "_Uruchomienie w emulatorze terminala"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "_Zachowaj otwarcie okna terminala po wykonaniu polecenia"
+msgstr "_Zachowanie otwartego okna terminala po wykonaniu polecenia"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -78,12 +79,16 @@ msgid ""
 "  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
-msgstr "<b>N_azwa programu (opcjonalnie; ustaw, aby zachować skojarzenia)</b>"
+msgstr ""
+"<b>W wierszu poleceń można użyć następujących oznaczeń:</b>\n"
+"  <b>%f</b>: nazwa pierwszego z zaznaczonych plików,\n"
+"  <b>%F</b>: nazwy wszystkich zaznaczonych plików,\n"
+"  <b>%u</b>: ścieżka pierwszego z zaznaczonych plików,\n"
+"  <b>%U</b>: ścieżki wszystkich zaznaczonych plików."
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
-"<b>N_azwa programu (opcjonalnie; wprowadź, aby zachować skojarzenia)</b>"
+msgstr "<b>_Nazwa programu (opcjonalnie):</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -91,11 +96,11 @@ msgstr "Otwiera plik za pomocą wprowadzonego polecenia"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
-msgstr "Własne pole_cenie"
+msgstr "_Własne polecenie"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr "_Ustaw wybrane programy jako domyślne dla tego typu plików"
+msgstr "_Domyślnie dla tego typu plików"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -107,7 +112,7 @@ msgstr "_Pomiń"
 
 #: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
-msgstr "Z_mień nazwę"
+msgstr "_Zmień nazwę"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
@@ -133,7 +138,7 @@ msgstr "_Nazwa pliku:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
-msgstr "Wykon_anie czynności dla wszystkich plików"
+msgstr "_Wykonanie czynności dla wszystkich plików"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
@@ -194,13 +199,12 @@ msgid "Select the application used to open files of this type "
 msgstr "Wybiera program używany do otwierania plików tego typu"
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Całkowity rozmiar pliku:</b>"
+msgstr "<b>Łączna ilość plików:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
-msgstr "<b>Całkowity rozmiar pliku:</b>"
+msgstr "<b>Łączny rozmiar plików:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
@@ -423,9 +427,8 @@ msgid "_Documents"
 msgstr "_Dokumenty"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Katalog"
+msgstr "_Katalogi"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -533,19 +536,18 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Pozostały czas:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Wystąpiły błędy:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Nieprawidłowy plik elementu pulpitu: '%s'"
+msgstr "Nieprawidłowy plik elementu pulpitu: „%s”"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Nie ma przypisanego domyślnego programu dla uruchomiania URI %s://"
+msgstr "Brak przypisanego domyślnego programu dla uruchomiania URI %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
@@ -560,7 +562,7 @@ msgstr "Nie można określić typu zawartości pliku '%s', by go uruchomić"
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "Nie ma przypisanego domyślnego programu dla typu MIME %s"
+msgstr "Brak przypisanego domyślnego programu dla typu MIME %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
@@ -590,7 +592,7 @@ msgstr "Nie ustalono emulatora terminala w konfiguracji libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr "Nieprawidłowy opis programu tworzenia miniaturek"
+msgstr "Nieprawidłowy opis generatora miniatur"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -640,7 +642,7 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Nie można przetworzyć znaku '%-.*s', w miejscu którego powinna wystąpić "
+"Nie udało się przetworzyć znaku '%-.*s', w miejscu którego powinna wystąpić "
 "liczba, będąca częścią odniesienia do znaku (np. &#234;) - być może liczba "
 "jest za duża"
 
@@ -723,12 +725,12 @@ msgstr "fm_xml_file_to_data: błąd danych XML"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
-msgstr "Dostosuj"
+msgstr "Dostosuj..."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>Wybierz program do otwierania plików \"%s\"</b>"
+msgstr "<b>Proszę wybrać program służący do otwierania plików typu „%s”.</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -752,7 +754,7 @@ msgstr "_Anuluj"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr "K_opiuj tutaj"
+msgstr "S_kopiuj tutaj"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
@@ -773,15 +775,15 @@ msgstr "_Otwórz"
 
 #: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
-msgstr "Otwórz za _pomocą..."
+msgstr "Otwórz za po_mocą..."
 
 #: ../src/gtk/fm-file-menu.c:153
 msgid "Open _With"
-msgstr "Otwórz za _pomocą"
+msgstr "Otwórz za po_mocą"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr "Kopi_uj ścieżkę(i)"
+msgstr "Skopiuj ś_cieżkę"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
@@ -789,7 +791,7 @@ msgstr "_Ukryj"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr "Nie ukrywa_j"
+msgstr "N_ie ukrywaj"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
@@ -797,7 +799,7 @@ msgstr "_Dodaj do zakładek"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr "Z_mień nazwę..."
+msgstr "_Zmień nazwę..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -813,16 +815,16 @@ msgstr "Ro_zpakuj do..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
-msgstr "Właś_ciwości"
+msgstr "_Właściwości"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
-msgstr "Przenieś do _kosza"
+msgstr "Przeni_eś do kosza"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr "Twoje zakładki mają już zakładkę do tego katalogu."
+msgstr "Utworzono już zakładkę do tego katalogu."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -838,7 +840,7 @@ msgstr[2] "bajtów"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "przeszukiwanie... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -867,13 +869,12 @@ msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Pliki w tym systemie są ukryte, jeśli ich nazwa zaczyna się od kropki ('.'). "
-"Naciśnij <Ctrl+H>, aby przełączać tryb wyświetlania ukrytych plików."
+"Pliki są ukrywane, jeśli ich nazwy zaczynają się od kropki („.”). Proszę "
+"wcisnąć <Ctrl+H>, aby przełączyć wyświetlanie ukrytych plików."
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Wczytywanie..."
+msgstr "przeszukiwanie..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -922,7 +923,7 @@ msgstr "Położenie"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Rozszerzenie"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -950,11 +951,11 @@ msgstr "_Zmień nazwę katalogu..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
-msgstr "Właś_ciwości katalogu"
+msgstr "_Właściwości katalogu"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr "Wyświetlanie _ukrytych plików"
+msgstr "Wyświetlanie _ukrytych plików"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
@@ -963,7 +964,7 @@ msgstr "_Mieszanie plików i katalogów"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
-msgstr "_Ignorowanie wielkości liter w nazwach"
+msgstr "_Ignorowanie wielkości liter"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
@@ -1059,20 +1060,20 @@ msgstr ""
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Czy chcesz przenieść plik '%s' do kosza?"
+msgstr "Przenieść plik „%s” do kosza?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Czy chcesz przenieść zaznaczony %d plik do kosza?"
-msgstr[1] "Czy chcesz przenieść zaznaczone %d pliki do kosza?"
-msgstr[2] "Czy chcesz przenieść zaznaczonych %d plików do kosza?"
+msgstr[0] "Przenieść %d zaznaczony plik do kosza?"
+msgstr[1] "Przenieść %d zaznaczone pliki do kosza?"
+msgstr[2] "Przenieść %d zaznaczonych plików do kosza?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Czy chcesz usunąć plik '%s'?"
+msgstr "Usunąć plik „%s”?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
@@ -1140,7 +1141,6 @@ msgid "_Rename Bookmark Item"
 msgstr "_Zmień nazwę zakładki"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
 msgstr "_Usuń zakładkę"
 
@@ -1201,9 +1201,8 @@ msgid "Cancelled"
 msgstr "Anulowano"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Przerwano operację i wystąpiły błędy."
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1216,7 +1215,7 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Pewne pliki nie mogą zostać przeniesione do kosza, ponieważ system plików, "
-"na którym się znajdują, nie obsługuje tej operacji.\n"
+"na którym się znajdują nie obsługuje tego działania.\n"
 "Czy zamiast tego usunąć je trwale?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
@@ -1233,15 +1232,13 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
 msgid "Moving"
-msgstr "Przenoszenie plików"
+msgstr "Przenoszenie"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
 msgid "Copying"
-msgstr "Kopiowanie plików"
+msgstr "Kopiowanie"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
@@ -1251,9 +1248,8 @@ msgstr "Przenoszenie plików do kosza"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
 msgid "Deleting"
-msgstr "Usuwanie plików"
+msgstr "Usuwanie"
 
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
@@ -1262,37 +1258,35 @@ msgstr ""
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "Zmienianie atrybutów pliku"
+msgstr "Zmienianie atrybutów"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
 msgid "Restoring"
-msgstr "_Przywróć"
+msgstr "Przywracanie"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "pliki obrazów"
+msgstr "%s plików"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Trwają działania na plikach...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Plik:</b>"
+msgstr "<b>%s plik</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Plik:</b>"
+msgstr "<b>%s pliki</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1381,7 +1375,7 @@ msgstr "Nie można utworzyć dowiązania do nienatywnego systemu plików"
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Nie można przywrócić pliku '%s' z kosza: nieznana pierwotna ścieżka"
+msgstr "Nie można przywrócić pliku „%s” z kosza: nieznana pierwotna ścieżka"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1402,7 +1396,7 @@ msgstr "Położenie docelowe jest katalogiem podrzędnym położenia źródłowe
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Nie można skopiować pliku '%s': nieobsługiwane"
+msgstr "Nie można skopiować pliku „%s”: nieobsługiwane"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
@@ -1418,7 +1412,7 @@ msgstr "Ustawienie celu może być dokonane tylko dla pojedynczego pliku"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Błąd pliku XML '%s' (%d:%d): "
+msgstr "Błąd pliku XML „%s” (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1428,7 +1422,7 @@ msgstr "Plik XML nie zawiera katalogu głównego programów"
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "Nie udało się utworzyć definicji XML dla \"%s\""
+msgstr "Nie można utworzyć definicji XML dla \"%s\""
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
@@ -1456,7 +1450,7 @@ msgstr "Nazwa elementu menu nie może być pusta"
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Nieprawidłowy katalog menu '%s'"
+msgstr "Nieprawidłowy katalog menu „%s”"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
@@ -1465,7 +1459,7 @@ msgstr "Nieprawidłowy element menu"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "Element menu '%s' nie posiada odpowiedniego pliku wpisu"
+msgstr "Element menu „%s” nie posiada odpowiedniego pliku wpisu"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
@@ -1474,12 +1468,12 @@ msgstr "Zmiana stanu widoczności nie jest wspierana dla katalogów menu"
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Ustawianie atrybutu '%s' nie jest obsługiwane"
+msgstr "Nieobsługiwane ustalenie atrybutu „%s”"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Niepoprawna wartość dla atrybutu '%s'"
+msgstr "Nieprawidłowa wartość dla atrybutu '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
@@ -1494,7 +1488,7 @@ msgstr "Element '%s' nie jest elementem menu"
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "Plik wpisu '%s' jest uszkodzony"
+msgstr "Plik wpisu „%s” jest uszkodzony"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
@@ -1531,7 +1525,7 @@ msgstr "Wyniki wyszukiwania"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
-msgstr "Wybierz plik wykonywalny"
+msgstr "Wybór pliku wykonywalnego"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
@@ -1543,7 +1537,7 @@ msgstr "<b>_Polecenie:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr "Polecenie wykonywane po aktywacji ikony programu"
+msgstr "Definiuje polecenie wykonywane po uaktywnieniu ikony programu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1551,7 +1545,7 @@ msgstr "<b>_Opis:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "Ogólna nazwa programu"
+msgstr "Określa ogólną nazwę programu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1559,7 +1553,7 @@ msgstr "<b>Katalog _roboczy:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr "Katalog roboczy do uruchomienia w nim programu"
+msgstr "Określa położenie, w którym zostanie uruchomiony program"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
