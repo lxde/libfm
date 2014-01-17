@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-17 23:13+0000\n"
+"PO-Revision-Date: 2014-01-17 23:15+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1390000400.0\n"
+"X-POOTLE-MTIME: 1390000519.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1211,7 +1211,7 @@ msgstr "<b>Die Dateioperation wurde mit Fehlern abgeschlossen.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
-msgstr " Abgeschlossen"
+msgstr "Abgeschlossen"
 
 #: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
