@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-09 15:37+0000\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"PO-Revision-Date: 2014-01-19 02:03+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389281827.0\n"
+"X-POOTLE-MTIME: 1390097039.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -877,15 +877,15 @@ msgstr "analisando..."
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Aceder ao conteúdo:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Ficheiros de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
 msgstr "<b>Ficheiro:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
 msgstr "Múltiplos ficheiros"
 
@@ -1224,58 +1224,71 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
 msgstr "A mover"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
 msgstr "A copiar"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
 msgstr "A destruir"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
 msgstr "A eliminar"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
-msgstr "A criar ligação simbólica"
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+msgid "Creating link"
+msgstr "A criar ligação"
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+msgid "<b>In:</b>"
+msgstr "<b>Em:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+msgid "Creating links to files"
+msgstr "A criar ligações aos ficheiros"
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
 msgstr "A mudar atributos de"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+msgid "Changing attributes of files"
+msgstr "A mudar atributos dos ficheiros"
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
 msgstr "A restaurar"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
 msgstr "%s ficheiros"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>Operação de ficheiros em curso...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
+#: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s ficheiro:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
+#: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s ficheiros:</b>"
@@ -1746,6 +1759,9 @@ msgstr "Disco ótico vazio"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco ótico"
+
+#~ msgid "Symlinking"
+#~ msgstr "A criar ligação simbólica"
 
 #~ msgid "*"
 #~ msgstr "*"
