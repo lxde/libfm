@@ -343,7 +343,6 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
               gtk_tree_path_free( path );
               path = NULL;
             }
-          gtk_tree_selection_unselect_all (selection);
         }
 
       /* we unselect all selected items if the user clicks on an empty
@@ -409,6 +408,8 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
 
           /* remember to re-enable drag and drop later */
           tree_view->priv->button_release_unblocks_dnd = TRUE;
+          /* don't unselect this row if we doing rubberbanding now */
+          treat_as_blank = FALSE;
         }
       else
         {

@@ -142,6 +142,7 @@ typedef enum
  * @list_view_size_units: (since 1.2.0) file size units in list view: h, k, M, G
  * @format_cmd: (since 1.2.0) command to format the volume (device will be added)
  * @smart_desktop_autodrop: (since 1.2.0) enable "smart shortcut" auto-action for ~/Desktop
+ * @saved_search: (since 1.2.0) internal saved data of fm_launch_search_simple()
  */
 struct _FmConfig
 {
