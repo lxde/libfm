@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-21 05:50+0000\n"
+"PO-Revision-Date: 2014-01-21 05:58+0000\n"
 "Last-Translator: wwycheuk <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1390283425.0\n"
+"X-POOTLE-MTIME: 1390283933.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -637,28 +637,28 @@ msgid ""
 msgstr "未能解析「%-.*s」，其應該是字元引用中的數字 (如 &#234;) - 可能該數字太大了"
 
 #: ../src/extra/fm-xml-file.c:310
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr ""
+msgstr "字元引用未有以分號結束；很可能您使用了 & 字元而又並非想使用實體 - 請將這個 & 改為 &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
-#, c-format
+#, c-format, fuzzy
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "字元引用「%-.*s」並非可允許編碼的字元"
 
 #: ../src/extra/fm-xml-file.c:373
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
+msgstr "發現空的實體「&;」；有效的實體為：&amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
-#, c-format
+#, c-format, fuzzy
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "未知的實體名「%-.*s」"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -672,9 +672,9 @@ msgid "Space isn't allowed in the close tag"
 msgstr "結束標記不能有空格"
 
 #: ../src/extra/fm-xml-file.c:603
-#, c-format
+#, c-format, fuzzy
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "元素「%s」已結束但沒有元素開啟"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
@@ -901,8 +901,9 @@ msgid "Location"
 msgstr "位置"
 
 #: ../src/gtk/fm-folder-model.c:197
+#, fuzzy
 msgid "Extension"
-msgstr ""
+msgstr "延伸檔名"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -925,9 +926,8 @@ msgid "_Sort Files"
 msgstr "排序檔案(_S)"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "重新命名資料來(_R)"
+msgstr "重新命名資料夾(_R)..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -1019,7 +1019,6 @@ msgid "No folders are specified."
 msgstr "未指定資料夾。"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "選取資料夾"
 
@@ -1074,7 +1073,6 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
 #: ../src/gtk/fm-path-entry.c:668
-#, fuzzy
 msgid "Pa_ste and Go"
 msgstr "貼上並前往(_S)"
 
@@ -1242,13 +1240,13 @@ msgstr "<b>到：</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
-msgstr ""
+msgstr "正在建立至檔案的連結"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 #, fuzzy
 msgid "Changing attributes of"
-msgstr "變更檔案屬性"
+msgstr "變更以下項目的屬性："
 
 #: ../src/gtk/fm-progress-dlg.c:608
 #, fuzzy
@@ -1259,25 +1257,24 @@ msgstr "變更檔案屬性"
 #: ../src/gtk/fm-progress-dlg.c:614
 #, fuzzy
 msgid "Restoring"
-msgstr "復原(_R)"
+msgstr "復原"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 #, fuzzy, c-format
 msgid "%s files"
-msgstr "圖片檔案"
+msgstr "%s 個檔案"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>正在進行檔案操作...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>檔案：</b>"
+msgstr "<b>%s 個檔案：</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
