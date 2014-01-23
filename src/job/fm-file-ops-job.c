@@ -2,7 +2,7 @@
  *      fm-file-ops-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -247,6 +247,7 @@ FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 static gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
     FmFileOpsJob* job = FM_FILE_OPS_JOB(fm_job);
+    GError *err;
     switch(job->type)
     {
     case FM_FILE_OP_COPY:
@@ -265,6 +266,10 @@ static gboolean fm_file_ops_job_run(FmJob* fm_job)
         return _fm_file_ops_job_change_attr_run(job);
     case FM_FILE_OP_NONE: ;
     }
+    err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                              _("Operation not supported"));
+    fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+    g_error_free(err);
     return FALSE;
 }
 

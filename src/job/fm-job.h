@@ -146,7 +146,6 @@ struct _FmJobClass
 /* Base type of all file I/O jobs.
  * not directly called by applications. */
 
-/* FmJob*    fm_job_new            (void); */
 GType    fm_job_get_type        (void);
 
 /* return TRUE if the job is already cancelled */
