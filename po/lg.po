@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-22 12:57+0000\n"
+"PO-Revision-Date: 2014-01-24 18:07+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1390395447.0\n"
+"X-POOTLE-MTIME: 1390586870.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,6 +25,8 @@ msgstr "Puloguramu ennondemu"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Londa puloguramu z'oyagala zitandike nga okoonye ku nyunzi ey'oku yintaneti "
+"oba ku ndagiriro ya email"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -369,6 +371,10 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Ekinoonyezbwa kiyinza okubeera lukalala lwa mu kiwandikiro olugoberera "
+"mateeka ga POSIX (nga akabonero ',' ke k'awula wakati w'ebigambo ebirulimu "
+"oba kiyinza okubeera mboozi egoberera mateeka ga POSIX enoonya ebifaanagana "
+"n'ezimu ku nukuta ezigirimu."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -428,13 +434,17 @@ msgstr "M_aterekero"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "Ki_rala:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Wano osobola okuwandika kika kya ngeri yonna ekitegeerebwa sisitemu. "
+"Tokkirizibwa okussa akabonero aka muwawa '*' ku nkomerero y'ekigambo ky'oba "
+"owandise. Bw'oba oyagala okuwandikawo ebika ebisukka mu kimu, kozesa "
+"akabonero ';' okwawula mu bigambo ebyo."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -565,7 +575,7 @@ msgstr "Data ey'ekika kya %s gilondere puloguramu enagikolangako"
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Byuma"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
