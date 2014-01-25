@@ -324,7 +324,7 @@ unescape_gstring_inplace (//GMarkupParseContext  *context,
                       gchar buf[8];
                       memset (buf, 0, 8);
                       g_unichar_to_utf8 (l, buf);
-                      strcpy (to, buf);
+                      strncpy (to, buf, 8);
                       to += strlen (buf) - 1;
                       from = end;
                       //if (l >= 0x80) /* not ascii */
