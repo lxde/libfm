@@ -119,7 +119,7 @@ struct _FmFolderViewInterface
     /*< public >*/
     /* signals */
     void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
-    void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
+    void (*sel_changed)(FmFolderView* fv, gint n_sels);
     void (*sort_changed)(FmFolderView* fv);
     void (*filter_changed)(FmFolderView* fv);
     void (*columns_changed)(FmFolderView* fv);
