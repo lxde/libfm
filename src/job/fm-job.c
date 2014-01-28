@@ -339,6 +339,10 @@ static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
  * mainloop being created to prevent blocking of user interface. If @job
  * started successfully then #FmJob::finished signal is emitted when @job
  * is either succeeded or was cancelled.
+ * Note: using this API from within GTK main loop will lead to deadlock
+ * therefore if it is a GTK application then caller should unlock GDK
+ * threads before calling this API and lock them back after return from
+ * it. This statement is valid for any GTK application that uses locks.
  *
  * Returns: %TRUE if job started successfully.
  *

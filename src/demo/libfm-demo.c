@@ -47,7 +47,9 @@ int main(int argc, char** argv)
         fm_path_unref(path);
     }
 
+    GDK_THREADS_ENTER();
 	gtk_main();
+    GDK_THREADS_LEAVE();
 
     fm_finalize();
 

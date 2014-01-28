@@ -2,7 +2,7 @@
  *      fm-file-launcher.c
  *
  *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -137,7 +137,10 @@ static FmFileInfo *_fetch_file_info_for_shortcut(const char *target,
     data.user_data = user_data;
     g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
     fi = NULL;
-    if (fm_job_run_sync_with_mainloop(FM_JOB(job)))
+    /* if we do fm_job_run_sync_with_mainloop() then we should unlock
+       GDK threads before main loop but the libfm in GDK independent
+       therefore we cannot use the fm_job_run_sync_with_mainloop() here */
+    if (fm_job_run_sync(FM_JOB(job)))
         fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
     g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
     g_object_unref(job);
@@ -454,7 +457,10 @@ gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* l
     data.launcher = launcher;
     data.user_data = user_data;
     g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
-    ret = fm_job_run_sync_with_mainloop(FM_JOB(job));
+    /* if we do fm_job_run_sync_with_mainloop() then we should unlock
+       GDK threads before main loop but the libfm in GDK independent
+       therefore we cannot use the fm_job_run_sync_with_mainloop() here */
+    ret = fm_job_run_sync(FM_JOB(job));
     g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
     if(ret)
     {

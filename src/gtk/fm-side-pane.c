@@ -1,7 +1,7 @@
 //      fm-side-pane.c
 //
 //      Copyright 2011 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+//      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -382,7 +382,9 @@ static void init_dir_tree(FmSidePane* sp)
         fm_file_info_job_add(job, fm_path_get_root());
 
         /* FIXME: maybe it's cleaner to use run_async here? */
+        GDK_THREADS_LEAVE();
         fm_job_run_sync_with_mainloop(FM_JOB(job));
+        GDK_THREADS_ENTER();
 
         dir_tree_model = fm_dir_tree_model_new();
         for(l = fm_file_info_list_peek_head_link(job->file_infos); l; l = l->next)
