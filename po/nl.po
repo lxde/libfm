@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-14 16:19+0000\n"
+"PO-Revision-Date: 2014-01-28 09:38+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389716394.0\n"
+"X-POOTLE-MTIME: 1390901887.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -117,7 +117,7 @@ msgstr "_Hernoemen"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
-msgstr "_Overschrijven"
+msgstr "Over_schrijven"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid ""
