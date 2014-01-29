@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-19 12:50+0000\n"
+"PO-Revision-Date: 2014-01-29 08:12+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-POOTLE-MTIME: 1390135821.0\n"
+"X-POOTLE-MTIME: 1390983156.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -193,34 +193,28 @@ msgid "Select the application used to open files of this type "
 msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>סך גודל הקבצים:</b>"
+msgstr "<b>סך כמות הקבצים:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>סך גודל הקבצים:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>גודל על הכונן:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>שינוי אחרון:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>גישה אחרונה:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>גישה אחרונה:</b>"
+msgstr "<b>שינוי ההרשאות האחרון:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -275,9 +269,8 @@ msgid "<b>Access Control</b>"
 msgstr "<b>בקרת גישה</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "קובצי וי_דאו"
+msgstr "קובץ מוסתר"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -292,7 +285,6 @@ msgid "None"
 msgstr "ללא"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -308,7 +300,6 @@ msgid "Sticky & set GID"
 msgstr "דביק והגדרת GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "הגדרת UID"
@@ -318,7 +309,6 @@ msgid "Set UID & GID"
 msgstr "הגדרת UID ו־GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -354,7 +344,6 @@ msgid "GB"
 msgstr "ג״ב"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "נא לבחור בתאריך"
 
@@ -539,9 +528,8 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>הזמן שנותר:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>ארעו מספר שגיאות:</b>"
+msgstr "<b>אירעו שגיאות:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -572,7 +560,7 @@ msgstr "לא הוגדר יישום בררת מחדל עבור סוג ה־MIME‏
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "התקנים"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -739,7 +727,6 @@ msgid "Installed Applications"
 msgstr "יישומים מותקנים"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
 msgstr "<אין תיקיות משנה>"
 
@@ -757,16 +744,16 @@ msgstr "_ביטול"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr ""
+msgstr "לה_עתיק לכאן"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
-msgstr ""
+msgstr "להע_ביר לכאן"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
-msgstr ""
+msgstr "ל_קשר לכאן"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
@@ -781,9 +768,8 @@ msgid "Open _With..."
 msgstr "פתיחה _באמצעות..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "פתיחה _באמצעות..."
+msgstr "פתיחה _באמצעות"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -947,9 +933,8 @@ msgid "_Sort Files"
 msgstr "_סידור הקבצים"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "שינוי שם קובץ"
+msgstr "שינוי _שם תיקייה..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -961,7 +946,6 @@ msgstr "הצגת מו_סתרים"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
 msgstr "_ערבוב בין קבצים ותיקיות"
 
@@ -991,9 +975,8 @@ msgid "Enter a name for the newly created folder:"
 msgstr "נא להזין שם עבור התיקייה החדשה:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "שינוי שם קובץ"
+msgstr "יצירת תיקייה חדשה"
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
@@ -1041,7 +1024,6 @@ msgid "No folders are specified."
 msgstr "לא צוינו תיקיות."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "נא לבחור בתיקייה"
 
@@ -1106,9 +1088,8 @@ msgid "Pa_ste and Go"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "שיוכי קבצים"
+msgstr "סרגל מיקום תיקיות"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 msgid "Home Folder"
@@ -1229,12 +1210,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "ה_שהייה"
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
-msgstr "_שחזור"
+msgstr "ה_משך"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
@@ -1370,23 +1350,23 @@ msgstr "הצגת %s"
 
 #: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
-msgstr ""
+msgstr "מחיקת ה_גדרות הרוחב"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr ""
+msgstr "תצוגת _סמלים"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr ""
+msgstr "תצוגה _קומפקטית"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "תצוגת _דוגמיות"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "תצוגת _רשימה מפורטת"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
