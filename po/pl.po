@@ -1,5 +1,5 @@
-# Polish translation of libfm package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Polish translation for libfm package.
+# Copyright (C) 2014 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012, 2013, 2014.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-17 10:33+0100\n"
+"PO-Revision-Date: 2014-01-29 20:07+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"X-Generator: Gtranslator 2.91.6\n"
 "X-POOTLE-MTIME: 1386326774.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
@@ -104,7 +104,7 @@ msgstr "_Domyślnie dla tego typu plików"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
-msgstr "Potwierdź zastępowanie pliku"
+msgstr "Potwierdzenie zastąpienia pliku"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid "_Skip"
@@ -112,7 +112,7 @@ msgstr "_Pomiń"
 
 #: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
-msgstr "_Zmień nazwę"
+msgstr "Z_mień nazwę"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
@@ -142,12 +142,12 @@ msgstr "_Wykonanie czynności dla wszystkich plików"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
-msgstr "Wybierz ikonę..."
+msgstr "Wybór ikony..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
 msgid "system icon theme"
-msgstr "motyw ikon systemu"
+msgstr "styl ikon systemu"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
@@ -307,7 +307,6 @@ msgid "Sticky & set GID"
 msgstr "Sticky i SGID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "SUID"
@@ -317,12 +316,11 @@ msgid "Set UID & GID"
 msgstr "SUID i SGID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr "Tylko właściciel"
+msgstr "Only owner"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
@@ -354,7 +352,7 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr "Wybierz datę"
+msgstr "Wybór daty"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
@@ -432,7 +430,7 @@ msgstr "_Katalogi"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Inne:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
@@ -547,17 +545,18 @@ msgstr "Nieprawidłowy plik elementu pulpitu: „%s”"
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Brak przypisanego domyślnego programu dla uruchomiania URI %s://"
+msgstr ""
+"Brak przypisanego domyślnego programu dla uruchomiania adresu URI %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Nie można zmienić katalogu roboczego na '%s': %s"
+msgstr "Nie można zmienić katalogu roboczego na „%s”: %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Nie można określić typu zawartości pliku '%s', by go uruchomić"
+msgstr "Nie można określić typu zawartości pliku „%s”, aby go uruchomić"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
@@ -629,7 +628,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "Podścieżka URI '%s' zawiera nieprawidłowe znaki sterujące"
+msgstr "Ścieżka URI „%s” zawiera nieprawidłowe znaki sterujące"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -642,7 +641,7 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Nie udało się przetworzyć znaku '%-.*s', w miejscu którego powinna wystąpić "
+"Nie udało się przetworzyć znaku „%-.*s”, w miejscu którego powinna wystąpić "
 "liczba, będąca częścią odniesienia do znaku (np. &#234;) - być może liczba "
 "jest za duża"
 
@@ -660,20 +659,20 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "Odniesienie do znaku \"%-.*s\" nie jest zapisem dozwolonego znaku"
+msgstr "Odniesienie do znaku „%-.*s” nie jest zapisem dozwolonego znaku"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Napotkano pustą jednostkę \"&;\"; poprawnymi jednostkami są: &amp; &quot; "
-"&lt; &gt; &apos;"
+"Napotkano pustą jednostkę „&;”; poprawnymi jednostkami są: &amp; &quot; &lt; "
+"&gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr "Nazwa jednostki \"%-.*s\" nie jest znana"
+msgstr "Nazwa jednostki „%-.*s” nie jest znana"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -691,25 +690,23 @@ msgstr "Spacja nie jest dozwolona w znaczniku zamknięcia"
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr "Element \"%s\" został zamknięty, ale żaden element nie został otwarty"
+msgstr "Element „%s” został zamknięty, ale żaden element nie został otwarty"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
-"Element \"%s\" został zamknięty, lecz aktualnie otwartym elementem jest \"%s"
-"\""
+"Element „%s” został zamknięty, lecz aktualnie otwartym elementem jest „%s”"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr "Nieprawidłowy znak \"%c\" na początku wartości atrybutu"
+msgstr "Nieprawidłowy znak „%c” na początku wartości atrybutu"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
-"Nieprawidłowy znak \"%c\" na końcu wartości atrybutu, oczekiwany \"%c\""
+msgstr "Nieprawidłowy znak „%c” na końcu wartości atrybutu, oczekiwany \"%c\""
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -746,7 +743,7 @@ msgstr "Wczytywanie..."
 
 #: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
-msgstr "Pokaż drzewo katalogów w panelu bocznym"
+msgstr "Wyświetla drzewo katalogów w panelu bocznym"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
@@ -862,7 +859,7 @@ msgstr "Ukryj lub wyświetlaj plik"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Ten plik jest ukryty ponieważ jego nazwa zaczyna się od kropki ('.')."
+msgstr "Ten plik jest ukryty ponieważ jego nazwa zaczyna się od kropki („.”)."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
@@ -1194,7 +1191,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Wystąpiły błędy przed zatrzymaniem działania na plikach.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1202,7 +1199,7 @@ msgstr "Anulowano"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr ""
+msgstr "<b>Działanie na plikach zakończono z błędami.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1290,7 +1287,7 @@ msgstr "<b>%s pliki</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr "W_yłączone"
+msgstr "_Wyłączone"
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
@@ -1340,19 +1337,19 @@ msgstr "Zapomnij _szerokość"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr "Wyświetlanie _ikon"
+msgstr "_Ikony"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr "Wido_k kompaktowy"
+msgstr "Lista _zwarta"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr "Widok _miniatur"
+msgstr "_Miniatury"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr "Widok ze szczegółową _listą"
+msgstr "Lista _szczegółowa"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1362,7 +1359,7 @@ msgstr "Zmienia aktywną kartę"
 #: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Określony katalog \"%s\" jest nieprawidłowy"
+msgstr "Określony katalog „%s” jest nieprawidłowy"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1401,13 +1398,12 @@ msgstr "Nie można skopiować pliku „%s”: nieobsługiwane"
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
-"Ustawienie wyświetlanej nazwy może być dokonane tylko dla pojedynczego pliku"
+msgstr "Wyświetlaną nazwę można ustalić tylko dla pojedynczego pliku"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr "Ustawienie celu może być dokonane tylko dla pojedynczego pliku"
+msgstr "Cel można ustalić tylko dla pojedynczego pliku"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
@@ -1422,12 +1418,12 @@ msgstr "Plik XML nie zawiera katalogu głównego programów"
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "Nie można utworzyć definicji XML dla \"%s\""
+msgstr "Nie można utworzyć definicji XML dla „%s”"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "Ścieżka menu \"%s\" już istnieje"
+msgstr "Ścieżka menu „%s” już istnieje"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
@@ -1441,7 +1437,7 @@ msgstr "Nieobsługiwana operacja"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr "Nazwa elementu menu nie może być pusta"
+msgstr "Nieprawidłowy katalog menu"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
@@ -1463,7 +1459,7 @@ msgstr "Element menu „%s” nie posiada odpowiedniego pliku wpisu"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr "Zmiana stanu widoczności nie jest wspierana dla katalogów menu"
+msgstr "Zmiana stanu widoczności nie jest obsługiwana dla katalogów menu"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
@@ -1473,17 +1469,17 @@ msgstr "Nieobsługiwane ustalenie atrybutu „%s”"
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Nieprawidłowa wartość dla atrybutu '%s'"
+msgstr "Nieprawidłowa wartość dla atrybutu „%s”"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Element '%s' jest katalogiem menu"
+msgstr "Element „%s” jest katalogiem menu"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "Element '%s' nie jest elementem menu"
+msgstr "Element „%s” nie jest elementem menu"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
@@ -1497,7 +1493,7 @@ msgstr "Nie można utworzyć elementu menu '%s'"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "Nazwa katalogu menu nie powinna kończyć się przyrostkiem \".desktop\""
+msgstr "Nazwa katalogu menu nie powinna kończyć się ciągiem „.desktop”"
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
@@ -1505,14 +1501,13 @@ msgstr "Nieprawidłowe działanie na katalogu głównym menu"
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
-msgstr "Nieprawidłowe miejsce docelowe"
+msgstr "Nieprawidłowe położenie docelowe"
 
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
-"FmMenuVFileMonitor: katalog '%s' nie został odnaleziony w pamięci podręcznej "
-"menu"
+"FmMenuVFileMonitor: nie odnaleziono katalogu „%s” w pamięci podręcznej menu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1567,7 +1562,7 @@ msgstr "Podpowiedź wyświetlana dla programu"
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr "_Użyj powiadomienia na starcie"
+msgstr "_Powiadamianie o uruchamianiu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
