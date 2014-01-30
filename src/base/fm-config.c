@@ -83,6 +83,27 @@ static void fm_config_class_init(FmConfigClass *klass)
 
 }
 
+static void _on_cfg_file_changed(GFileMonitor *mon, GFile *gf, GFile *other,
+                                 GFileMonitorEvent evt, FmConfig *cfg);
+
+static inline void _cfg_monitor_free(FmConfig *cfg)
+{
+    if (cfg->_cfg_mon)
+    {
+        g_signal_handlers_disconnect_by_func(cfg->_cfg_mon, _on_cfg_file_changed, cfg);
+        g_object_unref(cfg->_cfg_mon);
+        cfg->_cfg_mon = NULL;
+    }
+}
+
+static inline void _cfg_monitor_add(FmConfig *cfg, const char *path)
+{
+    GFile *gf = g_file_new_for_path(path);
+    cfg->_cfg_mon = g_file_monitor_file(gf, G_FILE_MONITOR_NONE, NULL, NULL);
+    g_object_unref(gf);
+    if (cfg->_cfg_mon)
+        g_signal_connect(cfg->_cfg_mon, "changed", G_CALLBACK(_on_cfg_file_changed), cfg);
+}
 
 static void fm_config_finalize(GObject *object)
 {
@@ -91,6 +112,7 @@ static void fm_config_finalize(GObject *object)
     g_return_if_fail(FM_IS_CONFIG(object));
 
     cfg = (FmConfig*)object;
+    _cfg_monitor_free(cfg);
     g_free(cfg->_cfg_name);
     if(cfg->terminal)
         g_free(cfg->terminal);
@@ -164,6 +186,15 @@ static void fm_config_init(FmConfig *self)
 FmConfig *fm_config_new(void)
 {
     return (FmConfig*)g_object_new(FM_CONFIG_TYPE, NULL);
+}
+
+static void _on_cfg_file_changed(GFileMonitor *mon, GFile *gf, GFile *other,
+                                 GFileMonitorEvent evt, FmConfig *cfg)
+{
+    if (evt == G_FILE_MONITOR_EVENT_DELETED)
+        _cfg_monitor_free(cfg);
+    else
+        fm_config_load_from_file(cfg, cfg->_cfg_name);
 }
 
 /**
@@ -312,6 +343,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     g_strfreev(cfg->system_modules_blacklist);
     cfg->modules_blacklist = NULL;
     cfg->system_modules_blacklist = NULL;
+    _cfg_monitor_free(cfg);
     if(G_LIKELY(!name))
         name = "libfm/libfm.conf";
     else
@@ -320,7 +352,10 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
         {
             cfg->_cfg_name = g_strdup(name);
             if(g_key_file_load_from_file(kf, name, 0, NULL))
+            {
                 fm_config_load_from_key_file(cfg, kf);
+                _cfg_monitor_add(cfg, name);
+            }
             goto _out;
         }
     }
@@ -343,12 +378,16 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     cfg->modules_blacklist = NULL;
     path = g_build_filename(g_get_user_config_dir(), name, NULL);
     if(g_key_file_load_from_file(kf, path, 0, NULL))
+    {
         fm_config_load_from_key_file(cfg, kf);
+        _cfg_monitor_add(cfg, path);
+    }
     g_free(path);
 
 _out:
     g_key_file_free(kf);
     g_signal_emit(cfg, signals[CHANGED], 0);
+    /* FIXME: compare and send individual changes instead */
 }
 
 #define _save_config_bool(_str_,_cfg_,_name_) \
@@ -424,6 +463,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
     dir_path = g_path_get_dirname(name);
     if(g_mkdir_with_parents(dir_path, 0700) != -1)
     {
+        if (cfg->_cfg_mon)
+            g_signal_handlers_block_by_func(cfg->_cfg_mon, _on_cfg_file_changed, cfg);
         f = fopen(name, "w");
         if(f)
         {
@@ -483,6 +524,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fclose(f);
             g_string_free(str, TRUE);
         }
+        if (cfg->_cfg_mon)
+            g_signal_handlers_unblock_by_func(cfg->_cfg_mon, _on_cfg_file_changed, cfg);
     }
     g_free(dir_path);
     g_free(path);

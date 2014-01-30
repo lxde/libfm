@@ -25,6 +25,7 @@
 #define __FM_CONFIG_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -212,7 +213,7 @@ struct _FmConfig
     gpointer _reserved5;
     gpointer _reserved6;
     gpointer _reserved7;
-    gpointer _reserved8;
+    GFileMonitor *_cfg_mon;
 };
 
 /**
