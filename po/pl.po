@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-01-29 20:07+0100\n"
+"PO-Revision-Date: 2014-01-30 19:50+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -27,7 +27,7 @@ msgstr "Preferowane programy"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Wybierz programy uruchamiane przy kliknięciu w odnośnik sieciowy lub adres e-"
+"Wybiera programy uruchamiane przy kliknięciu w odnośnik sieciowy lub adres e-"
 "mail"
 
 #: ../data/lxshortcut.desktop.in.h:1
@@ -36,7 +36,7 @@ msgstr "Edytor skrótu"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "Utwórz nowy lub zmień istniejący element pulpitu"
+msgstr "Tworzy nowy lub modyfikuje istniejący element pulpitu"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -291,7 +291,6 @@ msgid "None"
 msgstr "Brak"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -320,7 +319,7 @@ msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr "Only owner"
+msgstr "Tylko właściciel"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
@@ -356,7 +355,7 @@ msgstr "Wybór daty"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Proszę wybrać datę z poniższego kalendarza"
+msgstr "Proszę wybrać datę z poniższego kalendarza:"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
@@ -371,6 +370,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Wprowadza listę wzorów powłoki POSIX rozdzielonych znakiem „,” lub wyrażenie "
+"regularne POSIX"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -437,6 +438,9 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Określa dowolny, prawidłowy typ pliku. Możliwe jest umieszczenie znaku "
+"wieloznacznego „*” na końcu definicji. Poszczególne definicje typów należy "
+"rozdzielić znakiem „;”."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -489,7 +493,9 @@ msgstr "<b>Przeglądarka internetowa</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Otwiera odnośniki za pomocą preferowanej przeglądarki internetowej."
+msgstr ""
+"Wybiera preferowaną przeglądarkę internetową służącą do otwierania "
+"odnośników sieciowych."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -500,7 +506,7 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Preferowany program pocztowy będzie używany do tworzenia wiadomości, po "
+"Wybiera preferowany program pocztowy służący do tworzenia wiadomości, po "
 "kliknięciu w odnośnik adresu e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:6
@@ -1034,7 +1040,7 @@ msgstr "Nie określono katalogów."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
-msgstr "Wybierz katalog"
+msgstr "Wybór katalogu"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1239,7 +1245,6 @@ msgstr "Kopiowanie"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
 msgid "Trashing"
 msgstr "Przenoszenie plików do kosza"
 
@@ -1251,7 +1256,7 @@ msgstr "Usuwanie"
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
 msgid "Symlinking"
-msgstr ""
+msgstr "Tworzenie dowiązań"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
@@ -1275,15 +1280,15 @@ msgstr "<b>Trwają działania na plikach...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>%s plik</b>"
+msgstr "<b>%s plik:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>%s pliki</b>"
+msgstr "<b>%s pliki:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
