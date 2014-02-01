@@ -53,11 +53,6 @@ gboolean fm_gtk_init(FmConfig* config)
         G_UNLIKELY(!fm_init(config)))
         return FALSE;
 
-#if !GTK_CHECK_VERSION(3, 6, 0)
-    /* init GDK threads before initializing any GTK+ stuff */
-    gdk_threads_init();
-#endif
-
     _fm_icon_pixbuf_init();
     _fm_thumbnail_init();
     _fm_file_properties_init();
