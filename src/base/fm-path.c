@@ -1539,7 +1539,9 @@ FmPathList* fm_path_list_new_from_uris(char* const* uris)
  */
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
-    char** uris = g_strsplit(uri_list, "\r\n", -1);
+    /* The line separator used by text/urilist is CRLF, not LF. However, some
+      existing implementations seems to use '\n'. Let's handle both. */
+    char** uris = g_strsplit_set(uri_list, "\r\n", -1);
     FmPathList* pl = fm_path_list_new_from_uris(uris);
     g_strfreev(uris);
     return pl;
@@ -1666,6 +1668,9 @@ void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
         char* uri = fm_path_to_uri(path);
         g_string_append(buf, uri);
         g_free(uri);
+        /* FIXME: the line separator used by text/urilist is CRLF, not LF.
+         Existing implementations of x-special/gnome-copied-files seems to accept '\n', but 
+         for text/uri-list, CRLF is more standard. Should we fix it? */
         if(l->next)
             g_string_append_c(buf, '\n');
     }
