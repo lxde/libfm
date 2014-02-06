@@ -95,7 +95,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
         fm_path_list_write_uri_list(files, uri_list);
     }
     /* FIXME: this is invalid, UTF8_STRING means this is plain text not file list */
-    if(info == UTF8_STRING)
+    else if(info == UTF8_STRING)
     {
         for (l = fm_path_list_peek_head_link(files); l; l = l->next)
         {
