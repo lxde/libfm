@@ -2,7 +2,7 @@
  *      fm-clipboard.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -77,6 +77,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
 {
     FmPathList* files = (FmPathList*)user_data;
     GString* uri_list;
+    GList *l;
     GdkAtom target = gtk_selection_data_get_target(sel);
 
     if(info == KDE_CUT_SEL)
@@ -89,24 +90,33 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
 
     uri_list = g_string_sized_new(4096);
     if(info == GNOME_COPIED_FILES)
+    {
         g_string_append(uri_list, is_cut ? "cut\n" : "copy\n");
+        fm_path_list_write_uri_list(files, uri_list);
+    }
     /* FIXME: this is invalid, UTF8_STRING means this is plain text not file list */
     if(info == UTF8_STRING)
     {
-        GList* l = fm_path_list_peek_head_link(files);
-        while(l)
+        for (l = fm_path_list_peek_head_link(files); l; l = l->next)
         {
             FmPath* path = (FmPath*)l->data;
             char* str = fm_path_to_str(path);
             g_string_append(uri_list, str);
             g_string_append_c(uri_list, '\n');
             g_free(str);
-            l=l->next;
         }
     }
     else/* text/uri-list format */
     {
-        fm_path_list_write_uri_list(files, uri_list);
+        for (l = fm_path_list_peek_head_link(files); l; l = l->next)
+        {
+            FmPath *path = (FmPath*)l->data;
+            char *str = fm_path_to_uri(path);
+            g_string_append(uri_list, str);
+            g_free(str);
+            if (l->next)
+                g_string_append(uri_list, "\r\n");
+        }
     }
     gtk_selection_data_set(sel, target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
