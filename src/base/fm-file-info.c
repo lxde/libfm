@@ -2,7 +2,7 @@
  *      fm-file-info.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -302,19 +302,6 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                 icon_name = g_key_file_get_string(kf, "Desktop Entry", "Icon", NULL);
                 if(icon_name)
                 {
-                    if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-                    {
-                        char* dot = strrchr(icon_name, '.');
-                        /* remove file extension */
-                        if(dot)
-                        {
-                            ++dot;
-                            if(strcmp(dot, "png") == 0 ||
-                               strcmp(dot, "svg") == 0 ||
-                               strcmp(dot, "xpm") == 0)
-                               *(dot-1) = '\0';
-                        }
-                    }
                     icon = fm_icon_from_name(icon_name);
                     g_free(icon_name);
                 }
@@ -735,26 +722,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     _fm_path_set_display_name(fi->path, menu_cache_item_get_name(item));
     if(icon_name)
     {
-        char* tmp_name = NULL;
-        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-        {
-            char* dot = strrchr(icon_name, '.');
-            /* remove file extension, this is a hack to fix non-standard desktop entry files */
-            if(G_UNLIKELY(dot))
-            {
-                ++dot;
-                if(strcmp(dot, "png") == 0 ||
-                   strcmp(dot, "svg") == 0 ||
-                   strcmp(dot, "xpm") == 0)
-                {
-                    tmp_name = g_strndup(icon_name, dot - icon_name - 1);
-                    icon_name = tmp_name;
-                }
-            }
-        }
         fi->icon = fm_icon_from_name(icon_name);
-        if(G_UNLIKELY(tmp_name))
-            g_free(tmp_name);
     }
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
     {

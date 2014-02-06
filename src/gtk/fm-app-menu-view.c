@@ -2,6 +2,7 @@
  *      fm-app-menu-view.c
  *
  *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -35,6 +36,7 @@
 
 #include "../glib-compat.h"
 #include "fm-app-menu-view.h"
+#include "fm-icon.h"
 #include <menu-cache.h>
 #include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>
@@ -96,26 +98,7 @@ static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
             case MENU_CACHE_TYPE_APP:
             case MENU_CACHE_TYPE_DIR:
                 if(menu_cache_item_get_icon(item))
-                {
-                    if(g_path_is_absolute(menu_cache_item_get_icon(item)))
-                    {
-                        GFile* gf = g_file_new_for_path(menu_cache_item_get_icon(item));
-                        gicon = g_file_icon_new(gf);
-                        g_object_unref(gf);
-                    }
-                    else
-                    {
-                        char* dot = strrchr((char*)menu_cache_item_get_icon(item), '.');
-                        if(dot && (strcmp(dot+1, "png") == 0 || strcmp(dot+1, "svg") == 0 || strcmp(dot+1, "xpm") == 0))
-                        {
-                            char* name = g_strndup(menu_cache_item_get_icon(item), dot - menu_cache_item_get_icon(item));
-                            gicon = g_themed_icon_new(name);
-                            g_free(name);
-                        }
-                        else
-                            gicon = g_themed_icon_new(menu_cache_item_get_icon(item));
-                    }
-                }
+                    gicon = G_ICON(fm_icon_from_name(menu_cache_item_get_icon(item)));
                 else
                     gicon = NULL;
                 gtk_tree_store_append(store, &it, parent_it);
