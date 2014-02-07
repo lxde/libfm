@@ -313,6 +313,7 @@ libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 libfm_gtk_la_CFLAGS = \
 	-I$(srcdir)/gtk \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
+	-DPACKAGE_THEME_DIR=\""$(datadir)/libfm/images"\" \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	$(NULL)

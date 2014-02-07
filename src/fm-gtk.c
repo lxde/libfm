@@ -53,6 +53,10 @@ gboolean fm_gtk_init(FmConfig* config)
         G_UNLIKELY(!fm_init(config)))
         return FALSE;
 
+    /* see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=734691
+       if no theme was selected and GTK fallback isn't available then no icons
+       are shown - we should add folder and file icons as fallbacks theme */
+    gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PACKAGE_THEME_DIR);
     _fm_icon_pixbuf_init();
     _fm_thumbnail_init();
     _fm_file_properties_init();
