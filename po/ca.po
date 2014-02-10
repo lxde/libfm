@@ -694,6 +694,7 @@ msgid "TB"
 msgstr "TB"
 
 #: ../src/base/fm-utils.c:164
+#, c-format
 #, c-format, fuzzy
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -739,6 +740,7 @@ msgstr ""
 "caràcter de referència (per exemple &#234;). Potser el dígit és massa llarg."
 
 #: ../src/extra/fm-xml-file.c:310
+#, c-format
 #, c-format, fuzzy
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
@@ -1533,6 +1535,7 @@ msgid "View of folder contents"
 msgstr "Vista del contingut de la carpeta"
 
 #: ../src/gtk/fm-standard-view.c:831
+#, c-format
 #, c-format, fuzzy
 msgid "_Hide %s"
 msgstr "Amaga %s"
@@ -1584,6 +1587,7 @@ msgstr "Pestanya de canvis activa"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
+#, c-format
 #, c-format, fuzzy
 msgid "The specified directory '%s' is not valid"
 msgstr "El directori especificat '%s' no és vàlid"
@@ -1599,6 +1603,7 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr "No es pot crear un enllaç simbòlic a un sistema de fitxers no nadiu"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
+#, c-format
 #, c-format, fuzzy
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
@@ -1626,22 +1631,26 @@ msgid "Destination is a sub folder of source"
 msgstr "La destinació és una subcarpeta de la font"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
+#, c-format
 #, c-format, fuzzy
 msgid "Cannot copy file '%s': not supported"
 msgstr "No es pot copiar el fitxar '%s': no està suportat"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
+#, c-format
 #, c-format, fuzzy
 msgid "Setting display name can be done only for single file"
 msgstr "Ajustar el nom mostrat només pot fer-se per un únic fitxer"
 
 # He traduït «target» per «diana» però tinc dubtes :(
 #: ../src/job/fm-file-ops-job-change-attr.c:315
+#, c-format
 #, c-format, fuzzy
 msgid "Setting target can be done only for single file"
 msgstr "Ajustar la diana només pot fer-se per un únic fitxer"
 
 #: ../src/modules/vfs-menu.c:299
+#, c-format
 #, c-format, fuzzy
 msgid "XML file '%s' error (%d:%d): "
 msgstr "Error (%d:%d) de fitxer XML '%s': "
@@ -1653,11 +1662,13 @@ msgstr "El fitxer XML no té aplicacions d'administrador"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
+#, c-format
 #, c-format, fuzzy
 msgid "Cannot create XML definition for '%s'"
 msgstr "No es pot crear una definició XML per a '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
+#, c-format
 #, c-format, fuzzy
 msgid "Menu path '%s' already exists"
 msgstr "La ruta al menú '%s' ja existeix"
@@ -1685,6 +1696,7 @@ msgid "Menu item name cannot be empty"
 msgstr "El nom de l'element del menú no pot estar buit."
 
 #: ../src/modules/vfs-menu.c:1507
+#, c-format
 #, c-format, fuzzy
 msgid "Invalid menu directory '%s'"
 msgstr "Directori de menú '%s' no vàlid"
@@ -1695,6 +1707,7 @@ msgid "Invalid menu item"
 msgstr "Element de menú no vàlid"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
+#, c-format
 #, c-format, fuzzy
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "L'element del menú '%s' no té un fitxer d'entrada adequat"
@@ -1705,31 +1718,37 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "El canvi d'estat ocult no està implementat pel directori de menú"
 
 #: ../src/modules/vfs-menu.c:1978
+#, c-format
 #, c-format, fuzzy
 msgid "Setting attribute '%s' not supported"
 msgstr "No està implementat establir l'atribut '%s'"
 
 #: ../src/modules/vfs-menu.c:1988
+#, c-format
 #, c-format, fuzzy
 msgid "Invalid value for attribute '%s'"
 msgstr "Valor no vàlid per a l'atribut '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
+#, c-format
 #, c-format, fuzzy
 msgid "The '%s' is a menu directory"
 msgstr "El '%s' és un directori de menú"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
+#, c-format
 #, c-format, fuzzy
 msgid "The '%s' isn't a menu item"
 msgstr "El '%s' no és un element del menú"
 
 #: ../src/modules/vfs-menu.c:2052
+#, c-format
 #, c-format, fuzzy
 msgid "The '%s' entry file is broken"
 msgstr "El fitxer d'entrada '%s' està trencat"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
+#, c-format
 #, c-format, fuzzy
 msgid "Cannot create menu item '%s'"
 msgstr "No s'ha pogut crear l'element de menú '%s'"
@@ -1750,6 +1769,7 @@ msgid "Invalid destination"
 msgstr "El destí no és vàlid"
 
 #: ../src/modules/vfs-menu.c:2979
+#, c-format
 #, c-format, fuzzy
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
