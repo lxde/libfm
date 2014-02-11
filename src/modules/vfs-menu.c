@@ -1573,10 +1573,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
         info = g_file_info_new();
         if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_NAME))
         {
-            if(item->path == NULL)
-                basename = g_strdup("/");
-            else
-                basename = g_path_get_basename(item->path);
+            basename = g_path_get_basename(item->path);
             id = g_uri_unescape_string(basename, NULL);
             g_free(basename);
             g_file_info_set_name(info, id);
@@ -2825,6 +2822,9 @@ static void _reload_notify_handler(gpointer cache, gpointer user_data)
                                   G_FILE_MONITOR_EVENT_DELETED);
         return;
     }
+    /* emit change on the folder in any case */
+    g_file_monitor_emit_event(G_FILE_MONITOR(mon), G_FILE(mon->file), NULL,
+                              G_FILE_MONITOR_EVENT_CHANGED);
     items = mon->items;
     mon->items = g_slist_copy_deep(menu_cache_dir_get_children(MENU_CACHE_DIR(dir)),
                                    (GCopyFunc)menu_cache_item_ref, NULL);
