@@ -97,6 +97,8 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
         ent = (PixEntry*)l->data;
         if(ent->size == size) /* cached pixbuf is found! */
         {
+            /* return stealed data back */
+            g_object_set_qdata_full(G_OBJECT(icon), fm_qdata_id, pixs, destroy_pixbufs);
             return ent->pix ? GDK_PIXBUF(g_object_ref(ent->pix)) : NULL;
         }
     }
