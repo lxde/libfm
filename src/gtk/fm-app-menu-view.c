@@ -304,6 +304,39 @@ char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
 }
 
 /**
+ * fm_app_menu_view_dup_selected_app_desktop_path
+ * @view: a widget
+ *
+ * Retrieves #FmPath to selected application from the widget as a child
+ * below fm_path_get_apps_menu() root path. Return %NULL if there is no
+ * application selected.
+ * The returned data should be freed with fm_path_unref() after usage.
+ *
+ * Returns: (transfer full): path to selected application file.
+ *
+ * Since: 1.2.0
+ */
+FmPath * fm_app_menu_view_dup_selected_app_desktop_path(GtkTreeView* view)
+{
+    GtkTreeIter it;
+    GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    /* FIXME: this should be checked if it's exactly app menu tree! */
+    if(gtk_tree_selection_get_selected(sel, NULL, &it))
+    {
+        MenuCacheItem* item;
+        gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
+        if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+        {
+            char *mpath = menu_cache_dir_make_path(MENU_CACHE_DIR(item));
+            FmPath *path = fm_path_new_relative(fm_path_get_apps_menu(), mpath);
+            g_free(mpath);
+            return path;
+        }
+    }
+    return NULL;
+}
+
+/**
  * fm_app_menu_view_is_item_app
  * @view: a widget
  * @it: tree iterator

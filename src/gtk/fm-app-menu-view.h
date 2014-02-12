@@ -24,6 +24,7 @@
 #define __FM_APP_MENU_VIEW_H__
 
 #include <gtk/gtk.h>
+#include "fm-path.h"
 
 G_BEGIN_DECLS
 
@@ -34,6 +35,8 @@ GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view);
 char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view);
 
 char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view);
+
+FmPath * fm_app_menu_view_dup_selected_app_desktop_path(GtkTreeView* view);
 
 gboolean fm_app_menu_view_is_app_selected(GtkTreeView* view);
 
