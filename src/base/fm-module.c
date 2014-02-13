@@ -452,7 +452,8 @@ _next_dir:
             dir_l = dir_l->next;
             continue;
         }
-    } while(0);
+        break;
+    } while(1);
     g_slist_free_full(m_dirs, g_free);
     m_dirs = NULL;
     G_UNLOCK(idle_handler);
