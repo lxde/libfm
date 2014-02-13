@@ -328,7 +328,8 @@ FmPath * fm_app_menu_view_dup_selected_app_desktop_path(GtkTreeView* view)
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
         {
             char *mpath = menu_cache_dir_make_path(MENU_CACHE_DIR(item));
-            FmPath *path = fm_path_new_relative(fm_path_get_apps_menu(), mpath);
+            FmPath *path = fm_path_new_relative(fm_path_get_apps_menu(),
+                                                mpath+13 /* skip "/Applications" */);
             g_free(mpath);
             return path;
         }
