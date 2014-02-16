@@ -942,6 +942,12 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     if(fm_file_info_is_desktop_entry(dest))
     {
         GdkModifierType mask = 0;
+        gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
+                                        gtk_get_current_event_device(),
+                                        NULL, NULL, &mask);
+        mask &= gtk_accelerator_get_default_mod_mask();
+        if ((mask & ~GDK_CONTROL_MASK) != 0) /* only "copy" action is allowed */
+            return 0;
         if(!dd->src_files || dd->context != drag_context)
         {
             /* we have no valid data, query it now */
@@ -954,12 +960,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             }
             return 0;
         }
-        gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
-                                        gtk_get_current_event_device(),
-                                        NULL, NULL, &mask);
-        mask &= gtk_accelerator_get_default_mod_mask();
-        if(mask) /* some key is pressed! */
-            return GDK_ACTION_ASK;
         return GDK_ACTION_COPY;
     }
 
