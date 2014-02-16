@@ -734,7 +734,6 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     }
     else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
     {
-        fi->mode = S_IFREG;
         fi->target = menu_cache_item_get_file_path(item);
         fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_application_x_desktop());
         fi->hidden = !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), (guint32)-1);
