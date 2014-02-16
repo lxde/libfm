@@ -726,15 +726,26 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     }
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
     {
-        fi->mode |= S_IFDIR;
+        fi->mode = S_IFDIR;
+        fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        fi->hidden = !menu_cache_dir_is_visible(MENU_CACHE_DIR(item));
+#endif
     }
     else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
     {
-        fi->mode |= S_IFREG;
+        fi->mode = S_IFREG;
         fi->target = menu_cache_item_get_file_path(item);
+        fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_application_x_desktop());
+        fi->hidden = !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), (guint32)-1);
+        fi->hidden_is_changeable = TRUE;
+        fi->shortcut = TRUE;
     }
-    fi->shortcut = TRUE;
-    fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
+    else /* nothing to set if separator */
+        return;
+    fi->accessible = TRUE;
+    fi->name_is_changeable = TRUE;
+    fi->icon_is_changeable = TRUE;
 }
 
 /**
@@ -742,7 +753,13 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
  * @path: a file path
  * @item: a menu cache item
  *
- * Deprecated: 1.2.0:
+ * Creates a new #FmFileInfo for a file by @path and fills it with info
+ * from a menu cache @item. Returned data should be freed with
+ * fm_file_info_unref() when no longer needed.
+ *
+ * Returns: (transfer full): a new #FmFileInfo struct.
+ *
+ * Since: 0.1.1
  */
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {
