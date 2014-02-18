@@ -2,12 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
 "PO-Revision-Date: 2013-07-18 16:27+0000\n"
 "Last-Translator: Praveen_Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +104,8 @@ msgstr "అనురూపిత ఆదేశ పంక్తి (_C)"
 #: ../data/ui/app-chooser.glade.h:17
 #, fuzzy
 msgid "_Set selected application as default action for this file type"
-msgstr "ఈ రకపు దస్త్రాన్ని తెరుచుటకు ఎంచుకున్న అనువర్తనమును అప్రమేయముగా అమర్చు (_S)"
+msgstr ""
+"ఈ రకపు దస్త్రాన్ని తెరుచుటకు ఎంచుకున్న అనువర్తనమును అప్రమేయముగా అమర్చు (_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
 #, fuzzy
@@ -533,7 +533,9 @@ msgstr "<b>మెయిల్ క్లైంటు</b>"
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
-msgstr "ఈ-మెయిల్ చిరునామాల పై నొక్కినపుడు ప్రాధాన్య మెయిల్ క్లైంటు ఈ మెయిళ్ళను సృష్టించుటకు వాడబడుతుంది."
+msgstr ""
+"ఈ-మెయిల్ చిరునామాల పై నొక్కినపుడు ప్రాధాన్య మెయిల్ క్లైంటు ఈ మెయిళ్ళను "
+"సృష్టించుటకు వాడబడుతుంది."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -746,6 +748,7 @@ msgid "Customize"
 msgstr "అనురూపించు"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
+#, c-format
 #, fuzzy, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "ఫైళ్ళను తెరుచుటకు ఎంచుకున్న అనువర్తనమును వాడు"
@@ -883,7 +886,9 @@ msgstr "దయచేసి సరైన సమూహ పేరును లే�
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "ఈ మార్పులను అన్ని ఫైళ్ళకు మరియు ఉప-సంచయాలకు పునరావృత్తముగా అనువర్తించాలనుకుంటున్నారా?"
+msgstr ""
+"ఈ మార్పులను అన్ని ఫైళ్ళకు మరియు ఉప-సంచయాలకు పునరావృత్తముగా "
+"అనువర్తించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
@@ -909,16 +914,16 @@ msgstr "నింపుతున్నది..."
 msgid "<b>_Access content:</b>"
 msgstr "<b>ప్రవేశ నియంత్రణ</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "వివిధ రకములైన ఫైళ్ళు"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 #, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>ఫైల్ రకం:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 #, fuzzy
 msgid "Multiple files"
 msgstr "బహుళ ఫైళ్ళు"
@@ -1047,11 +1052,13 @@ msgid "New"
 msgstr "నెట్‌వర్క్"
 
 #: ../src/gtk/fm-folder-view.c:876
+#, c-format
 #, fuzzy, c-format
 msgid "Enter a name for the new %s:"
 msgstr "ఒక కొత్త పేరును ఇవ్వండి:"
 
 #: ../src/gtk/fm-folder-view.c:879
+#, c-format
 #, fuzzy, c-format
 msgid "Creating %s"
 msgstr "symlinksను సృష్టిస్తున్నది"
@@ -1072,7 +1079,9 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "ఈ '%s' ఫైల్ ఒక ఎక్జిక్యూటబుల్ ఫైలు. మీరు దీనిని ఎక్జిక్యూట్ చేయాలనుకుంటున్నారా?"
+msgstr ""
+"ఈ '%s' ఫైల్ ఒక ఎక్జిక్యూటబుల్ ఫైలు. మీరు దీనిని ఎక్జిక్యూట్ "
+"చేయాలనుకుంటున్నారా?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
@@ -1101,11 +1110,13 @@ msgid "Only system administrators have the permission to do this."
 msgstr "దీనిని చేయుటకు వ్యవస్థ నిర్వాహకులు మాత్రమే అనుమతికలిగివున్నారు."
 
 #: ../src/gtk/fm-gtk-utils.c:923
+#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
+#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
@@ -1113,11 +1124,13 @@ msgstr[0] "ఎంచుకున్న ఫైళ్ళను చెత్తబ�
 msgstr[1] "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
+#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "ఎంచుకున్న ఫైళ్ళను తీసివేయాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
+#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1268,8 +1281,8 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"కొన్ని ఫైళ్ళను చెత్తబుట్టకు తరలించుట వీలుకావడంలేదు ఎందుకంటే మూలాధారమైన ఫైల్ వ్యవస్థలు ఈ ఆపరేషన్‌కు "
-"సహకరించుటలేదు.\n"
+"కొన్ని ఫైళ్ళను చెత్తబుట్టకు తరలించుట వీలుకావడంలేదు ఎందుకంటే మూలాధారమైన ఫైల్ "
+"వ్యవస్థలు ఈ ఆపరేషన్‌కు సహకరించుటలేదు.\n"
 "దీనికి బదులుగా వాటిని తొలగించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
@@ -1286,64 +1299,80 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
 #, fuzzy
 msgid "Moving"
 msgstr "ఫైళ్ళను తరలిస్తోంది"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
 #, fuzzy
 msgid "Copying"
 msgstr "ఫైళ్ళను నకలుచేస్తోంది"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
 #, fuzzy
 msgid "Trashing"
 msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
 #, fuzzy
 msgid "Deleting"
 msgstr "ఫైళ్ళను తీసివేస్తోంది"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+msgid "Creating link"
 msgstr ""
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+msgid "<b>In:</b>"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:600
+msgid "Creating links to files"
+msgstr ""
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 #, fuzzy
 msgid "Changing attributes of"
 msgstr "ఫైల్ గుణములను మారుస్తోంది"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+msgid "Changing attributes of files"
+msgstr ""
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 #, fuzzy
 msgid "Restoring"
 msgstr "తిరిగివుంచు (_R)"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
+#, c-format
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
+#: ../src/gtk/fm-progress-dlg.c:633
+#, c-format
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>ఫైల్ రకం:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
+#: ../src/gtk/fm-progress-dlg.c:636
+#, c-format
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>ఫైల్ రకం:</b>"
@@ -1423,6 +1452,7 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
+#, c-format
 #, fuzzy, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "నిర్దేశించిన చిరునామా సరైనది కాదు"
@@ -1436,6 +1466,7 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
+#, c-format
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "చెత్తబుట్టకు తరలించిన ఫైళ్ళను వాటి పూర్వ స్థానములలో తిరిగివుంచు"
@@ -1457,6 +1488,7 @@ msgid "Destination is a sub folder of source"
 msgstr "గమ్యస్థానము మూలము యొక్క ఉప  సంచయం"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
+#, c-format
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "ఒక సంచయమును దాని ఉప సంచయమునకు నకలుచేయుట సాధ్యంకాదు"
