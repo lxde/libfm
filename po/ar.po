@@ -72,6 +72,7 @@ msgid "_Keep terminal window open after command execution"
 msgstr "أب_قِ نافذة الطرفية مفتوحة بعد تنفيذ الأمر"
 
 #: ../data/ui/app-chooser.glade.h:9
+#, no-c-format
 #, fuzzy, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -573,6 +574,7 @@ msgid "Invalid desktop entry file: '%s'"
 msgstr "مُدخل سطح مكتب غير صالح '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
+#, c-format
 #, c-format, fuzzy
 msgid "No default application is set to launch URIs %s://"
 msgstr "لم يتم ضبط برنامج افتراضي لتشغيل الروابط URIs %s://"
@@ -583,11 +585,13 @@ msgid "Cannot set working directory to '%s': %s"
 msgstr "غير قادر على تغيير الدليل الحالي إلى '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
+#, c-format
 #, c-format, fuzzy
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "غير قادر على التعرف على نوع محتوى الملف '%s' لتشغيله"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
+#, c-format
 #, c-format, fuzzy
 msgid "No default application is set for MIME type %s"
 msgstr "لم يتم ضبط برنامج افتراضي لصيغة MIME %s"
@@ -893,7 +897,7 @@ msgstr "إخفاء أو إظهار الملف"
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "هذا الملف مخفي لأن اسمه يبدأ بنقطة ('.')."
 
-# بحاجة للتحقق من الهمزات 
+# بحاجة للتحقق من الهمزات
 #: ../src/gtk/fm-file-properties.c:969
 #, fuzzy
 msgid ""
@@ -1040,11 +1044,13 @@ msgid "New"
 msgstr "جديد"
 
 #: ../src/gtk/fm-folder-view.c:876
+#, c-format
 #, c-format, c-format
 msgid "Enter a name for the new %s:"
 msgstr "أدخل اسمًا لـ %s الجديد:"
 
 #: ../src/gtk/fm-folder-view.c:879
+#, c-format
 #, c-format, c-format
 msgid "Creating %s"
 msgstr "يتم إنشاء %s"
@@ -1323,6 +1329,7 @@ msgstr "تتم الاستعادة"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
+#, c-format
 #, c-format, c-format
 msgid "%s files"
 msgstr "الملفات %s"
@@ -1452,16 +1459,19 @@ msgid "Destination is a sub folder of source"
 msgstr "الوجهة هي مجلد فرعي للمصدر"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
+#, c-format
 #, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "لم يستطع نقل الملف '%s' : غير مدعوم"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
+#, c-format
 #, c-format, fuzzy
 msgid "Setting display name can be done only for single file"
 msgstr "ضبط الاسم المعروض يمكن أن يطبق على ملف مفرد فقط"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
+#, c-format
 #, c-format, fuzzy
 msgid "Setting target can be done only for single file"
 msgstr "ضبط الوجهة يمكن أن تطبق على ملف مفرد فقط"
@@ -1506,6 +1516,7 @@ msgid "Menu item name cannot be empty"
 msgstr "لا يمكن أن يكون اسم عنصر القائمة فارغاً."
 
 #: ../src/modules/vfs-menu.c:1507
+#, c-format
 #, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "دليل القائمة '%s' غير صالح"
@@ -1536,11 +1547,13 @@ msgid "Invalid value for attribute '%s'"
 msgstr "اسم ملف غير صالح %s"
 
 #: ../src/modules/vfs-menu.c:2025
+#, c-format
 #, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' هو دليل قائمة"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
+#, c-format
 #, c-format, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s' هو ليس عنصر قائمة"
@@ -1551,6 +1564,7 @@ msgid "The '%s' entry file is broken"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
+#, c-format
 #, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "لا يمكن إنشاء عنصر القائمة '%s'"
@@ -1568,6 +1582,7 @@ msgid "Invalid destination"
 msgstr "وجهة غير صالحة"
 
 #: ../src/modules/vfs-menu.c:2979
+#, c-format
 #, c-format, fuzzy
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: المجلد '%s' غير موجود في menu cache"
