@@ -304,6 +304,8 @@ void fm_module_unregister_type(const char *type)
         last->next = mtype->next;
     else /* it was first one */
         modules_types = mtype->next;
+    if (modules_types == NULL)
+        fm_modules_loaded = 0; /* FIXME: is this correct? */
     g_slist_free_full(mtype->modules, g_object_unref);
     G_UNLOCK(idle_handler);
     g_free(mtype->type);
@@ -450,7 +452,8 @@ _next_dir:
             dir_l = dir_l->next;
             continue;
         }
-    } while(0);
+        break;
+    } while(1);
     g_slist_free_full(m_dirs, g_free);
     m_dirs = NULL;
     G_UNLOCK(idle_handler);
@@ -522,13 +525,18 @@ gboolean fm_module_is_in_use(const char *type, const char *name)
  */
 gboolean fm_modules_add_directory(const char *path)
 {
+    GSList *l;
     gboolean res = FALSE;
 
     g_return_val_if_fail(path != NULL || path[0] != '/', FALSE);
     G_LOCK(idle_handler);
     if (fm_modules_loaded) /* it's too late... */
         goto _finish;
-    m_dirs = g_slist_append(m_dirs, g_strdup(path));
+    for (l = m_dirs; l; l = l->next)
+        if (strcmp(l->data, path) == 0)
+            break;
+    if (l == NULL)
+        m_dirs = g_slist_append(m_dirs, g_strdup(path));
     res = TRUE;
 _finish:
     G_UNLOCK(idle_handler);

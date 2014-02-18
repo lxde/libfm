@@ -26,12 +26,23 @@ libfmdatafiles_DATA = \
 	terminals.list \
 	$(NULL)
 
+libfmimagesdir = $(datadir)/libfm/images
+if ENABLE_GTK
+libfmimages_DATA = \
+	images/unknown.png \
+	images/folder.png \
+	$(NULL)
+else
+libfmimages_DATA =
+endif
+
 EXTRA_DIST= \
 	$(libfmconf_DATA) \
 	$(mime_DATA) \
 	$(libfmdatafiles_DATA) \
 	$(desktop_in_files) \
 	$(desktop_DATA) \
+	$(libfmimages_DATA) \
 	$(NULL)
 
 test:

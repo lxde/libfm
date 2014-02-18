@@ -2,7 +2,7 @@
  *      fm-dnd-dest.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -946,8 +946,20 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                         gtk_get_current_event_device(),
                                         NULL, NULL, &mask);
         mask &= gtk_accelerator_get_default_mod_mask();
-        if(mask) /* some key is pressed! */
-            return GDK_ACTION_ASK;
+        if ((mask & ~GDK_CONTROL_MASK) != 0) /* only "copy" action is allowed */
+            return 0;
+        if(!dd->src_files || dd->context != drag_context)
+        {
+            /* we have no valid data, query it now */
+            clear_src_cache(dd);
+            if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
+            {
+                /* retrieve the source files */
+                gtk_drag_get_data(dd->widget, drag_context, target, time(NULL));
+                dd->waiting_data = TRUE;
+            }
+            return 0;
+        }
         return GDK_ACTION_COPY;
     }
 

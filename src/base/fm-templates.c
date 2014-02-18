@@ -1,7 +1,7 @@
 /*
  *      fm-templates.c
  *
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -804,7 +804,15 @@ void _fm_templates_init(void)
     if(!g_file_query_exists(gfile, NULL))
         /* create it if it doesn't exist -- ignore errors */
         g_file_make_directory(gfile, NULL, NULL);
-    _template_dir_init(dir, gfile);
+    if (dir->path == fm_path_get_home() || dir->path == fm_path_get_root())
+    {
+        /* $HOME or / are invalid templates paths so just ignore */
+        g_warning("XDG_TEMPLATES_DIR is set to invalid path, ignoring it");
+        dir->files = NULL;
+        dir->monitor = NULL;
+    }
+    else
+        _template_dir_init(dir, gfile);
     g_object_unref(gfile);
     /* jobs will fill list of files async */
     g_signal_connect(fm_config, "changed::template_type_once",

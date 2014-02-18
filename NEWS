@@ -389,6 +389,9 @@ Changes on 1.2.0 since 1.1.0:
 * Search dialog options are remembered now between searches. Search path
     and 'Properties' tab are not saved though.
 
+* Added fallback icons for folder and file in case if no usable theme was
+    set in user GTK environment.
+
 * A whole lot of bugfixes.
 
 

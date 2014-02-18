@@ -33,6 +33,11 @@ pkglib_LTLIBRARIES += \
 	$(NULL)
 endif
 
+# install only .so files, we don't need .la files
+install-exec-hook:
+	rm -f $(DESTDIR)$(pkglibdir)/*.la
+	rm -f $(DESTDIR)$(pkglibdir)/*.a
+
 # module-specific parameters
 vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS) -I../extra
 vfs_menu_la_LIBADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la

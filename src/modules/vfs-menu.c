@@ -2,7 +2,7 @@
  *      fm-vfs-menu.c
  *      VFS for "menu://applications/" path using menu-cache library.
  *
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -860,34 +860,7 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
     icon_name = menu_cache_item_get_icon(item);
     if(icon_name)
     {
-        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-        {
-            char *dot = strrchr(icon_name, '.'), *tmp = NULL;
-
-            /* remove file extension, this is a hack to fix non-standard desktop entry files */
-            if(G_UNLIKELY(dot))
-            {
-                ++dot;
-                if(strcmp(dot, "png") == 0 ||
-                   strcmp(dot, "svg") == 0 ||
-                   strcmp(dot, "xpm") == 0)
-                {
-                    tmp = g_strndup(icon_name, dot - icon_name - 1);
-                    icon_name = tmp;
-                }
-            }
-            icon = g_themed_icon_new(icon_name);
-
-            if(G_UNLIKELY(tmp))
-                g_free(tmp);
-        }
-        /* this part is from fm_icon_from_name */
-        else /* absolute path */
-        {
-            GFile* gicon_file = g_file_new_for_path(icon_name);
-            icon = g_file_icon_new(gicon_file);
-            g_object_unref(gicon_file);
-        }
+        icon = G_ICON(fm_icon_from_name(icon_name));
         if(G_LIKELY(icon))
         {
             g_file_info_set_icon(fileinfo, icon);
@@ -1600,10 +1573,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
         info = g_file_info_new();
         if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_NAME))
         {
-            if(item->path == NULL)
-                basename = g_strdup("/");
-            else
-                basename = g_path_get_basename(item->path);
+            basename = g_path_get_basename(item->path);
             id = g_uri_unescape_string(basename, NULL);
             g_free(basename);
             g_file_info_set_name(info, id);
@@ -2852,6 +2822,9 @@ static void _reload_notify_handler(gpointer cache, gpointer user_data)
                                   G_FILE_MONITOR_EVENT_DELETED);
         return;
     }
+    /* emit change on the folder in any case */
+    g_file_monitor_emit_event(G_FILE_MONITOR(mon), G_FILE(mon->file), NULL,
+                              G_FILE_MONITOR_EVENT_CHANGED);
     items = mon->items;
     mon->items = g_slist_copy_deep(menu_cache_dir_get_children(MENU_CACHE_DIR(dir)),
                                    (GCopyFunc)menu_cache_item_ref, NULL);

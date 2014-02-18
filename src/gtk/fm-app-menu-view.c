@@ -2,6 +2,7 @@
  *      fm-app-menu-view.c
  *
  *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -35,6 +36,7 @@
 
 #include "../glib-compat.h"
 #include "fm-app-menu-view.h"
+#include "fm-icon.h"
 #include <menu-cache.h>
 #include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>
@@ -96,26 +98,7 @@ static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
             case MENU_CACHE_TYPE_APP:
             case MENU_CACHE_TYPE_DIR:
                 if(menu_cache_item_get_icon(item))
-                {
-                    if(g_path_is_absolute(menu_cache_item_get_icon(item)))
-                    {
-                        GFile* gf = g_file_new_for_path(menu_cache_item_get_icon(item));
-                        gicon = g_file_icon_new(gf);
-                        g_object_unref(gf);
-                    }
-                    else
-                    {
-                        char* dot = strrchr((char*)menu_cache_item_get_icon(item), '.');
-                        if(dot && (strcmp(dot+1, "png") == 0 || strcmp(dot+1, "svg") == 0 || strcmp(dot+1, "xpm") == 0))
-                        {
-                            char* name = g_strndup(menu_cache_item_get_icon(item), dot - menu_cache_item_get_icon(item));
-                            gicon = g_themed_icon_new(name);
-                            g_free(name);
-                        }
-                        else
-                            gicon = g_themed_icon_new(menu_cache_item_get_icon(item));
-                    }
-                }
+                    gicon = G_ICON(fm_icon_from_name(menu_cache_item_get_icon(item)));
                 else
                     gicon = NULL;
                 gtk_tree_store_append(store, &it, parent_it);
@@ -314,6 +297,40 @@ char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
         {
             char* path = menu_cache_item_get_file_path(item);
+            return path;
+        }
+    }
+    return NULL;
+}
+
+/**
+ * fm_app_menu_view_dup_selected_app_desktop_path
+ * @view: a widget
+ *
+ * Retrieves #FmPath to selected application from the widget as a child
+ * below fm_path_get_apps_menu() root path. Return %NULL if there is no
+ * application selected.
+ * The returned data should be freed with fm_path_unref() after usage.
+ *
+ * Returns: (transfer full): path to selected application file.
+ *
+ * Since: 1.2.0
+ */
+FmPath * fm_app_menu_view_dup_selected_app_desktop_path(GtkTreeView* view)
+{
+    GtkTreeIter it;
+    GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    /* FIXME: this should be checked if it's exactly app menu tree! */
+    if(gtk_tree_selection_get_selected(sel, NULL, &it))
+    {
+        MenuCacheItem* item;
+        gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
+        if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+        {
+            char *mpath = menu_cache_dir_make_path(MENU_CACHE_DIR(item));
+            FmPath *path = fm_path_new_relative(fm_path_get_apps_menu(),
+                                                mpath+13 /* skip "/Applications" */);
+            g_free(mpath);
             return path;
         }
     }

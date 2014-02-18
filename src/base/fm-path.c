@@ -1,7 +1,7 @@
 /*
  *      fm-path.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009-2014 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
@@ -1668,9 +1668,6 @@ void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
         char* uri = fm_path_to_uri(path);
         g_string_append(buf, uri);
         g_free(uri);
-        /* FIXME: the line separator used by text/urilist is CRLF, not LF.
-         Existing implementations of x-special/gnome-copied-files seems to accept '\n', but 
-         for text/uri-list, CRLF is more standard. Should we fix it? */
         if(l->next)
             g_string_append_c(buf, '\n');
     }

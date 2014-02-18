@@ -2,7 +2,7 @@
  *      fm-file-info.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -49,6 +49,15 @@
 
 #include "fm-config.h"
 #include "fm-utils.h"
+
+/* support for libmenu-cache 0.4.x */
+#ifndef MENU_CACHE_CHECK_VERSION
+# ifdef HAVE_MENU_CACHE_DIR_LIST_CHILDREN
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) (_a == 0 && _b < 5) /* < 0.5.0 */
+# else
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) 0 /* not even 0.4.0 */
+# endif
+#endif
 
 #define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
@@ -302,19 +311,6 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                 icon_name = g_key_file_get_string(kf, "Desktop Entry", "Icon", NULL);
                 if(icon_name)
                 {
-                    if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-                    {
-                        char* dot = strrchr(icon_name, '.');
-                        /* remove file extension */
-                        if(dot)
-                        {
-                            ++dot;
-                            if(strcmp(dot, "png") == 0 ||
-                               strcmp(dot, "svg") == 0 ||
-                               strcmp(dot, "xpm") == 0)
-                               *(dot-1) = '\0';
-                        }
-                    }
                     icon = fm_icon_from_name(icon_name);
                     g_free(icon_name);
                 }
@@ -735,38 +731,29 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     _fm_path_set_display_name(fi->path, menu_cache_item_get_name(item));
     if(icon_name)
     {
-        char* tmp_name = NULL;
-        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-        {
-            char* dot = strrchr(icon_name, '.');
-            /* remove file extension, this is a hack to fix non-standard desktop entry files */
-            if(G_UNLIKELY(dot))
-            {
-                ++dot;
-                if(strcmp(dot, "png") == 0 ||
-                   strcmp(dot, "svg") == 0 ||
-                   strcmp(dot, "xpm") == 0)
-                {
-                    tmp_name = g_strndup(icon_name, dot - icon_name - 1);
-                    icon_name = tmp_name;
-                }
-            }
-        }
         fi->icon = fm_icon_from_name(icon_name);
-        if(G_UNLIKELY(tmp_name))
-            g_free(tmp_name);
     }
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
     {
-        fi->mode |= S_IFDIR;
+        fi->mode = S_IFDIR;
+        fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        fi->hidden = !menu_cache_dir_is_visible(MENU_CACHE_DIR(item));
+#endif
     }
     else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
     {
-        fi->mode |= S_IFREG;
         fi->target = menu_cache_item_get_file_path(item);
+        fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_application_x_desktop());
+        fi->hidden = !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), (guint32)-1);
+        fi->hidden_is_changeable = TRUE;
+        fi->shortcut = TRUE;
     }
-    fi->shortcut = TRUE;
-    fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
+    else /* nothing to set if separator */
+        return;
+    fi->accessible = TRUE;
+    fi->name_is_changeable = TRUE;
+    fi->icon_is_changeable = TRUE;
 }
 
 /**
@@ -774,7 +761,13 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
  * @path: a file path
  * @item: a menu cache item
  *
- * Deprecated: 1.2.0:
+ * Creates a new #FmFileInfo for a file by @path and fills it with info
+ * from a menu cache @item. Returned data should be freed with
+ * fm_file_info_unref() when no longer needed.
+ *
+ * Returns: (transfer full): a new #FmFileInfo struct.
+ *
+ * Since: 0.1.1
  */
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {
