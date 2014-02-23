@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-02-23 15:37+0000\n"
+"PO-Revision-Date: 2014-02-23 17:47+0000\n"
 "Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1393169830.0\n"
+"X-POOTLE-MTIME: 1393177621.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -919,7 +919,7 @@ msgstr "Sijainti"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Pääte"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1195,6 +1195,7 @@ msgstr "Peruutettu"
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr ""
+"<b>Tiedosto-operaatio suoritettiin loppuun, mutta virheitä ilmaantui.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1225,74 +1226,72 @@ msgstr ", "
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr ""
+msgstr "Siirretään"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr ""
+msgstr "Kopioidaan"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
-msgstr ""
+msgstr "Siirretään roskakoriin"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr ""
+msgstr "Poistetaan"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Luodaan symbolisia linkkejä"
+msgstr "Luodaan linkki"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
 msgstr "<b>Kohde:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
-msgstr ""
+msgstr "Luodaan linkkejä tiedostoihin"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
-msgstr ""
+msgstr "Muutetaan määritteitä:"
 
 #: ../src/gtk/fm-progress-dlg.c:608
 msgid "Changing attributes of files"
-msgstr ""
+msgstr "Muutetaan tiedostojen määritteitä"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr ""
+msgstr "Palautetaan"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
-msgstr ""
+msgstr "%s tiedostoja"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Tiedosto-operaatio on käynnissä…</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
-msgstr ""
+msgstr "<b>%s tiedosto:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
-msgstr ""
+msgstr "<b>%s tiedostoja:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
