@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-06 10:33+0000\n"
+"PO-Revision-Date: 2014-02-23 15:37+0000\n"
 "Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389004436.0\n"
+"X-POOTLE-MTIME: 1393169830.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -369,6 +369,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Lauseke voi olla lista POSIXin mukaisia shell -lausekkeita (joiden "
+"erottimena ’,’) tai POSIXin mukainen säännöllinen lauseke."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -435,6 +437,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Tähän voi syöttää minkä tahansa pätevän sisältötyypin. Jokerimerkkiä ’*’ voi "
+"käyttää sisältötyypin lopussa. Eri sisältötyypit erotetaan merkillä ’;’."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -1240,13 +1244,15 @@ msgstr ""
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
+#, fuzzy
 msgid "Creating link"
-msgstr ""
+msgstr "Luodaan symbolisia linkkejä"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
+#, fuzzy
 msgid "<b>In:</b>"
-msgstr ""
+msgstr "<b>Kohde:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
