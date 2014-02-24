@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-02-24 11:05+0000\n"
+"PO-Revision-Date: 2014-02-24 11:09+0000\n"
 "Last-Translator: Piotr <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1393239911.0\n"
+"X-POOTLE-MTIME: 1393240199.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -68,7 +68,7 @@ msgstr "_Uruchomienie w emulatorze terminala"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "_Zachowanie otwartego okna terminala po wykonaniu polecenia"
+msgstr "_Zachowanie otwartego okna terminalu po wykonaniu polecenia"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -87,7 +87,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>_Nazwa programu (opcjonalnie):</b>"
+msgstr "<b>_Nazwa programu (opcjonalnie; ustaw ją, aby zachować powiązania)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -95,7 +95,7 @@ msgstr "Otwiera plik za pomocą wprowadzonego polecenia"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
-msgstr "_Własne polecenie"
+msgstr "_Własny wiersz poleceń"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
@@ -146,7 +146,7 @@ msgstr "Wybór ikony..."
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
 msgid "system icon theme"
-msgstr "styl ikon systemu"
+msgstr "motyw ikon systemu"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
