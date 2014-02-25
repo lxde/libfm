@@ -8,4 +8,4 @@ Exec=lxshortcut -i %f
 StartupNotify=true
 Terminal=false
 MimeType=application/x-desktop;
-NoDisplay=true;
+NoDisplay=true
