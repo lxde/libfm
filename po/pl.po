@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-02-24 11:09+0000\n"
+"PO-Revision-Date: 2014-02-26 18:55+0000\n"
 "Last-Translator: Piotr <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1393240199.0\n"
+"X-POOTLE-MTIME: 1393440924.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -505,7 +505,7 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Wybiera preferowany program pocztowy służący do tworzenia wiadomości, po "
+"Określa preferowany program pocztowy służący do tworzenia wiadomości, po "
 "kliknięciu w odnośnik adresu e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:6
@@ -710,7 +710,7 @@ msgstr "Nieprawidłowy znak „%c” na początku wartości atrybutu"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "Nieprawidłowy znak „%c” na końcu wartości atrybutu, oczekiwany \"%c\""
+msgstr "Nieprawidłowy znak „%c” na końcu wartości atrybutu, oczekiwany „%c”"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -863,7 +863,7 @@ msgstr "Ukryj lub wyświetlaj plik"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Ten plik jest ukryty ponieważ jego nazwa zaczyna się od kropki („.”)."
+msgstr "Ten plik jest ukryty, ponieważ jego nazwa zaczyna się od kropki („.”)."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
