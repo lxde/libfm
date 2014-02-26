@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-02-26 18:55+0000\n"
+"PO-Revision-Date: 2014-02-26 19:01+0000\n"
 "Last-Translator: Piotr <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1393440924.0\n"
+"X-POOTLE-MTIME: 1393441269.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1353,7 +1353,7 @@ msgstr "Zapomnij _szerokość"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr "_Ikony"
+msgstr "W_idok ikon"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
