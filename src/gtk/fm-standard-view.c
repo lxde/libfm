@@ -784,20 +784,6 @@ static gboolean on_column_button_press_event(GtkWidget *button,
                                              GdkEventButton *event,
                                              GtkTreeViewColumn* col)
 {
-    if(event->button == 1)
-    {
-        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
-        GtkWidget* fv = gtk_widget_get_parent(view);
-        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
-        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
-        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
-    }
-    return FALSE;
-}
-
-static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
-                                        GtkTreeViewColumn* col)
-{
     if(event->button == 3)
     {
         GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
@@ -887,6 +873,20 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         return TRUE;
     }
     else if(event->button == 1)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
+    }
+    return FALSE;
+}
+
+static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
+                                        GtkTreeViewColumn* col)
+{
+    if(event->button == 1)
     {
         GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
         GtkWidget* fv = gtk_widget_get_parent(view);
