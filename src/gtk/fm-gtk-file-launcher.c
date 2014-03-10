@@ -794,6 +794,23 @@ static void on_other_file_checkbutton_toggled(GtkToggleButton *btn, FileSearchUI
     gtk_widget_set_sensitive(GTK_WIDGET(ui->other_file_entry), enabled);
 }
 
+static void on_name_entry_changed(GtkEditable *editable, FileSearchUI *ui)
+{
+    char *text, *cpt;
+    gint pos;
+
+    text = gtk_editable_get_chars(editable, 0, -1);
+    cpt = strchr(text, G_DIR_SEPARATOR);
+    if (cpt) /* file basename can never contain separator */
+    {
+        *cpt = '\0';
+        pos = gtk_editable_get_position(editable);
+        gtk_entry_set_text(GTK_ENTRY(editable), text);
+        gtk_editable_set_position(editable, pos - 1);
+    }
+    g_free(text);
+}
+
 static void file_search_ui_free(gpointer ui)
 {
     g_slice_free(FileSearchUI, ui);
@@ -940,6 +957,7 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
     }
 
     filesearch_glade_connect_signals(builder, ui);
+    g_signal_connect(ui->name_entry, "changed", G_CALLBACK(on_name_entry_changed), ui);
     g_object_unref(builder);
 
     /* associate the data with the dialog so it can be freed as needed. */
