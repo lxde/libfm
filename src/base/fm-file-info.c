@@ -585,7 +585,8 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
                 fi->mime_type = fm_mime_type_from_file_name(fi->target);
         }
 
-        if(G_UNLIKELY(!fi->mime_type))
+        /* if the mime-type is not determined or is unknown */
+        if(G_UNLIKELY(!fi->mime_type || g_content_type_is_unknown(fm_mime_type_get_type(fi->mime_type))))
         {
             /* FIXME: is this appropriate? */
             if(type == G_FILE_TYPE_SHORTCUT)
