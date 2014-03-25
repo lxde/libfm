@@ -182,7 +182,8 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         if (!fm_file_info_is_symlink(fi))
             /* symlinks also has fi->target, but we only handle shortcuts here. */
             target = fm_file_info_get_target(fi);
-        if (launcher->open_folder && (fm_file_info_is_dir(fi) || fm_file_info_is_mountable(fi) || fm_file_info_is_shortcut(fi)))
+        if (launcher->open_folder &&
+            (fm_file_info_is_dir(fi) || fm_file_info_is_mountable(fi)))
         {
             /* special handling for shortcuts */
             if(target)
