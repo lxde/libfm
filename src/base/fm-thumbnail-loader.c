@@ -946,6 +946,20 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
             }
         }
 
+        goffset file_size;
+        if(fm_file_info_is_symlink(task->fi))
+        {
+            /* if the image file is a symlink, get the real size of its target */
+            GFileInfo* info = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_SIZE, G_FILE_QUERY_INFO_NONE, cancellable, NULL);
+            if(info)
+            {
+                file_size = g_file_info_get_size(info);
+                g_object_unref(info);
+            }
+        }
+        else
+            file_size = fm_file_info_get_size(task->fi);
+
         if(!ori_pix)
         {
             /* FIXME: instead of reload the image file again, it's posisble to get the bytes
@@ -966,10 +980,10 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
                 g_object_unref(ins);
                 ins = g_file_read(gf, cancellable, NULL);
             }
-            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), cancellable);
+            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), file_size, cancellable);
         }
 #else
-        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), cancellable);
+        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), file_size, cancellable);
 #endif
         g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
         g_object_unref(ins);
