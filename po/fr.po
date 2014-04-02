@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-03-25 18:03+0000\n"
-"Last-Translator: Pierre <lubuntu@pierregobin.fr>\n"
+"PO-Revision-Date: 2014-04-02 07:40+0000\n"
+"Last-Translator: DDZ <drole2zebre57@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1395770631.0\n"
+"X-POOTLE-MTIME: 1396424459.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -26,8 +26,8 @@ msgstr "Applications préférées"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Sélectionner les applications appelées par clic sur un lien Web ou une "
-"adresse mél"
+"Sélectionner les applications à ouvrir par clic sur un hyperlien ou une "
+"adresse électronique"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -84,8 +84,8 @@ msgstr ""
 "<b>Ces codes spéciaux peuvent être utilisés dans la ligne de commande :</b>\n"
 "  <b>%f</b> : indique un unique nom de fichier ;\n"
 "  <b>%F</b> : indique plusieurs noms de fichier ;\n"
-"  <b>%u</b> : indique l’URI d’un seul fichier ;\n"
-"  <b>%U</b> : indique plusieurs URI."
+"  <b>%u</b> : indique l’identificateur universel (URI) d’un seul fichier ;\n"
+"  <b>%U</b> : indique plusieurs identificateurs universels (URI)."
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
@@ -162,7 +162,7 @@ msgstr "fichiers image"
 
 #: ../data/ui/choose-icon.ui.h:6
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Choisir l'icône depuis :</b>"
+msgstr "<b>Choisir l'icône à partir de :</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -227,7 +227,7 @@ msgstr "<b>Dernier accès :</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>Dernier changement de permissions :</b>"
+msgstr "<b>Dernier changement de droits d'accès :</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -308,7 +308,7 @@ msgstr "Permanent"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
-msgstr "Définir le GID"
+msgstr "Définir l'identifiant de groupe"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
@@ -317,11 +317,12 @@ msgstr "Permanent & définir le GID"
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr "Définir l'UID"
+msgstr "Définir l'identifiant d'utilisateur (UID)"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
-msgstr "Définir l'UID et le GID"
+msgstr ""
+"Définir l'identifiant d'utilisateur (UID) et l'identifiant de groupe (GID)"
 
 #: ../data/ui/file-prop.glade.h:37
 msgctxt ""
@@ -397,7 +398,7 @@ msgstr "<b>Emplac_ements où chercher :</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "Chercher dans les _sous-répertoires"
+msgstr "Chercher dans les _sous-dossiers"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
@@ -437,7 +438,7 @@ msgstr "_Documents"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "Folde_rs"
-msgstr "Répe_rtoires"
+msgstr "Dossie_rs"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -448,9 +449,9 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"Tout type de contenu valide peut être saisi ici. Le joker « * » est autorisé "
-"à la fin du type. Pour séparer les types, il faut utiliser un point-"
-"virgule."
+"Tout type de contenu valide peut être saisi ici. Le métacaractère « * » est "
+"autorisé à la fin du type. Pour séparer les types, il faut utiliser un "
+"point-virgule."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -501,12 +502,12 @@ msgstr "_Propriétés"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr "<b>Navigateur Web</b>"
+msgstr "<b>Navigateur Internet</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
-"Le navigateur Web préférentiel sera utilisé pour ouvrir les liens "
+"Le navigateur Internet préféré sera utilisé pour ouvrir les liens "
 "hypertextes."
 
 #: ../data/ui/preferred-apps.glade.h:4
@@ -518,7 +519,7 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Le client de messagerie favori sera utilisé pour écrire des courriels "
+"Le client de messagerie préféré sera utilisé pour écrire des courriels "
 "lorsque vous cliquerez sur des adresses électroniques."
 
 #: ../data/ui/preferred-apps.glade.h:6
@@ -565,12 +566,14 @@ msgstr "Fichier d'entrée de bureau invalide : '%s'"
 #, c-format
 #, c-format, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Aucune application par défaut n'est définie pour lancer les URIs %s://"
+msgstr ""
+"Aucune application par défaut n'est définie pour lancer les indentificateurs "
+"universels (URI) %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Impossible de définir le répertoire de travail comme « %s » : %s"
+msgstr "Impossible de définir le dossier de travail comme « %s » : %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
@@ -599,7 +602,7 @@ msgstr "Corbeille"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr "Raccourci vers l'URI"
+msgstr "Raccourci vers l'identificateur universel (URI)"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
@@ -648,13 +651,13 @@ msgstr "Tio"
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
 msgstr ""
-"Le sous-chemin de l'URI « %s » contient des caractères d'échappement "
-"invalides"
+"Le sous-chemin de l'identificateur universel (URI) « %s » contient des "
+"caractères d'échappement invalides"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr "Dupliquer le gestionnaire pour l'étiquette </s>"
+msgstr "Dupliquer le gestionnaire pour l'étiquette <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -760,7 +763,7 @@ msgstr "Applications installées"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
-msgstr "<Pas de sous-répertoire>"
+msgstr "<Pas de sous-dossier>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -847,7 +850,7 @@ msgstr "Mettre à la cor_beille"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr "Vos signets en ont déjà un pour ce répertoire."
+msgstr "Vos signets en ont déjà un pour ce dossier."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -878,8 +881,8 @@ msgstr "Veuillez entrer un nom de groupe ou un identifiant numérique valide."
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Voulez-vous appliquer récursivement ces changements récursivement à tous les "
-"fichiers et sous-répertoires ?"
+"Voulez-vous appliquer ces changements récursivement à tous les fichiers et "
+"sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
@@ -887,15 +890,15 @@ msgstr "Masquer ou afficher le fichier"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Ce fichier est caché parce que son nom commence avec un point (« . »)."
+msgstr "Ce fichier est caché parce que son nom commence par un point (« . »)."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Les fichiers sur ce système sont cachés si leur nom commence avec un point "
-"(« . »). Tapez <Ctrl+H> pour basculer l'affichage des fichiers cachés."
+"Les fichiers sont cachés si leur nom commence par un point (« . »). Tapez "
+"<Ctrl+H> afficher les fichiers cachés."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -953,11 +956,11 @@ msgstr "Extension"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
-msgstr "Créer _nouveau..."
+msgstr "Créer un _nouveau..."
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
-msgstr "Répertoire"
+msgstr "Dossier"
 
 #: ../src/gtk/fm-folder-view.c:182
 msgid "Empty File"
@@ -973,7 +976,7 @@ msgstr "Trier les fichier_s"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr "_Renommer le répertoire..."
+msgstr "_Renommer le dossier..."
 
 # Il n'y a pas de lettre définie pour le raccourci clavier dans la chaîne actuelle
 #: ../src/gtk/fm-folder-view.c:197
@@ -987,7 +990,7 @@ msgstr "Afficher les fichiers cac_hés"
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
 msgid "Mingle _Files and Folders"
-msgstr "Mélanger les _fichiers et les répertoires"
+msgstr "Mélanger les _fichiers et les dossiers"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
@@ -1012,11 +1015,11 @@ msgstr "Par _type de fichier"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
-msgstr "Entrer un nom pour le répertoire nouvellement créé :"
+msgstr "Entrer un nom pour le dossier nouvellement créé :"
 
 #: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
-msgstr "Création d'un nouveau répertoire"
+msgstr "Création d'un nouveau dossier"
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
@@ -1042,7 +1045,8 @@ msgstr "Création de %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "Exécute_r l'application par défaut avec le fichier après sa création"
+msgstr ""
+"Exécute_r l'application par défaut pour ouvrir le fichier après sa création"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1061,11 +1065,11 @@ msgstr "Le fichier « %s » est exécutable. Voulez-vous l’exécuter ?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr "Aucun répertoire n'est spécifié."
+msgstr "Aucun dossier n'est spécifié."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
-msgstr "Sélectionner un répertoire"
+msgstr "Sélectionner un dossier"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1081,7 +1085,7 @@ msgstr "Question"
 
 #: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
-msgstr "Seuls les administrateurs système ont le droit de faire ceci."
+msgstr "Seuls les administrateurs système ont le droit de faire cela."
 
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
@@ -1129,11 +1133,11 @@ msgstr "Coller et pour_suivre"
 
 #: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
-msgstr "Barre d'emplacement du répertoire"
+msgstr "Barre d'emplacement du dossier"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 msgid "Home Folder"
-msgstr "Répertoire personnel"
+msgstr "Dossier personnel"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1160,7 +1164,7 @@ msgstr "_Démonter le volume"
 # Utiliser un e accentué majuscule pour le raccourci clavier ne risque-t-il pas de poser problème ? L'utilisation du e non accentué fonctionne-t-elle ?
 #: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
-msgstr "_Éjecter le média amovible"
+msgstr "_Éjecter le support amovible"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
@@ -1229,8 +1233,8 @@ msgstr ""
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
 msgstr ""
-"<b>Des erreurs sont apparues avant que l'opération sur des fichiers ne soit "
-"arrêtée.</b>"
+"<b>Des erreurs sont survenues avant que l'opération sur les fichiers ne soit "
+"terminée.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1238,7 +1242,7 @@ msgstr "Annulé"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "<b>L'opération sur des fichiers s'est terminée avec des erreurs.</b>"
+msgstr "<b>L'opération sur les fichiers s'est terminée avec des erreurs.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1251,7 +1255,7 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Certains fichiers ne peuvent pas être mis à la corbeille car les systèmes de "
-"fichiers sous-jacents ne supportent pas cette opération.\n"
+"fichiers sous-jacents ne prennent pas en charge cette opération.\n"
 "Voulez-vous plutôt les supprimer ?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
@@ -1369,7 +1373,7 @@ msgstr "Arborescence"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr "Vue du contenu du répertoire"
+msgstr "Vue du contenu du dossier"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
@@ -1395,11 +1399,11 @@ msgstr "_Oublier la largeur"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr "Vue en _icônes"
+msgstr "Icônes"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr "Vue _compacte"
+msgstr "Compact"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
@@ -1407,7 +1411,7 @@ msgstr "Vue en _vignettes"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr "Vue en _liste détaillée"
+msgstr "Liste détaillée"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1418,7 +1422,7 @@ msgstr "Change l'onglet actif"
 #, c-format
 #, c-format, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Le répertoire « %s » indiqué n'est pas valide"
+msgstr "Le dossier « %s » indiqué n'est pas valide"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1441,15 +1445,15 @@ msgstr "La source et la destination sont identiques."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
-msgstr "Impossible de déplacer un répertoire dans son propre sous-répertoire"
+msgstr "Impossible de déplacer un dossier dans son propre sous-dossier"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Impossible de copier un répertoire dans son propre sous-répertoire"
+msgstr "Impossible de copier un dossier dans son propre sous-dossier"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr "La destination est un sous-répertoire de la source"
+msgstr "La destination est un sous-dossier de la source"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
@@ -1495,7 +1499,7 @@ msgstr "Erreur de cache de menu"
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr "Opération non supportée"
+msgstr "Opération non prise en charge"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
@@ -1509,7 +1513,7 @@ msgstr "Un nom d'élément de menu ne peut pas être vide"
 #, c-format
 #, c-format, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Menu de répertoire « %s » invalide"
+msgstr "Menu de dossier « %s » invalide"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
@@ -1523,8 +1527,8 @@ msgstr "L'élément de menu « %s » ne possède pas de fichier d'entrée approp
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
-"Le changement du statut caché n'est pas pris en charge pour le répertoire de "
-"menu"
+"Le changement de l'attribut caché n'est pas pris en charge pour le dossier "
+"de menu"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
@@ -1542,13 +1546,13 @@ msgstr "Valeur incorrecte pour l'attribut « %s »"
 #, c-format
 #, c-format, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Le « %s » n'est pas un répertoire de menu"
+msgstr "Le « %s » n'est pas un dossier de menu"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 #, c-format, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "Le « % » n'est pas un élément de menu"
+msgstr "Le « %s » n'est pas un élément de menu"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
@@ -1577,7 +1581,7 @@ msgstr "Destination invalide"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor : répertoire « %s » non trouvé dans le cache du menu"
+msgstr "FmMenuVFileMonitor : dossier « %s » non trouvé dans le cache du menu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
