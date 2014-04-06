@@ -48,3 +48,7 @@ open_arg=-e
 [roxterm]
 open_arg=-e
 desktop_id=roxterm.desktop
+
+[qterminal]
+open_arg=-e
+desktop_id=qterminal.desktop
