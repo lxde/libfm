@@ -889,10 +889,29 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
     if(ins)
     {
         GObject* ori_pix = NULL;
+#ifdef USE_EXIF
+        FmMimeType* mime_type;
+#endif
         int rotate_degrees = 0;
+        goffset file_size;
+
+        if(fm_file_info_is_symlink(task->fi))
+        {
+            /* if the image file is a symlink, get the real size of its target */
+            GFileInfo* info = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_SIZE, G_FILE_QUERY_INFO_NONE, cancellable, NULL);
+            if(info)
+            {
+                file_size = g_file_info_get_size(info);
+                g_object_unref(info);
+            }
+            else
+                file_size = 0;
+        }
+        else
+            file_size = fm_file_info_get_size(task->fi);
 #ifdef USE_EXIF
         /* use libexif to extract thumbnails embedded in jpeg files */
-        FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
+        mime_type = fm_file_info_get_mime_type(task->fi);
         if(strcmp(fm_mime_type_get_type(mime_type), "image/jpeg") == 0) /* if this is a jpeg file */
         {
             /* try to extract thumbnails embedded in jpeg files */
@@ -945,20 +964,6 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
                 exif_data_unref(exif_data);
             }
         }
-
-        goffset file_size;
-        if(fm_file_info_is_symlink(task->fi))
-        {
-            /* if the image file is a symlink, get the real size of its target */
-            GFileInfo* info = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_SIZE, G_FILE_QUERY_INFO_NONE, cancellable, NULL);
-            if(info)
-            {
-                file_size = g_file_info_get_size(info);
-                g_object_unref(info);
-            }
-        }
-        else
-            file_size = fm_file_info_get_size(task->fi);
 
         if(!ori_pix)
         {

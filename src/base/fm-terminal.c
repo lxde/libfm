@@ -1,7 +1,7 @@
 /*
  *      fm-terminal.c
  *
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -129,8 +129,11 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
     }
     else /* unknown terminal */
     {
-        g_warning("terminal %s isn't known, consider report it to LibFM developers",
-                  basename);
+        if (strcmp(basename, "x-terminal-emulator") == 0)
+            g_message("x-terminal-emulator has very limited support, consider choose another terminal");
+        else
+            g_warning("terminal %s isn't known, consider report it to LibFM developers",
+                      basename);
         term->program = name;
         term->open_arg = g_strdup("-e"); /* assume it is default */
     }
