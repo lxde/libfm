@@ -802,12 +802,16 @@ void _fm_templates_init(void)
     dir->user_dir = TRUE;
     gfile = fm_path_to_gfile(dir->path);
     if(!g_file_query_exists(gfile, NULL))
-        /* create it if it doesn't exist -- ignore errors */
-        g_file_make_directory(gfile, NULL, NULL);
+    {
+        g_warning("The directory '%s' doesn't exist, ignoring it",
+                  dir_name ? dir_name : "~/Templates");
+        goto _skip_templates_dir;
+    }
     if (dir->path == fm_path_get_home() || dir->path == fm_path_get_root())
     {
         /* $HOME or / are invalid templates paths so just ignore */
         g_warning("XDG_TEMPLATES_DIR is set to invalid path, ignoring it");
+_skip_templates_dir:
         dir->files = NULL;
         dir->monitor = NULL;
     }
