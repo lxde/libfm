@@ -551,6 +551,82 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     return data.ret;
 }
 
+/* the same as fm_file_ops_job_ask_rename() but handles the case if the
+   destination does not exist, i.e. error such as G_IO_ERROR_FILENAME_TOO_LONG */
+FmFileOpOption _fm_file_ops_job_ask_new_name(FmFileOpsJob* job, GFile* src,
+                                             GFile* dest, GFile** new_dest,
+                                             gboolean dest_exists)
+{
+    struct AskRename data;
+    FmFileInfoJob* fijob;
+    FmFileInfo *src_fi = NULL, *dest_fi = NULL;
+
+    if (fm_job_is_cancelled(FM_JOB(job)))
+        return 0;
+
+    fijob = fm_file_info_job_new(NULL, 0);
+    fm_file_info_job_add_gfile(fijob, src);
+    if (dest_exists)
+        fm_file_info_job_add_gfile(fijob, dest);
+
+    fm_job_set_cancellable(FM_JOB(fijob), fm_job_get_cancellable(FM_JOB(job)));
+    fm_job_run_sync(FM_JOB(fijob));
+
+    if( fm_job_is_cancelled(FM_JOB(fijob)) )
+    {
+        if(src_fi)
+            fm_file_info_unref(src_fi);
+        g_object_unref(fijob);
+        return 0;
+    }
+
+    src_fi = fm_file_info_list_pop_head(fijob->file_infos);
+    if (dest_exists)
+        dest_fi = fm_file_info_list_pop_head(fijob->file_infos);
+    else if (src_fi)
+    {
+        FmPath *dpath = fm_path_new_for_gfile(dest);
+        /* forge dest_fi with just display name */
+        dest_fi = fm_file_info_new();
+        fm_file_info_set_path(dest_fi, dpath);
+        _fm_path_set_display_name(dpath, fm_file_info_get_disp_name(src_fi));
+        fm_path_unref(dpath);
+    }
+    g_object_unref(fijob);
+    if(!dest_fi) /* invalid destination directory! */
+    {
+        GError *err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+                                          _("Cannot access destination file"));
+        fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        g_error_free(err);
+        if (src_fi)
+            fm_file_info_unref(src_fi);
+        return FM_FILE_OP_CANCEL;
+    }
+
+    data.ret = 0;
+    data.src_fi = src_fi;
+    data.dest_fi = dest_fi;
+    data.new_name = NULL;
+    fm_job_call_main_thread(FM_JOB(job), emit_ask_rename, (gpointer)&data);
+
+    if(data.ret == FM_FILE_OP_RENAME)
+    {
+        if(data.new_name)
+        {
+            GFile* parent = g_file_get_parent(dest);
+            *new_dest = g_file_get_child(parent, data.new_name);
+            g_object_unref(parent);
+            g_free(data.new_name);
+        }
+    }
+
+    fm_file_info_unref(src_fi);
+    fm_file_info_unref(dest_fi);
+
+    return data.ret;
+}
+
 static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
@@ -609,7 +685,7 @@ _link_error:
                     FmFileOpOption opt;
 
                     src_file = fm_path_to_gfile(path);
-                    opt = fm_file_ops_job_ask_rename(job, src_file, NULL, dest, &new_dest);
+                    opt = _fm_file_ops_job_ask_new_name(job, src_file, dest, &new_dest, TRUE);
                     g_object_unref(src_file);
 
                     g_error_free(err);

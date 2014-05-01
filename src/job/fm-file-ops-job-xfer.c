@@ -2,6 +2,7 @@
  *      fm-file-ops-xfer.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -146,15 +147,18 @@ _retry_mkdir:
             if( !fm_job_is_cancelled(fmjob) && !job->skip_dir_content &&
                 !g_file_make_directory(dest, fm_job_get_cancellable(fmjob), &err) )
             {
-                if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+                if(err->domain == G_IO_ERROR && (err->code == G_IO_ERROR_EXISTS ||
+                                                 err->code == G_IO_ERROR_INVALID_FILENAME ||
+                                                 err->code == G_IO_ERROR_FILENAME_TOO_LONG))
                 {
                     GFile* dest_cp = new_dest;
+                    gboolean dest_exists = (err->code == G_IO_ERROR_EXISTS);
                     FmFileOpOption opt = 0;
                     g_error_free(err);
                     err = NULL;
 
                     new_dest = NULL;
-                    opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                    opt = _fm_file_ops_job_ask_new_name(job, src, dest, &new_dest, dest_exists);
                     if(!new_dest) /* restoring status quo */
                         new_dest = dest_cp;
                     else if(dest_cp) /* we got new new_dest, forget old one */
@@ -392,16 +396,19 @@ _retry_copy:
         {
             flags &= ~G_FILE_COPY_OVERWRITE;
 
-            /* handle existing files */
-            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+            /* handle existing files or file name conflict */
+            if(err->domain == G_IO_ERROR && (err->code == G_IO_ERROR_EXISTS ||
+                                             err->code == G_IO_ERROR_INVALID_FILENAME ||
+                                             err->code == G_IO_ERROR_FILENAME_TOO_LONG))
             {
                 GFile* dest_cp = new_dest;
+                gboolean dest_exists = (err->code == G_IO_ERROR_EXISTS);
                 FmFileOpOption opt = 0;
                 g_error_free(err);
                 err = NULL;
 
                 new_dest = NULL;
-                opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                opt = _fm_file_ops_job_ask_new_name(job, src, dest, &new_dest, dest_exists);
                 if(!new_dest) /* restoring status quo */
                     new_dest = dest_cp;
                 else if(dest_cp) /* we got new new_dest, forget old one */
@@ -529,7 +536,7 @@ _retry_move:
                 FmFileOpOption opt = 0;
 
                 new_dest = NULL;
-                opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                opt = _fm_file_ops_job_ask_new_name(job, src, dest, &new_dest, TRUE);
                 if(!new_dest) /* restoring status quo */
                     new_dest = dest_cp;
                 else if(dest_cp) /* we got new new_dest, forget old one */

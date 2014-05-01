@@ -2,7 +2,7 @@
  *      fm-file-ops-job.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -172,6 +172,9 @@ void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job);
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest);
+FmFileOpOption _fm_file_ops_job_ask_new_name(FmFileOpsJob* job, GFile* src,
+                                             GFile* dest, GFile** new_dest,
+                                             gboolean dest_exists);
 FmFileOpOption fm_file_ops_job_get_options(FmFileOpsJob* job);
 
 G_END_DECLS

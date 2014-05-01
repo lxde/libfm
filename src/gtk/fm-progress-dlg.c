@@ -2,6 +2,7 @@
  *      fm-progress-dlg.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -170,10 +171,13 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     FmPath* path;
     FmIcon* icon;
     FmFileOpOption options;
+    gboolean no_valid_dest;
 
     /* return default operation if the user has set it */
     if(data->default_opt)
         return data->default_opt;
+
+    no_valid_dest = (fm_file_info_get_desc(dest) == NULL);
 
     builder = gtk_builder_new();
     path = fm_file_info_get_path(dest);
@@ -221,6 +225,13 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
                               fm_file_info_get_desc(dest), disp_size,
                               fm_file_info_get_disp_mtime(dest));
     }
+    else if (no_valid_dest)
+    {
+        tmp = NULL;
+        gtk_widget_destroy(GTK_WIDGET(dest_icon));
+        gtk_widget_destroy(GTK_WIDGET(dest_fi));
+        /* FIXME: change texts in dialog appropriately */
+    }
     else
     {
         tmp = g_strdup_printf(_("Type: %s\nModified: %s"),
@@ -228,7 +239,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
                               fm_file_info_get_disp_mtime(dest));
     }
 
-    gtk_label_set_text(dest_fi, tmp);
+    if (tmp)
+        gtk_label_set_text(dest_fi, tmp);
     g_free(tmp);
 
     options = fm_file_ops_job_get_options(job);
@@ -237,7 +249,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
         GtkWidget *widget = GTK_WIDGET(gtk_builder_get_object(builder, "rename"));
         gtk_widget_destroy(widget);
     }
-    if (!(options & FM_FILE_OP_OVERWRITE))
+    if (!(options & FM_FILE_OP_OVERWRITE) || no_valid_dest)
     {
         GtkWidget *widget = GTK_WIDGET(gtk_builder_get_object(builder, "overwrite"));
         gtk_widget_destroy(widget);
