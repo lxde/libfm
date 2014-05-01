@@ -196,8 +196,8 @@ static gboolean check_kde_curselection(GtkClipboard* clip)
  */
 gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 {
-    GdkDisplay* dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();
-    GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
+    GdkDisplay* dpy;
+    GtkClipboard* clip;
     FmPathList* files;
     char** uris;
     int type = 0;
@@ -205,7 +205,16 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     int n, i;
     gboolean _is_cut;
 
+    /* safeguard this API call */
+    if (dest_dir == NULL)
+    {
+        g_warning("fm_clipboard_paste_files() for NULL destination");
+        return FALSE;
+    }
+
     /* get all available targets currently in the clipboard. */
+    dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();
+    clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     if( !gtk_clipboard_wait_for_targets(clip, &avail_targets, &n) )
         return FALSE;
 
