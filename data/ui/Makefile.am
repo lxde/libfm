@@ -1,7 +1,6 @@
 NULL=
 
 # GtkBuilder UI definition files
-uidir=$(datadir)/libfm/ui
 ui_in_files= \
 	file-prop.glade \
 	progress.glade \
@@ -11,12 +10,15 @@ ui_in_files= \
 	exec-file.glade \
 	filesearch.glade \
 	$(NULL)
-ui_DATA = $(ui_in_files:.glade=.ui) choose-icon.ui
+ui_files = $(ui_in_files:.glade=.ui) choose-icon.ui
+if ENABLE_GTK
+uidir=$(datadir)/libfm/ui
+ui_DATA = $(ui_files)
+endif
 
 EXTRA_DIST = \
 	$(ui_in_files) \
-	$(ui_DATA) \
-	choose-icon.ui \
+	$(ui_files) \
 	$(NULL)
 
 # Purge GtkBuilder UI files

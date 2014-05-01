@@ -21,7 +21,7 @@ if EXTRALIB_ONLY
 SUBDIRS = src
 else
 DIST_SUBDIRS = src po data
-SUBDIRS = $(DIST_SUBDIRS) $(SUBDIRS_DOCS)
+SUBDIRS = $(DIST_SUBDIRS)
 
 EXTRA_DIST += \
 	libfm.pc.in \
@@ -31,7 +31,7 @@ EXTRA_DIST += \
 	$(NULL)
 
 if ENABLE_GTK_DOC
-DIST_SUBDIRS += $(SUBDIRS_DOCS)
+SUBDIRS += $(SUBDIRS_DOCS)
 else
 EXTRA_DIST += $(EXTRA_DIST_DOCS)
 endif
@@ -39,8 +39,7 @@ endif
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \
 	libfm.pc \
-	libfm-gtk.pc \
-	libfm-gtk3.pc \
+	@LIBFM_GTK_PC@ \
 	$(NULL)
 endif
 

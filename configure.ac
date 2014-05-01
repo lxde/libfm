@@ -115,11 +115,13 @@ if test x"$ac_with_gtk" != xno; then
     3|3.*)
       pkg_modules="$gio_modules gtk+-3.0 cairo >= 1.8.0"
       LIBFM_GTK_LTLIBRARIES=libfm-gtk3.la
+      LIBFM_GTK_PC=libfm-gtk3.pc
       ac_with_gtk="3.0"
       ;;
     *)
       pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 cairo >= 1.8.0"
       LIBFM_GTK_LTLIBRARIES=libfm-gtk.la
+      LIBFM_GTK_PC=libfm-gtk.pc
       ac_with_gtk="2.0"
       ;;
   esac
@@ -130,6 +132,7 @@ else
   GTK_CFLAGS="${GIO_CFLAGS}"
   GTK_LIBS=
   LIBFM_GTK_LTLIBRARIES=
+  LIBFM_GTK_PC=
   ac_with_gtk="none"
   LIBFM_PREF_APPS=
 fi
@@ -137,6 +140,7 @@ AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 AC_SUBST(LIBFM_GTK_LTLIBRARIES)
 AC_SUBST(LIBFM_PREF_APPS)
+AC_SUBST(LIBFM_GTK_PC)
 AM_CONDITIONAL([ENABLE_GTK], [test x$ac_with_gtk != xnone])
 
 dnl pango_modules="pango >= 1.16.0"
