@@ -1132,13 +1132,22 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     if(rtl) /* RTL */
     {
         x2 = mr.x + mr.width;
-        *x = CLAMP(*x, MIN(mr.x + ma.width, x2), x2);
+        if (*x < mr.x + ma.width) /* out of monitor */
+            *x = MIN(*x + ma.width, x2); /* place menu right to cursor */
+        else
+            *x = MIN(*x, x2);
     }
     else /* LTR */
     {
-        *x = CLAMP(*x, mr.x, MAX(mr.x, mr.x + mr.width - ma.width));
+        if (*x + ma.width > mr.x + mr.width) /* out of monitor */
+            *x = MAX(mr.x, *x - ma.width); /* place menu left to cursor */
+        else
+            *x = MAX(mr.x, *x); /* place menu right to cursor */
     }
-    *y = CLAMP(*y, mr.y, MAX(mr.y, mr.y + mr.height - ma.height));
+    if (*y + ma.height > mr.y + mr.height) /* out of monitor */
+        *y = MAX(mr.y, *y - ma.height); /* place menu above cursor */
+    else
+        *y = MAX(mr.y, *y); /* place menu below cursor */
 }
 
 static void on_menu(GtkAction* act, FmFolderView* fv)
