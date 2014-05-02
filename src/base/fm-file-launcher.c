@@ -399,7 +399,9 @@ _launch_desktop_entry:
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);
             }
-            else if (launcher->error)
+            else if (launcher->error && !launcher->get_app)
+                /* SF#837: don't show an error window after user pressed
+                   'Cancel' in the selection window, it'll annoy user */
                 g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
                             _("No default application is set for MIME type %s"),
                             type);
