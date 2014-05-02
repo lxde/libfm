@@ -341,6 +341,7 @@ static gboolean is_thumbnail_outdated(GObject* thumb_pix, const char* thumbnail_
     char* thumb_mtime = backend.get_image_text(thumb_pix, "tEXt::Thumb::MTime");
     gboolean outdated = FALSE;
     /* FIXME: compare thumbnail URI with value from tEXt::Thumb::URI */
+    /* g_print("thumb_mtime: %s, %ld\n", thumb_mtime, mtime); */
     if(thumb_mtime)
     {
         if(atol(thumb_mtime) != mtime)
@@ -437,8 +438,13 @@ static gpointer load_thumbnail_thread(gpointer user_data)
     gchar* large_basename = strrchr(large_path, '/') + 1;
 
     /* ensure thumbnail directories exists */
+    *(normal_basename - 1) = '\0';
     g_mkdir_with_parents(normal_path, 0700);
+    *(normal_basename - 1) = '/';
+
+    *(large_basename - 1) = '\0';
     g_mkdir_with_parents(large_path, 0700);
+    *(large_basename - 1) = '/';
 
     for(;;)
     {
@@ -1168,8 +1174,6 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_NORMAL;
                     normal_pix = backend.read_image_from_file(task->normal_path);
-                    if (normal_pix)
-                        save_thumbnail_to_disk(task, normal_pix, task->normal_path);
                 }
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
@@ -1178,8 +1182,6 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->large_path);
-                    if (large_pix)
-                        save_thumbnail_to_disk(task, large_pix, task->large_path);
                 }
             }
 
