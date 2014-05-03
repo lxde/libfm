@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2011-12-27 13:37+0200\n"
-"Last-Translator: mjjzf <mjjzf@syntaktisk.dk>\n"
+"PO-Revision-Date: 2014-05-03 21:34+0000\n"
+"Last-Translator: Peter <flywheel@illogical.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1399152860.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -27,18 +28,17 @@ msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Genveje"
+msgstr "Rediger Genveje"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Opret ny eller ændre eksisterende desktop element"
 
 #: ../data/ui/app-chooser.glade.h:1
 #, fuzzy
 msgid "Choose Application"
-msgstr "Vælg et program"
+msgstr "Vælg program"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
@@ -47,7 +47,7 @@ msgstr "Vælg markeret program til at åbne filer med"
 #: ../data/ui/app-chooser.glade.h:3
 #, fuzzy
 msgid "_Installed Applications"
-msgstr "Installeret program"
+msgstr "_Installeret Program"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, fuzzy
@@ -58,7 +58,7 @@ msgstr "<b>Kommandolinje der skal køres:</b>"
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
 #, fuzzy
 msgid "_Browse..."
-msgstr "_Gennemse"
+msgstr "_Gennemse..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
