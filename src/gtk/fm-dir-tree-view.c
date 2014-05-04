@@ -115,12 +115,22 @@ static void cancel_pending_chdir(GtkTreeModel* model, FmDirTreeView *view)
 {
     if(view->paths_to_expand)
     {
+        GtkTreePath *tp;
+        GtkTreeIter it;
+
         g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
         g_slist_free(view->paths_to_expand);
         view->paths_to_expand = NULL;
         if (view->current_row == NULL)
             return; /* it can be NULL if we got into hidden row */
         g_signal_handlers_disconnect_by_func(model, on_row_loaded, view);
+        /* unload current row if it's not expanded, so cancel its loading */
+        tp = gtk_tree_row_reference_get_path(view->current_row);
+        if(tp != NULL && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(view), tp)
+           && gtk_tree_model_get_iter(model, &it, tp))
+            fm_dir_tree_model_unload_row(FM_DIR_TREE_MODEL(model), &it, tp);
+        if(tp != NULL)
+            gtk_tree_path_free(tp);
         gtk_tree_row_reference_free(view->current_row);
         view->current_row = NULL;
     }
@@ -454,18 +464,6 @@ static void on_sel_changed(GtkTreeSelection* tree_sel, FmDirTreeView* view)
 {
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
 
-    /* unload row of old selection if it's not expanded */
-    if(view->current_row)
-    {
-        GtkTreePath *tp = gtk_tree_row_reference_get_path(view->current_row);
-        GtkTreeIter it;
-        if(tp != NULL && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(view), tp)
-           && gtk_tree_model_get_iter(model, &it, tp))
-            fm_dir_tree_model_unload_row(FM_DIR_TREE_MODEL(model), &it, tp);
-        if(tp != NULL)
-            gtk_tree_path_free(tp);
-    }
-
     /* if a pending selection via previous call to chdir is in progress, cancel it. */
     cancel_pending_chdir(model, view);
 
@@ -475,21 +473,18 @@ static void on_sel_changed(GtkTreeSelection* tree_sel, FmDirTreeView* view)
 static void fm_dir_tree_view_dispose(GObject *object)
 {
     FmDirTreeView *view;
+    GtkTreeModel *model;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_TREE_VIEW(object));
 
     view = (FmDirTreeView*)object;
-    if(G_UNLIKELY(view->paths_to_expand))
-    {
-        GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+
+    /* free view->paths_to_expand and view->current_row */
+    model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+    if (model != NULL)
         cancel_pending_chdir(model, view);
-    }
-    if(view->current_row) /* this shouldn't be done if there are paths_to_expand */
-    {
-        gtk_tree_row_reference_free(view->current_row);
-        view->current_row = NULL;
-    }
+
     if(view->cwd)
     {
         fm_path_unref(view->cwd);
@@ -671,7 +666,10 @@ void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
     GtkTreeIter it;
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
     FmPath* root;
-    if(!model || fm_path_equal(view->cwd, path))
+    /* bug SF#847: if we go to some dir then back while dir isn't loaded
+       we leave that dir still pending and therefore false chdir later,
+       so we have to check view->paths_to_expand here too */
+    if(!model || (fm_path_equal(view->cwd, path) && view->paths_to_expand == NULL))
         return;
     if(!gtk_tree_model_get_iter_first(model, &it))
         return;
