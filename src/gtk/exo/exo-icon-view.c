@@ -8968,14 +8968,14 @@ exo_icon_view_search_position_func (ExoIconView *icon_view,
   gtk_widget_size_request (search_dialog, &requisition);
 #endif
 
-  if (view_x + view_width - requisition.width > gdk_screen_get_width (screen))
+  if (view_x + view_width > gdk_screen_get_width (screen))
     x = gdk_screen_get_width (screen) - requisition.width;
   else if (view_x + view_width - requisition.width < 0)
     x = 0;
   else
     x = view_x + view_width - requisition.width;
 
-  if (view_y + view_height > gdk_screen_get_height (screen))
+  if (view_y + view_height + requisition.height > gdk_screen_get_height (screen))
     y = gdk_screen_get_height (screen) - requisition.height;
   else if (view_y + view_height < 0) /* isn't really possible ... */
     y = 0;
