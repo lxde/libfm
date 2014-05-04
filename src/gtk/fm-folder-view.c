@@ -1577,6 +1577,7 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     /* we bind popup to ui so don't handle qdata change here */
     g_object_set_qdata(G_OBJECT(fv), popup_quark, popup);
     /* special handling for 'Menu' key */
+    g_signal_handlers_disconnect_by_func(fv, on_key_press, fv);
     g_signal_connect(G_OBJECT(fv), "key-press-event", G_CALLBACK(on_key_press), fv);
     return popup;
 }
