@@ -2,6 +2,7 @@
  *      fm-cell-renderer-pixbuf.c
  *      
  *      Copyright 2010 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -339,7 +340,18 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
             int x = cell_area->x + (cell_area->width - gdk_pixbuf_get_width(pix))/2;
             int y = cell_area->y + (cell_area->height - gdk_pixbuf_get_height(pix))/2;
 
-            gdk_cairo_set_source_pixbuf(cr, link_icon, x, y);
+            if (cell_area->width >= 20)
+                gdk_cairo_set_source_pixbuf(cr, link_icon, x, y);
+            else
+            {
+                gint scale_width = cell_area->width / 2 + 1;
+                GdkPixbuf *scaled = gdk_pixbuf_scale_simple(link_icon,
+                                                            scale_width,
+                                                            scale_width,
+                                                            GDK_INTERP_TILES);
+                gdk_cairo_set_source_pixbuf(cr, scaled, x, y);
+                g_object_unref(scaled);
+            }
             cairo_paint(cr);
 #if !GTK_CHECK_VERSION(3, 0, 0)
             cairo_destroy(cr);
