@@ -340,11 +340,11 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
             int x = cell_area->x + (cell_area->width - gdk_pixbuf_get_width(pix))/2;
             int y = cell_area->y + (cell_area->height - gdk_pixbuf_get_height(pix))/2;
 
-            if (cell_area->width >= 20)
+            if (cell_area->width >= 20 && render->fixed_w >= 20)
                 gdk_cairo_set_source_pixbuf(cr, link_icon, x, y);
             else
             {
-                gint scale_width = cell_area->width / 2 + 1;
+                gint scale_width = MIN(cell_area->width, render->fixed_w) / 2 + 1;
                 GdkPixbuf *scaled = gdk_pixbuf_scale_simple(link_icon,
                                                             scale_width,
                                                             scale_width,
