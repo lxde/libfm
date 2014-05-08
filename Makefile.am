@@ -36,7 +36,14 @@ else
 EXTRA_DIST += $(EXTRA_DIST_DOCS)
 endif
 
-pkgconfigdir = $(libdir)/pkgconfig
+# FreeBSD loves to install files to different locations
+# http://www.freebsd.org/doc/handbook/dirstructure.html
+if FREEBSD
+pkgconfigdir   = $(prefix)/libdata/pkgconfig
+else
+pkgconfigdir   = $(libdir)/pkgconfig
+endif
+
 pkgconfig_DATA = \
 	libfm.pc \
 	@LIBFM_GTK_PC@ \
