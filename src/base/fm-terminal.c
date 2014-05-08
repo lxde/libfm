@@ -271,6 +271,7 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
     const gchar *cmd;
     gchar *_cmd = NULL;
     gchar **argv;
+    gchar **envp;
     gint argc;
     gboolean ret;
 
@@ -294,7 +295,40 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
     g_object_unref(term);
     if(!argv) /* parsing failed */
         return FALSE;
-    ret = g_spawn_async(dir, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, error);
+#if GLIB_CHECK_VERSION(2, 28, 0)
+    envp = g_get_environ();
+#else
+    envp = g_strdupv(environ);
+#endif
+    if (dir)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+        g_environ_setenv(envp, "PWD", dir, TRUE);
+#else
+    {
+        char **env = envp;
+
+        if (env) while (*env != NULL)
+        {
+            if (strncmp(*env, "PWD=", 4) == 0)
+                break;
+            env++;
+        }
+        if (env == NULL || *env == NULL)
+        {
+            gint length;
+
+            length = envp ? g_strv_length(envp) : 0;
+            envp = g_renew(gchar *, envp, length + 2);
+            env = &envp[length];
+            env[1] = NULL;
+        }
+        else
+            g_free(*env);
+        *env = g_strdup_printf ("PWD=%s", dir);
+    }
+#endif
+    ret = g_spawn_async(dir, argv, envp, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, error);
     g_strfreev(argv);
+    g_strfreev(envp);
     return ret;
 }
