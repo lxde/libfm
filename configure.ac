@@ -114,7 +114,7 @@ if test x"$enable_actions" = xyes; then
 else
   gio_modules="glib-2.0 >= 2.22.0 gio-unix-2.0"
 fi
-gio_modules="$gio_modules gthread-2.0 gobject-2.0 pango >= 1.16.0"
+gio_modules="$gio_modules gthread-2.0 gobject-2.0"
 
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
@@ -123,13 +123,13 @@ AC_SUBST(GIO_LIBS)
 if test x"$ac_with_gtk" != xno; then
   case "$ac_with_gtk" in
     3|3.*)
-      pkg_modules="$gio_modules gtk+-3.0 cairo >= 1.8.0"
+      pkg_modules="$gio_modules gtk+-3.0 pango >= 1.16.0 cairo >= 1.8.0"
       LIBFM_GTK_LTLIBRARIES=libfm-gtk3.la
       LIBFM_GTK_PC=libfm-gtk3.pc
       ac_with_gtk="3.0"
       ;;
     *)
-      pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 cairo >= 1.8.0"
+      pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 pango >= 1.16.0 cairo >= 1.8.0"
       LIBFM_GTK_LTLIBRARIES=libfm-gtk.la
       LIBFM_GTK_PC=libfm-gtk.pc
       ac_with_gtk="2.0"
