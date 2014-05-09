@@ -623,6 +623,8 @@ struct _ExoIconViewPrivate
   guint                         ctrl_pressed : 1;
   guint                         shift_pressed : 1;
 
+  guint                         dnd_locked : 1;
+
   /* Single-click support
    * The single_click_timeout is the timeout after which the
    * prelited item will be automatically selected in single
@@ -2471,6 +2473,7 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
   GtkTreePath         *path;
   gboolean             dirty = FALSE;
   gint                 cursor_cell;
+  gpointer             drag_data;
 
   icon_view = EXO_ICON_VIEW (widget);
 
@@ -2489,6 +2492,20 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
 
   if (event->button == 1 && event->type == GDK_BUTTON_PRESS)
     {
+      if (G_LIKELY (icon_view->priv->dnd_locked))
+        {
+          /* re-enable Gtk+ DnD callbacks if they were disabled by a
+             double click before, otherwise DnD will not work */
+          drag_data = g_object_get_data (G_OBJECT (icon_view), I_("gtk-site-data"));
+          if (G_LIKELY (drag_data != NULL))
+            {
+              g_signal_handlers_unblock_matched (G_OBJECT (icon_view),
+                                                 G_SIGNAL_MATCH_DATA,
+                                                 0, 0, NULL, NULL,
+                                                 drag_data);
+            }
+          icon_view->priv->dnd_locked = FALSE;
+        }
       item = exo_icon_view_get_item_at_coords (icon_view,
                                                event->x, event->y,
                                                TRUE,
@@ -2602,7 +2619,18 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
               /* bug #3615031: don't start DnD by double click */
               if (icon_view->priv->selection_mode == GTK_SELECTION_MULTIPLE &&
                   gtk_widget_get_realized(widget))
-                exo_icon_view_start_rubberbanding (icon_view, event->x, event->y);
+                {
+                  drag_data = g_object_get_data (G_OBJECT (icon_view), I_("gtk-site-data"));
+                  if (G_LIKELY (drag_data != NULL))
+                    {
+                      g_signal_handlers_block_matched (G_OBJECT (icon_view),
+                                                       G_SIGNAL_MATCH_DATA,
+                                                       0, 0, NULL, NULL,
+                                                       drag_data);
+                      icon_view->priv->dnd_locked = TRUE;
+                    }
+
+                }
             }
         }
 
@@ -2991,6 +3019,7 @@ exo_icon_view_start_rubberbanding (ExoIconView  *icon_view,
                                        G_SIGNAL_MATCH_DATA,
                                        0, 0, NULL, NULL,
                                        drag_data);
+      icon_view->priv->dnd_locked = TRUE;
     }
 }
 
@@ -3012,7 +3041,10 @@ exo_icon_view_stop_rubberbanding (ExoIconView *icon_view)
       gdk_color_free (icon_view->priv->rubberband_fill_color);
       icon_view->priv->rubberband_border_color = NULL;
       icon_view->priv->rubberband_fill_color = NULL;
+    }
 
+  if (G_LIKELY (icon_view->priv->dnd_locked))
+    {
       /* re-enable Gtk+ DnD callbacks again */
       drag_data = g_object_get_data (G_OBJECT (icon_view), I_("gtk-site-data"));
       if (G_LIKELY (drag_data != NULL))
@@ -3022,6 +3054,7 @@ exo_icon_view_stop_rubberbanding (ExoIconView *icon_view)
                                              0, 0, NULL, NULL,
                                              drag_data);
         }
+      icon_view->priv->dnd_locked = FALSE;
     }
 }
 
