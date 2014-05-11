@@ -17,16 +17,6 @@ FMLIBVER="1.0"
 # automake 1.12 requires AM_PROG_AR.
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
-# detect OS
-AC_CANONICAL_HOST
-os_name="generic"
-case "$host_os" in
-  freebsd*)
-    os_name="freebsd"
-  ;;
-esac
-AM_CONDITIONAL([FREEBSD], [test $os_name = "freebsd"])
-
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
