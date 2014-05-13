@@ -1069,15 +1069,15 @@ msgstr[2] "Ar norite perkelti %d pasirinktų failų į šiukšlinę?"
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Ar norite ištrinti failą „%s“?"
+msgstr "Ar norite pašalinti failą „%s“?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Ar norite ištrinti %d pasirinktą failą?"
-msgstr[1] "Ar norite ištrinti %d pasirinktus failus?"
-msgstr[2] "Ar norite ištrinti %d pasirinktų failų?"
+msgstr[0] "Ar norite pašalinti %d pasirinktą failą?"
+msgstr[1] "Ar norite pašalinti %d pasirinktus failus?"
+msgstr[2] "Ar norite pašalinti %d pasirinktų failų?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1212,7 +1212,7 @@ msgid ""
 msgstr ""
 "Kai kurie failai negali būti išmesti į šiukšlinę, nes failų sistema to "
 "nepalaiko.\n"
-"Ar norite vietoje to juos ištrinti visam laikui?"
+"Ar norite vietoje to juos pašalinti visam laikui?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
@@ -1244,7 +1244,7 @@ msgstr "Failai siunčiami į šiukšlinę"
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr "Trinama"
+msgstr "Šalinamas"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
