@@ -215,6 +215,7 @@ static void fm_dir_tree_view_item_popup(GtkWidget *widget, GtkTreeModel *model,
     gtk_action_set_visible(act, FALSE);
     /* send the signal so popup can be altered by application */
     g_signal_emit(widget, signals[ITEM_POPUP], 0, ui, fm_file_menu_get_action_group(menu), file);
+    gtk_ui_manager_ensure_update(ui);
     gtk_menu_popup(fm_file_menu_get_menu(menu), NULL, NULL, NULL, NULL, 3, time);
 }
 

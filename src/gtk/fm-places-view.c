@@ -729,7 +729,7 @@ static void on_selection_done(GtkMenu *menu, gpointer unused)
 {
     GtkWidget *widget = gtk_menu_get_attach_widget(menu);
 
-    g_debug("FmPlacesView:on_selection_done(): attached widget %p", widget);
+    /* g_debug("FmPlacesView:on_selection_done(): attached widget %p", widget); */
     if (widget) /* it may be destroyed and detached already */
         g_object_weak_unref(G_OBJECT(widget), (GWeakNotify)gtk_menu_detach, menu);
     gtk_widget_destroy(GTK_WIDGET(menu));
@@ -868,6 +868,7 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
            Unmount therefore we should detach menu to avoid crash
            note that we should remove this ref when we destroy menu */
         g_object_weak_ref(G_OBJECT(widget), (GWeakNotify)gtk_menu_detach, menu);
+        gtk_ui_manager_ensure_update(ui);
     }
 
 _out:
@@ -917,13 +918,22 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     if(rtl) /* RTL */
     {
         x2 = cell.x + cell.width;
-        *x = CLAMP(*x, MIN(cell.x + ma.width, x2), x2);
+        if (*x < cell.x + ma.width) /* out of monitor */
+            *x = MIN(*x + ma.width, x2); /* place menu right to cursor */
+        else
+            *x = MIN(*x, x2);
     }
     else /* LTR */
     {
-        *x = CLAMP(*x, cell.x, MAX(cell.x, cell.x + cell.width - ma.width));
+        if (*x + ma.width > cell.x + cell.width) /* out of monitor */
+            *x = MAX(cell.x, *x - ma.width); /* place menu left to cursor */
+        else
+            *x = MAX(cell.x, *x); /* place menu right to cursor */
     }
-    *y = CLAMP(*y, cell.y, MAX(cell.y, cell.y + cell.height - ma.height));
+    if (*y + ma.height > cell.y + cell.height) /* out of monitor */
+        *y = MAX(cell.y, *y - ma.height); /* place menu above cursor */
+    else
+        *y = MAX(cell.y, *y); /* place menu below cursor */
 }
 
 static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 time)
