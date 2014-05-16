@@ -1409,6 +1409,7 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     {
         g_object_unref(item->icon);
         item->icon = NULL;
+        item->is_thumbnail = FALSE;
     }
     it.user_data  = items_it;
 
