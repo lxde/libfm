@@ -79,6 +79,7 @@
 #define FM_DISABLE_SEAL
 
 #include "fm-dnd-src.h"
+//#include "fm-icon-pixbuf.h"
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
 {
@@ -230,7 +231,7 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
         gtk_target_list_add_text_targets(targets, FM_DND_SRC_TARGET_TEXT);
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&ds->widget);
         g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
-        g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
+        g_signal_connect(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
         g_signal_connect_after(w, "drag-end", G_CALLBACK(on_drag_end), ds);
     }
 }
@@ -283,10 +284,6 @@ on_drag_data_get ( GtkWidget *src_widget,
         return;
 
     type = gtk_selection_data_get_target(sel_data);
-    /* FIXME: set the icon to file icon? The question is how to set it?
-       Most of icons have fallbacks but gtk_drag_set_icon_name() doesn't
-       accept icon names with fallbacks */
-    // gtk_drag_set_icon_stock();
     switch( info )
     {
     case FM_DND_SRC_TARGET_FM_LIST:
@@ -328,12 +325,35 @@ on_drag_begin ( GtkWidget *src_widget,
                 GdkDragContext *drag_context,
                 FmDndSrc* ds )
 {
-    /* block default handler */
-
     gtk_drag_set_icon_default( drag_context );
 
     /* ask drag source to provide list of source files. */
     g_signal_emit(ds, signals[DATA_GET], 0);
+
+    /* FIXME: set icon if it's single file and it's possible to obtain it
+    if (ds->files && fm_file_info_list_get_length(ds->files) == 1)
+    {
+        FmFileInfo *fi = fm_file_info_list_peek_head(ds->files);
+        FmIcon *icon = fm_file_info_get_icon(fi);
+        if (icon)
+#if GTK_CHECK_VERSION(3, 2, 0)
+            gtk_drag_set_icon_gicon(drag_context, fm_icon_get_gicon(icon), 0, 0);
+#else
+        {
+            gint w;
+            GdkPixbuf *pix;
+            gtk_icon_size_lookup(GTK_ICON_SIZE_DND, &w, NULL);
+            pix = fm_pixbuf_from_icon(icon, w);
+            if (pix)
+            {
+                gtk_drag_set_icon_pixbuf(drag_context, pix, 0, 0);
+                g_object_unref(pix);
+            }
+        }
+#endif
+    }
+    else if (ds->files)
+        gtk_drag_set_icon_stock(drag_context, GTK_STOCK_DND_MULTIPLE, 0, 0); */
 }
 
 static void
