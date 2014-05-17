@@ -564,7 +564,11 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
                 g_free(expand);
             }
             else
-                data->dir = fm_file_new_for_commandline_arg(priv->parent_dir);
+            {
+                FmPath *p = fm_path_new_for_display_name(priv->parent_dir);
+                data->dir = fm_path_to_gfile(p);
+                fm_path_unref(p);
+            }
 
             /* launch a new job to do dir listing */
             if (G_LIKELY(priv->cancellable == NULL))
