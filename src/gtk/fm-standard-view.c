@@ -1791,11 +1791,12 @@ static void _fm_standard_view_scroll_to_path(FmFolderView* fv, FmPath *path, gbo
     GtkTreeIter it;
     GtkTreePath *tp;
 
-    if (!FM_IS_STANDARD_VIEW(fv))
+    if (!FM_IS_STANDARD_VIEW(fv) || path == NULL)
         return;
     view = (FmStandardView*)fv;
-    fm_folder_model_find_iter_by_filename(view->model, &it,
-                                          fm_path_get_basename(path));
+    if (!fm_folder_model_find_iter_by_filename(view->model, &it,
+                                               fm_path_get_basename(path)))
+        return;
     tp = gtk_tree_model_get_path(GTK_TREE_MODEL(view->model), &it);
     if (tp == NULL) /* invalid child */
         return;
