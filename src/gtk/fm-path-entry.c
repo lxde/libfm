@@ -3,7 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2009 Jürgen Hötzel <juergen@archlinux.org>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -471,6 +471,7 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
     /* g_debug("new dir listing job!"); */
     GFileEnumerator* enu = g_file_enumerate_children(data->dir,
                                     G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
+                                    G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME","
                                     G_FILE_ATTRIBUTE_STANDARD_TYPE,
                                     G_FILE_QUERY_INFO_NONE, cancellable,
                                     NULL);
@@ -484,7 +485,9 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
                 GFileType type = g_file_info_get_file_type(inf);
                 if(type == G_FILE_TYPE_DIRECTORY)
                 {
-                    const char* name = g_file_info_get_display_name(inf);
+                    const char* name = g_file_info_get_edit_name(inf);
+                    if (!name)
+                        name = g_file_info_get_display_name(inf);
                     data->subdirs = g_list_prepend(data->subdirs, g_strdup(name));
                 }
                 g_object_unref(inf);

@@ -501,7 +501,10 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
 
     g_return_if_fail(fi->path);
 
-    _fm_path_set_display_name(fi->path, g_file_info_get_display_name(inf));
+    tmp = g_file_info_get_edit_name(inf);
+    if (!tmp)
+        tmp = g_file_info_get_display_name(inf);
+    _fm_path_set_display_name(fi->path, tmp);
 
     fi->size = g_file_info_get_size(inf);
 

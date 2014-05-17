@@ -2,7 +2,7 @@
  *      fm-file-info-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -173,11 +173,15 @@ static void _check_gfile_display_names(FmPath *path, GFile *child)
     gf = g_file_get_parent(child);
     if (gf == NULL) /* file systems such as search:// don't support this */
         return;
-    inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+    inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
+                                G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME,
                             G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
     if (inf != NULL)
     {
-        _fm_path_set_display_name(path, g_file_info_get_display_name(inf));
+        const char *dname = g_file_info_get_edit_name(inf);
+        if (!dname)
+            dname = g_file_info_get_display_name(inf);
+        _fm_path_set_display_name(path, dname);
         g_object_unref(inf);
     }
     _check_gfile_display_names(fm_path_get_parent(path), gf); /* recursion */
