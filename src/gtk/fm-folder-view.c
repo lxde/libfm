@@ -1109,29 +1109,34 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     gdk_window_get_device_position(gtk_widget_get_window(widget),
                                    gtk_get_current_event_device(), &x2, &y2, NULL);
     gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
-    /* get monitor geometry */
     parent_window = gtk_widget_get_parent_window(widget);
     screen = gtk_widget_get_screen(widget);
+    /* get absolute coordinate of parent window - we got coords relative to it */
     if (parent_window)
-        mon = gdk_screen_get_monitor_at_point(screen, *x + x2, *y + y2);
-    else /* desktop has no parent window */
+        gdk_window_get_origin(parent_window, x, y);
+    else
+    {
+        /* desktop has no parent window so parent coords will be from geom */
         mon = gdk_screen_get_monitor_at_window(screen, gtk_widget_get_window(widget));
-    gdk_screen_get_monitor_geometry(screen, mon, &mr);
+        gdk_screen_get_monitor_geometry(screen, mon, &mr);
+        *x = mr.x;
+        *y = mr.y;
+    }
     /* position menu inside widget */
     if(rtl) /* RTL */
         x2 = CLAMP(x2, a.x + 1, a.x + ma.width + a.width - 1);
     else /* LTR */
         x2 = CLAMP(x2, a.x + 1 - ma.width, a.x + a.width - 1);
     y2 = CLAMP(y2, a.y + 1 - ma.height, a.y + a.height - 1);
-    /* get absolute coordinate of parent window - we got coords relative to it */
-    if(parent_window)
-        gdk_window_get_origin(parent_window, x, y);
-    else
-        /* desktop has no parent window so parent coords will be from geom */
-        *x = mr.x, *y = mr.y;
     /* calculate desired position for menu */
     *x += x2;
     *y += y2;
+    /* get monitor geometry at the pointer: for desktop we already have it */
+    if (parent_window)
+    {
+        mon = gdk_screen_get_monitor_at_point(screen, *x, *y);
+        gdk_screen_get_monitor_geometry(screen, mon, &mr);
+    }
     /* limit coordinates so menu will be not positioned outside of screen */
     if(rtl) /* RTL */
     {
