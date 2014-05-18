@@ -2,7 +2,7 @@
  *      fm-file-menu.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -664,9 +664,10 @@ static void on_open_with(GtkAction* action, gpointer user_data)
 
     if(app)
     {
+        const char *appname = g_app_info_get_name(app);
         open_with_app(data, app);
         /* add the app to apps that support this file type. */
-        if(mime_type)
+        if(mime_type && appname && appname[0])
             g_app_info_add_supports_type(app, fm_mime_type_get_type(mime_type), NULL);
         g_object_unref(app);
     }
