@@ -664,11 +664,7 @@ static void on_open_with(GtkAction* action, gpointer user_data)
 
     if(app)
     {
-        const char *appname = g_app_info_get_name(app);
         open_with_app(data, app);
-        /* add the app to apps that support this file type. */
-        if(mime_type && appname && appname[0])
-            g_app_info_add_supports_type(app, fm_mime_type_get_type(mime_type), NULL);
         g_object_unref(app);
     }
 }
