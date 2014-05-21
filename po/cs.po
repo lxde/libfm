@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-21 21:44+0000\n"
+"PO-Revision-Date: 2014-05-21 22:21+0000\n"
 "Last-Translator: Jan <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400708656.0\n"
+"X-POOTLE-MTIME: 1400710897.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1332,7 +1332,6 @@ msgid "_Move Left"
 msgstr "_Posunout doleva"
 
 #: ../src/gtk/fm-standard-view.c:845
-#, fuzzy
 msgid "Move _Right"
 msgstr "Posunout _doprava"
 
@@ -1499,8 +1498,7 @@ msgid "The '%s' entry file is broken"
 msgstr "'%s' je poškozeno"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Nelze vytvořit položku menu \"%s\""
 
@@ -1528,14 +1526,12 @@ msgid "Search"
 msgstr "Hledat"
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
 msgstr "Výsledky hledání"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Vybrat spustitelný program"
+msgstr "Vybrat spustitelný soubor"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
