@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-21 20:40+0000\n"
+"PO-Revision-Date: 2014-05-21 21:33+0000\n"
 "Last-Translator: Jan <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400704846.0\n"
+"X-POOTLE-MTIME: 1400708020.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -35,7 +35,6 @@ msgid "Create new or change existing desktop entry"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
 msgstr "Vyberte aplikaci"
 
@@ -44,7 +43,6 @@ msgid "Use selected application to open files"
 msgstr "Použít vybranou aplikaci pro otevření souborů"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
 msgstr "_Nainstalované aplikace"
 
@@ -97,7 +95,6 @@ msgid "C_ustom Command Line"
 msgstr "V_lastní příkazový řádek"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
 msgstr "_Nastavit vybranou aplikaci jako výchozí pro tento typ souboru"
 
@@ -274,9 +271,8 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Řízení přístupu</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Video"
+msgstr "Skrytý soubor"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -291,7 +287,6 @@ msgid "None"
 msgstr "Žádné"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -307,7 +302,6 @@ msgid "Sticky & set GID"
 msgstr "Sticky & nastavit GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Nastavit UID"
@@ -317,7 +311,6 @@ msgid "Set UID & GID"
 msgstr "Nastavit UID & GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -353,9 +346,8 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
-msgstr "Vybrat datum"
+msgstr "Zvolte datum"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
