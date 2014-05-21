@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-21 20:33+0000\n"
+"PO-Revision-Date: 2014-05-21 20:40+0000\n"
 "Last-Translator: Jan <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400704424.0\n"
+"X-POOTLE-MTIME: 1400704846.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1229,7 +1229,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "_Pozastavit"
 
 #: ../src/gtk/fm-progress-dlg.c:405
 #, fuzzy
@@ -1278,49 +1278,43 @@ msgstr "<b>Do:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
-msgstr ""
+msgstr "Vytvářím odkazy na soubory"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "Mění se atributy souborů"
+msgstr "Změna atributů"
 
 #: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
 msgid "Changing attributes of files"
 msgstr "Mění se atributy souborů"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
-#, fuzzy
 msgid "Restoring"
-msgstr "_Obnovit"
+msgstr "Obnovuje se"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "%s files"
-msgstr "Soubory s obrázky"
+msgstr "Soubory %s"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Probíhá operace se soubory...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Soubor:</b>"
+msgstr "<b>Soubor %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Soubor:</b>"
+msgstr "<b>Soubory %s :</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1356,7 +1350,6 @@ msgid "_Hide %s"
 msgstr "_Skrýt %s"
 
 #: ../src/gtk/fm-standard-view.c:839
-#, fuzzy
 msgid "_Move Left"
 msgstr "_Posunout doleva"
 
@@ -1411,10 +1404,9 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr "Nelze vytvořit odkaz na ne-nativním souborovém systému"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Obnovit soubory z koše do původních umístění"
+msgstr "Nelze obnovit soubor '%s' z koše: původní umístění neznámé"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1433,10 +1425,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Cílové umístění je uvnitř zdrojové složky"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Nelze kopírovat složku samu do sebe"
+msgstr "Nelze kopírovat soubor '%s':  není podporováno"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
