@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-21 21:33+0000\n"
+"PO-Revision-Date: 2014-05-21 21:44+0000\n"
 "Last-Translator: Jan <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400708020.0\n"
+"X-POOTLE-MTIME: 1400708656.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -791,7 +791,6 @@ msgid "_Add to Bookmarks"
 msgstr "_Přidat do záložek"
 
 #: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
 msgid "_Rename..."
 msgstr "_Přejmenovat"
 
@@ -865,9 +864,8 @@ msgid ""
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Načítání..."
+msgstr "Zkoumám..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -939,9 +937,8 @@ msgid "_Sort Files"
 msgstr "_Seřadit soubory"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "_Přejmenovat složku"
+msgstr "_Přejmenovat složku..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -953,12 +950,10 @@ msgstr "Zobrazit _skryté soubory"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
 msgstr "Míchat _soubory a složky"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
 msgstr "_Ignorovat velikost znaků"
 
@@ -983,7 +978,6 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Zadejte jméno nově vytvořené složky:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
 msgstr "Vytváření nové složky"
 
@@ -1033,7 +1027,6 @@ msgid "No folders are specified."
 msgstr "Nejsou specifikovány žádné adresáře."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "Vyberte složku"
 
@@ -1054,34 +1047,30 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Toto má právo provádět pouze systémový správce."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Chcete přesunout vybrané soubory do koše?"
+msgstr "Chcete přesunout soubor '%s'  do koše?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Chcete přesunout vybrané soubory do koše?"
-msgstr[1] "Chcete přesunout vybrané soubory do koše?"
-msgstr[2] "Chcete přesunout vybrané soubory do koše?"
+msgstr[0] "Chcete přesunout %d vybraný soubor do koše?"
+msgstr[1] "Chcete přesunout %d vybrané soubory do koše?"
+msgstr[2] "Chcete přesunout %d vybraných souborů do koše?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Opravdu chcete odstranit vybrané soubory?"
+msgstr "Opravdu chcete odstranit soubor '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Opravdu chcete odstranit vybrané soubory?"
-msgstr[1] "Opravdu chcete odstranit vybrané soubory?"
-msgstr[2] "Opravdu chcete odstranit vybrané soubory?"
+msgstr[0] "Opravdu chcete odstranit %d vybraný soubor?"
+msgstr[1] "Opravdu chcete odstranit %d vybrané soubory?"
+msgstr[2] "Opravdu chcete odstranit %d vybraných souborů?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1201,9 +1190,8 @@ msgid "Cancelled"
 msgstr "Zrušeno"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Souborová operace je zrušena a došlo k chybám."
+msgstr "<b>Souborová operace byla dokončena s chybami.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1224,9 +1212,8 @@ msgid "_Pause"
 msgstr "_Pozastavit"
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
-msgstr "_Obnovit"
+msgstr "_Pokračovat"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
@@ -1234,9 +1221,8 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
-#, fuzzy
 msgid "Moving"
-msgstr "Přesun souborů"
+msgstr "Přesouvání"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
@@ -1356,25 +1342,24 @@ msgid "Show %s"
 msgstr "Zobrazit %s"
 
 #: ../src/gtk/fm-standard-view.c:880
-#, fuzzy
 msgid "_Forget Width"
 msgstr "_Zapomenout šířku"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr ""
+msgstr "_Ikony"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr ""
+msgstr "_Kompaktní zobrazení"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Pohled s náhledy"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Detailní pohled"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1391,7 +1376,6 @@ msgid "Cannot access destination file"
 msgstr "Nelze získat přístup k cílovému souboru"
 
 #: ../src/job/fm-file-ops-job.c:564
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Nelze vytvořit odkaz na ne-nativním souborovém systému"
 
@@ -1432,8 +1416,7 @@ msgid "Setting target can be done only for single file"
 msgstr "Stanovení cíle lze dosáhnout pouze pro jeden soubor"
 
 #: ../src/modules/vfs-menu.c:299
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "XML file '%s' error (%d:%d): "
 msgstr "XML soubor %s chyba (%d:%d):"
 
@@ -1471,8 +1454,7 @@ msgid "Menu item name cannot be empty"
 msgstr "Název položky menu nemůže být prázdná"
 
 #: ../src/modules/vfs-menu.c:1507
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Neplatné menu adresáře %s"
 
@@ -1490,16 +1472,14 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Změna skrytého statusu není podporována pro menu adresáře"
 
 #: ../src/modules/vfs-menu.c:1978
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "Nastavení atributu %s není podporováno"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "neplatná hodnota pro atribut %s"
+msgstr "Neplatná hodnota pro atribut %s"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
@@ -1508,10 +1488,9 @@ msgid "The '%s' is a menu directory"
 msgstr "'%s' je menu adresáře"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "'%s' není menu adresáře"
+msgstr "'%s' není položka menu"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
@@ -1615,19 +1594,19 @@ msgstr "Obnovit soubory z koše do původních umístění"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "název zdrojového souboru nebo desktop id"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ZDROJ"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "název výsledného souboru"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "VÝSLEDEK"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
