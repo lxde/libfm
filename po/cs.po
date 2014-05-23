@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-21 22:21+0000\n"
+"PO-Revision-Date: 2014-05-23 22:28+0000\n"
 "Last-Translator: Jan <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400710897.0\n"
+"X-POOTLE-MTIME: 1400884110.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,6 +25,8 @@ msgstr "Upřednostňované aplikace"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Vyberte aplikaci, která se spustí při kliknutí na webový odkaz nebo e-mail "
+"adresu"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -587,9 +589,8 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "V libfm configu nebyl nalezen žádný emulátor terminálu"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Neplatný cíl"
+msgstr "Neplatný popis náhledové aplikace"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -626,7 +627,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI subcesta '%s' obsahuje nesprávné změněné znaky"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -720,10 +721,9 @@ msgid "Customize"
 msgstr "Přizpůsobit"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Použít vybranou aplikaci pro otevření souborů"
+msgstr "<b>Použít vybranou aplikaci pro otevření souborů \"%s\" </b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1183,7 +1183,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Před zastavením souborové operace se vyskytly se chyby.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1226,31 +1226,26 @@ msgstr "Přesouvání"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
-#, fuzzy
 msgid "Copying"
-msgstr "Kopírování souborů"
+msgstr "Kopírování"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
-#, fuzzy
 msgid "Trashing"
-msgstr "Přesouvám soubory do koše"
+msgstr "Přesouvám do koše"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
-#, fuzzy
 msgid "Deleting"
-msgstr "Mazání souborů"
+msgstr "Mazání"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Vytvoření symbolických odkazů"
+msgstr "Vytvářím odkaz"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
 msgstr "<b>Do:</b>"
 
@@ -1481,8 +1476,7 @@ msgid "Invalid value for attribute '%s'"
 msgstr "Neplatná hodnota pro atribut %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' je menu adresáře"
 
