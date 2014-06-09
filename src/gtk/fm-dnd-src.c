@@ -79,7 +79,7 @@
 #define FM_DISABLE_SEAL
 
 #include "fm-dnd-src.h"
-//#include "fm-icon-pixbuf.h"
+#include "fm-icon-pixbuf.h"
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
 {
@@ -330,7 +330,7 @@ on_drag_begin ( GtkWidget *src_widget,
     /* ask drag source to provide list of source files. */
     g_signal_emit(ds, signals[DATA_GET], 0);
 
-    /* FIXME: set icon if it's single file and it's possible to obtain it
+    /* set icon if it's single file and it's possible to obtain it */
     if (ds->files && fm_file_info_list_get_length(ds->files) == 1)
     {
         FmFileInfo *fi = fm_file_info_list_peek_head(ds->files);
@@ -353,7 +353,7 @@ on_drag_begin ( GtkWidget *src_widget,
 #endif
     }
     else if (ds->files)
-        gtk_drag_set_icon_stock(drag_context, GTK_STOCK_DND_MULTIPLE, 0, 0); */
+        gtk_drag_set_icon_stock(drag_context, GTK_STOCK_DND_MULTIPLE, 0, 0);
 }
 
 static void
