@@ -457,6 +457,7 @@ static void on_volume_added(GVolumeMonitor* vm, GVolume* volume, gpointer user_d
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     FmPlacesItem* item;
+    GMount *mount;
     GtkTreeIter it;
 
     /* nothing to do if we don't show unmounted volumes */
@@ -465,6 +466,24 @@ static void on_volume_added(GVolumeMonitor* vm, GVolume* volume, gpointer user_d
     /* for some unknown reasons, sometimes we get repeated volume-added 
      * signals and added a device more than one. So, make a sanity check here. */
     item = find_volume(model, volume, &it);
+    if (!item)
+    {
+        /* SF bug #850 - some mounts are announced before appropriate volume
+           by GLib, see https://bugzilla.gnome.org/show_bug.cgi?id=730347 */
+        mount = g_volume_get_mount(volume);
+        if (mount)
+        {
+            item = find_mount(model, mount, &it);
+            if (item)
+            {
+                g_object_unref(item->mount);
+                item->type = FM_PLACES_ITEM_VOLUME;
+                item->volume = g_object_ref(volume);
+                update_volume_or_mount(model, item, &it, NULL);
+            }
+            g_object_unref(mount);
+        }
+    }
     if(!item)
         add_volume_or_mount(model, G_OBJECT(volume), NULL);
 }
