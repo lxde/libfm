@@ -655,7 +655,8 @@ _file_is_symlink:
     fi->ctime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_CHANGED);
     fi->hidden = g_file_info_get_is_hidden(inf);
     fi->backup = g_file_info_get_is_backup(inf);
-    fi->name_is_changeable = fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
+    fi->name_is_changeable = TRUE; /* GVFS tends to ignore this attribute */
+    fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
     if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME))
         fi->name_is_changeable = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME);
     if (G_UNLIKELY(gf == NULL))
