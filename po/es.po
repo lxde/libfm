@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-11 20:28+0000\n"
+"PO-Revision-Date: 2014-06-27 23:49+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389472102.0\n"
+"X-POOTLE-MTIME: 1403912950.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -118,7 +118,7 @@ msgstr "_Renombrar"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
-msgstr "_Sobreescribir"
+msgstr "_Sobrescribir"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid ""
@@ -556,7 +556,7 @@ msgstr "No se definió la aplicación predeterminada para abrir los URI %s://"
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "No se puede cambiar el directorio de trabajo a «%s»: %s"
+msgstr "No se puede cambiar la carpeta de trabajo a «%s»: %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
