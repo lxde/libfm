@@ -120,8 +120,11 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
 
     if (fm_config->quick_exec)
     {
+        /* SF bug#838: open terminal for each script may be just a waste.
+           User should open a terminal and start the script there
+           in case if user wants to see the script output anyway.
         if (fm_file_info_is_text(file))
-            return FM_FILE_LAUNCHER_EXEC_IN_TERMINAL;
+            return FM_FILE_LAUNCHER_EXEC_IN_TERMINAL; */
         return FM_FILE_LAUNCHER_EXEC;
     }
     b = gtk_builder_new();
