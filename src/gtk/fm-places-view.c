@@ -790,22 +790,25 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
     }
     else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
+        GVolume *vol = fm_places_item_get_volume(item);
         GMount* mnt;
         char *unix_path = NULL;
         gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
         gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
 
-        mnt = g_volume_get_mount(fm_places_item_get_volume(item));
+        mnt = g_volume_get_mount(vol);
         if(mnt) /* mounted */
         {
             g_object_unref(mnt);
             act = gtk_action_group_get_action(act_grp, "Mount");
             gtk_action_set_visible(act, FALSE);
+            act = gtk_action_group_get_action(act_grp, "Unmount");
+            gtk_action_set_sensitive(act, g_mount_can_unmount(mnt));
         }
         else /* not mounted */
         {
             if (fm_config->format_cmd && fm_config->format_cmd[0])
-                unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
+                unix_path = g_volume_get_identifier(vol,
                                                     G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
             if (unix_path && unix_path[0] != '/') /* we can format only local */
             {
@@ -815,6 +818,8 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
             g_free(unix_path); /* use it to mark only */
             act = gtk_action_group_get_action(act_grp, "Unmount");
             gtk_action_set_visible(act, FALSE);
+            act = gtk_action_group_get_action(act_grp, "Mount");
+            gtk_action_set_sensitive(act, g_volume_can_mount(vol));
         }
         if (unix_path == NULL)
         {
@@ -841,6 +846,8 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
         {
             act = gtk_action_group_get_action(act_grp, "Mount");
             gtk_action_set_sensitive(act, FALSE);
+            act = gtk_action_group_get_action(act_grp, "Unmount");
+            gtk_action_set_sensitive(act, g_mount_can_unmount(mnt));
         }
         else /* not mounted */
         {
@@ -850,6 +857,8 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
         act = gtk_action_group_get_action(act_grp, "Format");
         if (act)
              gtk_action_set_visible(act, FALSE);
+        act = gtk_action_group_get_action(act_grp, "Eject");
+        gtk_action_set_visible(act, FALSE);
     }
     else
         goto _out;
