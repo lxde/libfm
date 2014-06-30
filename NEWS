@@ -1,3 +1,66 @@
+Changes on 1.2.1 since 1.2.0:
+
+* Fixed incorrect presence of LXShortcut in menus.
+
+* Fixed context menu on right-click on column header, it was not always
+    shown, especially with GTK3.
+
+* Fixed incorrect mime-type of mount points under computer:///.
+
+* Few fixes in internal thumbnail generator.
+
+* Changed info message on usage of x-terminal-emulator as terminal.
+
+* Added qterminal and lilyterm into terminals database.
+
+* Don't create ~/Templates if it does not exist on application start.
+
+* Fixed installing extra files with different values for --with-gtk.
+
+* Fixed file renaming if it's name is illegal on destination filesystem.
+
+* An error window after user pressed 'Cancel' on app selection should be
+    not shown anymore.
+
+* Fixed menu positioning if it's placed near monitor edge and also on
+    non-first monitor, also ensured menu UI update before calculating its
+    position.
+
+* Fixed cancellation of loading row after FmDirTreeView chdir.
+
+* The "link" mark on icons of small size (< 20 px) now scaled properly.
+
+* Fixed positioning of search box in ExoIconView widget.
+
+* Fixed fm_terminal_launch(), some terminals need PWD environment set.
+
+* Fixed invalid rubberbanding after doubleclick on ExoIconView items.
+
+* Corrected drag cursor, it should correctly show dragged item icon, not
+    generic drag cursor.
+
+* Fixed crash in fm_folder_view_scroll_to_path() if path is not available.
+
+* Fixed unitialized variable usage in folder view context menu positioning
+    code.
+
+* Prevented path entry from containing "(invalid encoding)" string since
+    it will prevent that path from being used.
+
+* Fixed path completion listing for display names in paths.
+
+* One-time custom application isn't added anymore into list of last used.
+
+* Added a workaround on duplicated loop devices in Places sidebar.
+
+* If quick_exec option is set to true, launching will always start the
+    application, not try a terminal for it.
+
+* Changed ExoIconView rubberbanding the same way as it's done in GTK+.
+
+* Fixed invalid renaming files on moving them around virtual FS.
+
+
 Changes on 1.2.0 since 1.1.0:
 
 * ABI bumped to 4.
