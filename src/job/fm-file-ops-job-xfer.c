@@ -713,14 +713,14 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         GFile* dest;
         char* tmp_basename;
 
-        if(g_file_is_native(src) == g_file_is_native(dest_dir))
-            /* both are native or both are virtual */
+        if(g_file_is_native(src) && g_file_is_native(dest_dir))
+            /* both are native */
             tmp_basename = NULL;
         else if(g_file_is_native(src)) /* copy from native to virtual */
             tmp_basename = g_filename_to_utf8(fm_path_get_basename(path),
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
-        else /* copy from virtual to native */
+        else /* copy from virtual to native/virtual */
             tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
@@ -836,14 +836,14 @@ _retry_query_dest_info:
                 g_object_unref(pf);
         }
         parent = fm_path_get_parent(path);
-        if(g_file_is_native(src) == g_file_is_native(dest_dir))
-            /* both are native or both are virtual */
+        if(g_file_is_native(src) && g_file_is_native(dest_dir))
+            /* both are native */
             tmp_basename = NULL;
         else if(g_file_is_native(src)) /* move from native to virtual */
             tmp_basename = g_filename_to_utf8(fm_path_get_basename(path),
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
-        else /* move from virtual to native */
+        else /* move from virtual to native/virtual */
             tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
