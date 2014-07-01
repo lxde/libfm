@@ -11,7 +11,7 @@ Changes on 1.2.1 since 1.2.0:
 
 * Changed info message on usage of x-terminal-emulator as terminal.
 
-* Added qterminal and lilyterm into terminals database.
+* Added sakura, qterminal and lilyterm into terminals database.
 
 * Don't create ~/Templates if it does not exist on application start.
 
