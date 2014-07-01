@@ -2039,9 +2039,9 @@ exo_icon_view_expose_event (GtkWidget      *widget,
       rubber_rect.width = ABS (priv->rubberband_x_1 - priv->rubberband_x2) + 1;
       rubber_rect.height = ABS (priv->rubberband_y_1 - priv->rubberband_y2) + 1;
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
       if (gdk_rectangle_intersect (&rubber_rect, &event_area, &rect))
         {
-#if !GTK_CHECK_VERSION(3, 0, 0)
           cr = gdk_cairo_create (event->window);
 #endif
           gtk_widget_style_get (widget,
@@ -2074,8 +2074,8 @@ exo_icon_view_expose_event (GtkWidget      *widget,
           gdk_color_free (fill_color_gdk);
 #if !GTK_CHECK_VERSION(3, 0, 0)
           cairo_destroy (cr);
-#endif
         }
+#endif
     }
 
   /* let the GtkContainer forward the expose event to all children */
