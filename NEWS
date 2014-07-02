@@ -60,6 +60,8 @@ Changes on 1.2.1 since 1.2.0:
 
 * Fixed invalid renaming files on moving them around virtual FS.
 
+* Fixed crash in vfs-menu module with libmenu-cache 0.3.x.
+
 
 Changes on 1.2.0 since 1.1.0:
 

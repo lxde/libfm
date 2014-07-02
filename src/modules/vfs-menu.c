@@ -1050,7 +1050,7 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
         dir = NULL;
         while (child)
         {
-            if (strcmp(id, menu_cache_item_get_id(child->data)) == 0)
+            if (g_strcmp0(id, menu_cache_item_get_id(child->data)) == 0)
             {
                 dir = child->data;
                 break;
