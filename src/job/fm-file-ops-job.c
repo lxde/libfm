@@ -727,12 +727,13 @@ _link_error:
                                                    &err);
             GFile *src_file;
             GFileInfo *inf;
-            char *name, *iname = NULL;
+            char *name = NULL, *iname = NULL;
             if (out == NULL)
                 goto _link_error;
             src_file = fm_path_to_gfile(path);
             inf = g_file_query_info(src_file, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI","
-                                              G_FILE_ATTRIBUTE_STANDARD_ICON,
+                                              G_FILE_ATTRIBUTE_STANDARD_ICON","
+                                              G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
                                     G_FILE_QUERY_INFO_NONE,
                                     fm_job_get_cancellable(fmjob), NULL);
             g_object_unref(src_file);
@@ -757,11 +758,13 @@ _link_error:
                 }
                 /* FIXME: guess the icon if not available */
                 src = g_strdup(g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI));
+                name = g_strdup(g_file_info_get_display_name(inf));
                 g_object_unref(inf);
             }
             if (src == NULL)
                 src = fm_path_to_uri(path);
-            name = fm_path_display_basename(path);
+            if (name == NULL)
+                name = fm_path_display_basename(path);
             dname = g_strdup_printf("[Desktop Entry]\n"
                                     "Type=Link\n"
                                     "Name=%s"
