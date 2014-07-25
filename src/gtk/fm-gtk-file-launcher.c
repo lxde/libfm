@@ -379,6 +379,7 @@ gboolean fm_launch_command_simple(GtkWindow *parent, GAppLaunchContext *ctx,
     GAppInfo *appinfo;
     GError *error = NULL;
     GList *l, *fl = NULL;
+    GdkAppLaunchContext *_ctx = NULL;
     gboolean ok;
 
     appinfo = fm_app_info_create_from_commandline(cmd, NULL, flags, &error);
@@ -387,6 +388,14 @@ gboolean fm_launch_command_simple(GtkWindow *parent, GAppLaunchContext *ctx,
         fm_show_error(parent, NULL, error->message);
         g_error_free(error);
         return FALSE;
+    }
+    if (ctx == NULL && parent != NULL)
+    {
+        _ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
+        gdk_app_launch_context_set_screen(_ctx, gtk_widget_get_screen(GTK_WIDGET(parent)));
+        gdk_app_launch_context_set_timestamp(_ctx, gtk_get_current_event_time());
+        /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+        ctx = G_APP_LAUNCH_CONTEXT(_ctx);
     }
     if (files) for (l = fm_path_list_peek_head_link(files); l; l = l->next)
         fl = g_list_append(fl, fm_path_to_gfile(FM_PATH(l->data)));
@@ -398,6 +407,8 @@ gboolean fm_launch_command_simple(GtkWindow *parent, GAppLaunchContext *ctx,
     }
     g_list_free_full(fl, g_object_unref);
     g_object_unref(appinfo);
+    if (_ctx)
+        g_object_unref(_ctx);
     return ok;
 }
 
