@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-23 22:32+0000\n"
-"Last-Translator: Jan <jhelebrant@seznam.cz>\n"
+"PO-Revision-Date: 2014-07-27 22:22+0000\n"
+"Last-Translator: Jan Helebrant <jhelebrant@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1400884329.0\n"
+"X-Generator: Pootle 2.6.0-rc1\n"
+"X-POOTLE-MTIME: 1406499736.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -34,7 +34,7 @@ msgstr "Editor zkratek"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Vytvořit nový nebo změnit stávající vstup na ploše"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -368,6 +368,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Systém zápisu může být jak POSIX shell seznam (s ',' jako oddělovačem) nebo "
+"POSIX regulární výraz."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -434,6 +436,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Lze sem vložit jakýkoliv platný typ obsahu. Zástupný znak '*' je povolen na "
+"konci typu. Vícenásobné typy by měly být odděleny středníkem ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -536,10 +540,9 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Došlo k chybám:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Chybné jméno položky menu %s"
+msgstr "Chybné jméno položky menu '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format, c-format
@@ -581,7 +584,7 @@ msgstr "Zkratka k URI"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: neplatný argument"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
@@ -686,7 +689,7 @@ msgstr "V uzavíracím tagu není mezera povolena"
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr "Prvek '% s' byl uzavřen, ale žádný prvek nebyl otevřen"
+msgstr "Prvek '%s' byl uzavřen, ale žádný prvek nebyl otevřen"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
@@ -997,7 +1000,7 @@ msgstr "Nový"
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Zadejte název pro % s:"
+msgstr "Zadejte název pro %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
@@ -1428,7 +1431,7 @@ msgstr "Nelze vytvořit XML definici pro '%s'"
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "Cesta menu %1 již existuje"
+msgstr "Cesta menu '%s' již existuje"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
@@ -1460,7 +1463,7 @@ msgstr "Neplatná položka menu"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "Položka menu '% s' nemá odpovídající vstupní soubor"
+msgstr "Položka menu '%s' nemá odpovídající vstupní soubor"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
@@ -1487,10 +1490,9 @@ msgid "The '%s' isn't a menu item"
 msgstr "'%s' není položka menu"
 
 #: ../src/modules/vfs-menu.c:2052
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "The '%s' entry file is broken"
-msgstr "'%s' je poškozeno"
+msgstr "Soubor vstupu '%s' je poškozen"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format, c-format
@@ -1510,10 +1512,9 @@ msgid "Invalid destination"
 msgstr "Neplatný cíl"
 
 #: ../src/modules/vfs-menu.c:2979
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: složka %s nenalezena v menu mezipaměti"
+msgstr "FmMenuVFileMonitor: složka '%s' nenalezena v menu mezipaměti"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1571,9 +1572,8 @@ msgid "_Use startup notification"
 msgstr "_Použít oznámení při spuštění"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "Vstup _Plochy"
+msgstr "_Vstup Plochy"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
