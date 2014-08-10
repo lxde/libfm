@@ -1,7 +1,8 @@
 /*
  *      fm-thumbnailer.c
  *
- *      Copyright 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012-2013 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -324,7 +325,8 @@ static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir
         while((basename = g_dir_read_name(dir)) != NULL)
         {
             /* we only want filenames with .thumbnailer extension */
-            if(G_LIKELY(g_str_has_suffix(basename, ".thumbnailer")))
+            if (G_LIKELY(g_str_has_suffix(basename, ".thumbnailer")) &&
+                g_hash_table_lookup(hash, basename) == NULL)
                 g_hash_table_replace(hash, g_strdup(basename), g_strdup(dir_path));
         }
         g_dir_close(dir);
@@ -363,12 +365,12 @@ static void load_thumbnailers()
      * value: data dir the thumbnailer entry file is in */
     GHashTable* tmp_hash = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
 
+    /* load user-specific thumbnailers */
+    find_thumbnailers_in_data_dir(tmp_hash, g_get_user_data_dir());
+
     /* load system-wide thumbnailers */
     for(data_dir = data_dirs; *data_dir; ++data_dir)
         find_thumbnailers_in_data_dir(tmp_hash, *data_dir);
-
-    /* load user-specific thumbnailers */
-    find_thumbnailers_in_data_dir(tmp_hash, g_get_user_data_dir());
 
     /* load all found thumbnailers */
     g_hash_table_foreach(tmp_hash, (GHFunc)load_thumbnailers_from_data_dir, NULL);

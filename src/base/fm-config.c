@@ -362,7 +362,12 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
 
     cfg->_cfg_name = g_strdup(name);
     dirs = g_get_system_config_dirs();
-    for(dir=dirs;*dir;++dir)
+    /* bug SF #887: first dir in XDG_CONFIG_DIRS is the most relevant
+       so we shoult process the list in reverse order */
+    dir = dirs;
+    while (*dir)
+        ++dir;
+    while (dir-- != dirs)
     {
         path = g_build_filename(*dir, name, NULL);
         if(g_key_file_load_from_file(kf, path, 0, NULL))
