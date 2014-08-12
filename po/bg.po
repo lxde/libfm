@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-12 01:18+0000\n"
+"PO-Revision-Date: 2014-08-12 01:30+0000\n"
 "Last-Translator: Радослав Иванов <reckku@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.6.0-rc1\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-POOTLE-MTIME: 1407806329.000000\n"
+"X-POOTLE-MTIME: 1407807014.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -793,7 +793,7 @@ msgstr "_Разкриване"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
-msgstr "_Добавяне към отметките"
+msgstr "_Добави в Отметки"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
