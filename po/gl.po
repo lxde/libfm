@@ -7,25 +7,25 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-12 09:26+0000\n"
-"Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
+"PO-Revision-Date: 2014-08-11 09:15+0000\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389518811.0\n"
+"X-Generator: Pootle 2.6.0-rc1\n"
+"X-POOTLE-MTIME: 1407748553.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
-msgstr "Aplicativos preferidos"
+msgstr "Aplicacións preferidas"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Seleccione os aplicativos que chamar ao premer sobre a ligazón web ou o "
+"Seleccione as aplicacións que chamar ao premer sobre a ligazón web ou o "
 "enderezo de correo"
 
 #: ../data/lxshortcut.desktop.in.h:1
@@ -38,15 +38,15 @@ msgstr "Crear ou cambiar unha entrada de escritorio existente"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
-msgstr "Escolla un aplicativo"
+msgstr "Escolla unha aplicación"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Utilizar o aplicativo seleccionado para abrir os ficheiros"
+msgstr "Utilizar a aplicación seleccionada para abrir os ficheiros"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr "Aplicativos _instalados"
+msgstr "Aplicacións _instaladas"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -87,7 +87,7 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>_Nome do aplicativo (opcional, estabelecelo para manter a asociación)</b>"
+"<b>_Nome da aplicación (opcional, estabelecela para manter a asociación)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -100,7 +100,7 @@ msgstr "_Liña de ordes personalizada"
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr ""
-"E_stabelecer o aplicativo seleccionado como acción predeterminada para os "
+"E_stabelecer a aplicación seleccionada como acción predeterminada para os "
 "ficheiros deste tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -197,7 +197,7 @@ msgstr "<b>Abrir _con:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Escolla o aplicativo utilizado para abrir os ficheiros deste tipo "
+msgstr "Escolla a aplicación utilizada para abrir os ficheiros deste tipo "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -518,7 +518,7 @@ msgstr "Liña de ordes:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
-msgstr "Aplicativos do sistema"
+msgstr "Aplicacións do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
@@ -551,7 +551,7 @@ msgstr "Elemento de menú incorrecto: «%s»"
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
-"Non está estabelecido o aplicativo predeterminado para iniciar as URI %s://"
+"Non está estabelecida a aplicación predeterminada para iniciar as URI %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
@@ -567,7 +567,7 @@ msgstr ""
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "Non está estabelecido o aplicativo predeterminado para o tipo MIME %s"
+msgstr "Non está estabelecida a aplicación predeterminada para o tipo MIME %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
@@ -597,7 +597,7 @@ msgstr "Non foi estabelecido o emulador de terminal na configuración de «libfm
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr "Descrición incorrecta do aplicativo de miniaturas"
+msgstr "Descrición incorrecta da aplicación de miniaturas"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -730,11 +730,11 @@ msgstr "Personalizar"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>Seleccione un aplicativo para abrir os ficheiros «%s»</b>"
+msgstr "<b>Seleccione unha aplicación para abrir os ficheiros «%s»</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
-msgstr "Aplicativos instalados"
+msgstr "Aplicacións instaladas"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
@@ -1016,8 +1016,7 @@ msgstr "Creando %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr ""
-"E_xecutar o aplicativo predeterminado no ficheiro despois da súa creación"
+msgstr "E_xecutar a aplicación predeterminada doo ficheiro após a súa creación"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1113,7 +1112,7 @@ msgstr "Escritorio"
 #: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
 #: ../src/modules/vfs-menu.c:1565
 msgid "Applications"
-msgstr "Aplicativos"
+msgstr "Aplicacións"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 msgid "Filesystem Root"
@@ -1429,7 +1428,7 @@ msgstr "Produciuse un erro no ficheiro XML «%s» (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr "O ficheiro XML non conten a raíz dos aplicativos"
+msgstr "O ficheiro XML non conten a raíz das aplicacións"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
@@ -1548,7 +1547,7 @@ msgstr "<b>O_rde:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr "Orde que executar cando se activa a icona do aplicativo"
+msgstr "Orde que executar cando se activa a icona da aplicación"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1556,7 +1555,7 @@ msgstr "<b>D_escrición:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "Nome xenérico do aplicativo"
+msgstr "Nome xenérico da aplicación"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1572,7 +1571,7 @@ msgstr "<b>_Xanela emerxente:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
-msgstr "Xanela emerxente para amosar o aplicativo"
+msgstr "Xanela emerxente para amosar a aplicación"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
