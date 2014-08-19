@@ -164,6 +164,7 @@ struct ChildSetup
 {
     char* display;
     char* sn_id;
+    pid_t pgid;
 };
 
 static void child_setup(gpointer user_data)
@@ -173,7 +174,8 @@ static void child_setup(gpointer user_data)
         g_setenv ("DISPLAY", data->display, TRUE);
     if(data->sn_id)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
-    setsid();
+    /* Move child to grandparent group so it will not die with parent */
+    setpgid(0, data->pgid);
 }
 
 static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
@@ -279,6 +281,7 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         else
             path = NULL;
 
+        data.pgid = getpgid(getppid());
         ret = g_spawn_async(path, argv, NULL,
                             G_SPAWN_SEARCH_PATH,
                             child_setup, &data, NULL, err);
