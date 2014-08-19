@@ -173,6 +173,7 @@ static void child_setup(gpointer user_data)
         g_setenv ("DISPLAY", data->display, TRUE);
     if(data->sn_id)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
+    setsid();
 }
 
 static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)

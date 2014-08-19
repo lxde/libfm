@@ -252,6 +252,12 @@ FmTerminal* fm_terminal_dup_default(GError **error)
     return term;
 }
 
+static void child_setup(gpointer user_data G_GNUC_UNUSED)
+{
+    /* Detach from parent if terminal application does not do it itself */
+    setsid();
+}
+
 /**
  * fm_terminal_launch
  * @dir: (allow-none): a directory to launch
@@ -327,7 +333,8 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
         *env = g_strdup_printf ("PWD=%s", dir);
     }
 #endif
-    ret = g_spawn_async(dir, argv, envp, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, error);
+    ret = g_spawn_async(dir, argv, envp, G_SPAWN_SEARCH_PATH, child_setup, NULL,
+                        NULL, error);
     g_strfreev(argv);
     g_strfreev(envp);
     return ret;
