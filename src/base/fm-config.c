@@ -344,6 +344,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     cfg->modules_blacklist = NULL;
     cfg->system_modules_blacklist = NULL;
     _cfg_monitor_free(cfg);
+    g_free(cfg->_cfg_name);
     if(G_LIKELY(!name))
         name = "libfm/libfm.conf";
     else
