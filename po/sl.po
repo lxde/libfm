@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-22 12:54+0000\n"
+"PO-Revision-Date: 2014-08-22 13:37+0000\n"
 "Last-Translator: Klemen Košir <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1408712096.000000\n"
+"X-POOTLE-MTIME: 1408714621.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -780,7 +780,7 @@ msgstr "Odpri _z"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr "Copiar ru_ta(s)"
+msgstr "Kopiraj po_ti"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
@@ -796,7 +796,7 @@ msgstr "_Dodaj med zaznamke"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr "_Renombrar…"
+msgstr "P_reimenuj …"
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
