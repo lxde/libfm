@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-22 12:42+0000\n"
+"PO-Revision-Date: 2014-08-22 12:54+0000\n"
 "Last-Translator: Klemen Košir <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1408711350.000000\n"
+"X-POOTLE-MTIME: 1408712096.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -35,7 +35,7 @@ msgstr "Urejevalnik bližnjic"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "Ustvarite novo ali spremenite obstoječo vnosno datoteko"
+msgstr "Ustvarite novo ali spremenite obstoječo datoteko namizja"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -542,7 +542,7 @@ msgstr "<b>Pojavile so se napake:</b>"
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Neveljavna vnosna datoteka: \"%s\""
+msgstr "Neveljavna datoteka namizja: »%s«"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
@@ -552,12 +552,12 @@ msgstr "Za URI %s:// ni nastavljenega privzetega programa"
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Delovne mape ni mogoče spremeniti v \"%s\": %s"
+msgstr "Delovne mape ni mogoče spremeniti v »%s«: %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Vrste vsebine datoteke \"%s\" za zagon ni mogoče določiti"
+msgstr "Vrste vsebine datoteke »%s« za zagon ni mogoče določiti"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
@@ -630,7 +630,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "Podpot \"%s\" naslova URI vsebuje neveljavne ubežne znake"
+msgstr "Podpot »%s« naslova URI vsebuje neveljavne ubežne znake"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -643,7 +643,7 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"\"%-.*s\" ni mogoče razčleniti, kar bi moralo biti številka znotraj sklica "
+"»%-.*s« ni mogoče razčleniti, kar bi moralo biti številka znotraj sklica "
 "znaka (na primer &#234;). Mogoče je številka prevelika."
 
 #: ../src/extra/fm-xml-file.c:310
@@ -659,20 +659,20 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "Sklic znaka \"%-.*s\" ne kodira dovoljenega znaka."
+msgstr "Sklic znaka »%-.*s« ne kodira dovoljenega znaka."
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Najdena je bila prazna entiteta \"&;\". Dovoljene entitete so: &amp; &quot; "
+"Najdena je bila prazna entiteta »&;«. Dovoljene entitete so: &amp; &quot; "
 "&lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr "Ime entitete \"%-.*s\" je neznano"
+msgstr "Ime entitete »%-.*s« je neznano"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -690,12 +690,12 @@ msgstr "V končni oznaki presledek ni dovoljen"
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr "Element \"%s\" je bil zaprt, vendar ni bil odprt"
+msgstr "Element »%s« je bil zaprt, vendar ni bil odprt"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr "Namesto elementa \"%2$s\" je bil zaprt element \"%1$s\""
+msgstr "Namesto elementa »%2$s« je bil zaprt element »%1$s«"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -727,7 +727,7 @@ msgstr "Po meri"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>Izberite program, s katerim želite odpreti datoteke vrste \"%s\"</b>"
+msgstr "<b>Izberite program, s katerim želite odpreti datoteke vrste »%s«</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1057,7 +1057,7 @@ msgstr "To dejanje lahko izvedejo le skrbniki sistema."
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Ali želite premakniti datoteko \"%s\" v smeti?"
+msgstr "Ali želite premakniti datoteko »%s« v smeti?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
@@ -1071,7 +1071,7 @@ msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Ali želite izbrisati datoteko \"%s\"?"
+msgstr "Ali želite izbrisati datoteko »%s«?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
@@ -1373,7 +1373,7 @@ msgstr "Spremeni dejavni zavihek"
 #: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Mapa \"%s\" ni veljavna"
+msgstr "Mapa »%s« ni veljavna"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1386,7 +1386,7 @@ msgstr "Povezave na tujem datotečnem sistemu ni mogoče ustvariti"
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Datoteke \"%s\" ni mogoče obnoviti: izvirna pot je neznana"
+msgstr "Datoteke »%s« ni mogoče obnoviti: izvirna pot je neznana"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1407,7 +1407,7 @@ msgstr "Cilj je podmapa izvorne mape."
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Datoteke \"%s\" ni mogoče kopirati: dejanje ni podprto"
+msgstr "Datoteke »%s« ni mogoče kopirati: dejanje ni podprto"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
@@ -1422,22 +1422,22 @@ msgstr "Cilj lahko nastavite le za posamezno datoteko"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Napaka v datoteki XML \"%s\" (%d:%d): "
+msgstr "Napaka v datoteki XML »%s« (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr "Datoteka XML ne vsebuje korena \"Applications\""
+msgstr "Datoteka XML ne vsebuje korena »Applications«"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "Določila XML za \"%s\" ni mogoče ustvariti"
+msgstr "Določila XML za »%s« ni mogoče ustvariti"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "Pot menija \"%s\" že obstaja"
+msgstr "Pot menija »%s« že obstaja"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
@@ -1460,7 +1460,7 @@ msgstr "Ime predmeta menija ne sme biti prazno"
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Neveljavna mapa menija: \"%s\""
+msgstr "Neveljavna mapa menija: »%s«"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
@@ -1469,7 +1469,7 @@ msgstr "Neveljaven predmet menija"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "Predmet menija \"%s\" nima ustrezne vnosne datoteke"
+msgstr "Predmet menija »%s« nima ustrezne datoteke namizja"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
@@ -1478,36 +1478,36 @@ msgstr "Skrivanje mape menija ni podprto"
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Nastavljanje atributa \"%s\" ni podprto"
+msgstr "Nastavljanje atributa »%s« ni podprto"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Neveljavna vrednost atributa \"%s\""
+msgstr "Neveljavna vrednost atributa »%s«"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr "\"%s\" je mapa menija"
+msgstr "»%s« je mapa menija"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "\"%s\" ni predmet menija"
+msgstr "»%s« ni predmet menija"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "Vnosna datoteka \"%s\" je pokvarjena"
+msgstr "Datoteka namizja »%s« je pokvarjena"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Predmeta menija \"%s\" ni mogoče ustvariti"
+msgstr "Predmeta menija »%s« ni mogoče ustvariti"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "Ime mape menija se ne sme končati z \".desktop\""
+msgstr "Ime mape menija se ne sme končati z ».desktop«"
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
@@ -1520,7 +1520,7 @@ msgstr "Neveljaven cilj"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: mape \"%s\" ni mogoče najti v predpomnilniku menija"
+msgstr "FmMenuVFileMonitor: mape »%s« ni mogoče najti v predpomnilniku menija"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
