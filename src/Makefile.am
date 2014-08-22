@@ -20,7 +20,6 @@ AM_CPPFLAGS = \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-	-DSYSCONF_DIR=\"@sysconfdir@\" \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 

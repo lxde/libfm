@@ -374,10 +374,6 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
             fm_config_load_from_key_file(cfg, kf);
         g_free(path);
     }
-    path = g_build_filename(SYSCONF_DIR, name, NULL);
-    if(g_key_file_load_from_file(kf, path, 0, NULL))
-        fm_config_load_from_key_file(cfg, kf);
-    g_free(path);
     /* we got all system blacklists, save them and get user's one */
     cfg->system_modules_blacklist = cfg->modules_blacklist;
     cfg->modules_blacklist = NULL;

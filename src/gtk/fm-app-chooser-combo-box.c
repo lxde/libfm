@@ -213,7 +213,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     /* other applications */
     gtk_list_store_insert_with_values(store, &it, -1,
                        0, NULL,
-                       1, _("Customize"),
+                       1, _("Customize"), // FIXME: should be "Customize..."
                        2, NULL, -1);
     data->other_apps_iter = it;
     gtk_combo_box_set_model(combo, GTK_TREE_MODEL(store));
