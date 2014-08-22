@@ -2,6 +2,7 @@
  *      fm-mime-type.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -187,7 +188,7 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
                 char buf[4096];
                 len = read(fd, buf, MIN(pstat->st_size, 4096));
                 g_free(type);
-                type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
+                type = g_content_type_guess(base_name, (guchar*)buf, len, &uncertain);
             /* #endif */
                 close(fd);
             }
