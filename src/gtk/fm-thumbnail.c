@@ -2,7 +2,7 @@
  *      fm-thumbnail.c
  *
  *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #include <config.h>
 #endif
 #include "fm-thumbnail.h"
+#include "fm-config.h"
 
 /* FIXME: this function prototype seems to be missing in header files of GdkPixbuf. Bug report to them. */
 gboolean gdk_pixbuf_set_option(GdkPixbuf *pixbuf, const gchar *key, const gchar *value);
@@ -131,6 +132,18 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 }
 
 static GObject* read_image_from_file(const char* filename) {
+    if (fm_config->thumbnail_max > 0)
+    {
+        int w = 1 , h = 1;
+
+        /* SF bug #895: image of big dimension can be still small due to
+           image compression and loading that image into memory can easily
+           overrun the available memory, so let limit image by Mpix as well */
+        gdk_pixbuf_get_file_info(filename, &w, &h);
+        /* g_debug("thumbnail generator: image size %dx%d", w, h); */
+        if (w * h > (fm_config->thumbnail_max << 10))
+            return NULL;
+    }
     return (GObject*)gdk_pixbuf_new_from_file(filename, NULL);
 }
 

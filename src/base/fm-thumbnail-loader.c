@@ -2,7 +2,7 @@
  * fm-thumbnail-loader.c
  * 
  * Copyright 2010 - 2013 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- * Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ * Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

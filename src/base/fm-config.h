@@ -107,7 +107,7 @@ typedef enum
  * @small_icon_size: size of small icons
  * @pane_icon_size: size of side pane icons
  * @thumbnail_size: size of thumbnail icons
- * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
+ * @thumbnail_max: show thumbnails only for files not bigger than this, in KB or Kpix
  * @auto_selection_delay: (since 1.2.0) delay for autoselection in single-click mode, in ms
  * @drop_default_action: (since 1.2.0) default action on drop (see #FmDndDestDropAction)
  * @single_click: single click to open file
