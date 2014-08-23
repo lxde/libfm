@@ -891,21 +891,21 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
 
     DEBUG("generate thumbnail for %s", fm_file_info_get_name(task->fi));
 
-        GObject* ori_pix = NULL;
-        int rotate_degrees = 0;
+    GObject* ori_pix = NULL;
+    int rotate_degrees = 0;
 #ifdef USE_EXIF
-        FmMimeType* mime_type;
+    FmMimeType* mime_type;
 
-        /* use libexif to extract thumbnails embedded in jpeg files */
-        mime_type = fm_file_info_get_mime_type(task->fi);
-        if(strcmp(fm_mime_type_get_type(mime_type), "image/jpeg") == 0) /* if this is a jpeg file */
+    /* use libexif to extract thumbnails embedded in jpeg files */
+    mime_type = fm_file_info_get_mime_type(task->fi);
+    if(strcmp(fm_mime_type_get_type(mime_type), "image/jpeg") == 0) /* if this is a jpeg file */
+    {
+        /* try to extract thumbnails embedded in jpeg files */
+        ExifLoader *exif_loader = exif_loader_new();
+        ExifData *exif_data;
+        GFileInputStream* ins = g_file_read(gf, cancellable, NULL);
+        if(ins)
         {
-          /* try to extract thumbnails embedded in jpeg files */
-          ExifLoader *exif_loader = exif_loader_new();
-          ExifData *exif_data;
-          GFileInputStream* ins = g_file_read(gf, cancellable, NULL);
-          if(ins)
-          {
             while(!g_cancellable_is_cancelled(cancellable)) {
                 unsigned char buf[4096];
                 gssize read_size = g_input_stream_read((GInputStream*)ins, buf, 4096, cancellable, NULL);
@@ -954,81 +954,81 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
             }
             g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
             g_object_unref(ins);
-          }
         }
+    }
 
-        if(!ori_pix)
-        {
+    if(!ori_pix)
+    {
 #endif
         file_name = g_file_get_path(gf);
         if (file_name)
             ori_pix = backend.read_image_from_file(file_name);
         g_free(file_name);
 #ifdef USE_EXIF
-        }
+    }
 #endif
 
-        if(ori_pix) /* if the original image is successfully loaded */
-        {
-            int width = backend.get_image_width(ori_pix);
-            int height = backend.get_image_height(ori_pix);
-            gboolean need_save;
+    if(ori_pix) /* if the original image is successfully loaded */
+    {
+        int width = backend.get_image_width(ori_pix);
+        int height = backend.get_image_height(ori_pix);
+        gboolean need_save;
 
-            if(task->flags & GENERATE_NORMAL)
-            {
-                /* don't create thumbnails for images which are too small */
-                if(width <=128 && height <= 128)
-                {
-                    normal_pix = (GObject*)g_object_ref(ori_pix);
-                    need_save = FALSE;
-                }
-                else
-                {
-                    normal_pix = scale_pix(ori_pix, 128);
-                    need_save = TRUE;
-                }
-                if(rotate_degrees != 0) // rotate the image by EXIF oritation
-                {
-                    GObject* rotated;
-                    rotated = backend.rotate_image(normal_pix, rotate_degrees);
-                    g_object_unref(normal_pix);
-                    normal_pix = rotated;
-                }
-                if(need_save)
-                    save_thumbnail_to_disk(task, normal_pix, task->normal_path);
-            }
-
-            if(task->flags & GENERATE_LARGE)
-            {
-                /* don't create thumbnails for images which are too small */
-                if(width <=256 && height <= 256)
-                {
-                    large_pix = (GObject*)g_object_ref(ori_pix);
-                    need_save = FALSE;
-                }
-                else
-                {
-                    large_pix = scale_pix(ori_pix, 256);
-                    need_save = TRUE;
-                }
-                if(rotate_degrees != 0)
-                {
-                    GObject* rotated;
-                    rotated = backend.rotate_image(large_pix, rotate_degrees);
-                    g_object_unref(large_pix);
-                    large_pix = rotated;
-                }
-                if(need_save)
-                    save_thumbnail_to_disk(task, large_pix, task->large_path);
-            }
-            g_object_unref(ori_pix);
-        }
-        else
+        if(task->flags & GENERATE_NORMAL)
         {
-            g_object_unref(gf);
-            /* g_debug("failed to generate thumbnail internally, revert to external"); */
-            return FALSE;
+            /* don't create thumbnails for images which are too small */
+            if(width <=128 && height <= 128)
+            {
+                normal_pix = (GObject*)g_object_ref(ori_pix);
+                need_save = FALSE;
+            }
+            else
+            {
+                normal_pix = scale_pix(ori_pix, 128);
+                need_save = TRUE;
+            }
+            if(rotate_degrees != 0) // rotate the image by EXIF oritation
+            {
+                GObject* rotated;
+                rotated = backend.rotate_image(normal_pix, rotate_degrees);
+                g_object_unref(normal_pix);
+                normal_pix = rotated;
+            }
+            if(need_save)
+                save_thumbnail_to_disk(task, normal_pix, task->normal_path);
         }
+
+        if(task->flags & GENERATE_LARGE)
+        {
+            /* don't create thumbnails for images which are too small */
+            if(width <=256 && height <= 256)
+            {
+                large_pix = (GObject*)g_object_ref(ori_pix);
+                need_save = FALSE;
+            }
+            else
+            {
+                large_pix = scale_pix(ori_pix, 256);
+                need_save = TRUE;
+            }
+            if(rotate_degrees != 0)
+            {
+                GObject* rotated;
+                rotated = backend.rotate_image(large_pix, rotate_degrees);
+                g_object_unref(large_pix);
+                large_pix = rotated;
+            }
+            if(need_save)
+                save_thumbnail_to_disk(task, large_pix, task->large_path);
+        }
+        g_object_unref(ori_pix);
+    }
+    else
+    {
+        g_object_unref(gf);
+        /* g_debug("failed to generate thumbnail internally, revert to external"); */
+        return FALSE;
+    }
 
     thumbnail_task_finish(task, normal_pix, large_pix);
 
