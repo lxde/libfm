@@ -1,3 +1,35 @@
+Changes on 1.2.2 since 1.2.1:
+
+* Fixed display name of created shortcut after dropping from another
+    application.
+
+* Fixed the screen for context in fm_launch_command_simple().
+
+* Added KDE archiver "Ark" into archivers list.
+
+* Fixed parsing order of directories in XDG_DATA_DIRS and XDG_CONFIG_DIRS.
+
+* Added a possibility for application that was started (by PCManFM or any
+    other application that uses LibFM) to never die after our application
+    (i.e. its parent) was closed.
+
+* Fixed possible memory leak in fm_config_load_from_file().
+
+* Corrected g_content_type_guess() call with file sample. This may help
+    with correct file type detection.
+
+* When calculate total file sizes in directory, filesize of directory now
+    is skipped.
+
+* Fixed problem with memory consumption in case image has big dimension
+    but not so big filesize - in that case loading may consume all the
+    available memory to create bitmap. The file dimensions should also be
+    checked against thumbnail_max configuration variable.
+
+* Fixed problem with starting custom command from application selection
+    dialog. This stopped to work with new GLib versions.
+
+
 Changes on 1.2.1 since 1.2.0:
 
 * Fixed incorrect presence of LXShortcut in menus.
