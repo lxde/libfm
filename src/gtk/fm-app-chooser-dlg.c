@@ -2,7 +2,7 @@
  *      fm-app-chooser-dlg.c
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -125,9 +125,8 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                char *fbname = g_path_get_basename(filename);
-                app = G_APP_INFO(g_desktop_app_info_new(fbname));
-                g_free(fbname);
+                /* SF bug #871: new GLib fails on id, have to use filename */
+                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename));
                 /* if there is mime_type set then created application will be
                    saved for the mime type (see fm_choose_app_for_mime_type()
                    below) but if not then we should remove this temp. file */
