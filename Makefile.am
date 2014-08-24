@@ -17,6 +17,9 @@ EXTRA_DIST_DOCS = \
 	docs/reference/libfm/libfm-sections.txt \
 	docs/reference/libfm/version.xml.in
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libfm-extra.pc
+
 if EXTRALIB_ONLY
 SUBDIRS = src
 else
@@ -25,6 +28,7 @@ SUBDIRS = $(DIST_SUBDIRS)
 
 EXTRA_DIST += \
 	libfm.pc.in \
+	libfm-extra.pc.in \
 	libfm-gtk.pc.in \
 	libfm-gtk3.pc.in \
 	po/libfm.pot \
@@ -36,8 +40,7 @@ else
 EXTRA_DIST += $(EXTRA_DIST_DOCS)
 endif
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = \
+pkgconfig_DATA += \
 	libfm.pc \
 	@LIBFM_GTK_PC@ \
 	$(NULL)
