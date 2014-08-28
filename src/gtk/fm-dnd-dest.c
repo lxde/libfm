@@ -696,11 +696,17 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
                 {
                     if (fm_path_get_parent(path) != fm_path_get_home())
                         dd->can_copy = TRUE;
-                    dd->src_dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE);
+                    if (inf)
+                        dd->src_dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE);
+                    else
+                        dd->src_dev = 0;
                 }
-                else
+                else if (inf)
                     dd->src_fs_id = g_intern_string(g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM));
-                g_object_unref(inf);
+                else
+                    dd->src_fs_id = NULL;
+                if (inf)
+                    g_object_unref(inf);
             }
         }
     }
