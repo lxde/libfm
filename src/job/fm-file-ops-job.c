@@ -660,14 +660,31 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     {
         FmPath* path = FM_PATH(l->data);
         char* src = NULL;
-        GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
+        char *_basename = NULL;
+        const char *basename = fm_path_get_basename(path);
+        GFile* dest;
         GError* err = NULL;
-        char* dname;
+        char* dname = NULL;
 
+        /* if we drop URI query onto native filesystem, omit query part */
+        if (!fm_path_is_native(path) && g_file_is_native(dest_dir))
+            dname = strchr(basename, '?');
+        if (dname)
+        {
+            _basename = g_strndup(basename, dname - basename);
+            dname = strrchr(_basename, G_DIR_SEPARATOR);
+            g_debug("cutting '%s' to '%s'",basename,dname?&dname[1]:_basename);
+            if (dname)
+                basename = &dname[1];
+            else
+                basename = _basename;
+        }
         /* showing currently processed file. */
+        dest = g_file_get_child(dest_dir, basename);
         dname = g_file_get_parse_name(dest);
         fm_file_ops_job_emit_cur_file(job, dname);
         g_free(dname);
+        g_free(_basename);
 
 _retry_link:
         if (fm_path_is_native(path))

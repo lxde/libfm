@@ -721,7 +721,24 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
         else /* copy from virtual to native/virtual */
-            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
+        {
+            /* if we drop URI query onto native filesystem, omit query part */
+            const char *basename = fm_path_get_basename(path);
+            char *sub_name;
+
+            sub_name = strchr(basename, '?');
+            if (sub_name)
+            {
+                sub_name = g_strndup(basename, sub_name - basename);
+                basename = strrchr(sub_name, G_DIR_SEPARATOR);
+                if (basename)
+                    basename++;
+                else
+                    basename = sub_name;
+            }
+            tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
+            g_free(sub_name);
+        }
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
