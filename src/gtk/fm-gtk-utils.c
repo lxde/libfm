@@ -1,7 +1,7 @@
 /*
  *      fm-gtk-utils.c
  *
- *      Copyright 2009 PCMan <pcman@debian>
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
  *
