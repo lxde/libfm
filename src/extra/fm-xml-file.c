@@ -211,7 +211,7 @@ FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
     file->tags[i].handler = handler;
     file->tags[i].in_line = in_line;
     file->n_tags = i + 1;
-    g_debug("XML parser: added handler '%s' id %u", tag, (guint)i);
+    /* g_debug("XML parser: added handler '%s' id %u", tag, (guint)i); */
     return i;
 }
 
@@ -595,8 +595,8 @@ _restart:
                                     _("Space isn't allowed in the close tag"));
                 return FALSE;
             }
-            g_debug("XML parser: found closing tag '%s' for %p at %d:%d", tag,
-                    file->current_item, file->line, file->pos);
+            /* g_debug("XML parser: found closing tag '%s' for %p at %d:%d", tag,
+                    file->current_item, file->line, file->pos); */
             item = file->current_item;
             if (item == NULL) /* no tag to close */
             {
@@ -776,7 +776,7 @@ _attr_error:
             g_string_append_len(file->data, text, ptr);
         if (ptr == size) /* still no end of text */
             return TRUE;
-        if(ptr>0) g_debug("XML parser: got text '%s'", file->data->str);
+        /* if(ptr>0) g_debug("XML parser: got text '%s'", file->data->str); */
         if (ptr == 0) ; /* no text */
         else if (file->current_item == NULL) /* text at top level! */
         {
