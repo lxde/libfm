@@ -187,10 +187,23 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
             */
                 char buf[4096];
                 len = read(fd, buf, MIN(pstat->st_size, 4096));
+                const char *tmp;
                 g_free(type);
-                type = g_content_type_guess(base_name, (guchar*)buf, len, &uncertain);
-            /* #endif */
                 close(fd);
+                type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
+                if (uncertain)
+                {
+                    g_free(type);
+                    type = g_content_type_guess(base_name, (guchar*)buf, len, &uncertain);
+                }
+                /* bug: improperly named desktop entries are detected as text/plain */
+                if (uncertain && len > 40 && (tmp = memchr(buf, '[', 40)) != NULL &&
+                    strncmp(tmp, "[Desktop Entry]\n", 16) == 0)
+                {
+                    g_free(type);
+                    return fm_mime_type_ref(desktop_entry_type);
+                }
+            /* #endif */
             }
         }
         mime_type = fm_mime_type_from_name(type);
