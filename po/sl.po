@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-22 13:37+0000\n"
+"PO-Revision-Date: 2014-08-31 18:44+0000\n"
 "Last-Translator: Klemen Košir <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1408714621.000000\n"
+"X-POOTLE-MTIME: 1409510665.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -369,8 +369,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
-"Das Muster entspricht entweder der POSIX shell Musterliste (mit ',' als "
-"Trennzeichen) oder POSIX regulären Ausdruck."
+"Vzored mora biti sestavljen iz seznama vzorcev lupone POSIX (kot ločilnik "
+"uporabite podčrtaj) ali regularnih izrazov POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -437,8 +437,9 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"Jeder beliebige Content-Type kann eingegeben werden. Wildcard '*' ist am "
-"Ende des Typus erlaubt. Mehrere Typen müssen mit einem ';' getrennt werden."
+"Tukaj lahko vnesete katerokoli veljavno vrsto vsebine. Na koncu vrste je "
+"dovoljena uporaba nadomestnega znaka *. Vrste vsebine je potrebno ločiti s "
+"podpičjem."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -821,7 +822,7 @@ msgstr "Premakni v _smeti"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr "Esta carpeta ya está incluida en los marcadores."
+msgstr "Vaši zaznamki že vsebujejo zaznamek za to mapo."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -838,7 +839,7 @@ msgstr[3] "bajti"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr "explorando… %d"
+msgstr "Preiskovanje … %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -873,7 +874,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
-msgstr "explorando…"
+msgstr "Preiskovanje ..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -922,7 +923,7 @@ msgstr "Mesto"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr "Erweiterung"
+msgstr "Pripona"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -1193,7 +1194,8 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr "<b>Se produjeron errores antes de detener la operación.</b>"
+msgstr ""
+"<b>Preden je bilo opravilo datoteke zaustavljeno, je prišlo do napake.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1201,7 +1203,7 @@ msgstr "Preklicano"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "<b>Se completó la operación con errores.</b>"
+msgstr "<b>Opravilo datoteke se je končalo z napakami.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1232,22 +1234,22 @@ msgstr ", "
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr "Moviendo"
+msgstr "Premikanje"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr "Copiando"
+msgstr "Kopiranje"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
-msgstr "Moviendo a la papelera"
+msgstr "Brisanje"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr "Eliminando"
+msgstr "Dokončno brisanje"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
@@ -1281,23 +1283,23 @@ msgstr "Obnavljanje"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format, c-format
 msgid "%s files"
-msgstr "%d datotek"
+msgstr "%s datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr "<b>Operación en progreso…</b>"
+msgstr "<b>Poteka opravilo datoteke …</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>%s el archivo:</b>"
+msgstr "<b>%s datoteke:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>%s los archivos:</b>"
+msgstr "<b>%s datotek:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
