@@ -1,3 +1,19 @@
+* Changed licence for libfm-extra components from GPL-2 to LGPL-2.1.
+
+* Fixed crash on dropping URL queries into some folder.
+
+* Fixed filename on dropping URI queries into folder: URI query like
+    http://some.site/path/query.php?new=yes&mine=0 should be never saved
+    with file name path/query.php?new=yes&mine=0 but as query.php instead
+    like all the web browsers do.
+
+* Disabled debug messages in XML parser, it spammed a lot.
+
+* Fixed content type detection which was broken in last release.
+
+* Fixed incorrect call to g_environ_setenv() in the terminal call.
+
+
 Changes on 1.2.2 since 1.2.1:
 
 * Fixed display name of created shortcut after dropping from another

@@ -255,7 +255,7 @@ FmTerminal* fm_terminal_dup_default(GError **error)
 static void child_setup(gpointer user_data)
 {
     /* Move child to grandparent group so it will not die with parent */
-    setpgid(0, (pid_t)user_data);
+    setpgid(0, (pid_t)(gsize)user_data);
 }
 
 /**
@@ -308,7 +308,7 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
 #endif
     if (dir)
 #if GLIB_CHECK_VERSION(2, 32, 0)
-        g_environ_setenv(envp, "PWD", dir, TRUE);
+        envp = g_environ_setenv(envp, "PWD", dir, TRUE);
 #else
     {
         char **env = envp;
@@ -334,7 +334,7 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
     }
 #endif
     ret = g_spawn_async(dir, argv, envp, G_SPAWN_SEARCH_PATH,
-                        child_setup, (gpointer)getpgid(getppid()), NULL, error);
+                        child_setup, (gpointer)(gsize)getpgid(getppid()), NULL, error);
     g_strfreev(argv);
     g_strfreev(envp);
     return ret;
