@@ -13,6 +13,11 @@
 
 * Fixed incorrect call to g_environ_setenv() in the terminal call.
 
+* Replaced deprecated atk_component_get_position() calls.
+
+* Fixed invalid callback get_image_position() on ATK icon of ExoIconView,
+    it could loop and therefore hang the application.
+
 
 Changes on 1.2.2 since 1.2.1:
 
