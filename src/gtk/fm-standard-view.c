@@ -1681,7 +1681,7 @@ static gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* co
     FmStandardView* view;
     GtkTreeViewColumn *col, *last;
     FmFolderViewColumnInfo* info;
-    _ColumnsCache* old_cols;
+    _ColumnsCache* old_cols = NULL; /* satisfy the compiler */
     const GSList* l;
     GList *cols_list, *ld;
     guint i, n_cols;
