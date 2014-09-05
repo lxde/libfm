@@ -48,7 +48,7 @@ ${AUTOCONF:-autoconf$AC_VERSION}
 
 rm -rf autom4te.cache
 
-if test "x$NOCONFIGURE" = "x"; then
+if test -n "$DOCONFIGURE"; then
 	./configure $@
 fi
 
