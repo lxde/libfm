@@ -18,6 +18,8 @@
 * Fixed invalid callback get_image_position() on ATK icon of ExoIconView,
     it could loop and therefore hang the application.
 
+* Disabled deprecated atk_focus_tracker_notify() with new libatk.
+
 
 Changes on 1.2.2 since 1.2.1:
 

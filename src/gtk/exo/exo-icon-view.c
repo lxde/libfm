@@ -4287,7 +4287,9 @@ exo_icon_view_set_cursor_item (ExoIconView     *icon_view,
 
   if (item_obj != NULL)
     {
+#if !ATK_CHECK_VERSION(2, 9, 4)
       atk_focus_tracker_notify (item_obj);
+#endif
       atk_object_notify_state_change (item_obj, ATK_STATE_FOCUSED, TRUE);
       g_object_unref (item_obj);
     }

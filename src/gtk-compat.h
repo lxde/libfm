@@ -100,6 +100,10 @@ G_BEGIN_DECLS
 #  define gtk_widget_get_realized(widget) GTK_WIDGET_REALIZED(widget)
 #endif
 
+#ifndef ATK_CHECK_VERSION
+#  define ATK_CHECK_VERSION(_a,_b,_c) (_a < 2 || (_a == 2 && _b < 8)) /* < 2.8 */
+#endif
+
 G_END_DECLS
 
 #endif
