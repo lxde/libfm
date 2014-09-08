@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2012-10-12 14:56-0300\n"
-"Last-Translator: Sergio Cipolla <ikisham@gmail.com>\n"
+"PO-Revision-Date: 2014-08-21 18:34+0000\n"
+"Last-Translator: Adriano H. Hedler <adrianoh2@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.6.0-rc1\n"
+"X-POOTLE-MTIME: 1408646076.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -26,40 +27,37 @@ msgstr "Aplicativos Preferidos"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Selecione as aplicações que serão chamadas com click em Web link ou endereço "
+"de e-mail"
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Atalho"
+msgstr "Editor de Atalhos"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Criar novo ou alterar uma entrada da área de trabalho"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Escolha um aplicativo"
+msgstr "Escolher aplicativo"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
 msgstr "Usar o aplicativo selecionado para abrir arquivos"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "Aplicativo _instalado"
+msgstr "Aplicativos _instalados"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Linha de comando para executar:</b>"
+msgstr "<b>Linha de c_omando para executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Navegar"
+msgstr "_Navegar..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
@@ -71,7 +69,7 @@ msgstr "_Executar no emulador de terminal"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Manter a janela do terminal aberta após execução do comando"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -90,25 +88,22 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>Nome da _Aplicação (opcional, setar para manter a associação)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
 msgstr "Executar linha de comando personalizada para abrir arquivos"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "Linha de _comando personalizada"
+msgstr "Linha de C_omando Personalizada"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
 msgstr ""
 "Define o aplicativo _selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Confirmar substituição de arquivos"
 
@@ -139,7 +134,6 @@ msgid "with the following file?"
 msgstr "com o seguinte arquivo?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
 msgstr "Nome do _arquivo:"
 
@@ -148,26 +142,22 @@ msgid "_Apply this option to all existing files"
 msgstr "_Aplicar esta opção a todos os arquivos existentes"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Escolha um aplicativo"
+msgstr "Escolha um Ícone..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
-msgstr "Aplicativos do sistema"
+msgstr "tema de ícones do sistema"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
-msgstr "Arquivos de _imagem"
+msgstr "arquivo de imagem"
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>_Alterar conteúdo:</b>"
+msgstr "<b>Escolher ícone de:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -183,24 +173,21 @@ msgstr "Propriedades do arquivo"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "ìcone do arquivo na visualização da pasta"
 
 #: ../data/ui/file-prop.glade.h:3
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>_Dono:</b>"
+msgstr "<b>_Nome:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
 msgstr "<b>Localização:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Alvo:</b>"
+msgstr "<b>Alvo do arquivo:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Tipo de arquivo:</b>"
 
@@ -213,34 +200,28 @@ msgid "Select the application used to open files of this type "
 msgstr "Selecione o aplicativo a ser usado para abrir arquivos deste tipo "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Tamanho total dos arquivos:</b>"
+msgstr "<b>Total da contagem de arquivos:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Tamanho total dos arquivos:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Tamanho no disco:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Última modificação:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Último acesso:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>Último acesso:</b>"
+msgstr "<b>Última alteração de permissões:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -295,9 +276,8 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Controle de acesso</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "Arquivos de _vídeo"
+msgstr "Arquivo oculto"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -312,12 +292,11 @@ msgid "None"
 msgstr "Nenhum"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr "Sticky bit"
+msgstr "Fixar"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
@@ -328,7 +307,6 @@ msgid "Sticky & set GID"
 msgstr "Sticky bit & configurar GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Configurar UID"
@@ -338,7 +316,6 @@ msgid "Set UID & GID"
 msgstr "Configurar UID & GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -374,7 +351,6 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "Escolha uma Data"
 
@@ -387,15 +363,16 @@ msgid "Search Files"
 msgstr "Pesquisar Arquivos"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Padrões de _nome de arquivo</b>"
+msgstr "<b>Padrões de _Nome de Arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"O padrão pode ser a lista POSIX padrão do shell (com ',' como separador) ou "
+"expressão regular POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -406,9 +383,8 @@ msgid "_Use regular expression"
 msgstr "_Usar expressões regulares"
 
 #: ../data/ui/filesearch.glade.h:12
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Locais para pesquisar</b>"
+msgstr "<b>Locais para P_esquisar</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -427,9 +403,8 @@ msgid "<b>File Type</b>"
 msgstr "<b>Tipo de arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:17
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Apenas pesquisar os seguintes tipos de arquivo"
+msgstr "Apenas pesquisar os seguintes tipos de arquivo:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -452,28 +427,28 @@ msgid "_Documents"
 msgstr "Docu_mentos"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Pasta"
+msgstr "Pastas"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "Outros:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Qualquer tipo de conteúdo válido pode ser inserido aqui. Caracteres curinga "
+"'*' é permitido no fim do tipo. Vários tipos devem ser separados com ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "_Tipo de arquivo"
 
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Conteúdo do arquivo</b>"
+msgstr "<b>Conteúdo do arquivo:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
@@ -521,12 +496,10 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "O navegador web preferido será usado para abrir hyperlinks."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>Cliente de e-mail</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -565,39 +538,39 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Tempo restante:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Aconteceram alguns erros:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Nome de arquivo inválido %s"
+msgstr "Entrada inválida no desktop: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Sem aplicação padrão para iniciar esta URIs %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Não foi possível setar o diretório de trabalho para '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
+"Não foi possível determinar o conteúdo do tipo do arquivo '%s' para inicia-lo"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Nenhum aplicativo padrão configurado para o tipo MIME %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Dispositivos"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -609,26 +582,24 @@ msgid "Trash Can"
 msgstr "Lixeira"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Atalho"
+msgstr "atalho para o URI"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: argumento inválido"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Nenhum emulador de terminal configurado na configuração libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Diretório de menu inválido"
+msgstr "Descrição inválida para a aplicação thumbnailer"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
@@ -660,12 +631,12 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "O URI '%s' contém caracteres com escape inválido"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Manipulador duplicado para <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -673,6 +644,9 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Falha ao analisar '%-.*s', que deveria ter sido um dígito dentro de uma "
+"referência de caractere (&#234; por exemplo) - talvez o dígito seja grande "
+"demais"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -681,22 +655,26 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Referência de caractere não terminou com um ponto e vírgula; provavelmente "
+"utilizou um caractere \"e comercial\" sem desejar iniciar uma entidade - "
+"escape-o com &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Referência de caractere '%-.*s' não codifica um caractere permitido"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Entidade '&;' vazia; as entidades válidas são: &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Nome da entidade '%-.*s' não é conhecida"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -704,6 +682,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Entidade não termina com um ponto e vírgula; provavelmente você utilizou um "
+"\"e comercial\" sem desejar iniciar uma entidade - escape-o com &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -746,9 +726,9 @@ msgid "Customize"
 msgstr "Personalizar"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Usar o aplicativo selecionado para abrir arquivos"
+msgstr "<b>Selecione um aplicativo para abrir os \"%s\" arquivos</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1038,14 +1018,14 @@ msgid "New"
 msgstr "Novo(a)"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Insira um nome para o arquivo recém criado:"
+msgstr "Insira um nome para o novo %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Criando links simbólicos"
+msgstr "Criando %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1092,28 +1072,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Somente administradores do sistema tem permissão para fazer isto."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
+msgstr "Você deseja mover o arquivo '%s' selecionados para a lixeira?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Você deseja mover os arquivos selecionados para a lixeira?"
-msgstr[1] "Você deseja mover os arquivos selecionados para a lixeira?"
+msgstr[0] "Você deseja mover %d selecionado para a lixeira?"
+msgstr[1] "Você deseja mover %d selecionados para a lixeira?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Você deseja excluir os arquivos selecionados?"
+msgstr "Você deseja excluir o arquivo '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Você deseja excluir os arquivos selecionados?"
-msgstr[1] "Você deseja excluir os arquivos selecionados?"
+msgstr[0] "Você deseja excluir o arquivo %d selecionado?"
+msgstr[1] "Você deseja excluir os arquivos %d selecionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1240,9 +1220,8 @@ msgid "Cancelled"
 msgstr "Cancelada"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "A operação do arquivo foi cancelada e aconteceram alguns erros."
+msgstr "<b>A operação do arquivo foi finalizada com erros.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1314,9 +1293,9 @@ msgstr "_Restaurar"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "Arquivos de _imagem"
+msgstr "%s arquivos"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
@@ -1324,15 +1303,15 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Tipo de arquivo:</b>"
+msgstr "<b>%s arquivo:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Tipo de arquivo:</b>"
+msgstr "<b>%s arquivos:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1406,9 +1385,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "O diretório especificado não é válido"
+msgstr "O diretório '%s' especificado não é válido"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1419,9 +1398,10 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Restaurar arquivos da lixeira de volta ao seu local original"
+msgstr ""
+"Não foi possível restaurar o arquivo '%s': caminho original desconhecido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1440,9 +1420,9 @@ msgid "Destination is a sub folder of source"
 msgstr "O destino é uma subpasta da origem"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Não posso copiar uma pasta para a sua subpasta"
+msgstr "Não foi possível copiar o arquivo '%s': não suportado"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
@@ -1493,9 +1473,9 @@ msgid "Menu item name cannot be empty"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1507
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Diretório de menu inválido"
+msgstr "Diretório de menu inválido '%s'"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 #, fuzzy
@@ -1512,9 +1492,9 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Operação não suportada"
+msgstr "Configuração de atributo '%s' não suportado"
 
 #: ../src/modules/vfs-menu.c:1988
 #, fuzzy, c-format
@@ -1522,14 +1502,14 @@ msgid "Invalid value for attribute '%s'"
 msgstr "Nome de arquivo inválido %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Diretório de menu inválido"
+msgstr "O '%s' é um menu diretório"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "Diretório de menu inválido"
+msgstr "O '%s' não é um item de menu"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
