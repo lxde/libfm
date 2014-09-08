@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-04-21 11:34+0000\n"
-"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
+"PO-Revision-Date: 2014-07-24 11:04+0000\n"
+"Last-Translator: Pjotr  <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1398080081.0\n"
+"X-Generator: Pootle 2.6.0-rc1\n"
+"X-POOTLE-MTIME: 1406199859.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -732,7 +732,7 @@ msgstr "Aanpassen"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Gebruik gekozen toepassing om bestanden te openen"
+msgstr "<b>Kies een toepassing om '%s' bestanden te openen</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1203,7 +1203,7 @@ msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "De bestandoperatie is afgeblazen en er zijn enkele fouten."
+msgstr "<b>De bestandoperatie werd voltooid met fouten.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1283,7 +1283,7 @@ msgstr "Herstellen"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
-msgstr "Afbeeldingbestanden"
+msgstr "%s bestanden"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
@@ -1293,13 +1293,13 @@ msgstr "<b>Bestandbewerking is in gang gezet...</b>"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>%s bestand:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>%s bestanden:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
