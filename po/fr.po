@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-04-02 07:40+0000\n"
-"Last-Translator: DDZ <drole2zebre57@yahoo.fr>\n"
+"PO-Revision-Date: 2014-07-24 11:17+0000\n"
+"Last-Translator: <drole2zebre57@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1396424459.0\n"
+"X-Generator: Pootle 2.6.0-rc1\n"
+"X-POOTLE-MTIME: 1406200651.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -178,7 +178,7 @@ msgstr "Propriétés du fichier"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr "Icône du fichier dans la vue du répertoire"
+msgstr "Icône du fichier dans la vue du dossier"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -1503,7 +1503,7 @@ msgstr "Opération non prise en charge"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr "Répertoire de menu invalide"
+msgstr "Dossier de menu invalide"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
@@ -1567,8 +1567,7 @@ msgstr "Impossible de créer l'élément de menu « %s »"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
-"Le nom du répertoire de menu ne devrait pas se terminer par « .desktop »"
+msgstr "Le nom du dossier de menu ne devrait pas se terminer par « .desktop »"
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
@@ -1619,11 +1618,11 @@ msgstr "Nom générique de l'application"
 # Vérifier la lettre pour le raccourci clavier
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Répertoire de _travail :</b>"
+msgstr "<b>Dossier de _travail :</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr "Le répertoire de travail dans lequel exécuter le programme"
+msgstr "Le dossier de travail dans lequel exécuter le programme"
 
 # Vérifier la lettre pour le raccourci clavier
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
