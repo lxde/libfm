@@ -288,6 +288,10 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         ret = g_spawn_async(path, argv, NULL,
                             G_SPAWN_SEARCH_PATH,
                             child_setup, &data, NULL, err);
+        if (!ret && data.sn_id)
+            /* Notify launch context about failure */
+            g_app_launch_context_launch_failed(ctx, data.sn_id);
+
         g_free(path);
         g_free(data.display);
         g_free(data.sn_id);
