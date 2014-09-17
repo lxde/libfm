@@ -1,4 +1,5 @@
-* Changed licence for libfm-extra components from GPL-2 to LGPL-2.1.
+* Changed licence for libfm-extra and libfm components from GPL-2 to
+    LGPL-2.1.
 
 * Fixed crash on dropping URL queries into some folder.
 
@@ -19,6 +20,13 @@
     it could loop and therefore hang the application.
 
 * Disabled deprecated atk_focus_tracker_notify() with new libatk.
+
+* Fixed installation of headers with parallel install, it could create
+    invalid symlink /usr/share/libfm/libfm in some conditions.
+
+* Corrected handling of application launch failure - launch content have
+    to be informed about failure if startup notify id was retrieved from
+    it before.
 
 
 Changes on 1.2.2 since 1.2.1:

@@ -1,3 +1,17 @@
+Notes for compilation:
+1. This library requires:
+   - Libtool.
+   - Intltool 0.40.0 or newer.
+   - GLib 2.22.0 or newer.
+   - GTK+ 2.18.0 or newer.
+   - Libmenu-cache 0.3.2 or newer.
+
+2. Optional dependencies:
+   - Gtk-doc-tools 1.14 or newer.
+   - Dbus-Glib-1.
+   - Libexif.
+
+
 Notes for runtime environment:
 1. The file alteration monitor is done via GFileMonitor built into glib.
    It relies on inotify on Linux, kqueue on FreeBSD, and FAM or gamin
