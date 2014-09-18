@@ -87,8 +87,6 @@ mode_t fm_file_info_get_mode( FmFileInfo* fi );
 
 gboolean fm_file_info_is_native(FmFileInfo* fi);
 
-gboolean fm_file_info_is_dir( FmFileInfo* fi );
-
 FmMimeType* fm_file_info_get_mime_type( FmFileInfo* fi );
 
 gboolean fm_file_info_is_dir( FmFileInfo* fi );
