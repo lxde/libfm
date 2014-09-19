@@ -212,6 +212,8 @@ static FmBookmarks *fm_bookmarks_new(void)
  *
  * Returns reference to bookmarks list singleton descriptor.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Return value: (transfer full): a reference to bookmarks list
  *
  * Since: 0.1.99
