@@ -180,12 +180,19 @@ struct _FmActionMenu
 struct _FmActionCache
 {
     GObject parent_object;
-    FmActionDir *dirs; /* list of FmActionDir, allocated */
-    GList *actions; /* list of FmAction, ref */
-    GList *menus; /* list of FmActionMenu, ref */
-    GSList *to_update; /* strings list, allocated, updater_data invalid if NULL */
-    FmActionCache **updater_data; /* locked, freed by idle function */
 };
+
+static FmActionDir *cache_dirs; /* list of FmActionDir, allocated */
+static GList *cache_actions; /* list of FmAction, ref */
+static GList *cache_menus; /* list of FmActionMenu, ref */
+static GSList *cache_to_update; /* strings list, allocated, updater_data invalid if NULL */
+static FmActionCache **cache_updater_data; /* locked, freed by idle function */
+
+#if GLIB_CHECK_VERSION(2, 32, 0)
+static GWeakRef singleton;
+#else
+static int cache_n_ref = 0;
+#endif
 
 G_LOCK_DEFINE_STATIC(update); /* protects all lists */
 
@@ -1043,24 +1050,31 @@ static void _fm_action_cache_finalize(GObject *object)
 {
     FmActionCache *cache = FM_ACTION_CACHE(object);
 
-    G_LOCK(update);
-    if (cache->to_update != NULL)
-        *cache->updater_data = NULL; /* terminate the updater */
-    G_UNLOCK(update);
+    G_LOCK(update); /* lock it ahead to prevent race condition */
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+    if (!g_atomic_int_dec_and_test(&cache_n_ref))
+        goto finish;
+#endif
+    if (cache_to_update != NULL)
+        *cache_updater_data = NULL; /* terminate the updater */
     /* updater is finished now, can free everything */
-    g_slist_free_full(cache->to_update, g_free);
-    g_list_free_full(cache->actions, g_object_unref);
-    g_list_free_full(cache->menus, g_object_unref);
-    while (cache->dirs != NULL)
+    g_slist_free_full(cache_to_update, g_free);
+    g_list_free_full(cache_actions, g_object_unref);
+    g_list_free_full(cache_menus, g_object_unref);
+    while (cache_dirs != NULL)
     {
-        FmActionDir *dir = cache->dirs;
-        cache->dirs = dir->next;
+        FmActionDir *dir = cache_dirs;
+        cache_dirs = dir->next;
         g_signal_handlers_disconnect_by_func(dir->mon, _action_cache_monitor_event,
                                              cache);
         g_object_unref(dir->mon);
         g_object_unref(dir->dir);
         g_slice_free(FmActionDir, dir);
     }
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+finish:
+#endif
+    G_UNLOCK(update);
 
     G_OBJECT_CLASS(fm_action_cache_parent_class)->finalize(object);
 }
@@ -1282,7 +1296,7 @@ static void fm_actions_add_action_from_keyfile(FmActionCache *cache,
             g_free(c);
         }
         action->conditions = _g_key_file_get_conditions(kf, key->str);
-        cache->actions = g_list_prepend(cache->actions, action);
+        cache_actions = g_list_prepend(cache_actions, action);
         /* FIXME: check OnlyShowIn and NotShowIn into ->hidden */
     }
     g_strfreev(profiles);
@@ -1359,7 +1373,7 @@ static void fm_actions_add_menu_from_keyfile(FmActionCache *cache,
         menu->enabled = g_key_file_get_boolean(kf, "Desktop Entry", "Enabled", NULL);
     /* FIXME: if enabled then check OnlyShowIn and NotShowIn */
     menu->conditions = _g_key_file_get_conditions(kf, "Desktop Entry");
-    cache->menus = g_list_prepend(cache->menus, menu);
+    cache_menus = g_list_prepend(cache_menus, menu);
 }
 
 /* lock is on */
@@ -1396,7 +1410,7 @@ static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file
     parent = g_file_get_parent(gf);
     *idp = id = g_file_get_basename(gf);
     g_object_unref(gf);
-    for (dir = cache->dirs; dir; dir = dir->next)
+    for (dir = cache_dirs; dir; dir = dir->next)
         if (g_file_equal(parent, dir->dir))
             break;
     g_object_unref(parent);
@@ -1404,7 +1418,7 @@ static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file
         return FALSE;
     *gfp = dir->dir;
     /* check if id already is in the cache - either skip or drop it */
-    for (l = cache->menus; l; l = l->next)
+    for (l = cache_menus; l; l = l->next)
     {
         menu = l->data;
         if (strcmp(menu->id, id) == 0)
@@ -1412,17 +1426,17 @@ static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file
     }
     if (l != NULL)
     {
-        for (test = cache->dirs; test != dir; test = test->next)
+        for (test = cache_dirs; test != dir; test = test->next)
             if (test->dir == menu->dir)
                 break;
         if (test != dir) /* found one earlier, don't replace */
             return FALSE;
-        cache->menus = g_list_remove_link(cache->menus, l);
+        cache_menus = g_list_remove_link(cache_menus, l);
         /* file should be removed from cache but not unref since lock is on */
         *to_drop = g_list_concat(l, *to_drop);
         return TRUE;
     }
-    for (l = cache->actions; l; l = l->next)
+    for (l = cache_actions; l; l = l->next)
     {
         action = l->data;
         if (strcmp(action->info->id, id) == 0)
@@ -1430,7 +1444,7 @@ static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file
     }
     if (l == NULL) /* not found, safe to insert new */
         return TRUE;
-    for (test = cache->dirs; test != dir; test = test->next)
+    for (test = cache_dirs; test != dir; test = test->next)
         if (test->dir == action->info->dir)
             break;
     if (test != dir) /* found one earlier, don't replace */
@@ -1439,7 +1453,7 @@ static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file
     {
         GList *next = l->next;
 
-        cache->actions = g_list_remove_link(cache->actions, l);
+        cache_actions = g_list_remove_link(cache_actions, l);
         /* file should be removed from cache but not unref since lock is on */
         *to_drop = g_list_concat(l, *to_drop);
         while (next != NULL) /* find next profile of the same id */
@@ -1459,10 +1473,10 @@ static void fm_action_cache_ensure_updates(FmActionCache *cache)
     GKeyFile *kf;
 
     G_LOCK(update);
-    to_update = cache->to_update;
+    to_update = cache_to_update;
     if (to_update != NULL)
-        *cache->updater_data = NULL; /* terminate the updater */
-    cache->to_update = NULL;
+        *cache_updater_data = NULL; /* terminate the updater */
+    cache_to_update = NULL;
     G_UNLOCK(update);
     if (to_update == NULL)
         return;
@@ -1499,25 +1513,25 @@ static gboolean fm_actions_update_idle(gpointer data)
 
     G_LOCK(update);
     cache = *((FmActionCache **)data);
-    if (cache == NULL || cache->to_update == NULL)
+    if (cache == NULL || cache_to_update == NULL)
     {
         /* terminated */
         G_UNLOCK(update);
         return FALSE;
     }
     to_drop = NULL;
-    if (fm_action_file_may_update(cache, cache->to_update->data, &parent, &id, &to_drop))
+    if (fm_action_file_may_update(cache, cache_to_update->data, &parent, &id, &to_drop))
     {
         kf = g_key_file_new();
-        if (g_key_file_load_from_file(kf, cache->to_update->data,
+        if (g_key_file_load_from_file(kf, cache_to_update->data,
             G_KEY_FILE_KEEP_TRANSLATIONS, NULL)) /* NOTE: ignoring errors */
             fm_actions_add_for_keyfile(cache, kf, parent, id);
         g_key_file_free(kf);
     }
-    g_free(cache->to_update->data);
+    g_free(cache_to_update->data);
     g_free(id);
-    cache->to_update = g_slist_delete_link(cache->to_update, cache->to_update);
-    if (cache->to_update == NULL)
+    cache_to_update = g_slist_delete_link(cache_to_update, cache_to_update);
+    if (cache_to_update == NULL)
         cache = NULL; /* mark it to stop updater */
     G_UNLOCK(update);
     g_list_free_full(to_drop, g_object_unref);
@@ -1528,14 +1542,14 @@ static gboolean fm_actions_update_idle(gpointer data)
 static void fm_actions_schedule_update(FmActionCache *cache, char *filename)
 {
     G_LOCK(update);
-    if (cache->to_update == NULL) /* no updater running now */
+    if (cache_to_update == NULL) /* no updater running now */
     {
-        cache->updater_data = g_new(FmActionCache *, 1);
-        *cache->updater_data = cache;
+        cache_updater_data = g_new(FmActionCache *, 1);
+        *cache_updater_data = cache;
         g_idle_add_full(G_PRIORITY_LOW, fm_actions_update_idle,
-                        cache->updater_data, g_free);
+                        cache_updater_data, g_free);
     }
-    cache->to_update = g_slist_prepend(cache->to_update, filename);
+    cache_to_update = g_slist_prepend(cache_to_update, filename);
     G_UNLOCK(update);
 }
 
@@ -1551,9 +1565,11 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
     FmActionMenu *menu;
 
     /* find dir matching mon */
-    for (dir = cache->dirs; dir; dir = dir->next)
+    G_LOCK(update);
+    for (dir = cache_dirs; dir; dir = dir->next)
         if (dir->mon == mon)
             break;
+    G_UNLOCK(update);
     g_return_if_fail(dir != NULL);
     if (g_file_equal(gf, dir->dir))
         /* it's event on folder itself, ignoring */
@@ -1575,7 +1591,7 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
         filename = g_file_get_path(gf);
         G_LOCK(update);
         /* remove file from cache */
-        for (l = cache->actions; l; l = l->next)
+        for (l = cache_actions; l; l = l->next)
         {
             action = l->data;
             if (action->info->dir == dir->dir && strcmp(action->info->id, basename) == 0)
@@ -1586,7 +1602,7 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
             while (l != NULL)
             {
                 next = l->next;
-                cache->actions = g_list_remove_link(cache->actions, l);
+                cache_actions = g_list_remove_link(cache_actions, l);
                 to_drop = g_list_concat(l, to_drop);
                 while (next != NULL)
                     if (((FmAction *)next->data)->info == action->info)
@@ -1596,24 +1612,24 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
                 l = next;
             }
         }
-        else for (l = cache->menus; l; l = l->next)
+        else for (l = cache_menus; l; l = l->next)
         {
             menu = l->data;
             if (menu->dir == dir->dir && strcmp(menu->id, basename) == 0)
             {
-                cache->menus = g_list_remove_link(cache->menus, l);
+                cache_menus = g_list_remove_link(cache_menus, l);
                 to_drop = g_list_concat(l, to_drop);
                 break;
             }
         }
         /* remove from queue if it's there */
-        if (filename) for (sl = cache->to_update; sl; sl = sn)
+        if (filename) for (sl = cache_to_update; sl; sl = sn)
         {
             sn = sl->next;
             if (strcmp(sl->data, filename) == 0)
             {
                 g_free(sl->data);
-                cache->to_update = g_slist_delete_link(cache->to_update, sl);
+                cache_to_update = g_slist_delete_link(cache_to_update, sl);
             }
         }
         G_UNLOCK(update);
@@ -1633,6 +1649,7 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
     }
 }
 
+/* lock is on */
 /* prepends path to monitoring list */
 static void fm_action_cache_add_directory(FmActionCache *cache, const char *path)
 {
@@ -1651,7 +1668,8 @@ static void fm_action_cache_add_directory(FmActionCache *cache, const char *path
     }
     g_dir_close(dir);
     fmdir = g_slice_new(FmActionDir);
-    fmdir->next = cache->dirs;
+    fmdir->next = cache_dirs;
+    cache_dirs = fmdir;
     fmdir->dir = g_file_new_for_path(path);
     fmdir->mon = g_file_monitor_directory(fmdir->dir, G_FILE_MONITOR_NONE, NULL, NULL);
     g_signal_connect(fmdir->mon, "changed", G_CALLBACK(_action_cache_monitor_event),
@@ -2106,11 +2124,11 @@ static FmActionMenu *fm_action_get_for_content(FmActionCache *cache,
     fm_action_cache_ensure_updates(cache);
     G_LOCK(update);
     /* collect matched menus */
-    for (l = cache->menus; l; l = l->next)
+    for (l = cache_menus; l; l = l->next)
         if (_menu_matches(l->data, location, files, root))
             menus = g_list_prepend(menus, g_object_ref(l->data));
     /* collect matched actions */
-    for (l = cache->actions; l; l = l->next)
+    for (l = cache_actions; l; l = l->next)
         if ((action = _action_matches(l->data, location, files, target, root)))
             actions = g_list_prepend(actions, g_object_ref(action));
     G_UNLOCK(update);
@@ -2219,8 +2237,29 @@ FmActionCache *fm_action_cache_new(void)
     char *path;
     guint i;
 
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    G_LOCK(update); /* lock it to prevent creation of two instances */
+    cache = g_weak_ref_get(&singleton);
+    if (cache != NULL)
+    {
+        G_UNLOCK(update);
+        return cache;
+    }
+#endif
     /* Create an instance */
     cache = (FmActionCache *)g_object_new(FM_TYPE_ACTION_CACHE, NULL);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_weak_ref_set(&singleton, cache);
+#else
+    if (g_atomic_int_exchange_and_add(&cache_n_ref, 1) > 0)
+        return cache;
+    G_LOCK(update); /* wait if disposal of previous is in progress yet */
+#endif
+    /* Cleanup before setup */
+    cache_dirs = NULL;
+    cache_actions = NULL;
+    cache_menus = NULL;
+    cache_to_update = NULL;
     /* Schedule scan of actions dirs - see fm_action_cache_add_directory() */
     dirs = g_get_system_data_dirs();
     i = g_strv_length((char **)dirs);
@@ -2232,6 +2271,7 @@ FmActionCache *fm_action_cache_new(void)
     }
     path = g_build_filename(g_get_user_data_dir(), "file-manager/actions", NULL);
     fm_action_cache_add_directory(cache, path);
+    G_UNLOCK(update);
     g_free(path);
     /* Return the instance */
     return cache;
