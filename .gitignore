@@ -10,7 +10,8 @@ config.*
 configure
 depcomp
 *.pc
-*m4
+aclocal.m4
+m4/*.m4
 autom4te.cache
 stamp-*
 libtool

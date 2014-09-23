@@ -292,6 +292,9 @@ else
     CPPFLAGS="$CPPFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
 fi
 
+dnl Check linker flags for modules
+AC_CHECK_LDFLAG(ac_cv_ld_z_defs, [-Wl,-z,defs], LDFLAGS)
+
 dnl Fix invalid sysconfdir when --prefix=/usr
 if test `eval "echo $sysconfdir"` = /usr/etc
 then

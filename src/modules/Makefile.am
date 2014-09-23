@@ -49,7 +49,7 @@ gtk_fileprop_x_shortcut_la_CFLAGS = $(GTK_CFLAGS) -I../gtk
 gtk_fileprop_x_shortcut_la_LIBADD = $(GTK_LIBS)
 
 gtk_menu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS) -I../gtk
-gtk_menu_actions_la_LIBADD = $(GTK_LIBS)
+gtk_menu_actions_la_LIBADD = $(GTK_LIBS) $(top_builddir)/src/@LIBFM_GTK_LTLIBRARIES@
 
 gtk_menu_trash_la_CFLAGS = $(GTK_CFLAGS) -I../gtk
-gtk_menu_trash_la_LIBADD = $(GTK_LIBS)
+gtk_menu_trash_la_LIBADD = $(GTK_LIBS) $(top_builddir)/src/@LIBFM_GTK_LTLIBRARIES@
