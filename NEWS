@@ -28,6 +28,8 @@
     to be informed about failure if startup notify id was retrieved from
     it before.
 
+* Fixed usage of POSIX.1-2001 declaration `environ' with GLib < 2.28.
+
 
 Changes on 1.2.2 since 1.2.1:
 

@@ -39,6 +39,10 @@
 #include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>
 #include <string.h>
+#include <unistd.h>
+#if !GLIB_CHECK_VERSION(2, 28, 0) && !HAVE_DECL_ENVIRON
+extern char **environ;
+#endif
 
 #include "fm-terminal.h"
 #include "fm-config.h"

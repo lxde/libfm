@@ -295,6 +295,9 @@ fi
 dnl Check linker flags for modules
 AC_CHECK_LDFLAG(ac_cv_ld_z_defs, [-Wl,-z,defs], LDFLAGS)
 
+dnl Check if OS respects POSIX.1-2001 `environ' declaration
+AC_CHECK_DECLS([environ], [], [], [[#include <unistd.h>]])
+
 dnl Fix invalid sysconfdir when --prefix=/usr
 if test `eval "echo $sysconfdir"` = /usr/etc
 then
