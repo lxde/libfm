@@ -32,6 +32,9 @@
 
 * Fixed "out-of-tree" build (e.g. make distcheck).
 
+* Corrected menu cache to sync in fm_app_chooser_dlg_dup_selected_app(),
+    otherwise it would not work without menu preloaded.
+
 
 Changes on 1.2.2 since 1.2.1:
 

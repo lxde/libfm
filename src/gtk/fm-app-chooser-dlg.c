@@ -380,7 +380,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                         goto _out;
 
                     /* see if this command can be found in menu cache */
-                    menu_cache = menu_cache_lookup("applications.menu");
+                    menu_cache = menu_cache_lookup_sync("applications.menu");
                     if(menu_cache)
                     {
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
