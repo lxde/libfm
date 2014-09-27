@@ -2,6 +2,8 @@ include $(top_srcdir)/Makefile.decl
 
 NULL=
 
+DIST_SUBDIRS = src po data
+
 # a little trick against gtk-doc is here
 SUBDIRS_DOCS = docs
 
@@ -23,7 +25,6 @@ pkgconfig_DATA = libfm-extra.pc
 if EXTRALIB_ONLY
 SUBDIRS = src
 else
-DIST_SUBDIRS = src po data
 SUBDIRS = $(DIST_SUBDIRS)
 
 EXTRA_DIST += \
@@ -35,6 +36,7 @@ EXTRA_DIST += \
 	$(NULL)
 
 if ENABLE_GTK_DOC
+DIST_SUBDIRS += $(SUBDIRS_DOCS)
 SUBDIRS += $(SUBDIRS_DOCS)
 else
 EXTRA_DIST += $(EXTRA_DIST_DOCS)

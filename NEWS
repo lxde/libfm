@@ -30,6 +30,8 @@
 
 * Fixed usage of POSIX.1-2001 declaration `environ' with GLib < 2.28.
 
+* Fixed "out-of-tree" build (e.g. make distcheck).
+
 
 Changes on 1.2.2 since 1.2.1:
 
