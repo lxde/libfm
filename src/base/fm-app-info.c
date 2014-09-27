@@ -79,12 +79,14 @@ static void append_uri_to_cmd(GFile* gf, GString* cmd)
     g_free(uri);
 }
 
-static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GKeyFile* kf, GList* gfiles)
+static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path,
+                                GKeyFile* kf, GList** gfiles, GList **launching)
 {
     GString* cmd;
     const char* exec = g_app_info_get_commandline(app);
     const char* p;
-    gboolean files_added = FALSE;
+    GFile *file = NULL;
+    GList *fl = NULL;
 
     cmd = g_string_sized_new(1024);
     for(p = exec; *p; ++p)
@@ -97,22 +99,36 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GK
             switch(*p)
             {
             case 'f':
-                if(gfiles)
-                    append_file_to_cmd(G_FILE(gfiles->data), cmd);
-                files_added = TRUE;
+                if (file == NULL && *gfiles)
+                {
+                    *launching = *gfiles;
+                    file = G_FILE((*gfiles)->data);
+                    *gfiles = g_list_remove_link(*gfiles, *gfiles);
+                }
+                if (file)
+                    append_file_to_cmd(file, cmd);
                 break;
             case 'F':
-                g_list_foreach(gfiles, (GFunc)append_file_to_cmd, cmd);
-                files_added = TRUE;
+                if (*gfiles)
+                    *launching = fl = *gfiles;
+                *gfiles = NULL;
+                g_list_foreach(fl, (GFunc)append_file_to_cmd, cmd);
                 break;
             case 'u':
-                if(gfiles)
-                    append_uri_to_cmd(G_FILE(gfiles->data), cmd);
-                files_added = TRUE;
+                if (file == NULL && *gfiles)
+                {
+                    *launching = *gfiles;
+                    file = G_FILE((*gfiles)->data);
+                    *gfiles = g_list_remove_link(*gfiles, *gfiles);
+                }
+                if (file)
+                    append_uri_to_cmd(file, cmd);
                 break;
             case 'U':
-                g_list_foreach(gfiles, (GFunc)append_uri_to_cmd, cmd);
-                files_added = TRUE;
+                if (*gfiles)
+                    *launching = fl = *gfiles;
+                *gfiles = NULL;
+                g_list_foreach(fl, (GFunc)append_uri_to_cmd, cmd);
                 break;
             case '%':
                 g_string_append_c(cmd, '%');
@@ -153,11 +169,14 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GK
     }
 
     /* if files are provided but the Exec key doesn't contain %f, %F, %u, or %U */
-    if(gfiles && !files_added)
+    if(*gfiles && !*launching)
     {
         /* treat as %f */
+        *launching = *gfiles;
+        file = G_FILE((*gfiles)->data);
+        *gfiles = g_list_remove_link(*gfiles, *gfiles);
         g_string_append_c(cmd, ' ');
-        append_file_to_cmd(G_FILE(gfiles->data), cmd);
+        append_file_to_cmd(file, cmd);
     }
 
     return g_string_free(cmd, FALSE);
@@ -212,16 +231,19 @@ static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
     return ret;
 }
 
-static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
+static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
+                          GKeyFile* kf, GList** inp, GAppLaunchContext* ctx,
+                          GError** err)
 {
     gboolean ret = FALSE;
+    GList *gfiles = NULL;
     char* cmd, *path;
     char** argv;
     int argc;
     gboolean use_terminal;
     GAppInfoCreateFlags flags;
 
-    cmd = expand_exec_macros(appinfo, full_desktop_path, kf, gfiles);
+    cmd = expand_exec_macros(appinfo, full_desktop_path, kf, inp, &gfiles);
     if(G_LIKELY(kf))
         use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
     else
@@ -242,7 +264,10 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         term_cmd = expand_terminal(cmd, keep_open, err);
         g_free(cmd);
         if(!term_cmd)
+        {
+            g_list_free(gfiles);
             return FALSE;
+        }
         cmd = term_cmd;
     }
 
@@ -299,6 +324,7 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         g_strfreev(argv);
     }
     g_free(cmd);
+    g_list_free(gfiles);
     return ret;
 }
 
@@ -319,6 +345,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                             GAppLaunchContext *launch_context, GError **error)
 {
     gboolean supported = FALSE, ret = FALSE;
+    GList *launch_list = g_list_copy(files);
     if(G_IS_DESKTOP_APP_INFO(appinfo))
     {
         const char *id;
@@ -331,8 +358,9 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
             /* load the desktop entry file to obtain more info */
             GKeyFile* kf = g_key_file_new();
             supported = g_key_file_load_from_file(kf, id, 0, NULL);
-            if(supported)
-                ret = do_launch(appinfo, id, kf, files, launch_context, error);
+            if(supported) do {
+                ret = do_launch(appinfo, id, kf, &launch_list, launch_context, error);
+            } while (launch_list && ret);
             g_key_file_free(kf);
             id = NULL;
         }
@@ -345,11 +373,15 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
             GKeyFile* kf = g_key_file_new();
             char* rel_path = g_strconcat("applications/", id, NULL);
             char* full_desktop_path;
-            supported = g_key_file_load_from_data_dirs(kf, rel_path, &full_desktop_path, 0, NULL);
+            supported = g_key_file_load_from_data_dirs(kf, rel_path,
+                                                       &full_desktop_path, 0, NULL);
             g_free(rel_path);
             if(supported)
             {
-                ret = do_launch(appinfo, full_desktop_path, kf, files, launch_context, error);
+                do {
+                    ret = do_launch(appinfo, full_desktop_path, kf, &launch_list,
+                                    launch_context, error);
+                } while (launch_list && ret);
                 g_free(full_desktop_path);
             }
             g_key_file_free(kf);
@@ -364,13 +396,17 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))
                 {
                     supported = TRUE;
-                    ret = do_launch(appinfo, NULL, NULL, files, launch_context, error);
+                    do {
+                        ret = do_launch(appinfo, NULL, NULL, &launch_list,
+                                        launch_context, error);
+                    } while (launch_list && ret);
                 }
             }
         }
     }
     else
         supported = FALSE;
+    g_list_free(launch_list);
 
     if(!supported) /* fallback to GAppInfo::launch */
         return g_app_info_launch(appinfo, files, launch_context, error);

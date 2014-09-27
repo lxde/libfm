@@ -35,6 +35,9 @@
 * Corrected menu cache to sync in fm_app_chooser_dlg_dup_selected_app(),
     otherwise it would not work without menu preloaded.
 
+* Fixed launch of applications with %f or %u argument - it should launch
+    not just first file but all of them with the same command.
+
 
 Changes on 1.2.2 since 1.2.1:
 
