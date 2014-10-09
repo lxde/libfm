@@ -3,7 +3,7 @@
  *
  *      This file is a part of the LibFM project.
  *
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This library is free software; you can redistribute it and/or
  *      modify it under the terms of the GNU Lesser General Public
@@ -134,7 +134,8 @@ gboolean fm_folder_config_close(FmFolderConfig *fc, GError **error)
     {
         g_free(fc->group);
         G_UNLOCK(cache);
-        fc_cache_changed = TRUE;
+        if (fc->changed)
+            fc_cache_changed = TRUE;
     }
 
     g_slice_free(FmFolderConfig, fc);

@@ -38,6 +38,8 @@
 * Fixed launch of applications with %f or %u argument - it should launch
     not just first file but all of them with the same command.
 
+* Fixed unneeded fm-folder-config save even if no changes were made.
+
 
 Changes on 1.2.2 since 1.2.1:
 
