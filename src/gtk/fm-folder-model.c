@@ -726,6 +726,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
             icon = fm_file_info_get_icon(info);
             if(!icon)
                 return;
+            /* FIXME: use "emblem-symbolic-link" if file is some kind of link */
             /* special handle for desktop entries that have invalid icon */
             if(fm_file_info_is_dir(info))
                 item->icon = fm_pixbuf_from_icon_with_fallback(icon,

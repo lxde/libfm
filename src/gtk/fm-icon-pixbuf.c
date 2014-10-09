@@ -91,6 +91,9 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
     GSList *pixs, *l;
     PixEntry* ent;
 
+    /* FIXME:
+        1) get/add GQuark for emblem type: no emblem is fm_qdata_id
+        2) get/add GQuark by GQuark in the theme to support multi GdkScreen */
     pixs = (GSList*)g_object_steal_qdata(G_OBJECT(icon), fm_qdata_id);
     for( l = pixs; l; l=l->next )
     {
@@ -148,6 +151,7 @@ static void on_icon_theme_changed(GtkIconTheme* theme, gpointer user_data)
     g_debug("icon theme changed!");
     /* unload pixbufs cached in FmIcon's hash table. */
     fm_icon_reset_user_data_cache(fm_qdata_id);
+    /* FIXME: gtk_icon_theme_has_icon()+gtk_icon_theme_add_builtin_icon() for symlink emblem */
 }
 
 void _fm_icon_pixbuf_init()

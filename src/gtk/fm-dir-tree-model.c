@@ -403,6 +403,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
         if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
         {
             if(!item->icon)
+                /* FIXME: use "emblem-symbolic-link" if file is some kind of link */
                 item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
             g_value_set_object(value, item->icon);
         }
@@ -1126,6 +1127,7 @@ GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter)
     if(item->icon)
         return item->icon;
     if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
+        /* FIXME: use "emblem-symbolic-link" if file is some kind of link */
         item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
     return item->icon;
 }

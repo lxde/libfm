@@ -327,6 +327,7 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, window, widget, background_area, cell_area, expose_area, flags);
 #endif
 
+    /* FIXME: this should be handled by fm_pixbuf_* and the model instead */
     if(render->fi &&
        G_UNLIKELY(fm_file_info_is_symlink(render->fi) || fm_file_info_is_shortcut(render->fi)))
     {

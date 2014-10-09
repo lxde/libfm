@@ -222,7 +222,7 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 
     /* delaying scrolling since drawing folder view is delayed - don't know why */
     if(!win->update_scroll_id)
-        win->update_scroll_id = g_timeout_add(20, update_scroll, win);
+        win->update_scroll_id = g_timeout_add(50, update_scroll, win);
 
     /* update status bar */
     update_statusbar(win);
