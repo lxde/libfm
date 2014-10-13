@@ -2,7 +2,7 @@
  *      fm-file-ops-job-change-attr.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -216,8 +216,9 @@ _retry_change_target:
     else
     {
         char* basename = g_file_get_basename(gf);
-        char* disp = g_filename_display_name(basename);
-        fm_file_ops_job_emit_cur_file(job, disp);
+        char* disp = basename ? g_filename_display_name(basename) : NULL;
+                                                        /* FIXME: translate it */
+        fm_file_ops_job_emit_cur_file(job, disp ? disp : "(invalid file)");
         g_free(disp);
         g_free(basename);
     }

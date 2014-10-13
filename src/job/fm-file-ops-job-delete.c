@@ -2,7 +2,7 @@
  *      fm-file-ops-job-delete.c
  *
  *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012,2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -64,9 +64,10 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmF
     {
         /* use basename of GFile as display name. */
         char* basename = g_file_get_basename(gf);
-        char* disp = g_filename_display_name(basename);
+        char* disp = basename ? g_filename_display_name(basename) : NULL;
         g_free(basename);
-        fm_file_ops_job_emit_cur_file(fjob, disp);
+                                                        /* FIXME: translate it */
+        fm_file_ops_job_emit_cur_file(fjob, disp ? disp : "(invalid file)");
         g_free(disp);
         ++fjob->finished;
         return FALSE;
@@ -97,7 +98,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmF
             {
                 /* little trick: basename of trash root is /. */
                 char* basename = g_file_get_basename(gf);
-                if(basename[0] == G_DIR_SEPARATOR)
+                if(basename && basename[0] == G_DIR_SEPARATOR)
                     is_trash_root = TRUE;
                 g_free(basename);
             }
@@ -323,10 +324,11 @@ _retry_trash:
         else
         {
             char* basename = g_file_get_basename(gf);
-            char* disp = g_filename_display_name(basename);
+            char* disp = basename ? g_filename_display_name(basename) : NULL;
             g_free(basename);
             ret = FALSE;
-            fm_file_ops_job_emit_cur_file(job, disp);
+                                                        /* FIXME: translate it */
+            fm_file_ops_job_emit_cur_file(job, disp ? disp : "(invalid file)");
             g_free(disp);
             goto _on_error;
         }
@@ -503,9 +505,10 @@ _retry_get_orig_path:
         else
         {
             char* basename = g_file_get_basename(gf);
-            char* disp = g_filename_display_name(basename);
+            char* disp = basename ? g_filename_display_name(basename) : NULL;
             g_free(basename);
-            fm_file_ops_job_emit_cur_file(job, disp);
+                                                        /* FIXME: translate it */
+            fm_file_ops_job_emit_cur_file(job, disp ? disp : "(invalid file)");
             g_free(disp);
 
             if(err)

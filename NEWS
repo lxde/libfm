@@ -40,6 +40,12 @@
 
 * Fixed unneeded fm-folder-config save even if no changes were made.
 
+* Fixed not updated file in FmFolder if file was not changed within last
+    2 seconds. In case of fast download it was not updated in time. This
+    may cause a little performance issue though due to thumbnails update.
+
+* Fixed crash if g_file_get_basename() returns NULL.
+
 
 Changes on 1.2.2 since 1.2.1:
 
