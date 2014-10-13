@@ -46,6 +46,10 @@
 
 * Fixed crash if g_file_get_basename() returns NULL.
 
+* Fixed issue with desktop entry file selected in the Application chooser
+    dialog, it tried to execute the desktop entry directly. Now it setups
+    dialog fields from that desktop entry instead.
+
 
 Changes on 1.2.2 since 1.2.1:
 

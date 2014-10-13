@@ -186,27 +186,55 @@ static void on_cmdline_changed(GtkEditable* cmdline, AppChooserData* data)
 
 static gboolean exec_filter_func(const GtkFileFilterInfo *filter_info, gpointer data)
 {
-	if(g_content_type_can_be_executable(filter_info->mime_type))
-		return TRUE;
-	return FALSE;
+    if(g_content_type_can_be_executable(filter_info->mime_type))
+        return TRUE;
+    return FALSE;
 }
 
 static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 {
-	FmPath* file;
-	GtkFileFilter* filter = gtk_file_filter_new();
-	gtk_file_filter_add_custom(filter,
-		GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
-	/* gtk_file_filter_set_name(filter, _("Executable files")); */
-	file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
+    FmPath* file;
+    GtkFileFilter* filter = gtk_file_filter_new();
+    char* binary;
+    gtk_file_filter_add_custom(filter,
+        GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
+    /* gtk_file_filter_set_name(filter, _("Executable files")); */
+    file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
 
-	if(file)
-	{
-		char* binary = fm_path_to_str(file);
-		gtk_entry_set_text(data->cmdline, binary);
-		g_free(binary);
-		fm_path_unref(file);
-	}
+    if (file == NULL)
+        return;
+    binary = fm_path_to_str(file);
+    if (g_str_has_suffix(fm_path_get_basename(file), ".desktop"))
+    {
+        GKeyFile *kf = g_key_file_new();
+        GDesktopAppInfo *info;
+        if (g_key_file_load_from_file(kf, binary, 0, NULL) &&
+            (info = g_desktop_app_info_new_from_keyfile(kf)) != NULL)
+            /* it is a valid desktop entry */
+        {
+            /* FIXME: it will duplicate the file, how to avoid that? */
+            gtk_entry_set_text(data->cmdline,
+                               g_app_info_get_commandline(G_APP_INFO(info)));
+            gtk_entry_set_text(data->app_name,
+                               g_app_info_get_name(G_APP_INFO(info)));
+            gtk_toggle_button_set_active(data->use_terminal,
+                                         g_key_file_get_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                                                G_KEY_FILE_DESKTOP_KEY_TERMINAL,
+                                                                NULL));
+            gtk_toggle_button_set_active(data->keep_open,
+                                         g_key_file_get_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                                                "X-KeepTerminal",
+                                                                NULL));
+            g_object_unref(info);
+            g_key_file_free(kf);
+            fm_path_unref(file);
+            return;
+        }
+        g_key_file_free(kf);
+    }
+    gtk_entry_set_text(data->cmdline, binary);
+    g_free(binary);
+    fm_path_unref(file);
 }
 
 static void on_use_terminal_changed(GtkToggleButton* btn, AppChooserData* data)
