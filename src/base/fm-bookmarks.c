@@ -379,6 +379,7 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
     item->name = g_strdup(name);
     item->n_ref = 1;
     G_LOCK(bookmarks);
+    /* FIXME: disable creation of duplicate bookmark if set in config */
     bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     /* g_debug("insert %s at %d", name, pos); */
     queue_save_bookmarks(bookmarks);

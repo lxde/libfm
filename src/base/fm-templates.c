@@ -599,6 +599,8 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
     {
     case G_FILE_MONITOR_EVENT_CHANGED:
         basename = g_file_get_basename(gf);
+        if (basename == NULL)
+            break;
         G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
@@ -615,6 +617,8 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         break;
     case G_FILE_MONITOR_EVENT_DELETED:
         basename = g_file_get_basename(gf);
+        if (basename == NULL)
+            break;
         G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
