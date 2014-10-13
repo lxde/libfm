@@ -382,7 +382,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
 
                 /* FIXME: is there any better way to do this? */
                 /* We need to ensure that no duplicated items are added */
-                if(data->mime_type)
+                if (app_name && app_name[0] && data->mime_type)
                 {
                     MenuCache* menu_cache;
                     /* see if the command is already in the list of known apps for this mime-type */

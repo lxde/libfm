@@ -50,6 +50,10 @@
     dialog, it tried to execute the desktop entry directly. Now it setups
     dialog fields from that desktop entry instead.
 
+* Fixed problem with unwanted application substitution in the Application
+    chooser dialog: if user selected no name then no replacements should
+    be attempted.
+
 
 Changes on 1.2.2 since 1.2.1:
 
