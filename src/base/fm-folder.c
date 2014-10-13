@@ -662,7 +662,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             queue_reload(folder);
             break;
         case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
-        case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+        case G_FILE_MONITOR_EVENT_CHANGED:
             folder->pending_change_notify = TRUE;
             G_LOCK(lists);
             if(!folder->idle_handler)
@@ -673,7 +673,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 #if GLIB_CHECK_VERSION(2,24,0)
         case G_FILE_MONITOR_EVENT_MOVED:
 #endif
-        case G_FILE_MONITOR_EVENT_CHANGED:
+        case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
             ;
         }
         g_object_unref(folder);
@@ -692,7 +692,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             fm_path_unref(path);
         break;
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
-    case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+    case G_FILE_MONITOR_EVENT_CHANGED:
         if (!_fm_folder_event_file_changed(folder, path))
             fm_path_unref(path);
         break;
