@@ -54,6 +54,8 @@
     chooser dialog: if user selected no name then no replacements should
     be attempted.
 
+* Fixed default app detection in Application chooser combo box.
+
 
 Changes on 1.2.2 since 1.2.1:
 
