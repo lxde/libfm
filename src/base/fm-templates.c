@@ -682,7 +682,8 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 g_warning("could not guess type of template %s, ignoring it",
                           basename);
             }
-            fm_mime_type_unref(mime_type);
+            if (G_LIKELY(mime_type))
+                fm_mime_type_unref(mime_type);
         }
         else
             g_debug("templates monitor: duplicate file %s", basename);
