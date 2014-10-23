@@ -251,7 +251,12 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                 fi->mime_type = fm_mime_type_from_file_name(fm_path_get_basename(fi->path));
         }
         else
+        {
             fi->mime_type = fm_mime_type_from_native_file(path, fm_path_get_basename(fi->path), &st);
+            if (G_UNLIKELY(fi->mime_type == NULL))
+                /* file might be deleted while we test it but we assume mime_type is not NULL */
+                fi->mime_type = fm_mime_type_from_name("application/octet-stream");
+        }
 
         if (get_fast) /* do rough estimation */
             fi->accessible = ((st.st_mode & S_IRUSR) == S_IRUSR);

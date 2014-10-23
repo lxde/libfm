@@ -152,6 +152,10 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
     gchar *filename, *type, *url;
     GKeyFile *kf;
 
+    /* SF bug #902: if file was deleted instantly we get NULL here */
+    if (mime_type == NULL)
+        return NULL;
+
     /* if file is desktop entry then find the real template file path */
     if(mime_type != _fm_mime_type_get_application_x_desktop())
     {

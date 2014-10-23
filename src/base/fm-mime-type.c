@@ -127,7 +127,8 @@ FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
  * @base_name: file basename
  * @pstat: (allow-none): file atrributes
  *
- * Finds #FmMimeType descriptor for provided data.
+ * Finds #FmMimeType descriptor for provided data. If file does not exist
+ * then returns %NULL.
  *
  * Before 1.0.0 this API had name fm_mime_type_get_for_native_file.
  *
