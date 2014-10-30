@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-10-29 22:06+0000\n"
+"PO-Revision-Date: 2014-10-30 09:28+0000\n"
 "Last-Translator: Pjotr  <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.6.0-rc2\n"
-"X-POOTLE-MTIME: 1414620385.000000\n"
+"X-POOTLE-MTIME: 1414661331.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -80,8 +80,8 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Deze speciale codes kunt u gebruiken in de opdrachtregel:</b>\n"
-"  <b>%f</b>: Representeert een enkele bestandnaam\n"
-"  <b>%F</b>: Representeert meerdere bestandnamen\n"
+"  <b>%f</b>: Representeert een enkele bestandsnaam\n"
+"  <b>%F</b>: Representeert meerdere bestandsnamen\n"
 "  <b>%u</b>: Representeert een enkele URI van het bestand\n"
 "  <b>%U</b>: Representeert meerdere URI's"
 
@@ -135,7 +135,7 @@ msgstr "met het volgende bestand?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File name:"
-msgstr "Bestandnaam:"
+msgstr "Bestandsnaam:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
@@ -364,7 +364,7 @@ msgstr "Bestanden zoeken"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Patronen in bestandnamen:</b>"
+msgstr "<b>Patronen in bestandsnamen:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
@@ -1603,7 +1603,7 @@ msgstr "BRON"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr "bestandnaam van resultaat"
+msgstr "bestandsnaam van resultaat"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
