@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-10-30 09:28+0000\n"
+"PO-Revision-Date: 2014-10-30 10:03+0000\n"
 "Last-Translator: Pjotr  <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.6.0-rc2\n"
-"X-POOTLE-MTIME: 1414661331.000000\n"
+"X-POOTLE-MTIME: 1414663438.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -47,7 +47,7 @@ msgstr "Gebruik gekozen toepassing om bestanden te openen"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr "Geïnstalleerde toepassing"
+msgstr "Geïnstalleerde toepassingen"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -201,7 +201,7 @@ msgstr "Selecteer de toepassing om bestanden van dit type te openen "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Totale omvang van bestanden:</b>"
+msgstr "<b>Totaal aantal bestanden:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
@@ -217,7 +217,7 @@ msgstr "<b>Laatste aanpassing:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
-msgstr "<b>Laatste toegang:</b>"
+msgstr "<b>Laatste benadering:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
@@ -428,7 +428,7 @@ msgstr "Documenten"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "Folde_rs"
-msgstr "Map"
+msgstr "Mappen"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -542,7 +542,7 @@ msgstr "<b>Resterende tijd:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>Enkele fouten zijn opgetreden:</b>"
+msgstr "<b>Opgetreden fouten:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -633,8 +633,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
-"Het URI-subpad '%s' bevat ongeldige ontsnappingstekens (escaped characters)"
+msgstr "Het URI-subpad '%s' bevat ongeldige metatekens (escaped characters)"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -801,7 +800,7 @@ msgstr "Toevoegen aan bladwijzers"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr "_Hernoemen"
+msgstr "_Hernoemen..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -878,7 +877,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
-msgstr "Aan het laden..."
+msgstr "aan het doorzoeken..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -886,7 +885,7 @@ msgstr "<b>Inhoud benaderen:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
-msgstr "Bestanden van verschillende types"
+msgstr "Bestanden van verschillende soorten"
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
@@ -951,7 +950,7 @@ msgstr "Bestanden _sorteren"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr "Bestand hernoemen"
+msgstr "Map hernoemen..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -1009,7 +1008,7 @@ msgstr "Nieuw"
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Voer een naam in voor het nieuwe %s:"
+msgstr "Voer een naam in voor het of de nieuwe %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
@@ -1142,7 +1141,7 @@ msgstr "Bladwijzerelement hernoemen"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
-msgstr "Verwijderen uit bladwijzer"
+msgstr "Verwijderen uit bladwijzers"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
@@ -1154,7 +1153,7 @@ msgstr "Verplaats bladwijzer naar beneden"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
-msgstr "Prullenbak legen"
+msgstr "Prullenbak ledigen"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1203,7 +1202,7 @@ msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "<b>De bestandoperatie werd voltooid met fouten.</b>"
+msgstr "<b>De bestandbewerking werd voltooid met fouten.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1216,7 +1215,7 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Sommige bestanden kunnen niet naar de prullenbak worden verplaatst, omdat de "
-"onderliggende bestandssystemen dit niet ondersteunen.\n"
+"onderliggende bestandssystemen deze bewerking niet ondersteunen.\n"
 "Wilt u hen in plaats daarvan onherroepelijk verwijderen?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
@@ -1234,27 +1233,27 @@ msgstr ", "
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr "Bestanden verplaatsen"
+msgstr "Verplaatsen..."
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr "Bestanden kopiëren"
+msgstr "Kopiëren..."
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
-msgstr "Bestanden weggooien"
+msgstr "Weggooien..."
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr "Bestanden verwijderen"
+msgstr "Verwijderen..."
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
 msgid "Creating link"
-msgstr "Koppeling maken"
+msgstr "Koppeling maken..."
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
@@ -1268,7 +1267,7 @@ msgstr "Koppelingen naar bestanden aan het maken"
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
-msgstr "Bestandeigenschappen veranderen"
+msgstr "Eigenschappen aan het veranderen van"
 
 #: ../src/gtk/fm-progress-dlg.c:608
 msgid "Changing attributes of files"
@@ -1287,7 +1286,7 @@ msgstr "%s bestanden"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr "<b>Bestandbewerking is in gang gezet...</b>"
+msgstr "<b>Bestandbewerking is bezig...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
