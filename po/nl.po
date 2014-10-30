@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-10-30 10:03+0000\n"
+"PO-Revision-Date: 2014-10-30 10:19+0000\n"
 "Last-Translator: Pjotr  <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.6.0-rc2\n"
-"X-POOTLE-MTIME: 1414663438.000000\n"
+"X-POOTLE-MTIME: 1414664356.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -991,7 +991,7 @@ msgstr "Voer een naam in voor de zojuist gemaakte map:"
 
 #: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
-msgstr "Nieuwe map maken"
+msgstr "Nieuwe map maken..."
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
@@ -1013,11 +1013,11 @@ msgstr "Voer een naam in voor het of de nieuwe %s:"
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
-msgstr "%s maken"
+msgstr "%s maken..."
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "Draai standaardtoepassing voor bestand na maken"
+msgstr "Draai standaardtoepassing voor bestand nadat het is gemaakt"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1276,7 +1276,7 @@ msgstr "Bestandeigenschappen aan het veranderen"
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr "Herstellen"
+msgstr "Herstellen..."
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
