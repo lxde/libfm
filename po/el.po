@@ -4,14 +4,15 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2012-08-22 23:45+0200\n"
-"Last-Translator: George <forfolias@gmail.com>\n"
+"PO-Revision-Date: 2014-11-02 18:17+0000\n"
+"Last-Translator: Giorgos Siafis <geosiafis@yahoo.gr>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.6.0-rc2\n"
+"X-POOTLE-MTIME: 1414952276.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -22,51 +23,45 @@ msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Συντόμευσης"
+msgstr "Επεξεργαστής Συντόμευσης"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Δημιουργία νέας ή αλλαγή υπάρχουσας εγγραφής στην επιφάνεια εργασίας"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Επιλέξτε μια εφαρμογή"
+msgstr "Επιλέξτε εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
 msgstr "Χρήση επιλεγμένης εφαρμογής για το άνοιγμα των αρχείων"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "Εγκατεστημένη εφαρμογή"
+msgstr "_Εγκατεστημένες Εφαρμογές"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Εντολή προς εκτέλεση:</b>"
+msgstr "<b>Ε_ντολή προς εκτέλεση:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Αναζήτηση"
+msgstr "_Αναζήτηση..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Εκτέλεση στο τερματικό"
+msgstr "_Εκτέλεση στο τερματικό"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Διατήρησε το τερματικό ανοικτό μετά την εκτέλεση εντολής"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -77,35 +72,32 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</"
-"b>\n"
-"<b>%f</b>: Αντιπροσωπεύει ένα όνομα αρχείου\n"
-"<b>%F</b>: Αντιπροσωπεύει πολλαπλά ονόματα αρχείων\n"
-"<b>%u</b>: Αντιπροσωπεύει ένα ενιαίο URI του αρχείου\n"
-"<b>%U</b>: Αντιπροσωπεύει πολλαπλά URIs"
+"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή "
+"εντολών:</b>\n"
+" <b>%f</b>: Αντιπροσωπεύει ένα όνομα αρχείου\n"
+" <b>%F</b>: Αντιπροσωπεύει πολλαπλά ονόματα αρχείων\n"
+" <b>%u</b>: Αντιπροσωπεύει ένα ενιαίο URI του αρχείου\n"
+" <b>%U</b>: Αντιπροσωπεύει πολλαπλά URIs"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Ονομα εφαρμογής (προαιρετικό)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
 msgstr "Εκτέλεση προσαρμοσμένης εντολής για το άνοιγμα των αρχείων"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "Προσαρμοσμένη εντολή"
+msgstr "Π_ροσαρμοσμένη εντολή"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
 msgstr ""
-"Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους "
-"τα αρχεία"
+"_Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του "
+"είδους τα αρχεία"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Επιβεβαίωση αντικατάστασης αρχείων"
 
@@ -136,36 +128,30 @@ msgid "with the following file?"
 msgstr "με το ακόλουθο αρχείο;"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
-msgstr "Όνομα αρχείου:"
+msgstr "Ο_νομα αρχείου:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Εφαρμογή της επιλογής σε όλα τα υπάρχοντα αρχεία"
+msgstr "Ε_φαρμογή της επιλογής σε όλα τα υπάρχοντα αρχεία"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Επιλέξτε μια εφαρμογή"
+msgstr "Επιλέξτε Ενα Εικονίδιο..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
-msgstr "Εφαρμογές συστήματος"
+msgstr "βιβλιοθήκη εικονιδίων συστήματος"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
-msgstr "Μετακίνηση στον κάδο απορριμάτων"
+msgstr "αρχεία εικόνων"
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Επεξεργασία περιεχομένων:</b>"
+msgstr "<b>Επελεξε εικονίδιο από:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -181,24 +167,21 @@ msgstr "Ιδιότητες αρχείου"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Εικονίδιο αρχείου σε προβολή φακέλου"
 
 #: ../data/ui/file-prop.glade.h:3
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>_Ιδιοκτήτης:</b>"
+msgstr "<b>_Όνομα:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
 msgstr "<b>Τοποθεσία:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Στόχος:</b>"
+msgstr "<b>Επιλογή αρχείου:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Τύπος αρχείου:</b>"
 
@@ -213,63 +196,52 @@ msgstr ""
 "του τύπου "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Συνολικό μέγεθος των αρχείων:</b>"
+msgstr "<b>Συνολικός αριθμός των αρχείων:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Συνολικό μέγεθος των αρχείων:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Μέγεθος στο δίσκο:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
-msgstr "<b>Τελευταία Τροποποίηση:</b>"
+msgstr "<b>Τελευταία τροποποίηση:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
-msgstr "<b>Τελευταία Πρόσβαση:</b>"
+msgstr "<b>Τελευταία πρόσβαση:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>Τελευταία Πρόσβαση:</b>"
+msgstr "<b>Τελευταία αλλαγή δικαιωμάτων:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "_Γενικά"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Ιδιοκτήτης:</b>"
+msgstr "<b>Ι_διοκτήτης:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Ομάδα:</b>"
+msgstr "<b>Ο_μάδα:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Προβολή περιεχομένων:</b>"
+msgstr "<b>Π_ροβολή περιεχομένων:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Επεξεργασία περιεχομένων:</b>"
+msgstr "<b>Επε_ξεργασία περιεχομένων:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Εκτέλεση:</b>"
+msgstr "<b>Ε_κτέλεση:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
@@ -300,9 +272,8 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Έλεγχος πρόσβασης</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Ταξινόμηση αρχείων"
+msgstr "Κρυφό αρχείο"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -317,12 +288,11 @@ msgid "None"
 msgstr "Κανένα"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr "Κολλημένο"
+msgstr "Αμετάβλητο"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
@@ -333,7 +303,6 @@ msgid "Sticky & set GID"
 msgstr "Κολλημένο & ορισμός GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Ορισμός UID"
@@ -343,7 +312,6 @@ msgid "Set UID & GID"
 msgstr "Ορισμός UID & GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -364,7 +332,7 @@ msgstr "Κανένας"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -380,21 +348,19 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr ""
+msgstr "Επιλογή Ημερομηνίας"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Επιλογή ημερομηνίας απο το ημερολόγιο"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Ταξινόμηση αρχείων"
+msgstr "_Αναζήτηση αρχείων"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>_Μοτίβα Ονόματος Αρχείου:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
@@ -408,122 +374,113 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Χρήση κανονικών εκφράσεων"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr ""
+msgstr "<b>Τοπο_θεσίες για Αναζήτηση:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Αναζήτηση σε υποκαταλόγους"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Αναζήτηση _κρυφών αρχείων"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Ονομα/_Location"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>Τύπος αρχείου</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr ""
+msgstr "Αναζήτηση αρχείων των παρακάτω τύπων:"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Διαγραφή αρχείων"
+msgstr "Αρχεία _κειμένου"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Μετακίνηση στον κάδο απορριμάτων"
+msgstr "Αρχεία _εικόνας"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Ταξινόμηση αρχείων"
+msgstr "Αρχεία _ήχου"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Ταξινόμηση αρχείων"
+msgstr "Αρχεία _ταινίας"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Εγγραφα"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Φακέλου"
+msgstr "_Φάκελοι"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Άλλα:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Κάθε έγκυρος τύπος αρχείου μπορεί να εισαχθεί εδώ. Χαρακτήρας μπαλαντέρ '*' "
+"επιτρέπεται στο τέλος κάθε τύπου αρχείου. Πολλαπλοί τύποι αρχείων πρέπει να "
+"διαχωρίζονται με ';'."
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "File _Type"
-msgstr "Κατά _τύπο αρχείου"
+msgstr "_Τύπος αρχείου"
 
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Μέγεθος στο δίσκο:</b>"
+msgstr "<b>Περιεχόμεν_ο αρχείου:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
-msgstr ""
+msgstr "Περιε_χόμενο"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>Μέγεθος αρχείου</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Μικρότερο από:"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Με_γαλύτερο από:"
 
 #: ../data/ui/filesearch.glade.h:32
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Τελευταία Τροποποίηση:</b>"
+msgstr "<b>Τελευταία Τροποποίηση</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
-#, fuzzy
 msgid "(None)"
-msgstr "Κανένα"
+msgstr "(Κανένα)"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Νωρίτερα από:"
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
-msgstr ""
+msgstr "Αργό_τερα από:"
 
 #: ../data/ui/filesearch.glade.h:36
-#, fuzzy
 msgid "_Properties"
-msgstr "Ιδιότητες αρχείου"
+msgstr "Ι_διότητες"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -536,12 +493,10 @@ msgstr ""
 "υπερσυνδέσεων."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>Πρόγραμμα αλληλογραφίας</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -580,7 +535,6 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Χρόνος που απομένει:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Παρουσιάστηκαν κάποια σφάλματα:</b>"
 
@@ -592,27 +546,27 @@ msgstr ""
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Δεν έχει καθοριστεί εφαρμογή για την εκκίνηση URIs %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Δεν έχει οριστεί κατάλογος εργασίας για '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Δεν καθορίζεται ο τύπος περιεχομένου του αρχείου '%s' ώστε να εκκινηθεί"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Δεν έχει οριστεί εφαρμογή για τον τύπο MIME του %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Συσκευές"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -624,9 +578,8 @@ msgid "Trash Can"
 msgstr "Κάδος απορριμάτων"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Συντόμευσης"
+msgstr "συντόμευση στο URI"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
@@ -634,7 +587,7 @@ msgstr ""
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Δεν έχει οριστεί εξομοιωτής τερματικού στις ρυθμίσεις του libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
@@ -760,18 +713,17 @@ msgid "Customize"
 msgstr "Προσαρμογή"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Χρήση επιλεγμένης εφαρμογής για το άνοιγμα των αρχείων"
+msgstr "<b>Επιλέξτε μια εφαρμογή για το άνοιγμα \"%s\" των αρχείων</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "Εγκατεστημένες εφαρμογές"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<Χωρίς υποφάκελο>"
+msgstr "<Χωρίς υποφακέλους>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -782,9 +734,8 @@ msgid "Shows tree of directories in sidebar"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "_Cancel"
-msgstr "Ακυρώθηκε"
+msgstr "Α_κυρώθηκε"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
@@ -808,14 +759,12 @@ msgid "_Open"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:152
-#, fuzzy
 msgid "Open _With..."
-msgstr "Άνοιγμα με..."
+msgstr "Άνοιγμα _με..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "Άνοιγμα με..."
+msgstr "Άνοιγμα _με"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -830,49 +779,41 @@ msgid "Unh_ide"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "Αφαίρεση από τους σελιδοδείκτες"
+msgstr "Εισαγωγή στους _σελιδοδείκτες"
 
 #: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
 msgid "_Rename..."
-msgstr "_Μετονομασία"
+msgstr "_Μετονομασία..."
 
 #: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Συμπίεση..."
+msgstr "Σ_υμπίεση..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Αποσυμπίεση εδώ"
+msgstr "Αποσυμπίεση ε_δώ"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Αποσυμπίεση στο..."
+msgstr "Απ_οσυμπίεση στο..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Ιδιότητες αρχείου"
+msgstr "Ιδιότη_τες αρχείου"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Απορρίματα"
+msgstr "Μετακίνηση στα Απορ_ρίματα"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:368
-#, fuzzy
 msgid "Image files"
-msgstr "Μετακίνηση στον κάδο απορριμάτων"
+msgstr "Αρχεία εικόνας"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
@@ -915,28 +856,24 @@ msgid ""
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Φόρτωση..."
+msgstr "σάρωση..."
 
 #: ../src/gtk/fm-file-properties.c:1088
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Πρόσβαση περιεχομένου</b>"
+msgstr "<b>Πρόσ_βαση περιεχομένου:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1242
 msgid "Files of different types"
 msgstr "Αρχεία διαφορετικών τύπων"
 
 #: ../src/gtk/fm-file-properties.c:1286
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>Αρχείο:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1352
-#, fuzzy
 msgid "Multiple files"
-msgstr "Πολλαπλά αρχείων"
+msgstr "Πολλαπλά αρχεία"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
@@ -952,12 +889,10 @@ msgid "Size"
 msgstr "Μέγεθος"
 
 #: ../src/gtk/fm-folder-model.c:193
-#, fuzzy
 msgid "Permissions"
-msgstr "_Δικαιώματα"
+msgstr "Δικαιώματα"
 
 #: ../src/gtk/fm-folder-model.c:194
-#, fuzzy
 msgid "Owner"
 msgstr "Μόνο ο ιδιοκτήτης"
 
@@ -966,9 +901,8 @@ msgid "Modified"
 msgstr "Τροποποιήθηκε"
 
 #: ../src/gtk/fm-folder-model.c:196
-#, fuzzy
 msgid "Location"
-msgstr "<b>Τοποθεσία:</b>"
+msgstr "Τοποθεσία"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
@@ -983,9 +917,8 @@ msgid "Folder"
 msgstr "Φακέλου"
 
 #: ../src/gtk/fm-folder-view.c:182
-#, fuzzy
 msgid "Empty File"
-msgstr "Εκτέλεση αρχείου"
+msgstr "Κενό Αρχείο"
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
@@ -996,14 +929,12 @@ msgid "_Sort Files"
 msgstr "_Ταξινόμηση αρχείων"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "Μετονομασία αρχείου"
+msgstr "Με_τονομασία καταλόγου..."
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Ιδιότητες αρχείου"
+msgstr "Ιδιότητες _Φακέλου"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
@@ -1011,14 +942,12 @@ msgstr "_Εμφάνιση κρυφών αρχείων"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Ανάμιξη αρχείων και φάκελων"
+msgstr "Ανάμιξη αρ_χείων και φάκελων"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "Αγνόηση πεζών-κεφαλαίων στα ονόματα"
+msgstr "Αγνόηση πε_ζών-κεφαλαίων στα ονόματα"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
@@ -1041,33 +970,30 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Εισάγετε ένα όνομα για το νέο φάκελο:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "Μετονομασία αρχείου"
+msgstr "Δημιουργία Νέου Φακέλου"
 
 #: ../src/gtk/fm-folder-view.c:859
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Εισάγετε ένα όνομα για το νέο αρχείο:"
+msgstr "Εισάγετε όνομα για το νέο αρχείο:"
 
 #: ../src/gtk/fm-folder-view.c:860
-#, fuzzy
 msgid "Creating ..."
-msgstr "Δημιουργία νέου..."
+msgstr "Δημιουργία ..."
 
 #: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "Νέο"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Εισάγετε ένα όνομα για το νέο αρχείο:"
+msgstr "Εισάγετε ένα όνομα για το νέο αρχείο %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Δημιουργία συμβολικών συνδέσμων"
+msgstr "Δημιουργία %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1093,7 +1019,6 @@ msgid "No folders are specified."
 msgstr ""
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "Παρακαλώ επιλέξτε ένα φάκελο"
 
@@ -1114,28 +1039,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Μόνο ο διαχειριστής του συστήματος έχει δικαίωμα να το κάνει."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
+msgstr "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία '%s' στον κάδο απορριμάτων;"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
-msgstr[1] "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
+msgstr[0] "Θέλετε να μετακινήσετε τo επιλεγμένo αρχείo %d στον κάδο απορριμάτων;"
+msgstr[1] "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία %d στον κάδο απορριμάτων;"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
+msgstr "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία '%s';"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
-msgstr[1] "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
+msgstr[0] "Θέλετε να διαγράψετε τo επιλεγμένo αρχείo %d;"
+msgstr[1] "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία %d;"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1154,14 +1079,12 @@ msgid "Pa_ste and Go"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Συσχετίσεις αρχείων"
+msgstr "Μπάρα τοποθεσίας φακέλου"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "Μετονομασία αρχείου"
+msgstr "Προσωπικός Φάκελος"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1173,54 +1096,44 @@ msgid "Applications"
 msgstr "Εφαρμογές"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "Κατά _τύπο αρχείου"
+msgstr "Ρίζα συστήματος αρχείων"
 
 #: ../src/gtk/fm-places-view.c:131
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Προσάρτηση τόμου"
+msgstr "Π_ροσάρτηση τόμου"
 
 #: ../src/gtk/fm-places-view.c:132
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Αποπροσάρτηση τόμου"
+msgstr "Αποπρο_σάρτηση τόμου"
 
 #: ../src/gtk/fm-places-view.c:133
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Εξαγωγή αφαιρούμενου μέσου"
+msgstr "Ε_ξαγωγή αφαιρούμενου μέσου"
 
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Προσάρτηση τόμου"
+msgstr "Διαμόρ_φωση τόμου"
 
 #: ../src/gtk/fm-places-view.c:150
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
+msgstr "Μετονομασία αντι_κειμένου σελιδοδείκτη"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "Αφαίρεση από τους σελιδοδείκτες"
+msgstr "Α_φαίρεση από τους σελιδοδείκτες"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Αφαίρεση από τους σελιδοδείκτες"
+msgstr "Μετακίνηση σελιδοδείκτη πάν_ω"
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Αφαίρεση από τους σελιδοδείκτες"
+msgstr "Μετακίνηση σελιδοδείκτη _κάτω"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Άδειασμα απορριμμάτων"
+msgstr "Ά_δειασμα απορριμμάτων"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1267,9 +1180,8 @@ msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Η λειτουργία ακυρώθηκε και υπάρχουν κάποια σφάλματα."
+msgstr "<b>Η λειτουργία ακυρώθηκε και υπάρχουν κάποια σφάλματα.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1290,7 +1202,6 @@ msgid "_Pause"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
 msgstr "_Επαναφορά"
 
@@ -1300,25 +1211,21 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:579
-#, fuzzy
 msgid "Moving"
 msgstr "Μετακίνηση αρχείων"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:583
-#, fuzzy
 msgid "Copying"
 msgstr "Αντιγραφή αρχείων"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:587
-#, fuzzy
 msgid "Trashing"
 msgstr "Μετακίνηση στον κάδο απορριμάτων"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:591
-#, fuzzy
 msgid "Deleting"
 msgstr "Διαγραφή αρχείων"
 
@@ -1329,21 +1236,19 @@ msgstr ""
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
-#, fuzzy
 msgid "Changing attributes of"
 msgstr "Αλλαγή χαρακτηριστικών αρχείου"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:606
-#, fuzzy
 msgid "Restoring"
-msgstr "_Επαναφορά"
+msgstr "Επαναφορά"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:613
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "Μετακίνηση στον κάδο απορριμάτων"
+msgstr "μετακίνηση στον κάδο απορριμάτων %s"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
@@ -1351,34 +1256,31 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>%s αρχείο:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Τύπος αρχείου:</b>"
+msgstr "<b>%s αρχεία:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:67
-#, fuzzy
 msgid "_Places"
-msgstr "Τοποθεσίες"
+msgstr "Τοπο_θεσίες"
 
 #: ../src/gtk/fm-side-pane.c:68
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Δέντρο καταλόγων"
+msgstr "_Δέντρο καταλόγων"
 
 #: ../src/gtk/fm-side-pane.c:69
-#, fuzzy
 msgid "_Remote"
-msgstr "Απομακρυσμένο"
+msgstr "Απομακρ_υσμένο"
 
 #: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
@@ -1436,9 +1338,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Ο συγκεκριμένος κατάλογος δεν είναι έγκυρος"
+msgstr "Ο συγκεκριμένος κατάλογος '%s' δεν είναι έγκυρος"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1449,9 +1351,10 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Επαναφορά των διαγραφέντων αρχείων στους αρχικούς τους καταλόγους"
+msgstr ""
+"Αδύνατη επαναφορά των διαγραφέντων αρχείων '%s': άγνωστοι αρχικοί  κατάλογοι"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1470,9 +1373,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Ο προορισμός είναι υποφάκελος της πηγής"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Δε γίνεται η αντιγραφή ενός φακέλου σε υποφάκελό του"
+msgstr "Δεν γίνεται η αντιγραφή του αρχείου '%s': δεν υποστηρίζεται"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
@@ -1593,56 +1496,48 @@ msgid "Search"
 msgstr ""
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
-msgstr "_Ταξινόμηση αρχείων"
+msgstr "Αποτέλεσμα αναζήτησης"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Εκτέλεση αρχείου"
+msgstr "Επιλογή εκτελέσιμου αρχείου"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
 msgstr "Εκτέλεση αρχείου"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Προς:</b>"
+msgstr "<b>Ε_ντολή:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Τοποθεσία:</b>"
+msgstr "<b>Περι_γραφή:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Ιδιοκτήτης:</b>"
+msgstr "<b>_Κατάλογος εργασίας:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Προς:</b>"
+msgstr "<b>_Tooltip:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Επιλέξτε μια εφαρμογή"
+msgstr "Tooltip to show on application"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
@@ -1651,9 +1546,8 @@ msgid "_Use startup notification"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "Επιφάνεια εργασίας"
+msgstr "_Επιφάνεια εργασίας"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
