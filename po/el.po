@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-09 09:02+0100\n"
-"PO-Revision-Date: 2014-11-02 18:17+0000\n"
+"PO-Revision-Date: 2014-11-16 11:53+0000\n"
 "Last-Translator: Giorgos Siafis <geosiafis@yahoo.gr>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.6.0-rc2\n"
-"X-POOTLE-MTIME: 1414952276.000000\n"
+"X-POOTLE-MTIME: 1416138791.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -21,6 +21,8 @@ msgstr "Προτιμώμενες εφαρμογές"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Επιλογή εφαρμογών που ενεργοποιούνται με την κλήση συνδέσμου του διαδικτύου "
+"ή διεύθυνσης ηλεκτρονικού ταχυδρομείου"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -698,11 +700,11 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Απροσδόκητο τέλος εγγράφου"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Κενό έγγραφο ή περιέχει μόνο κενά"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
@@ -739,16 +741,16 @@ msgstr "Α_κυρώθηκε"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr ""
+msgstr "Α_ντιγραφή εδώ"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
-msgstr ""
+msgstr "Μ_ετακίνηση εδώ"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
-msgstr ""
+msgstr "Σ_ύνδεση εδώ"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
@@ -756,7 +758,7 @@ msgstr "XDirectSave απέτυχε."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
-msgstr ""
+msgstr "_Άνοιγμα"
 
 #: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
@@ -772,11 +774,11 @@ msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
-msgstr ""
+msgstr "Κ_ρυφό"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr ""
+msgstr "Φανερ_ό"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
@@ -809,7 +811,7 @@ msgstr "Μετακίνηση στα Απορ_ρίματα"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Οι σελιδοδείκτες σου έχουν ήδη σελιδοδείκτη για αυτό το φάκελο."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -824,7 +826,7 @@ msgstr[1] "bytes"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "σάρωση... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -838,22 +840,23 @@ msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομά�
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
+msgstr "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Κρύψε ή φανέρωσε το αρχείο"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Αυτό το αρχείο είναι κρυφό επειδή το όνομα του αρχίζει με τελεία ('.')."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Τα αρχεία του συστήματος είναι κρυφά αν τα ονόματά τους αρχίζουν από τελεία "
+"('.'). Πληκτρολόγησε <Ctrl+H> για να εμφανίσεις τα κρυφά αρχεία."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -906,7 +909,7 @@ msgstr "Τοποθεσία"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Επέκταση"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -997,7 +1000,7 @@ msgstr "Δημιουργία %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Εκτέλεσε το αρχείο αφού δημιουργηθεί με την προεπιλεγμένη εφαρμογή"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1016,7 +1019,7 @@ msgstr "Αυτό το αρχείο '%s' είναι εκτελέσιμο. Θέλ�
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr ""
+msgstr "Δεν έχουν καθοριστεί κατάλογοι."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
@@ -1076,7 +1079,7 @@ msgstr "Είστε σίγουροι ότι θέλετε να αδειάσει ο
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
-msgstr ""
+msgstr "Επ_ικόλλησε και Συνέχισε"
 
 #: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
@@ -1138,6 +1141,8 @@ msgstr "Ά_δειασμα απορριμμάτων"
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
+"Εμφάνισε λίστα από κοινούς τόπους, συσκευές, και σελιδοδείκτες στην πλαϊνή "
+"λωρίδα"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1173,7 +1178,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Προέκυψαν σφάλματα πριν την διακοπή της λειτουργίας του αρχείου.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1199,7 +1204,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "_Παύση"
 
 #: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
@@ -1232,7 +1237,7 @@ msgstr "Διαγραφή αρχείων"
 #. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:595
 msgid "Symlinking"
-msgstr ""
+msgstr "Ψευδοσύνδεσμοι"
 
 #. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:602
@@ -1252,7 +1257,7 @@ msgstr "μετακίνηση στον κάδο απορριμάτων %s"
 
 #: ../src/gtk/fm-progress-dlg.c:615
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Λειτουργία αρχείου σε εξέλιξη... </b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:619
@@ -1268,7 +1273,7 @@ msgstr "<b>%s αρχεία:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr ""
+msgstr "_Κλειστό"
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
@@ -1292,49 +1297,49 @@ msgstr "Δέντρο καταλόγων"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr ""
+msgstr "Όψη περιεχομένων φακέλου"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Κρύψε %s"
 
 #: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
-msgstr ""
+msgstr "_Μετακίνηση Αριστερά"
 
 #: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
-msgstr ""
+msgstr "Μετακίνηση _Δεξιά"
 
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "Εμφάνιση %s"
 
 #: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
-msgstr ""
+msgstr "_Απόκρυψη πλάτους"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr ""
+msgstr "_Όψη Εικόνας"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr ""
+msgstr "_Συμπαγής Όψη"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "Όψη _Μικρογραφίας"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Όψη Λεπτομερούς _Λίστας"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Αλλαγή ενεργής καρτέλας"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
@@ -1344,11 +1349,11 @@ msgstr "Ο συγκεκριμένος κατάλογος '%s' δεν είναι 
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Αδυναμία πρόσβασης σε αρχείο προορισμού"
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "Αδυναμία δημιουργίας συνδέσμου σε μη υποστηριζόμενο σύστημα αρχείων "
 
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
@@ -1380,59 +1385,59 @@ msgstr "Δεν γίνεται η αντιγραφή του αρχείου '%s': 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Ορισμός ονόματος εμφάνισης μπορεί να γίνει μόνο για ξεχωριστό αρχείο"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Ορισμός στόχου μπορεί να γίνει για ξεχωριστό αρχείο"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr ""
+msgstr "XML αρχείο '%s' λάθος (%d:%d):"
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML αρχείο δεν περιλαμβάνει την ρίζα των Εφαρμογών"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "Αδυναμία δημιουργίας ορισμού XML για '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Η διαδρομή καταλόγου '%s' υπάρχει ήδη"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
-msgstr ""
+msgstr "Σφάλμα μνήμης προσωρινής αποθήκευσης καταλόγου"
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr ""
+msgstr "Η λειτουργία δεν υποστηρίζεται"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Άκυρος κατάλογος μενού"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Το αντικείμενο καταλόγου δεν μπορεί να είναι κενό"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr ""
+msgstr "Άκυρος κατάλογος μενού '%s'"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr ""
+msgstr "Άκυρο αντικείμενο καταλόγου"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
@@ -1446,12 +1451,12 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr ""
+msgstr "Ο ορισμός χαρακτηριστικού '%s' δεν υποστηρίζεται"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr ""
+msgstr "Άκυρη τιμή χαρακτηριστικού '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
@@ -1471,7 +1476,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr ""
+msgstr "Αδυναμία δημιουργίας αντικειμένου καταλόγου '%s'"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1493,7 +1498,7 @@ msgstr ""
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
@@ -1521,7 +1526,7 @@ msgstr "<b>Περι_γραφή:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Γενικό όνομα της εφαρμογής"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1529,7 +1534,7 @@ msgstr "<b>_Κατάλογος εργασίας:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Ο κατάλογος εργασίας για την εκτέλεση του προγράμματος"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
@@ -1563,15 +1568,15 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "SOURCE"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "Εξαγόμενο όνομα αρχείου"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "RESULT"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
