@@ -1,26 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Sveinn í Felli <sv1@fellsnet.is>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2014-12-04 17:25+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Translate Toolkit 1.10.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Forgangsforrit"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
@@ -36,7 +34,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
-msgstr ""
+msgstr "Veldu forrit"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
@@ -44,16 +42,16 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr ""
+msgstr "_Uppsett forrit"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
-msgstr ""
+msgstr "<b>Ski_pun til að keyra:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
 msgid "_Browse..."
-msgstr ""
+msgstr "_Vafra..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
@@ -99,15 +97,15 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid "_Skip"
-msgstr ""
+msgstr "_Sleppa"
 
 #: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
-msgstr ""
+msgstr "Endu_rnefna…"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
-msgstr ""
+msgstr "Skrifa _yfir"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid ""
@@ -115,128 +113,131 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Þegar er fyrir skrá með sama heiti á þessari staðsetningu.</b>\n"
+"\n"
+"Viltu skipta út skránni"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
-msgstr ""
+msgstr "með eftirfarandi skrá?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File name:"
-msgstr ""
+msgstr "_Skráarheiti:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
-msgstr ""
+msgstr "_Beita þessu á allar skrár"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
-msgstr ""
+msgstr "Veldu táknmynd..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
 msgid "system icon theme"
-msgstr ""
+msgstr "táknmyndaþema kerfis"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
 msgid "image files"
-msgstr ""
+msgstr "myndskrár"
 
 #: ../data/ui/choose-icon.ui.h:6
 msgid "<b>Choose icon from:</b>"
-msgstr ""
+msgstr "<b>Veldu táknmynd úr:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr ""
+msgstr "Keyra skrá"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr ""
+msgstr "Keyra í skjá_hermi"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
-msgstr ""
+msgstr "Eiginleikar skráar"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Táknmynd þessarar skrár í möppusýn"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
-msgstr ""
+msgstr "<b>_Heiti:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Staðsetning:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Target file:</b>"
-msgstr ""
+msgstr "<b>Úttaksskrá:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>File type:</b>"
-msgstr ""
+msgstr "<b>Skráategund: </b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>O_pna með:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Veldu forritið til að opna skrár af þessari tegund"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
-msgstr ""
+msgstr "<b>Heildarfjöldi skráa:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
-msgstr ""
+msgstr "<b>Heildarstærð skráa:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
-msgstr ""
+msgstr "<b>Stærð á diski:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
-msgstr ""
+msgstr "<b>Síðast breytt:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
-msgstr ""
+msgstr "<b>Síðast notað:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
-msgstr ""
+msgstr "<b>Heimildum breytt síðast:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
-msgstr ""
+msgstr "_Almennt"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
-msgstr ""
+msgstr "<b>_Eigandi:</b>:"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
-msgstr ""
+msgstr "<b>_Hópur:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
-msgstr ""
+msgstr "<b>S_koða innihald:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "<b>C_hange content:</b>"
-msgstr ""
+msgstr "<b>_Breyta innihaldi</b>"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
-msgstr ""
+msgstr "<b>_Keyra:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
-msgstr ""
+msgstr "<b>Sértækir bitar:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
@@ -260,94 +261,94 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Aðgangsstjórnun</b>"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
-msgstr ""
+msgstr "Falin skrá"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
-msgstr ""
+msgstr "_Heimildir"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "None"
-msgstr ""
+msgstr "Ekkert"
 
 #: ../data/ui/file-prop.glade.h:32
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr ""
+msgstr "Viðloðandi"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
-msgstr ""
+msgstr "Setja GID"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Viðloðandi & setja GID"
 
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr ""
+msgstr "Setja UID"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Setja UID & GID"
 
 #: ../data/ui/file-prop.glade.h:37
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr ""
+msgstr "Einungis eigandi"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
-msgstr ""
+msgstr "Einungis eigandi og hópur"
 
 #: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
-msgstr ""
+msgstr "Hver sem er"
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
-msgstr ""
+msgstr "Enginn"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bæti"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr ""
+msgstr "Veldu dagsetningu"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Veldu dagsetningu úr dagatalinu"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr ""
+msgstr "Leita að skrám"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
@@ -361,11 +362,11 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Ó_háð há-/lágstöfum"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "Nota reg_lulega segð"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
@@ -373,11 +374,11 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Leita í _undirmöppum"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Leita í _földum skrám"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
@@ -385,39 +386,39 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
-msgstr ""
+msgstr "<b>Skráategund</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr ""
+msgstr "Einungis leita eftir skrám af eftirfarandi gerðum:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
-msgstr ""
+msgstr "Te_xtaskrár"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr ""
+msgstr "_Myndskrár"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr ""
+msgstr "_Hljóðskrár"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr ""
+msgstr "M_yndskeiðaskrár"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Skjöl"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "Folde_rs"
-msgstr ""
+msgstr "Möppu_r"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Annað:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
@@ -427,48 +428,48 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
-msgstr ""
+msgstr "Skráa_tegund"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
-msgstr ""
+msgstr "<b>Skráin _inniheldur:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
-msgstr ""
+msgstr "_Innihald"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
-msgstr ""
+msgstr "<b>Skráastærð:</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Minni en:"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Stærri en:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
-msgstr ""
+msgstr "<b>Síðast breytt</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
-msgstr ""
+msgstr "(ekkert)"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Eldra en:"
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Yngra en:"
 
 #: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
-msgstr ""
+msgstr "Ei_ginleikar"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -480,7 +481,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
-msgstr ""
+msgstr "<b>Póstforrit</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid ""
@@ -490,37 +491,37 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Skjáhermir</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
-msgstr ""
+msgstr "Skipanalína:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
-msgstr ""
+msgstr "Kerfisforrit"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
-msgstr ""
+msgstr "Skráavensl"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Til:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:4
 msgid "Preparing..."
-msgstr ""
+msgstr "Undirbý..."
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Tími eftir:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Errors occurred:</b>"
-msgstr ""
+msgstr "<b>Villur komu í ljós:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -550,16 +551,16 @@ msgstr ""
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Tæki"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
 msgid "Network"
-msgstr ""
+msgstr "Netkerfi"
 
 #: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
-msgstr ""
+msgstr "Ruslmappa"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
@@ -579,34 +580,34 @@ msgstr ""
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:164
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
+msgstr[0] "%u bæti"
 msgstr[1] ""
 
 #: ../src/base/fm-utils.c:173
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:179
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:185
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:190
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-utils.c:572
 #, c-format
@@ -694,7 +695,7 @@ msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
-msgstr ""
+msgstr "Sérsníða"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
@@ -719,7 +720,7 @@ msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
-msgstr ""
+msgstr "_Hætta við"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
@@ -764,32 +765,32 @@ msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
-msgstr ""
+msgstr "_Bæta við sem bókamerki..."
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr ""
+msgstr "Endu_rnefna…"
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
-msgstr ""
+msgstr "Þ_jappa..."
 
 #: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
-msgstr ""
+msgstr "Afþjappa _hér"
 
 #: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
-msgstr ""
+msgstr "Afþja_ppa í..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
-msgstr ""
+msgstr "Ei_ginleikar"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
-msgstr ""
+msgstr "Flytja í _rusl"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
@@ -797,18 +798,18 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
-msgstr ""
+msgstr "myndskrár"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "bæti"
+msgstr[1] "bæti"
 
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "skanna... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -852,121 +853,121 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
-msgstr ""
+msgstr "<b>Skrá:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
-msgstr ""
+msgstr "Margar skrár"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Name"
-msgstr ""
+msgstr "Heiti"
 
 #: ../src/gtk/fm-folder-model.c:191
 msgid "Description"
-msgstr ""
+msgstr "Lýsing"
 
 #: ../src/gtk/fm-folder-model.c:192
 msgid "Size"
-msgstr ""
+msgstr "Stærð"
 
 #: ../src/gtk/fm-folder-model.c:193
 msgid "Permissions"
-msgstr ""
+msgstr "Heimildir"
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
-msgstr ""
+msgstr "Eigandi"
 
 #: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
-msgstr ""
+msgstr "Breytt"
 
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
-msgstr ""
+msgstr "Staðsetning"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Skráarending"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
-msgstr ""
+msgstr "Búa til _nýja..."
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
-msgstr ""
+msgstr "Möppu"
 
 #: ../src/gtk/fm-folder-view.c:182
 msgid "Empty File"
-msgstr ""
+msgstr "Tóma skrá"
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Snúa vali við"
 
 #: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Raða skrám"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr ""
+msgstr "Endu_rnefna möppu..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
-msgstr ""
+msgstr "Eiginleikar _möppu"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Sýna _falið"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
 msgid "Mingle _Files and Folders"
-msgstr ""
+msgstr "_Blanda skrám og möppum"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
-msgstr ""
+msgstr "_Hunsa há/lágstafi"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
-msgstr ""
+msgstr "Eftir s_kráarheiti"
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Eftir _breytingartíma"
 
 #: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
-msgstr ""
+msgstr "Eftir _stærð"
 
 #: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
-msgstr ""
+msgstr "Eftir skráa_tegund"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Gefðu nýju möppunni nafn:"
 
 #: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
-msgstr ""
+msgstr "Bý til nýja möppu"
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
-msgstr ""
+msgstr "Settu inn heiti fyrir tóma skrá:"
 
 #: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
-msgstr ""
+msgstr "Bý til ..."
 
 #: ../src/gtk/fm-folder-view.c:866
 msgid "New"
-msgstr ""
+msgstr "Nýtt"
 
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
@@ -976,7 +977,7 @@ msgstr ""
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
-msgstr ""
+msgstr "Bý til %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1001,19 +1002,19 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
-msgstr ""
+msgstr "Veldu möppu"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
-msgstr ""
+msgstr "Villa"
 
 #: ../src/gtk/fm-gtk-utils.c:99 ../src/gtk/fm-gtk-utils.c:130
 msgid "Confirm"
-msgstr ""
+msgstr "Staðfesta"
 
 #: ../src/gtk/fm-gtk-utils.c:184
 msgid "Question"
-msgstr ""
+msgstr "Spurning"
 
 #: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
@@ -1057,24 +1058,24 @@ msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
-msgstr ""
+msgstr "_Líma og fara"
 
 #: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
-msgstr ""
+msgstr "Staðsetningarslá möppu"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 msgid "Home Folder"
-msgstr ""
+msgstr "Heimamappa"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
-msgstr ""
+msgstr "Skjáborð"
 
 #: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
 #: ../src/modules/vfs-menu.c:1565
 msgid "Applications"
-msgstr ""
+msgstr "Forrit"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 msgid "Filesystem Root"
@@ -1082,11 +1083,11 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
-msgstr ""
+msgstr "_Tengja Gagnahirslu"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
-msgstr ""
+msgstr "_Aftengja gagnahirslu"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
@@ -1094,15 +1095,15 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
-msgstr ""
+msgstr "_Forsníða gagnahirslu"
 
 #: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
-msgstr ""
+msgstr "_Endurnefna bókamerki"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
-msgstr ""
+msgstr "Fjar_lægja bókamerki"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
@@ -1114,7 +1115,7 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
-msgstr ""
+msgstr "_Tæma ruslið"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1126,11 +1127,11 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Settu inn nýtt heiti:"
 
 #: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
@@ -1139,6 +1140,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Tegund: %s\n"
+"Stærð: %s\n"
+"Breytt: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
@@ -1146,6 +1150,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Tegund: %s\n"
+"Breytt: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
@@ -1153,7 +1159,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
-msgstr ""
+msgstr "Hætt við"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
@@ -1161,7 +1167,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
-msgstr ""
+msgstr "Lokið"
 
 #: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
@@ -1172,151 +1178,151 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "_Bíða"
 
 #: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
-msgstr ""
+msgstr "Halda áf_ram"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr ""
+msgstr "Færi"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr ""
+msgstr "Afrita"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
-msgstr ""
+msgstr "Set skrár í ruslið"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr ""
+msgstr "Eyði"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
 msgid "Creating link"
-msgstr ""
+msgstr "Bý til tengil"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
 msgid "<b>In:</b>"
-msgstr ""
+msgstr "<b>í:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
-msgstr ""
+msgstr "Bý til tengla í skrár"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
-msgstr ""
+msgstr "Breyti eiginleikum"
 
 #: ../src/gtk/fm-progress-dlg.c:608
 msgid "Changing attributes of files"
-msgstr ""
+msgstr "Breyti eiginleikum skráa"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr ""
+msgstr "Endurheimti"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
-msgstr ""
+msgstr "%s skrár"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Skráaaðgerð í gangi...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
-msgstr ""
+msgstr "<b>%s skrá:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
-msgstr ""
+msgstr "<b>%s skrár:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr ""
+msgstr "Slö_kkt"
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
-msgstr ""
+msgstr "_Staðir"
 
 #: ../src/gtk/fm-side-pane.c:68
 msgid "_Directory Tree"
-msgstr ""
+msgstr "Möppu_greinar"
 
 #: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
-msgstr ""
+msgstr "Fja_rlægt"
 
 #: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
-msgstr ""
+msgstr "Staðir"
 
 #: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
-msgstr ""
+msgstr "Möppugreinar"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr ""
+msgstr "Sýn á innihald möppu"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Fela %s"
 
 #: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
-msgstr ""
+msgstr "_Færa til vinstri"
 
 #: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
-msgstr ""
+msgstr "Fæ_ra til hægri"
 
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "Birta %s"
 
 #: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
-msgstr ""
+msgstr "_Gleyma breidd"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr ""
+msgstr "Táknm_yndasýn"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr ""
+msgstr "Þjö_ppuð sýn"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "Smá_myndasýn"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Nákvæmur _listi"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1478,11 +1484,11 @@ msgstr ""
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
 msgid "Search"
-msgstr ""
+msgstr "Leita"
 
 #: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
-msgstr ""
+msgstr "Leitarniðurstöður"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
@@ -1490,11 +1496,11 @@ msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
-msgstr ""
+msgstr "Keyrsluskrár"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"
-msgstr ""
+msgstr "<b>S_kipun:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
@@ -1502,7 +1508,7 @@ msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
-msgstr ""
+msgstr "<b>_Lýsing:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
@@ -1510,7 +1516,7 @@ msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
-msgstr ""
+msgstr "<b>Vinnu_mappa:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
@@ -1518,7 +1524,7 @@ msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
-msgstr ""
+msgstr "<b>_Vísbending:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
@@ -1532,11 +1538,11 @@ msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
-msgstr ""
+msgstr "Skjáborðsfærsla"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
-msgstr ""
+msgstr "Endu_rheimta"
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
@@ -1548,7 +1554,7 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "UPPRUNI"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
@@ -1556,165 +1562,166 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "NIÐURSTAÐA"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM diskur"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Tómur CD-ROM diskur"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R diskur"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Tómur CD-R diskur"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Tómur CD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM diskur"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Tómur DVD-ROM diskur"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Tómur DVD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM diskur"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Tómur DVD-RAM diskur"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R diskur"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Tómur DVD+R diskur"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "Tómur DVD+RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL diskur"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Tómur DVD+R DL diskur"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL diskur"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Tómur DVD+RW DL diskur"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray diskur"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Tómur Blu-Ray diskur"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R diskur"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Tómur Blu-Ray R diskur"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Tómur Blu-Ray RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "HD DVD diskur"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "Tómur HD DVD diskur"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R diskur"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Tómur HD DVD-R diskur"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Tómur HD DVD-RW diskur"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO diskur"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Tómur MO diskur"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW diskur"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Tómur MRW diskur"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W diskur"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Tómur MRW/W diskur"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Tómur geisladiskur"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Geisladiskur"
+
