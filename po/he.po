@@ -532,7 +532,6 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>אירעו שגיאות:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "שם הקובץ שגוי %s"
@@ -717,7 +716,6 @@ msgid "Customize"
 msgstr "התאמה אישית"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
 #, fuzzy, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
@@ -1044,13 +1042,11 @@ msgid "Only system administrators have the permission to do this."
 msgstr "רק למנהל המערכת ישנן ההרשאות לעשות זאת."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
@@ -1058,13 +1054,11 @@ msgstr[0] "האם להעביר את הקבצים הנבחרים אל סל האש
 msgstr[1] "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "האם למחוק את הקבצים הנבחרים?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1280,7 +1274,6 @@ msgstr "_שחזור"
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
-#, c-format, c-format
 msgid "%s files"
 msgstr "קבצים %s"
 
@@ -1291,14 +1284,12 @@ msgstr "<b>מתבצעות פעולות על הקבצים...</b>"
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
-#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>קובץ %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
-#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>קבצים %s:</b>"
 
@@ -1387,7 +1378,6 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "שחזור קבצים שנשלחו לאשפה לתיקיותיהם המקוריות"
@@ -1409,7 +1399,6 @@ msgid "Destination is a sub folder of source"
 msgstr "היעד היא תת־תיקייה של המקור"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "לא ניתן להעתיק תיקייה אל אחת מתת־התיקיות שלה"
@@ -1463,7 +1452,6 @@ msgid "Menu item name cannot be empty"
 msgstr "שם הפריט בתפריט לא יכול להישאר ריק"
 
 #: ../src/modules/vfs-menu.c:1507
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "תיקיית התפריט שגויה"
@@ -1482,25 +1470,21 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "החלפת מצב ההסתרה אינו נתמך בתיקיית תפריט"
 
 #: ../src/modules/vfs-menu.c:1978
-#, c-format
 #, fuzzy, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "הפעולה לא נתמכת"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "שם הקובץ שגוי %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, c-format
 #, fuzzy, c-format
 msgid "The '%s' is a menu directory"
 msgstr "תיקיית התפריט שגויה"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, c-format
 #, fuzzy, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "תיקיית התפריט שגויה"
@@ -1512,7 +1496,6 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
-#, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "לא ניתן ליצור את פריט התפריט '%s'"
 

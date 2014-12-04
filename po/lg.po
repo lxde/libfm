@@ -87,8 +87,7 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>_Linnya lya puloguramu (osobola okutegeka eno ebe nga bulijjo "
-"y'ekola)</b>"
+"<b>_Linnya lya puloguramu (osobola okutegeka eno ebe nga bulijjo y'ekola)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -743,7 +742,7 @@ msgid "Customize"
 msgstr "Wekyusize"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Londa puloguramu enaabikkulanga fayiro ez'ekika kya \"%s\"</b>"
 
@@ -868,7 +867,8 @@ msgstr "Wandika erinnya oba namba ya guluupu ebikkirizibwa."
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Enkyuka zino nzikole ku fayiro zonna n'amaterekero agali munda mu lino?"
+msgstr ""
+"Enkyuka zino nzikole ku fayiro zonna n'amaterekero agali munda mu lino?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
@@ -1211,8 +1211,8 @@ msgstr ""
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
 msgstr ""
-"<b>Omukolo ogw'oku fayiro gwazzemu ebitali bituufu nga "
-"tegunnayimirizibwa.</b> "
+"<b>Omukolo ogw'oku fayiro gwazzemu ebitali bituufu nga tegunnayimirizibwa.</"
+"b> "
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1299,7 +1299,7 @@ msgstr "Nzizawo"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format, c-format
+#, c-format
 msgid "%s files"
 msgstr "%s fayiro"
 
@@ -1309,13 +1309,13 @@ msgstr "<b>Waliwo ebikolebwa ku fayiro...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format, c-format
+#, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s fayiro:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format, c-format
+#, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s fayiro:</b>"
 
@@ -1533,7 +1533,8 @@ msgstr "Nnemedwa okukolawo eky'omu menyu '%s'"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "Erinnya ly'etterekero erya menyu terikkirizibwa kusembyayo \".desktop\""
+msgstr ""
+"Erinnya ly'etterekero erya menyu terikkirizibwa kusembyayo \".desktop\""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"

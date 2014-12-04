@@ -87,8 +87,8 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>Nombre de la _aplicación (opcional, defínalo para mantener la "
-"asociación)</b>"
+"<b>Nombre de la _aplicación (opcional, defínalo para mantener la asociación)"
+"</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -1525,7 +1525,8 @@ msgstr "El destino no es válido"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
+msgstr ""
+"FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985

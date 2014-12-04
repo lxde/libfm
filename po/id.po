@@ -1144,7 +1144,8 @@ msgstr "_Kosongkan Tong Sampah"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
+msgstr ""
+"Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"

@@ -70,7 +70,8 @@ msgstr "_Exécuter dans un émulateur de terminal"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "_Garder la fenêtre de terminal ouverte après l'exécution de la commande"
+msgstr ""
+"_Garder la fenêtre de terminal ouverte après l'exécution de la commande"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -450,8 +451,8 @@ msgid ""
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
 "Tout type de contenu valide peut être saisi ici. Le métacaractère « * » est "
-"autorisé à la fin du type. Pour séparer les types, il faut utiliser un "
-"point-virgule."
+"autorisé à la fin du type. Pour séparer les types, il faut utiliser un point-"
+"virgule."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -558,13 +559,11 @@ msgstr "<b>Des erreurs sont survenues :</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
-#, c-format, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Fichier d'entrée de bureau invalide : '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
-#, c-format, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 "Aucune application par défaut n'est définie pour lancer les indentificateurs "
@@ -610,7 +609,8 @@ msgstr "fm_template_create_file : argument invalide"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr "Aucun émulateur de terminal n'est défini dans la configuration de libfm"
+msgstr ""
+"Aucun émulateur de terminal n'est défini dans la configuration de libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
@@ -677,8 +677,8 @@ msgid ""
 "as &amp;"
 msgstr ""
 "La référence du caractère ne se termine pas par un point-virgule ; vous avez "
-"vraisemblablement utilisé une esperluette sans intention d'écrire une "
-"entité -- échappez l'esperluette en utilisant « &amp » ;"
+"vraisemblablement utilisé une esperluette sans intention d'écrire une entité "
+"-- échappez l'esperluette en utilisant « &amp » ;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -732,8 +732,7 @@ msgstr "Caractère invalide « %c » au début de la valeur de l'attribut"
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
-"Caractère invalide « %c » à la fin de la valeur de l'attribut, « %c » "
-"attendu"
+"Caractère invalide « %c » à la fin de la valeur de l'attribut, « %c » attendu"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -753,7 +752,6 @@ msgstr "Personnaliser"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
-#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Sélectionnez une application pour ouvrir les fichiers « %s »</b>"
 
@@ -1089,13 +1087,11 @@ msgstr "Seuls les administrateurs système ont le droit de faire cela."
 
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
-#, c-format, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Voulez-vous mettre le fichier « %s » à la corbeille ?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
-#, c-format, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Voulez-vous mettre le fichier %d sélectionné à la corbeille ?"
@@ -1103,13 +1099,11 @@ msgstr[1] "Voulez-vous mettre les fichiers %d sélectionnés à la corbeille ?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
-#, c-format, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "Voulez-vous supprimer le fichier « %s » ?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
-#, c-format, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Voulez-vous supprimer le fichier %d sélectionné ?"
@@ -1321,7 +1315,6 @@ msgstr "Restaure"
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
-#, c-format, c-format
 msgid "%s files"
 msgstr "%s les fichiers"
 
@@ -1332,14 +1325,12 @@ msgstr "<b>L'opération sur les fichiers est en cours...</b>"
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
-#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s le fichier :</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
-#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s les fichiers :</b>"
 
@@ -1420,7 +1411,6 @@ msgstr "Change l'onglet actif"
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
 #, c-format
-#, c-format, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Le dossier « %s » indiqué n'est pas valide"
 
@@ -1434,7 +1424,6 @@ msgstr "Impossible de créer un lien dans un système de fichiers non natif"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
-#, c-format, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
 "Impossible de restaurer le fichier « %s » : emplacement original inconnu"
@@ -1457,7 +1446,6 @@ msgstr "La destination est un sous-dossier de la source"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
-#, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Impossible de copier le fichier « %s » : non pris en charge"
 
@@ -1511,7 +1499,6 @@ msgstr "Un nom d'élément de menu ne peut pas être vide"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
-#, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Menu de dossier « %s » invalide"
 
@@ -1532,25 +1519,21 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
-#, c-format, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "La définition de l'attribut « %s » n'est pas prise en charge"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
-#, c-format, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "Valeur incorrecte pour l'attribut « %s »"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
-#, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "Le « %s » n'est pas un dossier de menu"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
-#, c-format, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "Le « %s » n'est pas un élément de menu"
 
@@ -1561,7 +1544,6 @@ msgstr "Le fichier d'entrée « %s » est cassé"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
-#, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Impossible de créer l'élément de menu « %s »"
 

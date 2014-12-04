@@ -27,8 +27,7 @@ msgstr "التطبيقات المفضّلة"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
-"حدّد التطبيقات المُستدعاة عند النقر على وصلة وِب أو عنوان بريد إلكتروني."
+msgstr "حدّد التطبيقات المُستدعاة عند النقر على وصلة وِب أو عنوان بريد إلكتروني."
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -72,7 +71,6 @@ msgid "_Keep terminal window open after command execution"
 msgstr "أب_قِ نافذة الطرفية مفتوحة بعد تنفيذ الأمر"
 
 #: ../data/ui/app-chooser.glade.h:9
-#, no-c-format
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -438,8 +436,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"أي نوع محتوى صالح يمكن إدخاله هنا. أحرف البَدَل '*' مسموحة في نهاية النوع. "
-"يجب فصل الأنواع المتعدّدة بـ ';'."
+"أي نوع محتوى صالح يمكن إدخاله هنا. أحرف البَدَل '*' مسموحة في نهاية النوع. يجب "
+"فصل الأنواع المتعدّدة بـ ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -542,12 +540,11 @@ msgstr "<b>الأخطاء التي حدثت:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
-#, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "ملف مُدخلة سطح المكتب غير صالح: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
-#, c-format, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "لا تطبيق افتراضي مُعيَّن لإطلاق معرّفات URI ‏%s://"
 
@@ -558,12 +555,10 @@ msgstr "تعذّر تعيين دليل العمل إلى '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
-#, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "تعذّر تحديد نوع محتوى الملف '%s' لإطلاقه"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
-#, c-format
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "لا تطبيق افتراضي مُعيَّن لنوع MIME ‏%s هذا"
@@ -669,8 +664,7 @@ msgstr "مرجع المحرف '%-.*s' لا يقوم بترميز محرف مسم
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
-"رُئِي كيان فارغ '&;'، الكيانات الصالحة هي: &amp; &quot; &lt; &gt; &apos;"
+msgstr "رُئِي كيان فارغ '&;'، الكيانات الصالحة هي: &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -725,7 +719,6 @@ msgid "Customize"
 msgstr "خصّص"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>اختر تطبيقًا لفتح ملفات \"%s\"</b>"
@@ -1006,13 +999,11 @@ msgstr "جديد"
 
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
-#, c-format, c-format
 msgid "Enter a name for the new %s:"
 msgstr "أدخِل اسمًا لـ %s الجديد:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
-#, c-format, c-format
 msgid "Creating %s"
 msgstr "ينشئ %s"
 
@@ -1290,7 +1281,6 @@ msgstr "يستعيد"
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
-#, c-format, c-format
 msgid "%s files"
 msgstr "%s الملفات"
 
@@ -1301,13 +1291,11 @@ msgstr "<b>العملية على الملف تتقدّم...</b>"
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
-#, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s الملف:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s الملفات:</b>"
@@ -1419,18 +1407,15 @@ msgstr "الوجهة هي مجلد فرعي من المصدر"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
-#, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "تعذّر نسخ الملف '%s': غير مدعوم"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
-#, c-format
 msgid "Setting display name can be done only for single file"
 msgstr "يمكن تعيين الاسم المعروض لملف واحد فقط"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
-#, c-format
 #, c-format
 msgid "Setting target can be done only for single file"
 msgstr "يمكن تعيين الهدف لملف واحد فقط"
@@ -1475,7 +1460,6 @@ msgstr "لا يمكن أن يكون اسم عنصر القائمة فارغًا"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
-#, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "دليل القائمة '%s' غير صالح"
 
@@ -1494,25 +1478,21 @@ msgstr "تغيير حالة الإخفاء غير مدعوم لدليل القا
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
-#, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "تعيين الصفة '%s' غير مدعوم"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "قيمة الخاصية '%s' غير صالحة"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
-#, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' هو دليل قائمة"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
-#, c-format, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s' ليس عنصر قائمة"
 
@@ -1522,7 +1502,7 @@ msgid "The '%s' entry file is broken"
 msgstr "ملف المُدخلة '%s' معطوب"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, c-format, c-format, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "تعذّر إنشاء عنصر القائمة '%s'"
 
@@ -1539,7 +1519,6 @@ msgid "Invalid destination"
 msgstr "الوجهة غير صالحة"
 
 #: ../src/modules/vfs-menu.c:2979
-#, c-format
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: المجلد '%s' غير موجود في خبيئة القوائم"

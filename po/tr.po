@@ -848,8 +848,7 @@ msgstr "Lütfen geçerli bir grup adı ya da sayısal kimliği giriniz."
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Bu değişiklikleri bütüm dosyalara ve alt dizinlere uygulamak istiyor "
-"musunuz?"
+"Bu değişiklikleri bütüm dosyalara ve alt dizinlere uygulamak istiyor musunuz?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"

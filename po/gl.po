@@ -593,7 +593,8 @@ msgstr "fm_template_create_file: argumento incorrecto"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr "Non foi estabelecido o emulador de terminal na configuración de «libfm»"
+msgstr ""
+"Non foi estabelecido o emulador de terminal na configuración de «libfm»"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"

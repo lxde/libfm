@@ -88,8 +88,8 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b><b><b>پروگرامما ئاتى(_A) (ئىختىيار؛ مۇناسىۋەتنى ساقلاش ئۈچۈن "
-"ئىشلىتىلىدۇ)</b>"
+"<b><b><b>پروگرامما ئاتى(_A) (ئىختىيار؛ مۇناسىۋەتنى ساقلاش ئۈچۈن ئىشلىتىلىدۇ)"
+"</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -736,7 +736,6 @@ msgid "Customize"
 msgstr "ئۆزلەشتۈرۈش"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
 #, fuzzy, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "ھۆججەتلەرنى تاللانغان پروگراممىدا ئېچىش"
@@ -1026,13 +1025,11 @@ msgid "New"
 msgstr "يېڭى"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, c-format
 #, fuzzy, c-format
 msgid "Enter a name for the new %s:"
 msgstr "يېڭى قۇرماقچى بولغان ھۆججەتنىڭ ئاتىنى كىرگۈزۈڭ:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, c-format
 #, fuzzy, c-format
 msgid "Creating %s"
 msgstr "بەلگە ئۇلانما قۇرۇۋاتىدۇ"
@@ -1082,26 +1079,22 @@ msgid "Only system administrators have the permission to do this."
 msgstr "سىستېما باشقۇرغۇچىسىنىڭلا مۇشۇنداق ئىمتىيازى بار."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "تاللانغان ھۆججەتلەرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "تاللانغان ھۆججەتلەرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "تاللانغان ھۆججەتلەرنى ئۆچۈرەمسىز؟"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format
 #, fuzzy, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1319,7 +1312,6 @@ msgstr "ئەسلىگە كەلتۈر(_R)"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "سۈرەت ھۆججەتلىرى(_I)"
@@ -1330,14 +1322,12 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>ھۆججەت تىپى:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>ھۆججەت تىپى:</b>"
@@ -1414,7 +1404,6 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, c-format
 #, fuzzy, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "كۆرسىتىلگەن مۇندەرىجە ئىناۋەتسىز"
@@ -1428,7 +1417,6 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "ئەخلەتخانىدىكى ھۆججەتنى ئەسلىدىكى ئورنىغا ئەسلىگە كەلتۈرىدۇ"
@@ -1450,7 +1438,6 @@ msgid "Destination is a sub folder of source"
 msgstr "نىشان مەنبەنىڭ تارماق قىسقۇچى ئىكەن"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "قىسقۇچنى ئۇنىڭ ئۇچىدىكى تارماق قىسقۇچقا كۆچۈرگىلى بولمايدۇ"
@@ -1504,7 +1491,6 @@ msgid "Menu item name cannot be empty"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1507
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "ئىناۋەتسىز تىزىملىك مۇندەرىجىسى"
@@ -1524,25 +1510,21 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
-#, c-format
 #, fuzzy, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "مەشغۇلاتنى قوللىمايدۇ"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
 #, fuzzy, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "ئىناۋەتسىز ھۆججەت ئاتى %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, c-format
 #, fuzzy, c-format
 msgid "The '%s' is a menu directory"
 msgstr "ئىناۋەتسىز تىزىملىك مۇندەرىجىسى"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, c-format
 #, fuzzy, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "ئىناۋەتسىز تىزىملىك مۇندەرىجىسى"
@@ -1553,7 +1535,6 @@ msgid "The '%s' entry file is broken"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, c-format
 #, fuzzy, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "ئىناۋەتسىز ھۆججەت ئاتى %s"

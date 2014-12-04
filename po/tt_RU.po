@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
 "PO-Revision-Date: 2011-08-18 01:13+0400\n"
 "Last-Translator: Ainur Shakirov <ainur.shakirov.tt@gmail.com>\n"
 "Language: tt_RU\n"
@@ -914,16 +914,16 @@ msgstr "Йөкләү..."
 msgid "<b>_Access content:</b>"
 msgstr "<b>Керү белән идарә итү</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Төрле файллар"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 #, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>Файл төре:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 #, fuzzy
 msgid "Multiple files"
 msgstr "Берничә файл"
@@ -1289,64 +1289,81 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
 #, fuzzy
 msgid "Moving"
 msgstr "Файлларны күчерү"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
 #, fuzzy
 msgid "Copying"
 msgstr "Файлларның күчермәләрен алу"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
 #, fuzzy
 msgid "Trashing"
 msgstr "Файлларны чүп чиләгенә күчерү"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
 #, fuzzy
 msgid "Deleting"
 msgstr "Файлны бетерү"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
-msgstr ""
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+#, fuzzy
+msgid "Creating link"
+msgstr "Символик сылтама өстәү"
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+#, fuzzy
+msgid "<b>In:</b>"
+msgstr "<b>Монда:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+#, fuzzy
+msgid "Creating links to files"
+msgstr "Символик сылтама өстәү"
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 #, fuzzy
 msgid "Changing attributes of"
 msgstr "Файл аергычларын үзгәртү"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+#, fuzzy
+msgid "Changing attributes of files"
+msgstr "Файл аергычларын үзгәртү"
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 #, fuzzy
 msgid "Restoring"
 msgstr "_Торгызу"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "Файлларны чүп чиләгенә күчерү"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
+#: ../src/gtk/fm-progress-dlg.c:633
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>Файл төре:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
+#: ../src/gtk/fm-progress-dlg.c:636
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>Файл төре:</b>"
@@ -1842,10 +1859,6 @@ msgstr "Оптикал диск"
 
 #~ msgid "The file operation is finished, but there are some errors."
 #~ msgstr "Файл операциясе хаталар белән үтәлде."
-
-#, fuzzy
-#~ msgid "Creating Symlinks"
-#~ msgstr "Символик сылтама өстәү"
 
 #~ msgid "_Browse"
 #~ msgstr "_Карау"

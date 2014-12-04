@@ -26,8 +26,8 @@ msgstr "Preferowane programy"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Wybierz programy uruchamiane przy kliknięciu w odnośnik sieciowy lub adres "
-"e-mail"
+"Wybierz programy uruchamiane przy kliknięciu w odnośnik sieciowy lub adres e-"
+"mail"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -87,7 +87,8 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>_Nazwa programu (opcjonalnie; ustaw ją, aby zachować powiązania)</b>"
+msgstr ""
+"<b>_Nazwa programu (opcjonalnie; ustaw ją, aby zachować powiązania)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -550,7 +551,8 @@ msgstr "Nieprawidłowy plik elementu pulpitu: „%s”"
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Brak przypisanego domyślnego programu dla uruchomiania adresu URI %s://"
+msgstr ""
+"Brak przypisanego domyślnego programu dla uruchomiania adresu URI %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format

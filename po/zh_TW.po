@@ -368,7 +368,8 @@ msgstr "<b>檔案名稱式樣(_N)：</b>"
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
-msgstr "式樣可以是 POSIX shell 式樣清單 (以半形逗號 (,) 分隔) 或 POSIX 正規表示式。"
+msgstr ""
+"式樣可以是 POSIX shell 式樣清單 (以半形逗號 (,) 分隔) 或 POSIX 正規表示式。"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -434,7 +435,9 @@ msgstr "其他(_H)："
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
-msgstr "可以在此輸入任何有效的內容類型。類型結尾可以使用萬用字元(*)。多種類型可以半形分號(;)分隔。"
+msgstr ""
+"可以在此輸入任何有效的內容類型。類型結尾可以使用萬用字元(*)。多種類型可以半形"
+"分號(;)分隔。"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -540,7 +543,6 @@ msgstr "桌面項目檔案：「%s」無效"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
-#, c-format, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "未有設定用來開啟 URI %s:// 的預設應用程式"
 
@@ -551,7 +553,6 @@ msgstr "不能將工作目錄切換至「%s」：%s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
-#, c-format, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "無法判斷「%s」檔案的內容類型，故無法開啟"
 
@@ -635,33 +636,32 @@ msgstr "標記 <%s> 的處理程式重覆"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr "未能解析「%-.*s」，其應該是字元引用中的數字 (如 &#234;) - 可能該數字太大了"
+msgstr ""
+"未能解析「%-.*s」，其應該是字元引用中的數字 (如 &#234;) - 可能該數字太大了"
 
 #: ../src/extra/fm-xml-file.c:310
-#, c-format
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr "字元引用未有以分號結束；很可能您使用了 & 字元而又並非想使用實體 - 請將這個 & 改為 &amp;"
+msgstr ""
+"字元引用未有以分號結束；很可能您使用了 & 字元而又並非想使用實體 - 請將這個 & "
+"改為 &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
-#, c-format
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "字元引用「%-.*s」並非可允許編碼的字元"
 
 #: ../src/extra/fm-xml-file.c:373
-#, c-format
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr "發現空的實體「&;」；有效的實體為：&amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
-#, c-format
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Entity name '%-.*s' is not known"
 msgstr "未知的實體名「%-.*s」"
 
@@ -670,15 +670,16 @@ msgstr "未知的實體名「%-.*s」"
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr "實體並非以分號結尾；很可能您想使用 & 字符但未將它變為實體 ─ 請將 & 轉換為 &amp;"
+msgstr ""
+"實體並非以分號結尾；很可能您想使用 & 字符但未將它變為實體 ─ 請將 & 轉換為 "
+"&amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
 msgstr "結束標記不能有空格"
 
 #: ../src/extra/fm-xml-file.c:603
-#, c-format
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Element '%s' was closed but no element was opened"
 msgstr "元素「%s」已結束但沒有元素開啟"
 
@@ -854,7 +855,9 @@ msgstr "此為隱藏檔，因為其名稱以「點號」(.) 開首。"
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr "本系統的檔案若其名稱以「點號」(.) 就表示其為隱藏檔。按 <Ctrl+H> 切換是否顯示隱藏檔。"
+msgstr ""
+"本系統的檔案若其名稱以「點號」(.) 就表示其為隱藏檔。按 <Ctrl+H> 切換是否顯示"
+"隱藏檔。"
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -1267,7 +1270,6 @@ msgstr "復原"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "%s 個檔案"
@@ -1279,14 +1281,12 @@ msgstr "<b>正在進行檔案操作...</b>"
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
-#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s 個檔案：</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
-#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s 個檔案：</b>"
 

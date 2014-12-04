@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 09:02+0100\n"
+"POT-Creation-Date: 2014-01-11 15:20+0200\n"
 "PO-Revision-Date: 2010-06-07 16:07+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -920,16 +920,16 @@ msgstr "Fyrireiki..."
 msgid "<b>_Access content:</b>"
 msgstr "<b>Atgongu eftirlit</b>"
 
-#: ../src/gtk/fm-file-properties.c:1242
+#: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Fílur av ymsum slagi"
 
-#: ../src/gtk/fm-file-properties.c:1286
+#: ../src/gtk/fm-file-properties.c:1283
 #, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>Fíluslag:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1352
+#: ../src/gtk/fm-file-properties.c:1349
 #, fuzzy
 msgid "Multiple files"
 msgstr "Fleiri fílur"
@@ -1298,64 +1298,81 @@ msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:579
+#: ../src/gtk/fm-progress-dlg.c:581
 #, fuzzy
 msgid "Moving"
 msgstr "Flyti fílur"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:583
+#: ../src/gtk/fm-progress-dlg.c:585
 #, fuzzy
 msgid "Copying"
 msgstr "Avriti fílur"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:587
+#: ../src/gtk/fm-progress-dlg.c:589
 #, fuzzy
 msgid "Trashing"
 msgstr "Tveiti fílur út"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:591
+#: ../src/gtk/fm-progress-dlg.c:593
 #, fuzzy
 msgid "Deleting"
 msgstr "Striki fílur"
 
-#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:595
-msgid "Symlinking"
-msgstr ""
+#. translators: it is part of "Creating link /path/xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:597
+#, fuzzy
+msgid "Creating link"
+msgstr "Stovni tykisligar leinkjur"
 
-#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:602
+#. translators: 'In:' string is followed by destination folder path
+#: ../src/gtk/fm-progress-dlg.c:599
+#, fuzzy
+msgid "<b>In:</b>"
+msgstr "<b>Til:</b>"
+
+#: ../src/gtk/fm-progress-dlg.c:600
+#, fuzzy
+msgid "Creating links to files"
+msgstr "Stovni tykisligar leinkjur"
+
+#. translators: it is part of "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:607
 #, fuzzy
 msgid "Changing attributes of"
 msgstr "Broyti fílueginleikar"
 
+#: ../src/gtk/fm-progress-dlg.c:608
+#, fuzzy
+msgid "Changing attributes of files"
+msgstr "Broyti fílueginleikar"
+
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:606
+#: ../src/gtk/fm-progress-dlg.c:614
 #, fuzzy
 msgid "Restoring"
 msgstr "_Endurstovna"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:613
+#: ../src/gtk/fm-progress-dlg.c:624
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "Tveiti fílur út"
 
-#: ../src/gtk/fm-progress-dlg.c:615
+#: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
 msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:619
+#: ../src/gtk/fm-progress-dlg.c:633
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>Fíluslag:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:622
+#: ../src/gtk/fm-progress-dlg.c:636
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>Fíluslag:</b>"
@@ -1848,10 +1865,6 @@ msgstr "Optiskur diskur"
 
 #~ msgid "The file operation is finished, but there are some errors."
 #~ msgstr "Fíluatgerðin er liðug, men har eru nakrar villur."
-
-#, fuzzy
-#~ msgid "Creating Symlinks"
-#~ msgstr "Stovni tykisligar leinkjur"
 
 #~ msgid "_Browse"
 #~ msgstr "_Kaga"

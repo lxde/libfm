@@ -556,8 +556,7 @@ msgstr "Töökataloogiks pole võimalik määrata '%s': %s"
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
-"Faili '%s' sisutüüpi ei suudetud tuvastada, seetõttu pole võimalik seda "
-"avada"
+"Faili '%s' sisutüüpi ei suudetud tuvastada, seetõttu pole võimalik seda avada"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
@@ -1272,7 +1271,7 @@ msgstr "taastamine"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format, c-format
+#, c-format
 msgid "%s files"
 msgstr "Failide %s"
 
@@ -1282,13 +1281,13 @@ msgstr "<b>Failioperatsioon on pooleli...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format, c-format
+#, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>Faili %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format, c-format
+#, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>Failide %s:</b>"
 

@@ -654,8 +654,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
-"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein &-"
+"Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
 "umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
@@ -682,8 +682,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
-"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein &-"
+"Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
 "umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
@@ -1071,7 +1071,8 @@ msgstr "Soll die gewählte Datei '%s' in den Papierkorb verschoben werden?"
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Soll die gewählte Datei %d in den Papierkorb verschoben werden?"
-msgstr[1] "Sollen die gewählten Dateien %d in den Papierkorb verschoben werden?"
+msgstr[1] ""
+"Sollen die gewählten Dateien %d in den Papierkorb verschoben werden?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format

@@ -722,7 +722,7 @@ msgid "Customize"
 msgstr "Баптау"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>\"%s\" файлдарын ашу үшін қолданбаны таңдаңыз</b>"
 
@@ -1270,7 +1270,7 @@ msgstr "Қалпына келтіру"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format, c-format
+#, c-format
 msgid "%s files"
 msgstr "%s файл"
 
@@ -1280,13 +1280,13 @@ msgstr "<b>Файлдармен әрекет жүруде...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format, c-format
+#, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s файл:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format, c-format
+#, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s файл:</b>"
 
