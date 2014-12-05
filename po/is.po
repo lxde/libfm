@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-12-05 16:19+0000\n"
+"PO-Revision-Date: 2014-12-05 16:29+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -23,6 +23,8 @@ msgstr "Forgangsforrit"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Veldu hvaða forrit þú vilt að tölvan noti þegar smellt er á vefslóð eða "
+"netfangstengil"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -63,7 +65,7 @@ msgstr "K_eyra í skjáhermi"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Halda skjáhermiglugga opnum eftir keyrslu skipunar"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -74,6 +76,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Þessa sérkóða má nota á skipanalínu:</b>\n"
+"  <b>%f</b>: Stendur fyrir eitt skráarheiti\n"
+"  <b>%F</b>: Stendur fyrir mörg skráaheiti\n"
+"  <b>%u</b>: Stendur fyrir eina URI-slóð skráar\n"
+"  <b>%U</b>: Stendur fyrir margar URI-slóðir"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
@@ -352,13 +359,16 @@ msgstr "Leita að skrám"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
-msgstr ""
+msgstr "<b>_Mynstur skráaheita:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Mynstur getur verið annaðhvort listi með POSIX skeljamynstrum (með ',' sem "
+"aðgreini) eða "
+"POSIX regluleg segð."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
