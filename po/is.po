@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-12-05 16:29+0000\n"
+"PO-Revision-Date: 2014-12-05 16:56+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -577,19 +577,19 @@ msgstr "Ruslmappa"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr ""
+msgstr "flýtilykill á URI-slóð"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: ógild frumbreyta"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Skjáhermir er ekki valinn í stilliskrá libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr ""
+msgstr "Ógild lýsing á smámyndagerðarforriti"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -669,6 +669,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Viðfangið endar ekki á semikommu; líklega notaðir þú og-merkið án þess að "
+"ætla að byrja viðfang. Ritaðu það sem &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -677,12 +679,12 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "Mengi '%s' var lokað en ekkert mengi var opnað"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "Mengið '%s' var lokað en mengið sem nú er opið er '%s'"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -807,7 +809,7 @@ msgstr "Flytja í _rusl"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Bókamerkin þín eru þegar með merki fyrir þessa möppu."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -1136,7 +1138,7 @@ msgstr "_Tæma ruslið"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "Birtir lista yfir algenga staði, tæki og bókamerki á hliðarspjaldi"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1192,6 +1194,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Sumar skrár er ekki hægt að setja í ruslið vegna þess að undirliggjandi "
+"skráakerfi styður ekki þessa aðgerð.\n"
+"Viltu eyða þeim í staðinn?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
@@ -1353,7 +1358,7 @@ msgstr "Uppgefin mappa '%s' er ógild"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Get ekki nálgast úttaksskrá"
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
@@ -1418,7 +1423,7 @@ msgstr "Valmyndarslóðin '%s' er þegar til"
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
-msgstr ""
+msgstr "Villa í skyndiminni valmyndar"
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
@@ -1427,7 +1432,7 @@ msgstr "Aðgerðin er ekki studd"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Ógild valmyndarmappa"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
@@ -1436,7 +1441,7 @@ msgstr "Heiti atriðis má ekki vera tómt"
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr ""
+msgstr "Ógild valmyndarmappa '%s'"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
@@ -1445,21 +1450,21 @@ msgstr "Ógilt valmyndaratriði"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Valmyndarfærslan '%s' á sér ekki viðeigandi færsluskrá"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Breyting á sýnileika valmyndarmöppu er ekki studd"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr ""
+msgstr "Ekki stutt að stilla eigindin '%s'"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr ""
+msgstr "Ógilt gildi fyrir eigindin '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
@@ -1474,7 +1479,7 @@ msgstr "'%s' er ekki valmyndarfærsla"
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr ""
+msgstr "'%s' færsluskráin er skemmd"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
@@ -1483,7 +1488,7 @@ msgstr "Get ekki búið til valmyndarfærsluna '%s'"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Nafn valmyndarmöppu ætti ekki að enda á \".desktop\""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
