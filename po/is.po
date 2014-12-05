@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-12-04 17:25+0000\n"
+"PO-Revision-Date: 2014-12-05 16:19+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -26,11 +26,11 @@ msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
-msgstr ""
+msgstr "Flýtilyklaritill"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Búa til nýja eða breyta skjáborðsfærslu"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -38,7 +38,7 @@ msgstr "Veldu forrit"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Nota valið forrit til að opna skrár"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
@@ -57,7 +57,7 @@ msgstr "_Vafra..."
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
-msgstr ""
+msgstr "K_eyra í skjáhermi"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
@@ -77,23 +77,23 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Heiti forrits (valkvætt, settu það til að halda skráavenslum)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Keyra sérsniðna skipanalínu til að opna skrár"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
-msgstr ""
+msgstr "_Sérsniðin skipanalína"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr ""
+msgstr "Sett_u valið forrit sem sjálfgefna aðgerð fyrir þessa skráartegund"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
-msgstr ""
+msgstr "Staðfesta útskiptingu skráa"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid "_Skip"
@@ -241,23 +241,23 @@ msgstr "<b>Sértækir bitar:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Hverjir geta lesið innihald skráa/mappa"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Hverjir geta breytt innihaldi skráa/mappa"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Hverjir geta keyrt innihald skráa/mappa"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Sérstök flögg fyrir keyrslu skráa"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Sérstök flögg fyrir aðgang að möppum"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
@@ -370,7 +370,7 @@ msgstr "Nota reg_lulega segð"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr ""
+msgstr "<b>Staðir til að l_eita á:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -382,7 +382,7 @@ msgstr "Leita í _földum skrám"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nafn / Staðsetning"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -473,11 +473,11 @@ msgstr "Ei_ginleikar"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Vafri</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Uppáhalds netvafrinn mun vera notaður til að opna veftengla."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -488,6 +488,8 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
+"Uppáhalds póstforritið mun vera notað til að skrifa tölvupóstskeyti þegar "
+"smellt er á netfangstengla."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -526,27 +528,28 @@ msgstr "<b>Villur komu í ljós:</b>"
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr ""
+msgstr "Ógild desktop skjáborðsskrá: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Ekkert sjálfgefið forrit fannst til að keyra slóðir með %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Get ekki sett vinnumöppu sem '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
+"Get ekki ákvarðað tegund innihalds skrárinnar '%s' til að geta keyrt hana"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Ekkert sjálfgefið forrit fannst fyrir MIME-tegundina %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
@@ -591,7 +594,7 @@ msgstr "TB"
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bæti"
-msgstr[1] ""
+msgstr[1] "%u bæti"
 
 #: ../src/base/fm-utils.c:173
 msgid "KiB"
@@ -683,15 +686,15 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Skjalið endar óvænt"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Skjalið var tómt eða innihélt einungis orðabil"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML gagnavilla"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -700,23 +703,23 @@ msgstr "Sérsníða"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr ""
+msgstr "<b>Veldu forrit til að opna \"%s\" skrár</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
-msgstr ""
+msgstr "Uppsett forrit"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
-msgstr ""
+msgstr "<Engar undirmöppur>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
-msgstr ""
+msgstr "Hleð inn..."
 
 #: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Birtir möppur sem greinar á hliðarspjaldi"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
@@ -724,44 +727,44 @@ msgstr "_Hætta við"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr ""
+msgstr "Afrita _hingað"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
-msgstr ""
+msgstr "_Færa hingað"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
-msgstr ""
+msgstr "_Tengja hingað"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave mistókst."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
-msgstr ""
+msgstr "_Opna"
 
 #: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
-msgstr ""
+msgstr "O_pna með..."
 
 #: ../src/gtk/fm-file-menu.c:153
 msgid "Open _With"
-msgstr ""
+msgstr "O_pna með"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr ""
+msgstr "Afri_ta feril/ferla"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
-msgstr ""
+msgstr "_Fela"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr ""
+msgstr "B_irta"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
@@ -813,43 +816,45 @@ msgstr "skanna... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Settu inn gilt notandanafn eða tölulegt auðkenni."
 
 #: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Settu inn gilt heiti á hóp eða tölulegt auðkenni."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Viltu virkja þessar breytingar á allar skrár og undirmöppur?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Fela eða birta skrána"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Þessi skrá er falin vegna þess að heiti hennar byrjar á punkti ('.')."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Skrár á þessu kerfi eru faldar ef heiti þeirra byrjar á punkti ('.'). Ýttu á "
+"<Ctrl+H> til að víxla birtingu falinna skráa."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
-msgstr ""
+msgstr "skanna..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
-msgstr ""
+msgstr "<b>_Aðgangur að efni:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
-msgstr ""
+msgstr "Skrár af mismunandi gerðum"
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
@@ -972,7 +977,7 @@ msgstr "Nýtt"
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
-msgstr ""
+msgstr "Gefðu nafn fyrir nýja %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
@@ -981,7 +986,7 @@ msgstr "Bý til %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Keyra sjálfgefið forrit með skrá eftir að hún hefur verið búin til"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -989,16 +994,18 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Textakráin '%s' lítur út fyrir að vera keyranleg skrifta.\n"
+"Hvað viltu gera við hana?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "Skráin '%s' er keyrsluskrá (forrit). Viltu örugglega keyra hana?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr ""
+msgstr "Engar möppur eru tilgreindar."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
@@ -1018,43 +1025,43 @@ msgstr "Spurning"
 
 #: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Aðeins kerfisstjórar hafa aðgangsheimildir til að gera þetta."
 
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr ""
+msgstr "Viltu færa skrána '%s' í ruslið?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Viltu færa %d valda skrá í ruslið?"
+msgstr[1] "Viltu færa %d valdar skrár í ruslið?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr ""
+msgstr "Viltu eyða skránni '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ertu viss um að þú viljir eyða %d völdu skránni?"
+msgstr[1] "Ertu viss um að þú viljir eyða %d völdu skránum?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
-msgstr ""
+msgstr "Endurnefna skrá"
 
 #: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Sláðu inn nýtt heiti:"
 
 #: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Viltu örugglega tæma ruslmöppuna?"
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
@@ -1079,7 +1086,7 @@ msgstr "Forrit"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 msgid "Filesystem Root"
-msgstr ""
+msgstr "Rót skráarkerfis"
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
@@ -1091,7 +1098,7 @@ msgstr "_Aftengja gagnahirslu"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
-msgstr ""
+msgstr "S_pýta útskiptanlegum geymslumiðli út"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
@@ -1107,11 +1114,11 @@ msgstr "Fjar_lægja bókamerki"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
-msgstr ""
+msgstr "Flytja bókamerki _upp"
 
 #: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
-msgstr ""
+msgstr "Flytja bókamerki _niður"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
@@ -1123,7 +1130,7 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Endurnefna bókamerki"
 
 #: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
@@ -1155,7 +1162,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Villur komu upp áður en skráaaðgerð stöðvaðist.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1163,7 +1170,7 @@ msgstr "Hætt við"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr ""
+msgstr "<b>Skráaaðgerð stöðvaðist með villum.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1326,13 +1333,13 @@ msgstr "Nákvæmur _listi"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Breytir hvaða flipi er virkur"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr ""
+msgstr "Uppgefin mappa '%s' er ógild"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
@@ -1396,7 +1403,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Valmyndarslóðin '%s' er þegar til"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
@@ -1406,7 +1413,7 @@ msgstr ""
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr ""
+msgstr "Aðgerðin er ekki studd"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
@@ -1414,7 +1421,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Heiti atriðis má ekki vera tómt"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
@@ -1423,7 +1430,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr ""
+msgstr "Ógilt valmyndaratriði"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
@@ -1447,12 +1454,12 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr ""
+msgstr "'%s' er valmyndarmappa"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr ""
+msgstr "'%s' er ekki valmyndarfærsla"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
@@ -1462,7 +1469,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr ""
+msgstr "Get ekki búið til valmyndarfærsluna '%s'"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1470,16 +1477,16 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Ógild aðgerð í rótarvalmynd"
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
-msgstr ""
+msgstr "Ógildur áfangastaður"
 
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: mappan '%s' fannst ekki í skyndiminni valmyndar"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1492,7 +1499,7 @@ msgstr "Leitarniðurstöður"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
-msgstr ""
+msgstr "Veldu keyranlega skrá"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
@@ -1504,7 +1511,7 @@ msgstr "<b>S_kipun:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Skipun til að keyra þegar táknmynd forrits er virkjuð"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1512,7 +1519,7 @@ msgstr "<b>_Lýsing:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Almennt nafn forrits"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1520,7 +1527,7 @@ msgstr "<b>Vinnu_mappa:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Vinnumappa forritsins"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
@@ -1528,13 +1535,13 @@ msgstr "<b>_Vísbending:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
-msgstr ""
+msgstr "Vísbending sem sýna skal á forriti"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr ""
+msgstr "Nota _tilkynningar við ræsingu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
@@ -1546,11 +1553,11 @@ msgstr "Endu_rheimta"
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Taka skrá úr ruslinu og setja hana á upprunalegan stað"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "heiti frumskrár eða skjáborðauðkenni"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
@@ -1558,7 +1565,7 @@ msgstr "UPPRUNI"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "skráarheiti niðurstöðu"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
@@ -1724,4 +1731,5 @@ msgstr "Tómur geisladiskur"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Geisladiskur"
+
 
