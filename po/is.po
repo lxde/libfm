@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-12-05 16:56+0000\n"
+"PO-Revision-Date: 2014-12-06 21:54+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -1363,42 +1363,45 @@ msgstr "Get ekki nálgast úttaksskrá"
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
 msgstr ""
+"Ekki er hægt að búa til tengil á skráakerfi sem ekki er með innbyggðan "
+"stuðning"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
+"Get ekki endurheimt skrána '%s' úr ruslinu: upprunaleg slóð er ekki þekkt"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Uppruni og úttak eru það sama.\n."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Þú getur ekki flutt möppu inn í sjálfa sig"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Þú getur ekki afritað möppu inn í sjálfa sig"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Áfangastaðurinn er undirmappa upprunastaðar"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr ""
+msgstr "Get ekki afritað skrána '%s': ekki studd"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Að setja birtingarheiti er aðeins hægt fyrir staka skrá"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Að setja úttak er aðeins hægt fyrir staka skrá"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
@@ -1413,7 +1416,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "Get ekki búið til XML skilgreiningu fyrir '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
