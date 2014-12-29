@@ -149,7 +149,11 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path,
                 {
                     const char* name = g_app_info_get_name(app);
                     if(name)
-                        g_string_append(cmd, name);
+                    {
+                        char *quoted = g_shell_quote(name);
+                        g_string_append(cmd, quoted);
+                        g_free(quoted);
+                    }
                     break;
                 }
             case 'k':

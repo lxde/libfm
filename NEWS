@@ -1,4 +1,9 @@
-* Fixed crash in templates on file that was deleted instantly after creation.
+* Fixed crash in templates on file that was deleted instantly after
+    creation.
+
+* Fixed handling %c in desktop entry Exec key: launch may fail if the
+    application name contains spaces so it needs quoting.
+
 
 Changes on 1.2.3 since 1.2.2:
 
