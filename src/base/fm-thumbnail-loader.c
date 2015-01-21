@@ -851,7 +851,15 @@ static GObject* scale_pix(GObject* ori_pix, int size)
         scaled_pix = (GObject*)g_object_ref(ori_pix);
     }
     else
+    {
+        /* avoid width or height of 0 pixel.
+         * FIXME: or we should just fail creating the thumbnail for the image? */
+        if(new_width == 0)
+            new_width = 1;
+        if(new_height == 0)
+            new_height = 1;
         scaled_pix = backend.scale_image(ori_pix, new_width, new_height);
+    }
 
     return scaled_pix;
 }
@@ -993,7 +1001,7 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
                 g_object_unref(normal_pix);
                 normal_pix = rotated;
             }
-            if(need_save)
+            if(need_save && normal_pix)
                 save_thumbnail_to_disk(task, normal_pix, task->normal_path);
         }
 
@@ -1017,7 +1025,7 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
                 g_object_unref(large_pix);
                 large_pix = rotated;
             }
-            if(need_save)
+            if(need_save && large_pix)
                 save_thumbnail_to_disk(task, large_pix, task->large_path);
         }
         g_object_unref(ori_pix);
