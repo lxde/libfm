@@ -235,6 +235,15 @@ static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
     return ret;
 }
 
+static void dummy_child_watch(GPid pid, gint status, gpointer user_data)
+{
+    /*
+     * Ensure that we don't double fork and break pkexec
+     */
+
+    g_spawn_close_pid(pid);
+}
+
 static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
                           GKeyFile* kf, GList** inp, GAppLaunchContext* ctx,
                           GError** err)
@@ -246,6 +255,7 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
     int argc;
     gboolean use_terminal;
     GAppInfoCreateFlags flags;
+    GPid pid;
 
     cmd = expand_exec_macros(appinfo, full_desktop_path, kf, inp, &gfiles);
     if(G_LIKELY(kf))
@@ -315,11 +325,15 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
 
         data.pgid = getpgid(getppid());
         ret = g_spawn_async(path, argv, NULL,
-                            G_SPAWN_SEARCH_PATH,
-                            child_setup, &data, NULL, err);
-        if (!ret && data.sn_id)
+                            G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                            child_setup, &data, &pid, err);
+
+        if (!ret && data.sn_id) {
             /* Notify launch context about failure */
             g_app_launch_context_launch_failed(ctx, data.sn_id);
+        } else {
+            g_child_watch_add(pid, dummy_child_watch, NULL);
+        }
 
         g_free(path);
         g_free(data.display);
