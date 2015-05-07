@@ -2,7 +2,7 @@
  *      fm-file-ops-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -787,7 +787,7 @@ _link_error:
                                     "Type=Link\n"
                                     "Name=%s"
                                     "%s%s\n"
-                                    "URL=%s", name,
+                                    "URL=%s\n", name,
                                     iname ? "\nIcon=" : "", iname ? iname : "",
                                     src);
             g_free(name);

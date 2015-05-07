@@ -9,6 +9,8 @@
 * Use G_SPAWN_DO_NOT_REAP_CHILD on application launch, that should fix
     a problem with pkexec.
 
+* Corrected missing newline at end of generated shortcut desktop entry.
+
 
 Changes on 1.2.3 since 1.2.2:
 
