@@ -4,6 +4,8 @@
 * Fixed handling %c in desktop entry Exec key: launch may fail if the
     application name contains spaces so it needs quoting.
 
+* Fixed missing folder info update on folder attributes change.
+
 
 Changes on 1.2.3 since 1.2.2:
 

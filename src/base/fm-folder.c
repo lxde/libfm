@@ -376,8 +376,12 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
         {
             FmFileInfo* fi = (FmFileInfo*)l->data;
             FmPath* path = fm_file_info_get_path(fi);
-            GList* l2 = _fm_folder_get_file_by_path(folder, path);
-            if(l2) /* the file is already in the folder, update */
+            GList* l2;
+            if (path == fm_file_info_get_path(folder->dir_fi))
+                /* update for folder itself, also see FIXME below! */
+                fm_file_info_update(folder->dir_fi, fi);
+            else if ((l2 = _fm_folder_get_file_by_path(folder, path)))
+                /* the file is already in the folder, update */
             {
                 FmFileInfo* fi2 = (FmFileInfo*)l2->data;
                 /* FIXME: will fm_file_info_update here cause problems?
@@ -665,6 +669,8 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         case G_FILE_MONITOR_EVENT_CHANGED:
             folder->pending_change_notify = TRUE;
             G_LOCK(lists);
+            folder->files_to_update = g_slist_append(folder->files_to_update,
+                                                     fm_path_new_for_gfile(gf));
             if(!folder->idle_handler)
                 folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
             G_UNLOCK(lists);
