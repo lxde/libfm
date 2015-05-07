@@ -6,6 +6,9 @@
 
 * Fixed missing folder info update on folder attributes change.
 
+* Use G_SPAWN_DO_NOT_REAP_CHILD on application launch, that should fix
+    a problem with pkexec.
+
 
 Changes on 1.2.3 since 1.2.2:
 
