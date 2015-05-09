@@ -2,7 +2,7 @@
  *      fm-dnd-dest.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -900,8 +900,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             else
                 ret = FALSE;
         }
-        if(ret)
-            gtk_drag_finish(drag_context, ret, FALSE, time);
+        gtk_drag_finish(drag_context, ret, FALSE, time);
     }
     return ret;
 }
