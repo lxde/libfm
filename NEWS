@@ -11,6 +11,8 @@
 
 * Corrected missing newline at end of generated shortcut desktop entry.
 
+* Improved file type detection, it failed in some cases such as DOCX.
+
 
 Changes on 1.2.3 since 1.2.2:
 

@@ -3,7 +3,7 @@
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -191,14 +191,20 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
                 char buf[4096];
                 len = read(fd, buf, MIN(pstat->st_size, 4096));
                 const char *tmp;
-                g_free(type);
+                char *qtype = type; /* questionable type */
                 close(fd);
-                type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
-                if (uncertain)
+                type = g_content_type_guess(base_name, (guchar*)buf, len, &uncertain);
+                /* we need more complicated guessing here: file may have some
+                   wrong suffix or no suffix at all, and g_content_type_guess()
+                   very probably will guess it wrong so let believe it only
+                   if it insists on guessed type after testing its content,
+                   otherwise discard name completely and analyze just content */
+                if (g_strcmp0(qtype, type) != 0)
                 {
                     g_free(type);
-                    type = g_content_type_guess(base_name, (guchar*)buf, len, &uncertain);
+                    type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
                 }
+                g_free(qtype);
                 /* bug: improperly named desktop entries are detected as text/plain */
                 if (uncertain && len > 40 && (tmp = memchr(buf, '[', 40)) != NULL &&
                     strncmp(tmp, "[Desktop Entry]\n", 16) == 0)
