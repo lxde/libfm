@@ -21,6 +21,8 @@
 * Fixed invalid desktop entry save if 'Cancel' was pressed in the file
     properties dialog window.
 
+* Fixed issues on dropping folders into Places for bookmarking them.
+
 
 Changes on 1.2.3 since 1.2.2:
 

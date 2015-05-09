@@ -2,7 +2,7 @@
  *      fm-places-view.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -247,7 +247,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     /* fm_drag_context_has_target_name(drag_context, "GTK_TREE_MODEL_ROW"); */
     GdkAtom target;
     GtkTreeViewDropPosition pos;
-    GtkTreePath* tp;
+    GtkTreePath* tp = NULL;
     gboolean ret = FALSE;
     GdkDragAction action = 0;
 
