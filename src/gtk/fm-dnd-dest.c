@@ -975,8 +975,9 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     /* we have no valid data, query it now */
     if(!dd->src_files || dd->context != drag_context)
     {
-        clear_src_cache(dd);
 query_sources:
+        if (dd->context != drag_context)
+            clear_src_cache(dd);
         action = 0;
         if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
         {
