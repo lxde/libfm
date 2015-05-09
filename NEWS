@@ -18,6 +18,9 @@
 
 * Fixed wrong treating files like ".purple" as having extension "purple".
 
+* Fixed invalid desktop entry save if 'Cancel' was pressed in the file
+    properties dialog window.
+
 
 Changes on 1.2.3 since 1.2.2:
 

@@ -2,7 +2,7 @@
  *      fm-file-properties.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -917,7 +917,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
     {
         GSList *l, *l2;
         for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
-            ((FmFilePropExt*)l->data)->cb.finish(l2->data, FALSE);
+            ((FmFilePropExt*)l->data)->cb.finish(l2->data, TRUE);
         g_slist_free(data->ext);
         g_slist_free(data->extdata);
         data->ext = NULL;
