@@ -2,7 +2,7 @@
  * fm-thumbnail-loader.c
  *
  * Copyright 2010 - 2013 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- * Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ * Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  * This file is a part of the Libfm library.
  *
@@ -1149,6 +1149,18 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_NORMAL;
                     normal_pix = backend.read_image_from_file(task->normal_path);
+                    if (normal_pix)
+                    {
+                        char *thumb_mtime = backend.get_image_text(normal_pix, "tEXt::Thumb::MTime");
+                        /* Re-save generated thumbnail to have required data
+                           in them. Some external thumbnailers not follow the
+                           specification and not set any of Thumb::URI nor
+                           Thumb::MTime, that leads to regeneration each time. */
+                        if (thumb_mtime == NULL)
+                            save_thumbnail_to_disk(task, normal_pix, task->normal_path);
+                        else
+                            g_free(thumb_mtime);
+                    }
                 }
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
@@ -1157,6 +1169,14 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->large_path);
+                    if (large_pix)
+                    {
+                        char *thumb_mtime = backend.get_image_text(large_pix, "tEXt::Thumb::MTime");
+                        if (thumb_mtime == NULL)
+                            save_thumbnail_to_disk(task, large_pix, task->large_path);
+                        else
+                            g_free(thumb_mtime);
+                    }
                 }
             }
 

@@ -13,6 +13,9 @@
 
 * Improved file type detection, it failed in some cases such as DOCX.
 
+* Returned back the workaround on thumbnailers which don't save any of
+    Thumb::MTime or Thumb::URI in the thumbnail.
+
 
 Changes on 1.2.3 since 1.2.2:
 
