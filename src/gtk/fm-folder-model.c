@@ -2,7 +2,7 @@
  *      fm-folder-model.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -827,8 +827,11 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
         }
     case FM_FOLDER_MODEL_COL_EXT:
         {
-            const char *str = strrchr(fm_file_info_get_disp_name(info), '.');
-            if (str)
+            const char *name = fm_file_info_get_disp_name(info);
+            const char *str = strrchr(name, '.');
+            if (str == name)
+                str = NULL;
+            else if (str)
                 str++;
             g_value_set_string(value, str);
         }
@@ -999,6 +1002,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     FmFileInfo* file2 = ((FmFolderItem*)item2)->inf;
     const char* key1;
     const char* key2;
+    const char *name;
     goffset diff;
     int ret = 0;
 
@@ -1082,8 +1086,14 @@ _main_sort:
         }
         break;
     case FM_FOLDER_MODEL_COL_EXT:
-        key1 = strrchr(fm_file_info_get_disp_name(file1), '.');
-        key2 = strrchr(fm_file_info_get_disp_name(file2), '.');
+        name = fm_file_info_get_disp_name(file1);
+        key1 = strrchr(name, '.');
+        if (key1 == name)
+            key1 = NULL;
+        name = fm_file_info_get_disp_name(file2);
+        key2 = strrchr(name, '.');
+        if (key2 == name)
+            key2 = NULL;
         ret = g_strcmp0(key1, key2);
         if (ret == 0)
             goto _sort_by_name;

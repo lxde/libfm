@@ -16,6 +16,8 @@
 * Returned back the workaround on thumbnailers which don't save any of
     Thumb::MTime or Thumb::URI in the thumbnail.
 
+* Fixed wrong treating files like ".purple" as having extension "purple".
+
 
 Changes on 1.2.3 since 1.2.2:
 
