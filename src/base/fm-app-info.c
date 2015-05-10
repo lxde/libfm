@@ -2,6 +2,7 @@
  *      fm-app-info.c
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -88,6 +89,8 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path,
     GFile *file = NULL;
     GList *fl = NULL;
 
+    if (exec == NULL)
+        return NULL;
     cmd = g_string_sized_new(1024);
     for(p = exec; *p; ++p)
     {
@@ -134,6 +137,8 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path,
                 g_string_append_c(cmd, '%');
                 break;
             case 'i':
+                if (kf == NULL)
+                    break;
                 {
                     char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry",
                                                                    "Icon", NULL, NULL);
@@ -258,6 +263,15 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
     GPid pid;
 
     cmd = expand_exec_macros(appinfo, full_desktop_path, kf, inp, &gfiles);
+    if (cmd == NULL || cmd[0] == '\0')
+    {
+        g_free(cmd);
+        /* FIXME: localize the string below in 1.3.0 */
+        g_set_error_literal(err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            "Desktop entry contains no valid Exec line");
+        return FALSE;
+    }
+    /* FIXME: do check for TryExec/Exec */
     if(G_LIKELY(kf))
         use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
     else

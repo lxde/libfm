@@ -23,6 +23,8 @@
 
 * Fixed issues on dropping folders into Places for bookmarking them.
 
+* Fixed crash in expand_exec_macros() on missing Exec line.
+
 
 Changes on 1.2.3 since 1.2.2:
 
