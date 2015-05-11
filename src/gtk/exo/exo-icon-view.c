@@ -1859,21 +1859,23 @@ exo_icon_view_expose_event (GtkWidget      *widget,
   GtkTreePath            *path;
   GdkRectangle            rubber_rect;
   GdkRectangle            rect;
-  GtkStyle               *style;
-  GdkColor               *fill_color_gdk;
-  guchar                  fill_color_alpha = 0;
   const GList            *lp;
   gint                    dest_index = -1;
 #if !GTK_CHECK_VERSION(3, 0, 0)
+  GdkColor               *fill_color_gdk;
+  guchar                  fill_color_alpha = 0;
   gboolean                rtl;
   gint                    event_area_last;
   GdkRectangle            event_area;
   cairo_t                *cr;
+  GtkStyle               *style;
 
   /* verify that the expose happened on the icon window */
   if (G_UNLIKELY (event->window != priv->bin_window))
     return FALSE;
 #else
+  GtkStyleContext        *style;
+
   if (!gtk_cairo_should_draw_window (cr, priv->bin_window))
     return FALSE;
 #endif
@@ -1976,16 +1978,16 @@ exo_icon_view_expose_event (GtkWidget      *widget,
 #endif
     }
 
+  if (G_UNLIKELY (dest_item != NULL || priv->doing_rubberband))
+#if GTK_CHECK_VERSION(3, 0, 0)
+      style = gtk_widget_get_style_context (widget);
+#else
+      style = gtk_widget_get_style (widget);
+#endif
+
   /* draw the drag indicator */
   if (G_UNLIKELY (dest_item != NULL))
     {
-#if GTK_CHECK_VERSION(3, 0, 0)
-      GtkStyleContext *style = gtk_widget_get_style_context (widget);
-#else
-      GtkStyle *style = gtk_widget_get_style (widget);
-#endif
-      GdkRectangle rect = { 0 };
-
       switch (dest_pos)
         {
         case EXO_ICON_VIEW_DROP_INTO:
@@ -2015,6 +2017,7 @@ exo_icon_view_expose_event (GtkWidget      *widget,
           rect.width = 2;
           rect.height = dest_item->area.height;
         case EXO_ICON_VIEW_NO_DROP:
+          rect.x = rect.y = rect.width = rect.height = 0;
           break;
 
         default:
@@ -2043,7 +2046,6 @@ exo_icon_view_expose_event (GtkWidget      *widget,
       if (gdk_rectangle_intersect (&rubber_rect, &event_area, &rect))
         {
           cr = gdk_cairo_create (event->window);
-#endif
           gtk_widget_style_get (widget,
                                 "selection-box-color", &fill_color_gdk,
                                 "selection-box-alpha", &fill_color_alpha,
@@ -2072,9 +2074,23 @@ exo_icon_view_expose_event (GtkWidget      *widget,
           cairo_set_line_width (cr, 1);
           cairo_stroke (cr);
           gdk_color_free (fill_color_gdk);
-#if !GTK_CHECK_VERSION(3, 0, 0)
           cairo_destroy (cr);
         }
+#else
+      gtk_style_context_save (style);
+      gtk_style_context_add_class (style, GTK_STYLE_CLASS_RUBBERBAND);
+
+      gdk_cairo_rectangle (cr, &rubber_rect);
+      cairo_clip (cr);
+
+      gtk_render_background (style, cr,
+                             rubber_rect.x, rubber_rect.y,
+                             rubber_rect.width, rubber_rect.height);
+      gtk_render_frame (style, cr,
+                        rubber_rect.x, rubber_rect.y,
+                        rubber_rect.width, rubber_rect.height);
+
+      gtk_style_context_restore (style);
 #endif
     }
 

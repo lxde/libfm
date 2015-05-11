@@ -25,6 +25,8 @@
 
 * Fixed crash in expand_exec_macros() on missing Exec line.
 
+* Rewritten broken rubberband rendering in icon view for GTK3.
+
 
 Changes on 1.2.3 since 1.2.2:
 
