@@ -91,6 +91,7 @@ struct _FmFolder
 };
 
 static void fm_folder_dispose(GObject *object);
+static void fm_folder_finalize(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
 static GList* _fm_folder_get_file_by_path(FmFolder* folder, FmPath *path);
@@ -99,8 +100,12 @@ G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
 static guint signals[N_SIGNALS];
 static GHashTable* hash = NULL;
+static int hash_uses = 0;
 
 static GVolumeMonitor* volume_monitor = NULL;
+
+static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data);
+static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_data);
 
 /* used for on_query_filesystem_info_finished() to lock folder */
 G_LOCK_DEFINE_STATIC(query);
@@ -115,6 +120,7 @@ static void fm_folder_class_init(FmFolderClass *klass)
     FmFolderClass* folder_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_folder_dispose;
+    g_object_class->finalize = fm_folder_finalize;
     fm_folder_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
     folder_class = FM_FOLDER_CLASS(klass);
@@ -336,6 +342,19 @@ static void fm_folder_class_init(FmFolderClass *klass)
 static void fm_folder_init(FmFolder *folder)
 {
     folder->files = fm_file_info_list_new();
+    G_LOCK(hash);
+    if (G_UNLIKELY(hash_uses == 0))
+    {
+        hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
+        volume_monitor = g_volume_monitor_get();
+        if (G_LIKELY(volume_monitor))
+        {
+            g_signal_connect(volume_monitor, "mount-added", G_CALLBACK(on_mount_added), NULL);
+            g_signal_connect(volume_monitor, "mount-removed", G_CALLBACK(on_mount_removed), NULL);
+        }
+    }
+    hash_uses++;
+    G_UNLOCK(hash);
 }
 
 static gboolean on_idle_reload(FmFolder* folder)
@@ -831,7 +850,7 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
      * to associate all kinds of data structures with FmPaths? */
 
     G_LOCK(hash);
-    folder = (FmFolder*)g_hash_table_lookup(hash, path);
+    folder = hash ? (FmFolder*)g_hash_table_lookup(hash, path) : NULL;
 
     if( G_UNLIKELY(!folder) )
     {
@@ -964,6 +983,27 @@ static void fm_folder_dispose(GObject *object)
     }
 
     (* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
+}
+
+static void fm_folder_finalize(GObject *object)
+{
+    G_LOCK(hash);
+    hash_uses--;
+    if (G_UNLIKELY(hash_uses == 0))
+    {
+        g_hash_table_destroy(hash);
+        hash = NULL;
+        if(volume_monitor)
+        {
+            g_signal_handlers_disconnect_by_func(volume_monitor, on_mount_added, NULL);
+            g_signal_handlers_disconnect_by_func(volume_monitor, on_mount_removed, NULL);
+            g_object_unref(volume_monitor);
+            volume_monitor = NULL;
+        }
+    }
+    G_UNLOCK(hash);
+
+    (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
 /**
@@ -1423,8 +1463,11 @@ void fm_folder_query_filesystem_info(FmFolder* folder)
  */
 FmFolder *fm_folder_find_by_path(FmPath *path)
 {
-    FmFolder *folder = (FmFolder*)g_hash_table_lookup(hash, path);
+    FmFolder *folder;
 
+    G_LOCK(hash);
+    folder = hash ? (FmFolder*)g_hash_table_lookup(hash, path) : NULL;
+    G_UNLOCK(hash);
     return folder ? g_object_ref(folder) : NULL;
 }
 
@@ -1611,24 +1654,8 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
 
 void _fm_folder_init()
 {
-    hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
-    volume_monitor = g_volume_monitor_get();
-    if(G_LIKELY(volume_monitor))
-    {
-        g_signal_connect(volume_monitor, "mount-added", G_CALLBACK(on_mount_added), NULL);
-        g_signal_connect(volume_monitor, "mount-removed", G_CALLBACK(on_mount_removed), NULL);
-    }
 }
 
 void _fm_folder_finalize()
 {
-    g_hash_table_destroy(hash);
-    hash = NULL;
-    if(volume_monitor)
-    {
-        g_signal_handlers_disconnect_by_func(volume_monitor, on_mount_added, NULL);
-        g_signal_handlers_disconnect_by_func(volume_monitor, on_mount_removed, NULL);
-        g_object_unref(volume_monitor);
-        volume_monitor = NULL;
-    }
 }

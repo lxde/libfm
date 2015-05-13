@@ -27,6 +27,8 @@
 
 * Rewritten broken rubberband rendering in icon view for GTK3.
 
+* Eliminated usage of GVolumeMonitor if no FmFolder object was created.
+
 
 Changes on 1.2.3 since 1.2.2:
 
