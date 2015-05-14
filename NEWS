@@ -34,6 +34,10 @@
     display name instead when decided whether "Rename" button should be
     active or not.
 
+* Fixed dropping files onto applications shortcuts on the desktop: those
+    should be not "inode/x-shortcut" but "application/x-desktop" instead
+    and therefore handled as any other applications, i.e. allow drop.
+
 
 Changes on 1.2.3 since 1.2.2:
 

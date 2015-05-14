@@ -3,7 +3,7 @@
  *
  *      Copyright 2010-2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2010 Shae Smittle <starfall87@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -346,7 +346,11 @@ gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ct
     }
     if(files) for(l = fm_path_list_peek_head_link(files); l; l = l->next)
         uris = g_list_append(uris, fm_path_to_uri(FM_PATH(l->data)));
-    entry_path = fm_path_to_str(path);
+    /* special handling for shortcuts */
+    if (fm_file_info_is_shortcut(entry))
+        entry_path = g_strdup(fm_file_info_get_target(entry));
+    else
+        entry_path = fm_path_to_str(path);
     ret = fm_launch_desktop_entry(ctx, entry_path, uris, &launcher, &data);
     g_list_foreach(uris, (GFunc)g_free, NULL);
     g_list_free(uris);
