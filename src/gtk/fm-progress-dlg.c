@@ -2,7 +2,7 @@
  *      fm-progress-dlg.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -262,8 +262,6 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     tmp = g_filename_display_name(fm_path_get_basename(path));
     gtk_entry_set_text(filename, tmp);
-    g_free(tmp);
-    tmp = g_strdup(fm_file_info_get_disp_name(dest));
     g_object_set_data_full(G_OBJECT(filename), "old_name", tmp, g_free);
     g_signal_connect(filename, "changed", G_CALLBACK(on_filename_changed), gtk_builder_get_object(builder, "rename"));
 

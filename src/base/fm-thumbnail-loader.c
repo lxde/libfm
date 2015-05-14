@@ -351,6 +351,7 @@ static gboolean is_thumbnail_outdated(GObject* thumb_pix, const char* thumbnail_
     {
         /* if the thumbnail png file does not contain "tEXt::Thumb::MTime" value,
          * we compare the mtime of the thumbnail with its original directly. */
+        /* FIXME: XDG specification requires to regenerate it in such case */
         struct stat statbuf;
         if(stat(thumbnail_path, &statbuf) == 0) /* get mtime of the thumbnail file */
         {
@@ -481,6 +482,7 @@ static gpointer load_thumbnail_thread(gpointer user_data)
                 memcpy( large_basename, md5, 32 );
                 task->large_path = large_path;
             }
+            /* FIXME: support fail/<PRG>/<MD5>.png to skip creation */
 
             if(task->flags & (GENERATE_NORMAL|GENERATE_LARGE))
                 generate_thumbnails(task); /* second cycle */

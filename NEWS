@@ -29,6 +29,11 @@
 
 * Eliminated usage of GVolumeMonitor if no FmFolder object was created.
 
+* Fixed renaming of desktop entries on copy operation error: it was the
+    file name which was set in renaming dialog but it was compared with
+    display name instead when decided whether "Rename" button should be
+    active or not.
+
 
 Changes on 1.2.3 since 1.2.2:
 
