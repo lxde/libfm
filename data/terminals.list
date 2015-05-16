@@ -61,3 +61,7 @@ desktop_id=qterminal.desktop
 open_arg=-e
 noclose_arg=--hold -e
 desktop_id=lilyterm.desktop
+
+[urxvtc]
+open_arg=-e
+noclose_arg=-hold -e
