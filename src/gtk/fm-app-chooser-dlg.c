@@ -2,7 +2,7 @@
  *      fm-app-chooser-dlg.c
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 #include <glib/gi18n-lib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include "fm.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
@@ -97,8 +98,33 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
         app_basename = bin_name;
     if(g_mkdir_with_parents(dirname, 0700) == 0)
     {
-        char* filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, app_basename);
-        int fd = g_mkstemp (filename);
+        char *filename = NULL;
+        int fd;
+
+#if GLIB_CHECK_VERSION(2, 37, 6)
+        if (mime_type && application_name[0])
+        {
+            /* SF bug #871: new GLib has ids cached so we do a trick here:
+               we create a dummy app before really creating the file */
+            app = g_app_info_create_from_commandline(commandline,
+                                                     app_basename,
+                                                     0, NULL);
+            if (app)
+            {
+                g_app_info_remove_supports_type(app, mime_type, NULL);
+                filename = g_strdup(g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(app)));
+                g_object_unref(app);
+                app = NULL;
+            }
+        }
+        if (filename)
+            fd = g_open(filename, O_RDWR, 0);
+        else
+#endif
+        {
+            filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, app_basename);
+            fd = g_mkstemp (filename);
+        }
         if(fd != -1)
         {
             GString* content = g_string_sized_new(256);
@@ -125,12 +151,18 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                /* SF bug #871: new GLib fails on id, have to use filename */
-                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename));
+                char *fbname = g_path_get_basename(filename);
+                app = G_APP_INFO(g_desktop_app_info_new(fbname));
+                g_free(fbname);
+                if (app == NULL)
+                {
+                    g_warning("failed to load %s as an application", filename);
+                    g_unlink(filename);
+                }
                 /* if there is mime_type set then created application will be
                    saved for the mime type (see fm_choose_app_for_mime_type()
                    below) but if not then we should remove this temp. file */
-                if(!mime_type || !application_name[0])
+                else if (!mime_type || !application_name[0])
                     /* save the name so this file will be removed later */
                     g_object_weak_ref(G_OBJECT(app), on_temp_appinfo_destroy,
                                       g_strdup(filename));

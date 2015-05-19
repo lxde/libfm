@@ -40,6 +40,8 @@
 
 * Added urxvtc data into the terminals.list file.
 
+* Fixed adding user-defined MIME associations into mimeapps.list config.
+
 
 Changes on 1.2.3 since 1.2.2:
 
