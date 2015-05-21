@@ -47,8 +47,12 @@ int main(int argc, char** argv)
     gtk_init(&argc, &argv);
     fm_gtk_init(NULL);
 
+#if GTK_CHECK_VERSION(3, 10, 0)
+    b = gtk_builder_new_from_file(PACKAGE_UI_DIR "/preferred-apps.ui");
+#else
     b = gtk_builder_new();
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/preferred-apps.ui", NULL);
+#endif
     dlg = GTK_DIALOG(gtk_builder_get_object(b, "dlg"));
     browser = GTK_COMBO_BOX(gtk_builder_get_object(b, "browser"));
     mail_client = GTK_COMBO_BOX(gtk_builder_get_object(b, "mail_client"));
