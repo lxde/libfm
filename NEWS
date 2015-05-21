@@ -42,6 +42,10 @@
 
 * Fixed adding user-defined MIME associations into mimeapps.list config.
 
+* Fixed libfm-pref-apps work with GTK+ 3.10.
+
+* Fixed creating shortcuts on paths with basename started with '?'.
+
 
 Changes on 1.2.3 since 1.2.2:
 

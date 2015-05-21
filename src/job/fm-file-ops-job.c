@@ -670,6 +670,12 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         /* if we drop URI query onto native filesystem, omit query part */
         if (!fm_path_is_native(path) && g_file_is_native(dest_dir))
             dname = strchr(basename, '?');
+        /* if basename consist only from query then use first part of it */
+        if (dname == basename)
+        {
+            basename++;
+            dname = strchr(basename, '&');
+        }
         if (dname)
         {
             _basename = g_strndup(basename, dname - basename);
