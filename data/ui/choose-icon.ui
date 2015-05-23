@@ -16,7 +16,6 @@
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
@@ -164,7 +163,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="selection_mode">GTK_SELECTION_SINGLE</property>
-                    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                     <property name="reorderable">False</property>
                   </object>
                 </child>
