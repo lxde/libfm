@@ -7064,7 +7064,10 @@ exo_icon_view_autoscroll (ExoIconView *icon_view)
   gfloat value;
   GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (icon_view));
 
-  gdk_window_get_device_position (window, gtk_get_current_event_device(),
+  gdk_window_get_device_position (window,
+                                  gdk_device_manager_get_client_pointer(
+                                        gdk_display_get_device_manager(
+                                            gdk_window_get_display(window))),
                                   &px, &py, NULL);
 #if GTK_CHECK_VERSION(3, 0, 0)
   gdk_window_get_geometry (window, &x, &y, &width, &height);
