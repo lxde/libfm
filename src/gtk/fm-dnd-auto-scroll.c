@@ -56,7 +56,10 @@ static gboolean on_auto_scroll(gpointer user_data)
         return FALSE;
 
     gdk_window_get_device_position (gtk_widget_get_window(widget),
-                                    gtk_get_current_event_device(),
+                                    gdk_device_manager_get_client_pointer(
+                                        gdk_display_get_device_manager(
+                                            gdk_window_get_display(
+                                                gtk_widget_get_window(widget)))),
                                     &x, &y, NULL);
     gtk_widget_get_allocation(widget, &allocation);
 
