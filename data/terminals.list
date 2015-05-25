@@ -65,3 +65,8 @@ desktop_id=lilyterm.desktop
 [urxvtc]
 open_arg=-e
 noclose_arg=-hold -e
+
+[terminology]
+open_arg=-e
+noclose_arg=--hold -e
+desktop_id=terminology.desktop
