@@ -18,6 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-POOTLE-MTIME: 1387201507.0\n"
+"X-Pootle-Path: /ko/libfm/po/ko.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -366,9 +368,7 @@ msgstr "<b>파일 이름 패턴(_N):</b>"
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
-msgstr ""
-"패턴은 포직스 쉘 패턴 목록(','를 구분 문자로 사용) 또는 포직스 정규표현식이 "
-"되어야 합니다."
+msgstr "패턴은 포직스 쉘 패턴 목록(','를 구분 문자로 사용) 또는 포직스 정규표현식이 되어야 합니다."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -435,8 +435,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"유효한 내용 형식을 여기에 입력할 수 있습니다. 와일드카드 문자 '*'는 형식 마지"
-"막 부분의 입력을 허용합니다. 다중 형식은 ';'으로 구분해야 합니다."
+"유효한 내용 형식을 여기에 입력할 수 있습니다. 와일드카드 문자 '*'는 형식 마지막 부분의 입력을 허용합니다. 다중 형식은 ';'으로 "
+"구분해야 합니다."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -499,9 +499,7 @@ msgstr "<b>메일 클라이언트</b>"
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
-msgstr ""
-"전자메일 주소를 눌렀을 때 메일 작성시 기본으로 사용할 기본 메일 클라이언트 입"
-"니다."
+msgstr "전자메일 주소를 눌렀을 때 메일 작성시 기본으로 사용할 기본 메일 클라이언트 입니다."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -637,9 +635,7 @@ msgstr "<%s> 태그에 대한 처리자가 중복되었습니다"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr ""
-"문자 참조에 숫자가 들어가야 하는 '%-.*s'를 해석하는데 실패했습니다 - 아마도 "
-"숫자값이 너무 큰 것 같습니다"
+msgstr "문자 참조에 숫자가 들어가야 하는 '%-.*s'를 해석하는데 실패했습니다 - 아마도 숫자값이 너무 큰 것 같습니다"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -648,9 +644,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"문자 참조를 세미콜론으로 끝내지 않았습니다. 엔티티를 시작하는 의미가 아닌 다"
-"른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 이스케이프는 &amp;로 "
-"표현하십시오"
+"문자 참조를 세미콜론으로 끝내지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 "
+"이스케이프는 &amp;로 표현하십시오"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -661,9 +656,7 @@ msgstr "'%-.*s' 문자 참조를 허용 문자로 인코딩할 수 없습니다"
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
-"빈 '&;' 엔티티가 발견되었습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; "
-"&apos; 입니다"
+msgstr "빈 '&;' 엔티티가 발견되었습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; &apos; 입니다"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -676,9 +669,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"엔티티가 세미콜론으로 끝나지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 "
-"의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 이스케이프는 &amp;로 표"
-"현하십시오"
+"엔티티가 세미콜론으로 끝나지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 "
+"이스케이프는 &amp;로 표현하십시오"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -702,8 +694,7 @@ msgstr "속성 값 시작 부분에 잘못된 '%c' 문자가 있습니다"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
-"속성값 마지막 부분에 '%2$c' 문자를 예상했지만 잘못된 '%1$c' 문자가 있습니다"
+msgstr "속성값 마지막 부분에 '%2$c' 문자를 예상했지만 잘못된 '%1$c' 문자가 있습니다"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -861,8 +852,7 @@ msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"파일 이름이 구두점('.')으로 시작하면 시스템의 파일은 숨겨집니다. 숨김 파일 표"
-"시 여부를 전환하려면 <Ctrl+H>키를 치십시오."
+"파일 이름이 구두점('.')으로 시작하면 시스템의 파일은 숨겨집니다. 숨김 파일 표시 여부를 전환하려면 <Ctrl+H>키를 치십시오."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -1203,8 +1193,7 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이"
-"동할 수 없습니다.\n"
+"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이동할 수 없습니다.\n"
 "대신 삭제하시겠습니까?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528

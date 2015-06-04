@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-16 09:14+0000\n"
-"Last-Translator: <safa1996alfulaij@gmail.com>\n"
+"PO-Revision-Date: 2015-04-10 15:09+0000\n"
+"Last-Translator: صفا الفليج <safa1996alfulaij@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -18,16 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1408180465.000000\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1428678587.000000\n"
+"X-Pootle-Path: /ar/libfm/po/ar.po\n"
+"X-Pootle-Revision: 578\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
-msgstr "التطبيقات المفضّلة"
+msgstr "التّطبيقات المحبّذة"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr "حدّد التطبيقات المُستدعاة عند النقر على وصلة وِب أو عنوان بريد إلكتروني."
+msgstr ""
+"حدّد التّطبيقات المستدعاة عند النّقر على وصلة وِبّ أو عنوان بريد إلكترونيّ."
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -35,7 +38,7 @@ msgstr "محرّر الاختصارات"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "أنشئ مُدخلة سطح مكتب جديدة أو حرّر واحدة موجودة"
+msgstr "أنشئ مدخلة سطح مكتب جديدة أو حرّر واحدة موجودة"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -43,15 +46,15 @@ msgstr "اختر تطبيقًا"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "استخدم التطبيق المحدّد لفتح الملفات"
+msgstr "استخدم التّطبيق المحدّد لفتح الملفّات"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr "التط_بيقات المثبتة"
+msgstr "التّط_بيقات المثبّتة"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>الأمر الذي سيُ_نفّذ:</b>"
+msgstr "<b>الأمر الّذي سيُ_نفّذ:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
@@ -62,15 +65,16 @@ msgstr "ت_صفّح..."
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
-msgstr "نفّ_ذ في محاكي الطرفية"
+msgstr "نفّ_ذ في محاكي الطّرفيّة"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "أب_قِ نافذة الطرفية مفتوحة بعد تنفيذ الأمر"
+msgstr "أب_قِ نافذة الطّرفيّة مفتوحة بعد تنفيذ الأمر"
 
 #: ../data/ui/app-chooser.glade.h:9
+#, no-c-format
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -79,19 +83,19 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>يمكن استخدام هذه الشِفرات الخاصّة في سطر الأوامر:</b>\n"
-"  <b>%f</b>: يمثّل اسم ملف مُفرد\n"
-"  <b>%F</b>: يمثّل عدّة أسماء ملفات\n"
-"  <b>%u</b>: يمثّل URI مُفرد للملف\n"
-"  <b>%U</b>: يمثّل عدّة معرّفات URI"
+"<b>يمكن استخدام هذه الرّموز الخاصّة في سطر الأوامر:</b>\n"
+"  <b>%f</b>: يمثّل اسم ملفّ مفرد\n"
+"  <b>%F</b>: يمثّل أسماء ملفّات متعدّدة \n"
+"  <b>%u</b>: يمثّل URI مفرد للمّلف\n"
+"  <b>%U</b>: يمثّل معرّفات URI متعدّدة"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>اسم الت_طبيق (اختياري، عيّنه لإبقاء الارتباط)</b>"
+msgstr "<b>اسم الت_طبيق (اختياريّ، عيّنه لإبقاء الارتباط)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
-msgstr "نفّذ سطر أوامر مخصّص لفتح الملفات"
+msgstr "نفّذ سطر أوامر مخصّص لفتح الملفّات"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
@@ -99,19 +103,19 @@ msgstr "سطر أوامر مخ_صّص"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr "_عيّن التطبيق المحدّد كإجراء افتراضي لنوع الملفات هذا"
+msgstr "_عيّن التّطبيق المحدّد كإجراء افتراضيّ لنوع الملفّات هذا"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
-msgstr "أكّد استبدال الملفات"
+msgstr "أكّد استبدال الملفّات"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid "_Skip"
-msgstr "ت_خطَّ"
+msgstr "ت_خطّ"
 
 #: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
-msgstr "أ_عد التسمية"
+msgstr "أ_عد التّسمية"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
@@ -123,21 +127,21 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>يوجد بالفعل ملف بهذا الاسم في هذا المكان.</b>\n"
+"<b>هناك ملفّ بنفس الاسم بالفعل في هذا المكان.</b>\n"
 "\n"
-"أتريد استبدال الملف الحالي"
+"أتريد استبدال الملفّ الموجود"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
-msgstr "بالملف التالي؟"
+msgstr "بالملفّ الآتي؟"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File name:"
-msgstr "اس_م الملف:"
+msgstr "اس_م الملفّ:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
-msgstr "ط_بّق هذا الخيار على كلّ الملفات الموجودة"
+msgstr "ط_بّق هذا الخيار على كلّ الملفّات الموجودة"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
@@ -146,12 +150,12 @@ msgstr "اختر أيقونة..."
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
 msgid "system icon theme"
-msgstr "سمة أيقونات النظام"
+msgstr "سمة أيقونات النّظام"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
 msgid "image files"
-msgstr "ملفات الصور"
+msgstr "ملفّات الصّور"
 
 #: ../data/ui/choose-icon.ui.h:6
 msgid "<b>Choose icon from:</b>"
@@ -159,19 +163,19 @@ msgstr "<b>اختر الأيقونة من:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "نفّذ الملف"
+msgstr "نفّذ الملفّ"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "نفّذ في ال_طرفية"
+msgstr "نفّذ في ال_طّرفيّة"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
-msgstr "خصائص الملف"
+msgstr "خصائص الملفّ"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr "أيقونة الملف في منظور المجلدات"
+msgstr "أيقونة الملفّ في منظور المجلّدات"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -179,31 +183,31 @@ msgstr "<b>الا_سم:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
-msgstr "<b>الموقع:</b>"
+msgstr "<b>المكان:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Target file:</b>"
-msgstr "<b>الملف الهدف:</b>"
+msgstr "<b>الملفّ الهدف:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>File type:</b>"
-msgstr "<b>نوع الملف:</b>"
+msgstr "<b>نوع الملفّ:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Open _with:</b>"
-msgstr "<b>افتح _بـ:</b>"
+msgstr "<b>افتح _بِـ:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "اختر التطبيق المُستخدَم لفتح نوع الملفات هذا "
+msgstr "اختر التّطبيق المستخدم لفتح نوع الملفّات هذا "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
-msgstr "<b>عدد كلّ الملفات:</b>"
+msgstr "<b>عدد كلّ الملفّات:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
-msgstr "<b>حجم كلّ الملفات:</b>"
+msgstr "<b>حجم كلّ الملفّات:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
@@ -215,11 +219,11 @@ msgstr "<b>آخر تعديل:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
-msgstr "<b>آخر وصول:</b>"
+msgstr "<b>آخر نفاذ:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>آخر تغيير للصلاحيات:</b>"
+msgstr "<b>آخر تغيير للصّلاحيّات:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -243,43 +247,43 @@ msgstr "<b>تعديل الم_حتوى:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "<b>_Execute:</b>"
-msgstr "<b>التن_فيذ:</b>"
+msgstr "<b>التّن_فيذ:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "<b>Special bits:</b>"
-msgstr "<b>بِتات خاصّة:</b>"
+msgstr "<b>بِتّات خاصّة:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr "من يمكنه قراءة محتويات الملف/الدليل"
+msgstr "من يمكنه قراءة محتويات الملفّ/الدّليل"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr "من يمكنه تغيير محتويات الملف/الدليل"
+msgstr "من يمكنه تغيير محتويات الملفّ/الدّليل"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr "من يمكنه تنفيذ الملف أو الدخول إلى الدليل"
+msgstr "من يمكنه تنفيذ الملفّ أو الدّخول إلى الدّليل"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr "أعلام خاصة لتنفيذ الملف"
+msgstr "رايات خاصّة لتنفيذ الملفّ"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr "أعلام خاصة للوصول إلى المجلد"
+msgstr "رايات خاصّة للنّفاذ إلى الدّليل"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
-msgstr "<b>التحكم بالوصول</b>"
+msgstr "<b>التّحكّم بالنّفاذ</b>"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
-msgstr "ملف مخفي"
+msgstr "ملفّ مخفيّ"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
-msgstr "ال_صلاحيات"
+msgstr "ال_صّلاحيّات"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "---"
@@ -326,7 +330,7 @@ msgstr "المالك والمجموعة فقط"
 
 #: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
-msgstr "أي شخص"
+msgstr "أيّ شخص"
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
@@ -346,7 +350,7 @@ msgstr "م.بايت"
 
 #: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
 msgid "GB"
-msgstr "ج.بايت"
+msgstr "غ.بايت"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
@@ -354,22 +358,23 @@ msgstr "اختر تاريخًا"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "اختر تاريخًا من التقويم الآتي"
+msgstr "اختر تاريخًا من التّقويم الآتي"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr "ابحث عن ملفات"
+msgstr "ابحث عن ملفّات"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>أنماط ا_سم الملف:</b>"
+msgstr "<b>أنماط ا_سم الملفّ:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
-"يمكن أن يكون النمط قائمة أنماط صَدفة POSIX (مع ',' كفاصل) أو تعبير POSIX نمطي."
+"يمكن أن يكون النّمط قائمة أنماط صدفة POSIX (مع ',' كفاصل) أو تعبير POSIX "
+"نمطيّ."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -377,7 +382,7 @@ msgstr "_غير حسّاس للحالة"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr "ا_ستخدم التعابير النمطية"
+msgstr "ا_ستخدم التّعابير النّمطيّة"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
@@ -385,39 +390,39 @@ msgstr "<b>أما_كن البحث:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "اب_حث في المجلدات الفرعية"
+msgstr "اب_حث في المجلّدات الفرعيّة"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "ابحث في الملفات الم_خفية"
+msgstr "ابحث في الملفّات الم_خفيّة"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "الاسم/الم_وقع"
+msgstr "الاسم/الم_كان"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
-msgstr "<b>نوع الملف</b>"
+msgstr "<b>نوع الملفّ</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr "ابحث فقط عن الملفات التي بالأنواع الآتية:"
+msgstr "ابحث فقط عن الملفّات بالأنواع الآتية:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
-msgstr "ملفات ن_صّية"
+msgstr "ملفّات ن_صّيّة"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr "ملفات صو_ر"
+msgstr "ملفّات صو_ر"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "ملفات صو_تية"
+msgstr "ملفّات صو_تيّة"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr "ملفات _فيديو"
+msgstr "ملفّات مر_ئيّة"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
@@ -425,7 +430,7 @@ msgstr "مستن_دات"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "Folde_rs"
-msgstr "م_جلدات"
+msgstr "م_جلّدات"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
@@ -436,16 +441,16 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"أي نوع محتوى صالح يمكن إدخاله هنا. أحرف البَدَل '*' مسموحة في نهاية النوع. يجب "
-"فصل الأنواع المتعدّدة بـ ';'."
+"أي نوع محتوى صالح يمكن إدخاله هنا. أحرف البدل '*' مسموحة في نهاية النّوع. "
+"يجب فصل الأنواع المتعدّدة بِـ ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
-msgstr "ن_وع الملف"
+msgstr "ن_وع الملفّ"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>المل_ف يحوي:</b>"
+msgstr "<b>المل_فّ يحوي:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
@@ -453,7 +458,7 @@ msgstr "المحتو_ى"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>File Size</b>"
-msgstr "<b>حجم الملف</b>"
+msgstr "<b>حجم الملفّ</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
@@ -465,7 +470,7 @@ msgstr "أكب_ر من:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>آخر وقت عُدِّل فيه</b>"
+msgstr "<b>آخر وقت عُدّل فيه</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
@@ -486,11 +491,11 @@ msgstr "_خصائص"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr "<b>متصفّح الوِب</b>"
+msgstr "<b>متصفّح الوِبّ</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "سيُستخدَم متصفّح الوِب المضّل لفتح الوصلات الفائقة."
+msgstr "سيُستخدم متصفّح الوِبّ المحبّذ لفتح الوصلات الفائقة."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -501,12 +506,12 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"سيُستخدَم عميل البريد المفضّل لإرسال الرسائل الإلكترونية عند النقر على عناوين "
-"البُرُد الإلكترونية."
+"سيُستخدم عميل البريد المحبّذ لإرسال الرّسائل الإلكترونيّة عند النّقر على "
+"عناوين البُرُد الإلكترونيّة."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>محاكي الطرفية</b>"
+msgstr "<b>محاكي الطّرفيّة</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
@@ -514,11 +519,11 @@ msgstr "سطر الأوامر:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
-msgstr "تطبيقات النظام"
+msgstr "تطبيقات النّظام"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
-msgstr "ارتباطات الملفات"
+msgstr "ارتباطات الملفّات"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:2
@@ -532,36 +537,39 @@ msgstr "يحضّر..."
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>الوقت المتبقي:</b>"
+msgstr "<b>الوقت المتبقّي:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>الأخطاء التي حدثت:</b>"
+msgstr "<b>الأخطاء الّتي حدثت:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "ملف مُدخلة سطح المكتب غير صالح: '%s'"
+msgstr "ملفّ مدخلة سطح المكتب غير صالح: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
-#, c-format
+#, c-format, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "لا تطبيق افتراضي مُعيَّن لإطلاق معرّفات URI ‏%s://"
+msgstr "لا تطبيق افتراضيّ معيّن لإطلاق معرّفات URI ‏‎%s‎‎:‎‎/‎/‎"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "تعذّر تعيين دليل العمل إلى '%s': %s"
+msgstr "تعذّر تعيين دليل العمل إلى '%s': ‏%s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
+#, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "تعذّر تحديد نوع محتوى الملف '%s' لإطلاقه"
+msgstr "تعذّر تحديد نوع محتوى الملفّ '%s' لإطلاقه"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
+#, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "لا تطبيق افتراضي مُعيَّن لنوع MIME ‏%s هذا"
+msgstr "لا تطبيق افتراضي معيّن لنوع MIME ‏%s هذا"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
@@ -571,11 +579,11 @@ msgstr "الأجهزة"
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
 msgid "Network"
-msgstr "الشبكة"
+msgstr "الشّبكة"
 
 #: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
-msgstr "سلة المهملات"
+msgstr "سلّة المهملات"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
@@ -587,9 +595,10 @@ msgstr "fm_template_create_file: معطى غير صالح"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr "لم يُعيَّن محاكي طرفية في تضبيط libfm"
+msgstr "لم يعيّن محاكي طرفيّة في ضبط libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
+#, fuzzy
 msgid "Invalid description of thumbnailer application"
 msgstr "وصف غير صالح لتطبيق المصغرات"
 
@@ -622,7 +631,7 @@ msgstr "م.بايت"
 
 #: ../src/base/fm-utils.c:185
 msgid "GiB"
-msgstr "ج.بايت"
+msgstr "غ.بايت"
 
 #: ../src/base/fm-utils.c:190
 msgid "TiB"
@@ -631,7 +640,7 @@ msgstr "ت.بايت"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "مسار URI الفرعي '%s' يحوي محارف خلوص غير صالحة"
+msgstr "مسار URI الفرعيّ '%s' يحوي محارف خلوص غير صالحة"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -644,8 +653,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"فشل في تحليل '%-.*s'، والتي كان لابد من كتبتها بالأرقام داخل مرجع محرف "
-"(&#234; كمثال) - ربما الرقم كبير جدًا"
+"فشل في تحليل '‎%-.*s'، حيث كان يجب أن يكون أرقامًا داخل مرجع محرف (‎&#234;‎ "
+"كمثال). قد يكون الرّقم طويلًا جدًّا"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -654,22 +663,26 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"مرجع المحرف لم ينته بفاصلة منقوطة؛ الأرجح أنّك استخدمت علامة \"و\" الإنجليزيّ"
+"ة دون أن تنوي بدء كيان - اخلص من العلامة بِـ ‎&amp;‎"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "مرجع المحرف '%-.*s' لا يقوم بترميز محرف مسموح به"
+msgstr "مرجع المحرف '‎%-.*s' لا يرمّز محرفًا مسموح به"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr "رُئِي كيان فارغ '&;'، الكيانات الصالحة هي: &amp; &quot; &lt; &gt; &apos;"
+msgstr ""
+"رُئي كيان فارغ '‎&;‎'، الكيانات الصالحة هي: ‎&amp;‎‏ ‎&quot;‎‏ ‎&lt;‎‏ "
+"‎&gt;‎‏ ‎&apos;‎"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr "اسم الكيان '%-.*s' غير معروف"
+msgstr "اسم الكيان '‎%-.*s' مجهول"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -680,35 +693,35 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr "المسافة غير مسموحة في الوسم الغالِق"
+msgstr "المسافة غير مسموحة في وسم الإغلاق"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr "العنصر '%s' أُغلق لكن لم يُفتح عنصر"
+msgstr "العنصر '%s' أُغلق لكن لا عنصر فُتح"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr "العنصر '%s' كان مغلقًا، لكن العنصر المفتوح حاليًا هو '%s'"
+msgstr "العنصر '%s' كان مغلقًا، لكن العنصر المفتوح حاليًّا هو '%s'"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr "محرف '%c' غير صالحة في بداية قيمة الخاصية"
+msgstr "محرف '%c' غير صالح في بداية قيمة الخاصّيّة"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "محرف '%c' غير صالحة في نهاية قيمة الخاصية، توقّعتُ '%c'"
+msgstr "محرف '%c' غير صالح في نهاية قيمة الخاصّيّة، توقّع '%c'"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr "انتهى المستند بشكل غير متوقع"
+msgstr "انتهى المستند بشكل غير متوقّع"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr "المستند كان فارغا أو كان يحتوي فقط على مسافات بيضاء"
+msgstr "المستند كان فارغًا أو كان يحوي مسافات بيضاء فقط"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
@@ -720,16 +733,17 @@ msgstr "خصّص"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>اختر تطبيقًا لفتح ملفات \"%s\"</b>"
+msgstr "<b>اختر تطبيقًا لفتح ملفّات \"%s\"</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
-msgstr "التطبيقات المثبّتة"
+msgstr "التّطبيقات المثبّتة"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
-msgstr "<لا مجلدات فرعية>"
+msgstr "<لا مجلّدات فرعيّة>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -737,7 +751,7 @@ msgstr "يحمّل..."
 
 #: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
-msgstr "يظهر شجرة الأدلة في الشريط الجانبي"
+msgstr "يظهر شجرة الأدّلة في الشّريط الجانبيّ"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
@@ -766,11 +780,11 @@ msgstr "ا_فتح"
 
 #: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
-msgstr "افتح _بـ:"
+msgstr "افتح _بِـ:"
 
 #: ../src/gtk/fm-file-menu.c:153
 msgid "Open _With"
-msgstr "افتح _بـ"
+msgstr "افتح _بِـ"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -790,7 +804,7 @@ msgstr "أ_ضف إلى العلامات"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr "أ_عد التسمية..."
+msgstr "أ_عد التّسمية..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -815,20 +829,20 @@ msgstr "انقل إلى الم_هملات"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr "هناك علامة في العلامات لهذا المجلد."
+msgstr "في علاماتك علامة لهذا المجلّد بالفعل."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
-msgstr "ملفات الصور"
+msgstr "ملفات الصّور"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "بايت"
-msgstr[1] "بايت"
+msgstr[0] "لا بايتات"
+msgstr[1] "بايت واحد"
 msgstr[2] "بايتان"
 msgstr[3] "بايتات"
-msgstr[4] "بايت"
+msgstr[4] "بايتًا"
 msgstr[5] "بايت"
 
 #: ../src/gtk/fm-file-properties.c:510
@@ -838,34 +852,34 @@ msgstr "يفحص... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
-msgstr "فضلًا أدخِل اسم مستخدِم أو معرّف رقمي صالح."
+msgstr "فضلًا أدخل اسم مستخدم أو معرّف رقميّ صالح."
 
 #: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
-msgstr "فضلًا أدخِل اسم مجموعة أو معرّف رقمي صالح."
+msgstr "فضلًا أدخل اسم مجموعة أو معرّف رقميّ صالح."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"أتريد تطبيق هذه التغييرات على كلّ الملفات والمجلدات الفرعية بشكل تكراريّ؟"
+"أتريد تطبيق هذه التّغييرات على كلّ الملفّات والمجلّدات الفرعيّة تكراريًّا؟"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr "أخفِ أو أظهر الملف"
+msgstr "أخفِ أو أظهر الملفّ"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "هذا الملف مخفي لأن اسمه يبدأ بنقطة ('.')."
+msgstr "هذا الملفّ مخفيّ لأنّ اسمه يبدأ بنقطة ('.')."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"الملفات في هذا النظام مخفية لأن أسماؤها تبدأ بنقطة ('.'). اضغط <Ctrl+H> "
-"للتبديل بين عرض الملفات المخفية أو لا."
+"الملفّات في هذا النّظام مخفيّة لأنّ أسماؤها تبدأ بنقطة ('.'). اضغط <Ctrl+H> "
+"لقلب عرض الملفّات المخفيّة."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -873,19 +887,19 @@ msgstr "يفحص..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
-msgstr "<b>الو_صول للمحتوى:</b>"
+msgstr "<b>النّفا_ذ للمحتوى:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
-msgstr "ملفات بأنوع مختلفة"
+msgstr "ملفّات بأنوع مختلفة"
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
-msgstr "<b>الملف:</b>"
+msgstr "<b>الملفّ:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
 msgid "Multiple files"
-msgstr "عدّة ملفات"
+msgstr "عدّة ملفّات"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
@@ -910,11 +924,11 @@ msgstr "المالك"
 
 #: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
-msgstr "عُدِّل في"
+msgstr "عُدّل في"
 
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
-msgstr "الموقع"
+msgstr "المكان"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
@@ -926,36 +940,36 @@ msgstr "أنشئ _جديد..."
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
-msgstr "مجلد"
+msgstr "مجلّد"
 
 #: ../src/gtk/fm-folder-view.c:182
 msgid "Empty File"
-msgstr "ملف فارغ"
+msgstr "ملفّ فارغ"
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
-msgstr "ا_عكس التحديد"
+msgstr "ا_عكس التّحديد"
 
 #: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
-msgstr "رتّب الم_لفات"
+msgstr "افرز الم_لّفات"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr "أ_عد تسمية المجلد..."
+msgstr "أ_عد تسمية المجلّد..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
-msgstr "_خصائص المجلد"
+msgstr "_خصائص المجلّد"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr "أظهر المخف_ي"
+msgstr "أظهر المخف_يّ"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
 msgid "Mingle _Files and Folders"
-msgstr "اخل_ط الملفات والمجلدات"
+msgstr "اخل_ط الملفّات والمجلّدات"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
@@ -967,7 +981,7 @@ msgstr "بالاس_م"
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
-msgstr "بوقت الت_عديل"
+msgstr "بوقت التّ_عديل"
 
 #: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
@@ -975,19 +989,19 @@ msgstr "بالح_جم"
 
 #: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
-msgstr "ب_نوع الملف"
+msgstr "ب_نوع الملفّ"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
-msgstr "أدخِل اسمًا للمجلد المُنشأ حديثًا:"
+msgstr "أدخل اسمًا للمجلّد المُنشأ حديثًا:"
 
 #: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
-msgstr "أنشئ مجلد جديد"
+msgstr "أنشئ مجلّدًا جديدًا"
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
-msgstr "أدخِل اسمًا للملف الفارغ:"
+msgstr "أدخل اسمًا للملفّ الفارغ:"
 
 #: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
@@ -999,17 +1013,19 @@ msgstr "جديد"
 
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
+#, c-format, c-format
 msgid "Enter a name for the new %s:"
-msgstr "أدخِل اسمًا لـ %s الجديد:"
+msgstr "أدخل اسمًا لِـ %s الجديد:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
+#, c-format, c-format
 msgid "Creating %s"
 msgstr "ينشئ %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "ش_غّل التطبيق الافتراضي بعد إنشاء الملف"
+msgstr "ش_غّل التّطبيق الافتراضيّ بعد إنشاء الملفّ"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1017,22 +1033,22 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"يبدو أن الملف النصّي '%s' سكرِبت تنفيذي.\n"
-"ماذا تريد أن تفعل به؟"
+"يبدو أن الملفّ النّصّيّ '%s' سكرِبت تنفيذيّ.\n"
+"ما الّذي تريد فعله؟"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "الملف '%s' تنفيذي. أتريد تنفيذه؟"
+msgstr "الملفّ '%s' تنفيذيّ. أتريد تنفيذه؟"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr "لم تُحدَّد مجلدات."
+msgstr "لم تُحدّد مجلّدات"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
-msgstr "اختر مجلدًا"
+msgstr "حدّد مجلّدًا"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1048,51 +1064,51 @@ msgstr "سؤال"
 
 #: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
-msgstr "مديري النظام فقط لهم صلاحية فعل هذا."
+msgstr "مديرو النّظام فقط لهم صلاحيّة فعل هذا."
 
 #: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "أتريد نقل الملف '%s' إلى سلة المهملات؟"
+msgstr "أتريد نقل الملفّ '%s' إلى سلّة المهملات؟"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "أتريد نقل الملف المحدّد إلى سلة المهملات؟"
-msgstr[1] "أتريد نقل الملف المحدّد إلى سلة المهملات؟"
-msgstr[2] "أتريد نقل الملفّين المحددّين إلى سلة المهملات؟"
-msgstr[3] "أتريد نقل الـ %d ملفات المحدّدة إلى سلة المهملات؟"
-msgstr[4] "أتريد نقل الـ %d ملفًا المحدّد إلى سلة المهملات؟"
-msgstr[5] "أتريد نقل الـ %d ملف المحدّد إلى سلة المهملات؟"
+msgstr[0] "لن تنقل شيئًا صحيح؟"
+msgstr[1] "أتريد نقل الملفّ المحدّد إلى سلّة المهملات؟"
+msgstr[2] "أتريد نقل الملفّين المحددّين إلى سلّة المهملات؟"
+msgstr[3] "أتريد نقل الـ %d ملفّات المحدّدة إلى سلّة المهملات؟"
+msgstr[4] "أتريد نقل الـ %d ملفًّا المحدّد إلى سلّة المهملات؟"
+msgstr[5] "أتريد نقل الـ %d ملفّ المحدّد إلى سلّة المهملات؟"
 
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "أتريد حذف الملف '%s'؟"
+msgstr "أتريد حذف الملفّ '%s'؟"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "أتريد حذف الملف المحدّد؟"
-msgstr[1] "أتريد حذف الملف المحدّد؟"
-msgstr[2] "أتريد حذف الملفان المحدّدان؟"
-msgstr[3] "أتريد حذف الـ %d ملفات المحدّدة؟"
-msgstr[4] "أتريد حذف الـ %d ملفًا المحدّد؟"
-msgstr[5] "أتريد حذف الـ %d ملف المحدّد؟"
+msgstr[0] "لن تحذف شيئًا صحيح؟"
+msgstr[1] "أتريد حذف الملفّ المحدّد؟"
+msgstr[2] "أتريد حذف الملفّين المحدّدين؟"
+msgstr[3] "أتريد حذف الـ %d ملفّات المحدّدة؟"
+msgstr[4] "أتريد حذف الـ %d ملفًّا المحدّد؟"
+msgstr[5] "أتريد حذف الـ %d ملفّ المحدّد؟"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
-msgstr "أعد تسمية الملف"
+msgstr "أعد تسمية الملفّ"
 
 #: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
-msgstr "فضلًا أدخِل اسمًا جديدًا:"
+msgstr "فضلًا أدخل اسمًا جديدًا:"
 
 #: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
-msgstr "أتريد حقًّا إفراغ سلة المهملات؟"
+msgstr "أمتأكّد من إفراغ سلّة المهملات؟"
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
@@ -1100,7 +1116,7 @@ msgstr "ال_صق واذهب"
 
 #: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
-msgstr "شريط موقع المجلد"
+msgstr "شريط مكان المجلّد"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 msgid "Home Folder"
@@ -1113,11 +1129,11 @@ msgstr "سطح المكتب"
 #: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
 #: ../src/modules/vfs-menu.c:1565
 msgid "Applications"
-msgstr "التطبيقات"
+msgstr "التّطبيقات"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 msgid "Filesystem Root"
-msgstr "جذر نظام الملفات"
+msgstr "جذر نظام الملفّات"
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
@@ -1125,7 +1141,7 @@ msgstr "_ضمّ الجزء"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
-msgstr "أل_غِ ضم الجزء"
+msgstr "أل_غِ ضمّ الجزء"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
@@ -1153,11 +1169,11 @@ msgstr "انقل العلامة لأ_سفل"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
-msgstr "أ_فرغ سلة المهملات"
+msgstr "أ_فرغ سلّة المهملات"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "يظهر قائمة بالأماكن، والأجهزة والعلامات الشائعة في الشريط الجانبي"
+msgstr "يظهر قائمة بالأماكن، والأجهزة والعلامات الشّائعة في الشّريط الجانبيّ"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1165,7 +1181,7 @@ msgstr "أعد تسمية عنصر العلامات"
 
 #: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
-msgstr "أدخِل اسمًا جديدًا:"
+msgstr "أدخل اسمًا جديدًا:"
 
 #: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
@@ -1178,9 +1194,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
-"النوع: %s\n"
+"النّوع: %s\n"
 "الحجم: %s\n"
-"عُدِّل في: %s"
+"عُدّل في: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
@@ -1188,20 +1204,20 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
-"النوع: %s\n"
-"عُدِّل في: %s"
+"النّوع: %s\n"
+"عُدّل في: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr "<b>حدثت أخطاء قبل توقّف العملية على الملف.</b>"
+msgstr "<b>حدثت أخطاء قبل توقّف عمليّة الملفّات.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
-msgstr "أُلغي"
+msgstr "أُلغيت"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "<b>العملية على الملف انتهت بأخطاء.</b>"
+msgstr "<b>عمليّة الملفّات انتهت بأخطاء.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1213,9 +1229,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"يتعذر نقل بعض الملفات إلى سلة المهملات لأن أنظمة الملفات لا تدعم هذه "
-"العملية.\n"
-"أتريد حذفها عوضًا عن ذلك؟"
+"تعذّر نقل بعض الملفّات إلى المهملات لأنّ أنظمة الملفّات التّحتيّة لا تدعم "
+"هذه العمليّة.\n"
+"أتريد حذفها بدل ذلك؟"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
@@ -1262,16 +1278,16 @@ msgstr "<b>إلى:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
 msgid "Creating links to files"
-msgstr "ينشئ الوصلات إلى الملفات"
+msgstr "ينشئ الوصلات إلى الملفّات"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
-msgstr "يغيّر صفات"
+msgstr "يغيّر خاصيّات"
 
 #: ../src/gtk/fm-progress-dlg.c:608
 msgid "Changing attributes of files"
-msgstr "يغيّر صفات الملفات"
+msgstr "يغيّر خاصيّات الملفّات"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
@@ -1281,24 +1297,27 @@ msgstr "يستعيد"
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
+#, c-format, c-format
 msgid "%s files"
-msgstr "%s الملفات"
+msgstr "%s الملفّات"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr "<b>العملية على الملف تتقدّم...</b>"
+msgstr "<b>عمليّة الملفّات تتقدّم...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>%s الملف:</b>"
+msgstr "<b>%s الملفّ:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>%s الملفات:</b>"
+msgstr "<b>%s الملفّات:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1310,7 +1329,7 @@ msgstr "الأما_كن"
 
 #: ../src/gtk/fm-side-pane.c:68
 msgid "_Directory Tree"
-msgstr "شجرة الأ_دلة"
+msgstr "شجرة الأ_دلّة"
 
 #: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
@@ -1322,11 +1341,11 @@ msgstr "الأماكن"
 
 #: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
 msgid "Directory Tree"
-msgstr "شجرة الأدلة"
+msgstr "شجرة الأدلّة"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr "اعرض محتويات المجلد"
+msgstr "اعرض محتويات المجلّد"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
@@ -1360,7 +1379,7 @@ msgstr "منظور م_دمج"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr "منظور م_صغرات"
+msgstr "منظور م_صغّرات"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
@@ -1368,72 +1387,75 @@ msgstr "منظور قائمة م_فصّلة"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr "يغيّر اللسان النشط"
+msgstr "يغيّر اللسان النّشط"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
 #, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "الدليل '%s' المحدّد غير صالح"
+msgstr "الدّليل '%s' المحدّد غير صالح"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr "تعذّر الوصول إلى الملف الوجهة"
+msgstr "تعذّر النّفاذ إلى الملفّ الوجهة"
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
-msgstr "لا يمكن إنشاء وصلة في نظام ملفات غير أصيل"
+msgstr "لا يمكن إنشاء وصلة في نظام ملفّات غير أصيل"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "لايمكن إخراج الملف '%s' من سلة المحذوفات: المسار الأصلي غير معروف"
+msgstr "تعذّر استرجاع الملفّ '%s': المسار الأصلي مجهول"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr "ملفا المصدر والوجهة هما واحد."
+msgstr "ملفّا المصدر والوجهة هما واحد."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
-msgstr "لا يمكن نقل مجلد إلى مجلده الفرعي"
+msgstr "لا يمكن نقل مجلّد إلى مجلّده الفرعيّ"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
-msgstr "لا يمكن نسخ مجلد إلى مجلده الفرعي"
+msgstr "لا يمكن نسخ مجلّد إلى مجلّده الفرعيّ"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr "الوجهة هي مجلد فرعي من المصدر"
+msgstr "الوجهة هي مجلّد فرعيّ من المصدر"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
+#, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "تعذّر نسخ الملف '%s': غير مدعوم"
+msgstr "تعذّر نسخ الملفّ '%s': غير مدعوم"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
+#, c-format
 msgid "Setting display name can be done only for single file"
-msgstr "يمكن تعيين الاسم المعروض لملف واحد فقط"
+msgstr "يمكن تعيين الاسم المعروض لملفّ واحد فقط"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
+#, c-format
 msgid "Setting target can be done only for single file"
-msgstr "يمكن تعيين الهدف لملف واحد فقط"
+msgstr "يمكن تعيين الهدف لملفّ واحد فقط"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "خطأ '%s' في ملف XML ‏(%d:%d):"
+msgstr ""
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr "ملف XML لا يحوي جذر التطبيقات"
+msgstr "ملفّ XML لا يحوي جذر التّطبيقات"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "تعذّر إنشاء تعريف XML لـ '%s'"
+msgstr "تعذّر إنشاء تعريف XML لّـ '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
@@ -1448,7 +1470,7 @@ msgstr "خطأ في خبيئة القائمة"
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr "العملية غير مدعومة"
+msgstr "العمليّة غير مدعومة"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
@@ -1460,6 +1482,7 @@ msgstr "لا يمكن أن يكون اسم عنصر القائمة فارغًا"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
+#, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "دليل القائمة '%s' غير صالح"
 
@@ -1470,7 +1493,7 @@ msgstr "عنصر القائمة غير صالح"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "عنصر القائمة '%s' لا يملك ملف مُدخلة ملائم"
+msgstr "عنصر القائمة '%s' لا يملك ملفّ مدخلة ملائم"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
@@ -1478,31 +1501,35 @@ msgstr "تغيير حالة الإخفاء غير مدعوم لدليل القا
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "تعيين الصفة '%s' غير مدعوم"
+msgstr "تعيين الخاصيّة '%s' غير مدعوم"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "قيمة الخاصية '%s' غير صالحة"
+msgstr "قيمة الخاصيّة '%s' غير صالحة"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
+#, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' هو دليل قائمة"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
+#, c-format, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s' ليس عنصر قائمة"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "ملف المُدخلة '%s' معطوب"
+msgstr "ملفّ المدخلة '%s' معطوب"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, c-format
+#, c-format, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "تعذّر إنشاء عنصر القائمة '%s'"
 
@@ -1512,7 +1539,7 @@ msgstr "لا يجب أن ينتهي دليل القائمة بـ \"‎.desktop\"
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
-msgstr "عملية غير صالحة مع جذر القائمة"
+msgstr "عمليّة غير صالحة مع جذر القائمة"
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
@@ -1520,11 +1547,13 @@ msgstr "الوجهة غير صالحة"
 
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: المجلد '%s' غير موجود في خبيئة القوائم"
+msgstr "FmMenuVFileMonitor: المجلّد '%s' غير موجود في خبيئة القوائم"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
+#, fuzzy
 msgid "Search"
 msgstr "بحث"
 
@@ -1534,11 +1563,11 @@ msgstr "نتائج البحث"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
-msgstr "اختر الملف التنفيذي"
+msgstr "اختر الملفّ التّنفيذيّ"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
-msgstr "الملفات التنفيذية"
+msgstr "الملفّات التّنفيذيّة"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"
@@ -1546,31 +1575,31 @@ msgstr "<b>ال_أمر:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr "الأمر الذي يتم تنفيذه عند تنشيط أيقونة التطبيق:"
+msgstr "الأمر ليُنفّذ عند تنشيط أيقونة التّطبيق"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
-msgstr "<b>ا_لوصف:</b>"
+msgstr "<b>الو_صف:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "الاسم العامّ للتطبيق"
+msgstr "الاسم العامّ للتّطبيق"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_مجلد العمل:</b>"
+msgstr "<b>_مجلّد العمل:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr "مجلد العمل لتنفيذ البرنامج فيه."
+msgstr "مجلّد العمل لتنفيذ البرنامج فيه."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>ال_تلميحة:</b>"
+msgstr "<b>ال_تّلميحة:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
-msgstr "تلميحة لإظهارها على التطبيق"
+msgstr "تلميحة لإظهارها على التّطبيق"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
@@ -1580,7 +1609,7 @@ msgstr "ا_ستخدم إخطار البدء"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
-msgstr "_مُدخلة سطح المكتب"
+msgstr "_مدخلة سطح المكتب"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1588,11 +1617,11 @@ msgstr "ا_ستعد"
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
-msgstr "استعد الملفات المرمية إلى مساراتها الأصلية"
+msgstr "استعد الملفّات المرميّة إلى مساراتها الأصليّة"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr "اسم الملف المصدر أو معرّف سطح المكتب"
+msgstr "اسم الملفّ المصدر أو معرّف سطح المكتب"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
@@ -1600,11 +1629,11 @@ msgstr "المصدر"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr "اسم الملف الناتج"
+msgstr "اسم الملفّ الناتج"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr "الناتج"
+msgstr "النّاتج"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -1761,11 +1790,11 @@ msgstr "قرص MRW/W فارغ"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "قرص ضوئي فارغ"
+msgstr "قرص ضوئيّ فارغ"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "قرص ضوئي"
+msgstr "قرص ضوئيّ"
 
 #, fuzzy
 #~ msgid "<b>File type to be opened:</b>"

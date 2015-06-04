@@ -8,16 +8,18 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-19 02:03+0000\n"
-"Last-Translator: Sérgio <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2015-03-26 13:35+0000\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1390097039.0\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1427376909.000000\n"
+"X-Pootle-Path: /pt/libfm/po/pt.po\n"
+"X-Pootle-Revision: 89\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -83,7 +85,7 @@ msgstr ""
 "<b>%f</b>: representa o nome do ficheiro\n"
 "<b>%F</b>: representa o nome de vários ficheiros\n"
 "<b>%u</b>: representa o URI do ficheiro\n"
-"<b>%U</b>: representa vários URIs"
+"<b>%U</b>: representa vários URI"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
@@ -101,7 +103,7 @@ msgstr "Linha de _comandos personalizada"
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr ""
-"Definir aplicação _selecionada como ação padrão para este tipo de ficheiros"
+"Definir aplicação _selecionada como pré-definida apara este tipo de ficheiros"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -549,7 +551,7 @@ msgstr "Ficheiro desktop inválido: %s"
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Não há uma aplicação definida para abrir URIs %s://"
+msgstr "Não há uma aplicação definida para abrir as URI %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
@@ -655,7 +657,7 @@ msgid ""
 msgstr ""
 "A referência de caracteres não termina com ponto e vírgula. É possível que "
 "tenha utilizado o carácter & sem a intenção de iniciar uma entidade. Escreva "
-"o carácter & desta forma: &amp;"
+"o carácter \"&\" desta forma: &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -667,7 +669,7 @@ msgstr "A referência de caracteres %-.*s não codifica um carácter permitido"
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Encontrada entidade &; vazia. As entradas válidas são: &amp; &quot; &lt; "
+"Encontrada entidade '&'; vazia. As entradas válidas são: &amp; &quot; &lt; "
 "&gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
@@ -682,7 +684,7 @@ msgid ""
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
 "A entidade não termina com ponto e vírgula. É possível que tenha utilizado o "
-"carácter & sem a intenção de iniciar uma entidade. Escreva o carácter & "
+"carácter & sem a intenção de iniciar uma entidade. Escreva o carácter '&' "
 "desta forma: &amp;"
 
 #: ../src/extra/fm-xml-file.c:594

@@ -17,6 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1393156937.0\n"
+"X-Pootle-Path: /zh_CN/libfm/po/zh_CN.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -431,9 +433,7 @@ msgstr "其他(_H)："
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
-msgstr ""
-"可以在此输入任意有效的内容类型。类型的末尾可以带“*”通配符。多种类型可以“;”分"
-"隔。"
+msgstr "可以在此输入任意有效的内容类型。类型的末尾可以带“*”通配符。多种类型可以“;”分隔。"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -632,8 +632,7 @@ msgstr "标记 <%s> 的处理程序重复"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr ""
-"解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
+msgstr "解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -641,9 +640,7 @@ msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr ""
-"字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变"
-"为 &amp;"
+msgstr "字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -666,9 +663,7 @@ msgstr "未知的实体名“%-.*s”"
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr ""
-"实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 "
-"&amp;"
+msgstr "实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"

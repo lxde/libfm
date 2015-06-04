@@ -7,17 +7,19 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-10-14 08:06+0000\n"
+"PO-Revision-Date: 2015-04-02 10:38+0000\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1413273977.000000\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1427971115.000000\n"
+"X-Pootle-Path: /hr/libfm/po/hr.po\n"
+"X-Pootle-Revision: 218\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -371,11 +373,11 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Osjetljivo na mala i velika slo_va"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Koristi regularni izraz"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
@@ -720,7 +722,7 @@ msgstr "Instalirani programi"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
-msgstr "<Nema podmape>"
+msgstr "<Nema podmapa>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -836,8 +838,7 @@ msgstr "Unesite valjano ime grupe ili brojčani id."
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
+msgstr "Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
@@ -1259,7 +1260,7 @@ msgstr "Obnovljam"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
+#, c-format, c-format
 msgid "%s files"
 msgstr "%s datoteke"
 
@@ -1269,13 +1270,13 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s datoteka:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s datoteke:</b>"
 

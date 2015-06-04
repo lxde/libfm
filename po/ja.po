@@ -8,16 +8,18 @@ msgstr ""
 "Project-Id-Version: libfm 1.2.0-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-25 01:31+0000\n"
-"Last-Translator: Hironao <hirkmt@gmail.com>\n"
+"PO-Revision-Date: 2015-05-04 04:25+0000\n"
+"Last-Translator: rago1975 <take1975@kumamoto.email.ne.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1390613506.0\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1430713550.000000\n"
+"X-Pootle-Path: /ja/libfm/po/ja.po\n"
+"X-Pootle-Revision: 1327\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,9 +27,7 @@ msgstr "既定のアプリケーション"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
-"Web のリンクや e-mail アドレスをクリックした時に呼ばれるアプリケーションを選"
-"択してください"
+msgstr "Web のリンクや e-mail アドレスをクリックした時に呼ばれるアプリケーションを選択してください"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -99,9 +99,7 @@ msgstr "コマンドラインを指定(_U)"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr ""
-"選択したアプリケーションをこのファイルタイプのデフォルトのアクションとする"
-"(_S)"
+msgstr "選択したアプリケーションをこのファイルタイプのデフォルトのアクションとする(_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -370,9 +368,7 @@ msgstr "<b>ファイル名のパターン(_N):</b>"
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
-msgstr ""
-"パターンには POSIX のシェルパターンのリスト(',' を区切りにします)、あるいは "
-"POSIX の正規表現が使えます。"
+msgstr "パターンには POSIX のシェルパターンのリスト(',' を区切りにします)、あるいは POSIX の正規表現が使えます。"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -438,9 +434,7 @@ msgstr "その他(_H):"
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
-msgstr ""
-"有効なコンテントタイプであれば何でも可能です。ワイルドカード '*' はタイプの末"
-"尾に使えます。複数のタイプは ';' で区切られます。"
+msgstr "有効なコンテントタイプであれば何でも可能です。ワイルドカード '*' はタイプの末尾に使えます。複数のタイプは ';' で区切られます。"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -460,11 +454,11 @@ msgstr "<b>ファイルサイズ</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr "…より小さい:"
+msgstr "…より小さい（_S）:"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr "…より大きい:"
+msgstr "…より大きい（_B）:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
@@ -477,11 +471,11 @@ msgstr "(なし)"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr "…より以前:"
+msgstr "…より以前（_E）:"
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
-msgstr "…以後:"
+msgstr "…以後（_L）:"
 
 #: ../data/ui/filesearch.glade.h:36
 msgid "_Properties"
@@ -503,9 +497,7 @@ msgstr "<b>メール・クライアント</b>"
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
-msgstr ""
-"既定のメール・クライアントはメールアドレスをクリックした際にメールを作成する"
-"のに使われます。"
+msgstr "既定のメール・クライアントはメールアドレスをクリックした際にメールを作成するのに使われます。"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -549,9 +541,7 @@ msgstr "不正なデスクトップエントリ名 '%s'"
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
-"URI %s:// を立ち上げようとしましたが、デフォルトのアプリケーションが設定され"
-"ていません"
+msgstr "URI %s:// を立ち上げようとしましたが、デフォルトのアプリケーションが設定されていません"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
@@ -561,8 +551,7 @@ msgstr "作業ディレクトリを '%s' へ移動出来ませんでした: %s"
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
-"'%s' を立ち上げようとしましたが、そのコンテントタイプを決定できませんでした"
+msgstr "'%s' を立ち上げようとしましたが、そのコンテントタイプを決定できませんでした"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
@@ -644,9 +633,7 @@ msgstr "タグ <%s> に対するハンドラを複製"
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr ""
-"'%-.*s' のパースに失敗しました。&#234 のような数値文字参照の一部と見られます"
-"が、おそらく数値が大き過ぎます"
+msgstr "'%-.*s' をパースできません。文字参照の範囲内の数字でなければなりません (例: &#234;) 数字が大きすぎる可能性もあります"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -654,9 +641,7 @@ msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr ""
-"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではな"
-"いでしょうか… '&amp;' のようにエスケープしてください"
+msgstr "文字実体参照がセミコロンで終わっていません。意図せずに「＆」を含めたためではないでしょうか… '&amp;' のようにエスケープしてください"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -667,9 +652,7 @@ msgstr "文字実体参照 '%-.*s' が指す文字はここでは使用出来ま
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
-"空の文字実体参照 '&;' があります。&amp; &quot; &lt; &gt; &apos; のいずれかだ"
-"けが有効です。"
+msgstr "空の文字実体参照 '&;' があります。&amp; &quot; &lt; &gt; &apos; のいずれかだけが有効です。"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -682,8 +665,7 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"文字実体参照がセミコロンで終わっていません。意図せずに '&' を含めたためではな"
-"いでしょうか… '&amp;' のようにエスケープしてください"
+"文字実体参照がセミコロンで終わっていません。意図せずに 「＆」 を含めたためではないでしょうか… '&amp;' のようにエスケープしてください"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -707,7 +689,7 @@ msgstr "属性の値が不正な文字 '%c' で始まっています"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "属性の値が期待された '%2$c' ではなく不正な文字 '%1$c' で終わっています"
+msgstr "属性の値が期待された '%c' ではなく不正な文字 '%c' で終わっています"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -726,7 +708,7 @@ msgid "Customize"
 msgstr "カスタマイズ"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
+#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>ファイル \"%s\" を開くアプリケーションを選択してください</b>"
 
@@ -864,9 +846,7 @@ msgstr "名前が . で始まっているので、このファイルは隠しフ
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr ""
-"このシステムでは、名前が . で始まるファイルは隠しファイルとなります。<Ctrl"
-"+H> を押すことで、隠しファイルの表示を切り替え出来ます。"
+msgstr "このシステムでは、名前が . で始まるファイルは隠しファイルとなります。<Ctrl+H> を押すことで、隠しファイルの表示を切り替え出来ます。"
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -1204,8 +1184,7 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"ファイルシステムのサポートがないため、ゴミ箱へ移動できないファイルがありま"
-"す。\n"
+"ファイルシステムのサポートがないため、ゴミ箱へ移動できないファイルがあります。\n"
 "かわりにこれらを削除しますか?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
@@ -1270,7 +1249,7 @@ msgstr "復元中"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
+#, c-format, c-format
 msgid "%s files"
 msgstr "ファイルを%s"
 
@@ -1280,13 +1259,13 @@ msgstr "<b>ファイル操作の進行中...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>ファイルを%s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>ファイルを%s:</b>"
 

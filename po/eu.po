@@ -7,16 +7,18 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2013-09-07 12:38+0000\n"
-"Last-Translator: Asier <asier.iturralde@gmail.com>\n"
+"PO-Revision-Date: 2015-05-05 20:55+0000\n"
+"Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378557529.0\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1430859342.000000\n"
+"X-Pootle-Path: /eu/libfm/po/eu.po\n"
+"X-Pootle-Revision: 1880\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,6 +27,8 @@ msgstr "Hobetsitako aplikazioak"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Hautatu Webeko esteka edo e-posta helbide bat klikatzean deitzen diren "
+"aplikazioak"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -35,9 +39,8 @@ msgid "Create new or change existing desktop entry"
 msgstr "Sortu edo aldatu mahaigaineko sarrera"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Aukeratu aplikazio bat"
+msgstr "Aukeratu aplikazioa"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
@@ -45,7 +48,7 @@ msgstr "Erabili hautatutako aplikazioa fitxategiak irekitzeko"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr ""
+msgstr "_Instalatutako aplikazioak"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -53,9 +56,8 @@ msgstr "<b>E_xekutatu beharreko komando lerroa:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Arakatu"
+msgstr "_Arakatu..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
@@ -101,7 +103,6 @@ msgid "_Set selected application as default action for this file type"
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Berretsi fitxategiak ordezkatzeko"
 
@@ -132,7 +133,6 @@ msgid "with the following file?"
 msgstr "ondorengo fitxategiarekin?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
 msgstr "_Fitxategi-izena:"
 
@@ -187,7 +187,6 @@ msgid "<b>Target file:</b>"
 msgstr "<b>Helburuko fitxategia:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Fitxategi-mota:</b>"
 
@@ -202,30 +201,25 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
-msgstr ""
+msgstr "<b>Fitxategi kopurua guztira:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Fitxategien guztizko tamaina:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Tamaina diskoan:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Azken aldaketa:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Azken atzipena:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Azken baimen aldaketa:</b>"
 
@@ -315,7 +309,7 @@ msgstr "Itsaskorra eta ezarri GIDa"
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr ""
+msgstr "Ezarri UID"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
@@ -326,7 +320,7 @@ msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr ""
+msgstr "Jabeak soilik"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
@@ -357,9 +351,8 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
-msgstr "Aukeratu data bat"
+msgstr "Aukeratu data"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
@@ -389,7 +382,7 @@ msgstr "_Erabili adierazpen erregularra"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Bilatzeko lekuak:</b>"
+msgstr "<b>Bilatzeko _lekuak:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -433,11 +426,11 @@ msgstr "_Dokumentuak"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "Folde_rs"
-msgstr ""
+msgstr "Ka_rpetak"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Besteak:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
@@ -499,17 +492,15 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Hobetsitako web-arakatzailea erabiliko da hiperestekak irekitzeko."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
-msgstr "<b>Posta bezeroa</b>"
+msgstr "<b>Posta-bezeroa</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Hobetsitako Posta bezeroa erabiliko da helbide elektroniko batean klik "
+"Hobetsitako posta-bezeroa erabiliko da helbide elektroniko batean klik "
 "egitean e-postak idazteko."
 
 #: ../data/ui/preferred-apps.glade.h:6
@@ -544,7 +535,7 @@ msgstr "<b>Geratzen den denbora:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Errors occurred:</b>"
-msgstr ""
+msgstr "<b>Erroreak gertatu dira:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -554,27 +545,27 @@ msgstr "Mahaigaineko sarrera fitxategi baliogabea: '%s'"
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Ez da aplikazio lehenetsirik ezarri %s:// URIak abiarazteko."
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Ezin da laneko direktorioa '%s'(e)ra aldatu: %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Ezin izan da '%s' fitxategia abiarazteko bere eduki-mota zehaztu"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Ez da aplikazio lehenetsirik ezarri %s MIME motarentzat."
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Gailuak"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -586,9 +577,8 @@ msgid "Trash Can"
 msgstr "Zakarrontzia"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Lasterbidea"
+msgstr "URIra lasterbidea"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
@@ -596,12 +586,11 @@ msgstr "fm_template_create_file: argumentu baliogabea"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Ez da terminal emuladorerik ezarri libfm-ren konfigurazioan"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Menu-direktorio baliogabea"
+msgstr "Koadro txikiak sortzeko aplikazioaren deskribapen baliogabea"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -642,7 +631,7 @@ msgstr "'%s' URI azpi-bideak ihes-karaktere baliogabeak ditu"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "<%s> etiketaren maneiatzaile bikoiztua"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -660,22 +649,28 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Karaktere-erreferentzia ez da puntu eta komaz bukatzen; ziurrenik & ikurra "
+"erabiliko zenuen entitatea hasteko asmorik gabe. Izendatu & karakterea &amp; "
+"gisa;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr ""
+"'%-.*s' karaktere-erreferentziak ez du baimendutako karaktere bat kodetzen"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"'&;' entitatea hutsik dago; baliozko entitateak hauek dira: &amp; &quot; &lt;"
+" &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "'%-.*s' entitate-izena ezezaguna da"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -683,30 +678,33 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Entitatea ez da puntu eta komaz bukatzen; normalean & ikurra erabiltzen da "
+"entitatea hasteko asmorik gabe; izendatu & karakterea &amp; gisa;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Ez da zuriunerik onartzen ixteko etiketan"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "'%s' elementua itxi da baina ez da elementurik ireki"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "'%s' elementua itxi egin da, baina unean '%s' elementua dago irekita"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "'%c' karaktere baliogabea atributuaren balioaren hasieran"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
+"'%c' karaktere baliogabea atributuaren balioaren amaieran, '%c' espero zen"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -727,14 +725,13 @@ msgstr "Pertsonalizatu"
 #: ../src/gtk/fm-app-chooser-dlg.c:266
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr ""
+msgstr "<b>Hautatu aplikazio bat \"%s\" fitxategiak irekitzeko</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "Instalatutako aplikazioak"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
 msgstr "<Azpikarpetarik ez>"
 
@@ -751,20 +748,17 @@ msgid "_Cancel"
 msgstr "_Utzi"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "C_opy Here"
-msgstr "K_opiatu"
+msgstr "K_opiatu hemen"
 
 #: ../src/gtk/fm-dnd-dest.c:414
-#, fuzzy
 msgid "_Move Here"
-msgstr "Eraman e_zkerrera"
+msgstr "_Eraman hona"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
-#, fuzzy
 msgid "_Link Here"
-msgstr "Este_katu"
+msgstr "Este_katu hona"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
@@ -780,19 +774,19 @@ msgstr "Ireki _honekin..."
 
 #: ../src/gtk/fm-file-menu.c:153
 msgid "Open _With"
-msgstr ""
+msgstr "Ireki _honekin"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr ""
+msgstr "Kopiatu _bidea(k)"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
-msgstr ""
+msgstr "E_zkutatu"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr ""
+msgstr "_Bistaratu"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
@@ -800,7 +794,7 @@ msgstr "_Gehitu laster-markei"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr ""
+msgstr "_Aldatu izena..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -820,13 +814,12 @@ msgstr "_Propietateak"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Eraman e_skuinera"
+msgstr "Eraman _Zakarrontzira"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Karpeta honen laster-marka badaukazu laster-marketan dagoeneko."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
@@ -841,7 +834,7 @@ msgstr[1] "byte"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "eskaneatzen... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -861,21 +854,24 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Ezkutatu edo bistaratu fitxategia"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
+"Fitxategi hau ezkutuan dago bere izena puntu batekin hasten delako ('.')."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Puntuarekin ('.') hasten diren fitxategiak ezkutuan daude sistema honetan. "
+"Sakatu <Ctrl+H> ezkutuko fitxategiak bistaratzea txandakatzeko."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
-msgstr ""
+msgstr "eskaneatzen..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -890,7 +886,6 @@ msgid "<b>File:</b>"
 msgstr "<b>Fitxategia:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
-#, fuzzy
 msgid "Multiple files"
 msgstr "Hainbat fitxategi"
 
@@ -925,7 +920,7 @@ msgstr "Kokapena"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Luzapena"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -949,12 +944,11 @@ msgstr "_Ordenatu fitxategiak"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr ""
+msgstr "_Aldatu karpetaren izena..."
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Fitxategiaren propietateak"
+msgstr "Karpetaren _propietateak"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
@@ -962,12 +956,10 @@ msgstr "Erakutsi _ezkutukoak"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
 msgstr "Elkartu _fitxategiak eta karpetak"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
 msgstr "Ez bereizi _maiuskulak eta minuskulak"
 
@@ -992,37 +984,34 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Sartu izen bat karpeta sortu berriarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "_Berrizendatu karpeta"
+msgstr "Karpeta berria sortzen"
 
 #: ../src/gtk/fm-folder-view.c:859
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Sartu izen bat fitxategi sortu berriarentzat:"
+msgstr "Sartu izen bat fitxategi hutsarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:860
-#, fuzzy
 msgid "Creating ..."
-msgstr "Sortu berria..."
+msgstr "Sortzen..."
 
 #: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "Berria"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Sartu izen bat fitxategi sortu berriarentzat:"
+msgstr "Sartu izen bat %s berriarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Esteka sinbolikoak sortzen"
+msgstr "%s sortzen"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Exekutatu aplikazio lehenetsia fitxategian sortu ondoren"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1044,9 +1033,8 @@ msgid "No folders are specified."
 msgstr "Ez da karpetarik zehaztu."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
-msgstr "Hautatu karpeta bat"
+msgstr "Hautatu karpeta"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1065,28 +1053,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Sistemaren administratzaileek soilik dute honetarako baimena."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
+msgstr "'%s' fitxategia zakarrontzira bota nahi duzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
-msgstr[1] "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
+msgstr[0] "Hautatutako fitxategi %d zakarrontzira bota nahi duzu?"
+msgstr[1] "Hautatutako %d fitxategiak zakarrontzira bota nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Hautatutako fitxategiak ezabatu nahi dituzu?"
+msgstr "'%s' fitxategia ezabatu nahi duzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Hautatutako fitxategiak ezabatu nahi dituzu?"
-msgstr[1] "Hautatutako fitxategiak ezabatu nahi dituzu?"
+msgstr[0] "Hautatutako fitxategi %d ezabatu nahi duzu?"
+msgstr[1] "Hautatutako %d fitxategiak ezabatu nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1102,17 +1090,15 @@ msgstr "Ziur zaude zakarrontzia hustu nahi duzula?"
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
-msgstr ""
+msgstr "It_satsi eta joan"
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Fitxategi elkarketak"
+msgstr "Karpetaren kokapen-barra"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "_Berrizendatu karpeta"
+msgstr "Etxea karpeta"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1124,9 +1110,8 @@ msgid "Applications"
 msgstr "Aplikazioak"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "Fitxategi-sistema"
+msgstr "Fitxategi-sistemaren erroa"
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
@@ -1150,17 +1135,15 @@ msgstr "_Berrizendatu laster-marka elementua"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
-msgstr ""
+msgstr "_Kendu laster-marketatik"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "_Kendu laster-markatik"
+msgstr "Eraman laster-marka _gora"
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "_Kendu laster-markatik"
+msgstr "Eraman laster-marka _behera"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
@@ -1168,7 +1151,7 @@ msgstr "_Hustu zakarrontzia"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "Ohiko lekuak, gailuak eta laster-markak erakusten ditu albo-barran"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1204,7 +1187,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Erroreak gertatu dira fitxategi-eragiketa gelditu baino lehen.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1212,7 +1195,7 @@ msgstr "Ezeztatuta"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr ""
+msgstr "<b>Fitxategi-eragiketa erroreekin burutu da.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1230,12 +1213,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "_Pausarazi"
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
-msgstr "_Leheneratu"
+msgstr "_Berrekin"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
@@ -1244,76 +1226,72 @@ msgstr ", "
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
 msgid "Moving"
-msgstr ""
+msgstr "Lekuz aldatzen"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
 msgid "Copying"
-msgstr ""
+msgstr "Kopiatzen"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
 msgid "Trashing"
-msgstr ""
+msgstr "Zakarrontzira botatzen"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
 msgid "Deleting"
-msgstr ""
+msgstr "Ezabatzen"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Esteka sinbolikoak sortzen"
+msgstr "Esteka sortzen"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
-msgstr "<b>Hona:</b>"
+msgstr "<b>Hemen:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
-#, fuzzy
 msgid "Creating links to files"
-msgstr "Esteka sinbolikoak sortzen"
+msgstr "Fitxategietara estekak sortzen"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
 msgid "Changing attributes of"
-msgstr ""
+msgstr "Atributuak aldatzen"
 
 #: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
 msgid "Changing attributes of files"
-msgstr "Fitxategi-atributuak aldatzen"
+msgstr "Fitxategien atributuak aldatzen"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr ""
+msgstr "Leheneratzen"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
 #, c-format
 msgid "%s files"
-msgstr ""
+msgstr "%s fitxategi"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Fitxategi-eragiketa egiten ari da...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
 #, c-format
 msgid "<b>%s file:</b>"
-msgstr ""
+msgstr "<b>Fitxategi %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
 #, c-format
 msgid "<b>%s files:</b>"
-msgstr ""
+msgstr "<b>%s fitxategi:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1341,7 +1319,7 @@ msgstr "Direktorio-zuhaitza"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr ""
+msgstr "Karpetaren edukien ikuspegia"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
@@ -1349,12 +1327,10 @@ msgid "_Hide %s"
 msgstr "E_zkutatu %s"
 
 #: ../src/gtk/fm-standard-view.c:839
-#, fuzzy
 msgid "_Move Left"
 msgstr "Eraman e_zkerrera"
 
 #: ../src/gtk/fm-standard-view.c:845
-#, fuzzy
 msgid "Move _Right"
 msgstr "Eraman e_skuinera"
 
@@ -1364,7 +1340,6 @@ msgid "Show %s"
 msgstr "Erakutsi %s"
 
 #: ../src/gtk/fm-standard-view.c:880
-#, fuzzy
 msgid "_Forget Width"
 msgstr "_Ahaztu zabalera"
 
@@ -1382,30 +1357,31 @@ msgstr "_Koadro txikien ikuspegia"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "_Zerrenda-ikuspegia xehatua"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Fitxa aktiboa aldatzen du"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Zehazturiko direktorioa ez da baliozkoa"
+msgstr "Zehazturiko '%s' direktorioa ez da baliozkoa"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Ezin da helburuko fitxategia atzitu"
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "Ezin da esteka sortu fitxategi-sistema ez-natiboan"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Leheneratu fitxategiak jatorrizko lekuetara"
+msgstr ""
+"Ezin da '%s' fitxategia zaborrontzitik leheneratu: jatorrizko bide ezezaguna"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1424,9 +1400,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Helburua jatorriaren azpikarpeta bat da"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Ezin da karpeta bat bere azpikarpetara kopiatu"
+msgstr "Ezin da '%s' fitxategia kopiatu: ez da onartzen"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
@@ -1441,11 +1417,11 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr ""
+msgstr "XML fitxategia '%s' errorea (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML fitxategiak ez dauka Aplikazioak errorik"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
@@ -1477,14 +1453,13 @@ msgid "Menu item name cannot be empty"
 msgstr "Menuko elementuaren izena ezin da hutsik utzi"
 
 #: ../src/modules/vfs-menu.c:1507
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Menu-direktorio baliogabea"
+msgstr "'%s' menu-direktorio baliogabea"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Menu-direktorio baliogabea"
+msgstr "Menu-elementu baliogabea"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
@@ -1496,19 +1471,19 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1978
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Onartu gabeko eragiketa"
+msgstr "Ez da onartzen '%s' atributua ezartzea"
 
 #: ../src/modules/vfs-menu.c:1988
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Fitxategi-izen baliogabea: %s"
+msgstr "Balio baliogabea %s atributuarentzat"
 
 #: ../src/modules/vfs-menu.c:2025
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Menu-direktorio baliogabea"
+msgstr "'%s' menu-direktorio bat da"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
@@ -1518,7 +1493,7 @@ msgstr "'%s' ez da menuko elementu bat"
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr ""
+msgstr "'%s' sarrera-fitxategia hondatuta dago"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
@@ -1527,11 +1502,11 @@ msgstr "Ezin da '%s' menuko elementua sortu"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Menuko direktorioaren izenak ezin du izan \".desktop\" amaieran"
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Eragiketa baliogabea menuko erroarekin"
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
@@ -1540,7 +1515,7 @@ msgstr "Helburu baliogabea"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: ez da aurkitu '%s' karpeta menuaren cache-an"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1548,28 +1523,24 @@ msgid "Search"
 msgstr "Bilatu"
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
 msgstr "Bilaketaren emaitzak"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Aukeratu fitxategi exekutagarri bat"
+msgstr "Aukeratu fitxategi exekutagarria"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
-msgstr "Exekutatu fitxategia"
+msgstr "Fitxategi exekutagarriak"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Hona:</b>"
+msgstr "<b>Ko_mandoa:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Aplikazioaren ikonoa aktibatzen denean exekutatuko den komandoa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1580,32 +1551,28 @@ msgid "Generic name of the application"
 msgstr "Aplikazioaren izen generikoa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Helburua:</b>"
+msgstr "<b>_Laneko direktorioa:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Programa exekutatzeko laneko direktorioa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Hona:</b>"
+msgstr "<b>_Argibidea:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Aukeratu aplikazio bat"
+msgstr "Aplikazioan erakutsiko den argibidea"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr ""
+msgstr "_Erabili abioko jakinarazpena"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
 msgstr "_Mahaigaineko sarrera"
 
@@ -1619,7 +1586,7 @@ msgstr "Leheneratu fitxategiak jatorrizko lekuetara"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "iturburu-fitxategiaren izena edo mahaigainaren id-a"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
@@ -1627,7 +1594,7 @@ msgstr "ITURBURUA"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "emaitzaren fitxategi-izena"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"

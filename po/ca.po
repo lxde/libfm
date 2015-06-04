@@ -17,6 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1392043264.0\n"
+"X-Pootle-Path: /ca/libfm/po/ca.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -621,28 +623,33 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>S'han produït alguns errors:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Fitxer d'entrada a l'escriptori no vàlid: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "No default application is set to launch URIs %s://"
 msgstr "No hi ha cap aplicació predeterminada per a llançar URIs %s://"
 
 #: ../src/base/fm-file-launcher.c:308
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Cannot set working directory to '%s': %s"
 msgstr "No es pot configurar el directori de treball per a '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 "No es pot determinar el tipus de contingut del fitxer '%s' per a llançar-lo"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "No default application is set for MIME type %s"
 msgstr "No s'ha configurat cap aplicació predeterminada pels fitxers MIME %s"
 
@@ -673,8 +680,7 @@ msgstr "fm_template_create_file: argument no vàlid"
 #: ../src/base/fm-terminal.c:248
 #, fuzzy
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
-"No s'ha configurat cap emulador de terminal a la configuració del libfm"
+msgstr "No s'ha configurat cap emulador de terminal a la configuració del libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
 #, fuzzy
@@ -690,7 +696,8 @@ msgid "TB"
 msgstr "TB"
 
 #: ../src/base/fm-utils.c:164
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
@@ -713,17 +720,20 @@ msgid "TiB"
 msgstr "TiB"
 
 #: ../src/base/fm-utils.c:572
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The URI subpath '%s' contains invalid escaped characters"
 msgstr "La subruta URI «%s» conté caràcters d'escapada no vàlids"
 
 #: ../src/extra/fm-xml-file.c:205
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Duplicate handler for tag <%s>"
 msgstr "Gestor duplicat per l'etiqueta <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
@@ -732,7 +742,8 @@ msgstr ""
 "caràcter de referència (per exemple &#234;). Potser el dígit és massa llarg."
 
 #: ../src/extra/fm-xml-file.c:310
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
@@ -744,12 +755,14 @@ msgstr ""
 
 # Hi ha cap diferència entre «%-.+s» i '%-.+s' ?
 #: ../src/extra/fm-xml-file.c:336
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "El caràcter de referència «%-.*s» no codifica un caràcter permés"
 
 #: ../src/extra/fm-xml-file.c:373
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
@@ -757,12 +770,14 @@ msgstr ""
 "&lt; &gt; &apos;."
 
 #: ../src/extra/fm-xml-file.c:380
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Entity name '%-.*s' is not known"
 msgstr "Es desconeix el nom de l'entitat «%-.*s»"
 
 #: ../src/extra/fm-xml-file.c:384
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
@@ -777,22 +792,26 @@ msgid "Space isn't allowed in the close tag"
 msgstr "No es permet l'espai per tancar l'etiqueta"
 
 #: ../src/extra/fm-xml-file.c:603
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Element '%s' was closed but no element was opened"
 msgstr "L'element «%s» s'ha tancat però no s'ha obert cap element"
 
 #: ../src/extra/fm-xml-file.c:619
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr "L'element «%s» estava tancat. L'element obert actualment és «%s»"
 
 #: ../src/extra/fm-xml-file.c:675
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Invalid char '%c' at start of attribute value"
 msgstr "Caràcter invàlid «%c» a l'inici del valor de l'atribut"
 
 #: ../src/extra/fm-xml-file.c:686
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr "Caràcter invàlid «%c» al final del valor de l'atribut, s'esperava «%c»"
 
@@ -816,7 +835,8 @@ msgid "Customize"
 msgstr "Personalitza"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Seleccioneu una aplicació per obrir fitxers «%s»</b>"
 
@@ -941,7 +961,8 @@ msgstr[0] "octet"
 msgstr[1] "octets"
 
 #: ../src/gtk/fm-file-properties.c:510
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "scanning... %d"
 msgstr "s'està explorant... %d"
 
@@ -1138,12 +1159,14 @@ msgid "New"
 msgstr "Nou"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Enter a name for the new %s:"
 msgstr "Introduïu un nom per al %s nou:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Creating %s"
 msgstr "S'està creant %s"
 
@@ -1154,7 +1177,8 @@ msgstr ""
 "_Executa l'aplicació predeterminada en el fitxer després de la seua creació"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
@@ -1163,7 +1187,8 @@ msgstr ""
 " Què voleu fer amb ell?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Aquest fitxer «%s» és executable. Voleu executar-lo?"
 
@@ -1197,24 +1222,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Voleu moure el fitxer «%s» a la paperera?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Voleu moure el fitxer seleccionat %d a la paperera?"
 msgstr[1] "Voleu moure els fitxers seleccionats %d a la paperera?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Do you want to delete the file '%s'?"
 msgstr "Voleu suprimir el fitxer «%s»?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Voleu suprimir el fitxer seleccionat %d?"
@@ -1351,8 +1380,7 @@ msgstr ""
 #: ../src/gtk/fm-progress-dlg.c:326
 #, fuzzy
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
-"<b>Hi ha hagut errades abans que l'operació amb el fitxer s'aturés.</b>"
+msgstr "<b>Hi ha hagut errades abans que l'operació amb el fitxer s'aturés.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1450,6 +1478,7 @@ msgstr "_Restaurant"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
+#, c-format
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "fitxers %s"
@@ -1461,12 +1490,14 @@ msgstr "<b>Operació amb el fitxer en progrés...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
+#, c-format
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s Fitxer:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
+#, c-format
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s fitxer:</b>"
@@ -1506,7 +1537,8 @@ msgid "View of folder contents"
 msgstr "Vista del contingut de la carpeta"
 
 #: ../src/gtk/fm-standard-view.c:831
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "_Hide %s"
 msgstr "Amaga %s"
 
@@ -1557,7 +1589,8 @@ msgstr "Pestanya de canvis activa"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The specified directory '%s' is not valid"
 msgstr "El directori especificat '%s' no és vàlid"
 
@@ -1572,7 +1605,8 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr "No es pot crear un enllaç simbòlic a un sistema de fitxers no nadiu"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
 "No es pot eliminar de la paperera el fitxer '%s': no es coneix la ruta "
@@ -1599,23 +1633,27 @@ msgid "Destination is a sub folder of source"
 msgstr "La destinació és una subcarpeta de la font"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Cannot copy file '%s': not supported"
 msgstr "No es pot copiar el fitxar '%s': no està suportat"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Setting display name can be done only for single file"
 msgstr "Ajustar el nom mostrat només pot fer-se per un únic fitxer"
 
 # He traduït «target» per «diana» però tinc dubtes :(
 #: ../src/job/fm-file-ops-job-change-attr.c:315
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Setting target can be done only for single file"
 msgstr "Ajustar la diana només pot fer-se per un únic fitxer"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "XML file '%s' error (%d:%d): "
 msgstr "Error (%d:%d) de fitxer XML '%s': "
 
@@ -1626,12 +1664,14 @@ msgstr "El fitxer XML no té aplicacions d'administrador"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Cannot create XML definition for '%s'"
 msgstr "No es pot crear una definició XML per a '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Menu path '%s' already exists"
 msgstr "La ruta al menú '%s' ja existeix"
 
@@ -1658,7 +1698,8 @@ msgid "Menu item name cannot be empty"
 msgstr "El nom de l'element del menú no pot estar buit."
 
 #: ../src/modules/vfs-menu.c:1507
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Invalid menu directory '%s'"
 msgstr "Directori de menú '%s' no vàlid"
 
@@ -1668,7 +1709,8 @@ msgid "Invalid menu item"
 msgstr "Element de menú no vàlid"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "L'element del menú '%s' no té un fitxer d'entrada adequat"
 
@@ -1678,32 +1720,38 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "El canvi d'estat ocult no està implementat pel directori de menú"
 
 #: ../src/modules/vfs-menu.c:1978
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Setting attribute '%s' not supported"
 msgstr "No està implementat establir l'atribut '%s'"
 
 #: ../src/modules/vfs-menu.c:1988
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Invalid value for attribute '%s'"
 msgstr "Valor no vàlid per a l'atribut '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The '%s' is a menu directory"
 msgstr "El '%s' és un directori de menú"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The '%s' isn't a menu item"
 msgstr "El '%s' no és un element del menú"
 
 #: ../src/modules/vfs-menu.c:2052
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "The '%s' entry file is broken"
 msgstr "El fitxer d'entrada '%s' està trencat"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "Cannot create menu item '%s'"
 msgstr "No s'ha pogut crear l'element de menú '%s'"
 
@@ -1723,7 +1771,8 @@ msgid "Invalid destination"
 msgstr "El destí no és vàlid"
 
 #: ../src/modules/vfs-menu.c:2979
-#, fuzzy, c-format
+#, c-format
+#, c-format, fuzzy
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
 "FmMenuVFileMonitor: la carpeta '%s' no s'ha trobat a la memòria del menú"

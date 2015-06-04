@@ -18,6 +18,8 @@ msgstr ""
 "X-Generator: Pootle 2.6.0-rc1\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-POOTLE-MTIME: 1407807014.000000\n"
+"X-Pootle-Path: /bg/libfm/po/bg.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -680,8 +682,8 @@ msgid ""
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
 "Заместващата последователност не завършва с „;“. Най-вероятно сте използвали "
-"„&“, без той да е начало на заместваща последователност. Представете го като "
-"„&amp;“"
+"„&“, без той да е начало на заместваща последователност. Представете го "
+"като „&amp;“"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -706,7 +708,8 @@ msgstr "Неправилен знак „%c“ в началото на стой
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
-"Неправилен знак „%c“ в края на стойността на атрибута, очакваният знак е „%c“"
+"Неправилен знак „%c“ в края на стойността на атрибута, очакваният знак е „%"
+"c“"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -725,7 +728,7 @@ msgid "Customize"
 msgstr "Промени"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
+#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Изберете приложение за отварянето на „%s“ файлове</b>"
 
@@ -1274,7 +1277,7 @@ msgstr "_Възстановяване"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
+#, c-format, c-format
 msgid "%s files"
 msgstr "%s файлове"
 
@@ -1284,13 +1287,13 @@ msgstr "<b>Файловата операция се изпълнява...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s файлове:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s файлове:</b>"
 

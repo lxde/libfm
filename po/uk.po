@@ -8,17 +8,19 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-11 16:35+0200\n"
-"Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
+"PO-Revision-Date: 2015-04-30 19:39+0000\n"
+"Last-Translator: Andriy Grytsenko <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1386199555.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1430422799.000000\n"
+"X-Pootle-Path: /uk/libfm/po/uk.po\n"
+"X-Pootle-Revision: 678\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -645,8 +647,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Помилка аналізу '%-.*s', де має бути число у символьному посиланні "
-"(наприклад, &#234), можливо, число надто велике"
+"Помилка аналізу '%-.*s', де має бути число у символьному посиланні ("
+"наприклад, &#234), можливо, число надто велике"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -682,7 +684,7 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"Предикат не закінчується крапкою з комою; очевидно, що символ & було "
+"Предикат не закінчується крапкою з комою; очевидно, що символ '&' було "
 "використано не для позначення початку предикату – екрануйте його як &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
@@ -1154,8 +1156,7 @@ msgstr "_Очистити смітник"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
-"Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
+msgstr "Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"

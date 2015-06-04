@@ -17,6 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1390989327.0\n"
+"X-Pootle-Path: /id/libfm/po/id.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1144,8 +1146,7 @@ msgstr "_Kosongkan Tong Sampah"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
-"Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
+msgstr "Tunjukkan daftar penanda taut, perangkat, dan lokasi umum di bilah sisi"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"

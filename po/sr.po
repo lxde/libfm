@@ -9,15 +9,19 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2013-11-09 10:43+0100\n"
-"Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
+"PO-Revision-Date: 2015-05-02 08:29+0000\n"
+"Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1430555352.000000\n"
+"X-Pootle-Path: /sr/libfm/po/sr.po\n"
+"X-Pootle-Revision: 1298\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,29 +29,27 @@ msgstr "Подразумевани програми"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
+msgstr "Одаберите програме покренуте кликом на веб везе или адресу е-поште"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
-msgstr "Уређивач пречица"
+msgstr "Уредник пречица"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
 msgstr "Створите нову или мењајте постојећу датотеку радне површи"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Изаберите програм"
+msgstr "Одаберите програм"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Користи изабрани програм за отварање датотека"
+msgstr "За отварање датотека употребићу одабрани програм"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "Постојећ_и програми"
+msgstr "_Постојећи програми"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -98,12 +100,10 @@ msgid "C_ustom Command Line"
 msgstr "Произ_вољна наредба"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
-msgstr "Увек отварај ову вр_сту датотека одабраним програмом"
+msgstr "_Увек отварај ову врсту датотека одабраним програмом"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Потврдите преписивање датотека"
 
@@ -134,9 +134,8 @@ msgid "with the following file?"
 msgstr "са следећом датотеком?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
-msgstr "Наз_ив датотеке:"
+msgstr "_Назив датотеке:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
@@ -182,14 +181,13 @@ msgstr "<b>_Назив:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
-msgstr "<b>Путања:</b>"
+msgstr "<b>Место:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Target file:</b>"
 msgstr "<b>Одредишна датотека:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Врста датотеке:</b>"
 
@@ -199,35 +197,29 @@ msgstr "<b>Отвори по_моћу:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Изаберите програм за отварање датотека ове врсте"
+msgstr "Изаберите програм за отварање датотека ове врсте "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
 msgstr "<b>Величина (укупно):</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Величина (укупно):</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Заузет простор:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Последњи пут измењено:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Последњи приступ:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Последња измена дозвола:</b>"
 
@@ -300,7 +292,6 @@ msgid "None"
 msgstr "Ништа"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -316,7 +307,6 @@ msgid "Sticky & set GID"
 msgstr "Лепљиво и постави ГИД"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
 msgstr "Постави УИД"
@@ -326,7 +316,6 @@ msgid "Set UID & GID"
 msgstr "Постави УИД и ГИД"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -362,7 +351,6 @@ msgid "GB"
 msgstr "ГБ"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "Одаберите датум"
 
@@ -383,6 +371,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Образац може бити POSIX образац листе (са ',' као размаком) или POSIX "
+"регуларни израз."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -394,7 +384,7 @@ msgstr "Користи рег_уларан израз"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Претражи места:</b>"
+msgstr "<b>Пре_тражи места:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -406,7 +396,7 @@ msgstr "Претражи _скривене датотеке"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "Назив/_Локација"
+msgstr "Назив/_Место"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -426,7 +416,7 @@ msgstr "Гра_фичке датотеке"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "Звучне датотеке"
+msgstr "_Звучне датотеке"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
@@ -437,19 +427,20 @@ msgid "_Documents"
 msgstr "_Документа"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Директоријум"
+msgstr "Директор_ијуми"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "Др_уго:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Било који исправан садржај може бити унет овде. Џокер '*' је дозвољен на "
+"крају. Више врста одвајајте са ';'."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -502,16 +493,13 @@ msgstr "<b>Прегледник веба</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"За отварање интернет адреса користиће се подразумевани Прегледник веба."
+msgstr "Посећуј е-адресе помоћу подразумеваног веб-прегледника."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
-msgstr "<b>Програм за пријем е-поште</b>"
+msgstr "<b>Програм за е-пошту</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -547,23 +535,21 @@ msgstr "Припрема..."
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Преостало време: </b>"
+msgstr "<b>Преостало време:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>Догодиле су се неке грешке: </b>"
+msgstr "<b>Догодиле су се неке грешке:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Неисправна датотека радне површи: „%s“"
+msgstr "Датотека радне површи није ваљана: „%s“"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
-"Није постављен подразумевани програм за покретање локација („URIs“) %s://"
+msgstr "Није постављен подразумевани програм за покретање УРИ-а %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
@@ -583,7 +569,7 @@ msgstr "Није постављен подразумевани програм з
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Уређаји"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -596,7 +582,7 @@ msgstr "Непотребно"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr "пречица до локације („URI“)"
+msgstr "пречица до УРИ"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
@@ -612,7 +598,7 @@ msgstr "Неисправан опис програма за стварање у�
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr "КБ"
+msgstr "кБ"
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
@@ -645,12 +631,12 @@ msgstr "ТиБ"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "У путањи до локације „%s“ налазе се неважећи, недозвољени знакови"
+msgstr "У путањи до места „%s“ налазе се неважећи, недозвољени знакови"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Удвостручи управљач за ознаку <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -659,7 +645,7 @@ msgid ""
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "Нисам успео да рашчланим „%-.*s“, што је требало да представља цифру унутар "
-"знаковне референце (нпр. &#234;) — можда је цифра превелика"
+"знаковне референце (нпр. &#234;) - можда је цифра превелика"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -669,7 +655,7 @@ msgid ""
 "as &amp;"
 msgstr ""
 "Знаковна референца се не завршава тачка-запетом; највероватније сте "
-"користили амперсанд без намере да започнете ентитет — назначите амперсанд са "
+"користили амперсанд без намере да започнете ентитет - назначите амперсанд са "
 "&amp;"
 
 #: ../src/extra/fm-xml-file.c:336
@@ -678,11 +664,11 @@ msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "Знаковна референца „%-.*s“ не представља дозвољени знак"
 
 #: ../src/extra/fm-xml-file.c:373
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Уочен празан ентитет „&;“; прихватљиви ентитети су &amp; &quot; &lt; &gt; "
+"Уочен празан ентитет „&;“ — прихватљиви ентитети су &amp; &quot; &lt; &gt; "
 "&apos;"
 
 #: ../src/extra/fm-xml-file.c:380
@@ -697,7 +683,7 @@ msgid ""
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
 "Ентитет се не завршава тачка-запетом; највероватније сте користили амперсанд "
-"без намере да започнете ентитет — назначите амперсанд са &amp;"
+"без намере да започнете ентитет - назначите амперсанд са &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -711,7 +697,7 @@ msgstr "Елеменат „%s“ је затворен али не постој
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr "Елеменат „%s“ је затворен али је тренутно отворен елеменат „%s“"
+msgstr "Елемент „%s“ је затворен, а тренутно отворен елемент је „%s“"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -721,7 +707,7 @@ msgstr "Неважећи знак „%c“ на почетку вредност�
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "Неважећи знак „%c“ на крају вредности атрибута (очекиван је „%c “)"
+msgstr "Неважећи знак „%c“ на крају вредности атрибута, очекиван је „%c“"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -740,16 +726,15 @@ msgid "Customize"
 msgstr "Прилагоди"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "Користи изабрани програм за отварање датотека"
+msgstr "<b>Одабери програм за отварање \"%s\" датотека</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "Доступни програми"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
 msgstr "<Без поддиректоријума>"
 
@@ -766,24 +751,21 @@ msgid "_Cancel"
 msgstr "По_ништи"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "C_opy Here"
-msgstr "_Умножи"
+msgstr "У_множи"
 
 #: ../src/gtk/fm-dnd-dest.c:414
-#, fuzzy
 msgid "_Move Here"
-msgstr "Премести _лево"
+msgstr "_Премести лево"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
-#, fuzzy
 msgid "_Link Here"
 msgstr "_Повежи"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
-msgstr "„XDirectSave“ није успело."
+msgstr "XDirectSave није успело."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
@@ -794,13 +776,12 @@ msgid "Open _With..."
 msgstr "Отвори _помоћу..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "Отвори _помоћу..."
+msgstr "Отвори _помоћу"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr ""
+msgstr "Умножи пут_ању(е)"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
@@ -815,9 +796,8 @@ msgid "_Add to Bookmarks"
 msgstr "Дод_ај у обележиваче"
 
 #: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
 msgid "_Rename..."
-msgstr "П_реименуј"
+msgstr "_Преименуј..."
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -837,37 +817,36 @@ msgstr "_Особине"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Премести _десно"
+msgstr "Премести у Непо_требно"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Овај директоријум је већ у Вашим обележивачима."
 
 #: ../src/gtk/fm-file-properties.c:368
 msgid "Image files"
-msgstr "Графичке датотеке"
+msgstr "Слике"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u бајт"
-msgstr[1] "%u бајта"
-msgstr[2] "%u бајта"
+msgstr[0] "бајт"
+msgstr[1] "бајта"
+msgstr[2] "бајта"
 
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "учитавање... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
-msgstr "Унесите исправно корисничко име или ИБ."
+msgstr "Унесите ваљано корисничко име или ИБ."
 
 #: ../src/gtk/fm-file-properties.c:618
 msgid "Please enter a valid group name or numeric id."
-msgstr "Унесите исправно име групе или ИБ."
+msgstr "Унесите ваљан назив групе или ИБ."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:827
@@ -883,20 +862,19 @@ msgstr "Сакриј или прикажи ову датотеку"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Ова датотека је скривена јер јој име почиње тачком."
+msgstr "Ова датотека је скривена јер јој име почиње тачком ('.')."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Датотеке овог система су скривене уколико њихови називи почињу тачком. Да би "
-"сте их видели или сакрили притисните <Ctrl+H>."
+"Датотеке овог система су скривене уколико њихови називи почињу тачком('.'). "
+"Да би сте их видели или сакрили притисните <Ctrl+H>."
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Учитавање..."
+msgstr "учитавање..."
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -911,7 +889,6 @@ msgid "<b>File:</b>"
 msgstr "<b>Датотека:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
-#, fuzzy
 msgid "Multiple files"
 msgstr "Вишеструке датотеке"
 
@@ -942,11 +919,11 @@ msgstr "Измењено"
 
 #: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
-msgstr "Локација"
+msgstr "Место"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Проширења"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
@@ -969,9 +946,8 @@ msgid "_Sort Files"
 msgstr "_Сложи датотеке"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "Преименуј ди_ректоријум"
+msgstr "_Преименуј директоријум..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -983,14 +959,12 @@ msgstr "Прикажи с_кривене"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Помешај датотеке и директоријуме"
+msgstr "Помешај _датотеке и директоријуме"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "Занемари вел_ичину слова у називу"
+msgstr "_Занемари величину слова у називу"
 
 #: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
@@ -1013,7 +987,6 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Унесите назив за новостворени директоријум:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
 msgstr "Стварање новог директоријума"
 
@@ -1023,7 +996,7 @@ msgstr "Унесите назив празне датотеке:"
 
 #: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
-msgstr "Стварање..."
+msgstr "Стварање ..."
 
 #: ../src/gtk/fm-folder-view.c:866
 msgid "New"
@@ -1063,7 +1036,6 @@ msgid "No folders are specified."
 msgstr "Нису одређени директоријуми."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "Изаберите директоријум"
 
@@ -1099,7 +1071,7 @@ msgstr[2] "Да ли желите да преместите %d изабрани�
 #: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Да ли желите да обришете датотеку „%s“?"
+msgstr "Да ли желите да обришете датотеку '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
@@ -1115,26 +1087,23 @@ msgstr "Преименуј датотеку"
 
 #: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
-msgstr "Унесите нов назив: "
+msgstr "Унесите нов назив:"
 
 #: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Јесте ли сигурни да желите да испразните Непотребно?"
 
 #: ../src/gtk/fm-path-entry.c:668
-#, fuzzy
 msgid "Pa_ste and Go"
 msgstr "У_баци и иди"
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Придруживања датотека"
+msgstr "Трака места директоријума"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "Преименуј ди_ректоријум"
+msgstr "Главни директоријум"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1146,17 +1115,16 @@ msgid "Applications"
 msgstr "Програми"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
 msgstr "Систем датотека"
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
-msgstr "Прикључи"
+msgstr "_Прикључи"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
-msgstr "Искључи"
+msgstr "_Искључи"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
@@ -1171,9 +1139,8 @@ msgid "_Rename Bookmark Item"
 msgstr "П_реименуј обележивач"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "_Уклони обележивач"
+msgstr "_Уклони из обележивача"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
@@ -1197,7 +1164,7 @@ msgstr "Преименуј обележивач"
 
 #: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
-msgstr "Унесите нов назив: "
+msgstr "Унесите нов назив:"
 
 #: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
@@ -1225,16 +1192,15 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Грешке су се догодиле пре заустављања радње са датотеком</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Поништено"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "Радња над датотеком је поништена. Догодиле су се неке грешке."
+msgstr "<b>Радња над датотеком се завршила са грешкама.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1247,8 +1213,8 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Неке датотеке се не могу преместити у Непотребно јер примарни систем "
-"датотека не подржава\n"
-" ову операцију. Желите ли да их трајно уклоните?"
+"датотека не подржава ову операцију.\n"
+" Желите ли да их трајно уклоните?"
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
@@ -1264,83 +1230,73 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
-#, fuzzy
 msgid "Moving"
 msgstr "Премештање датотека"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
-#, fuzzy
 msgid "Copying"
 msgstr "Умножавање датотека"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
-#, fuzzy
 msgid "Trashing"
 msgstr "Премештање у Непотребно"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
-#, fuzzy
 msgid "Deleting"
 msgstr "Брисање датотека"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Прављење меких веза"
+msgstr "Прављење веза"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
-msgstr "<b>У место: </b>"
+msgstr "<b>У место:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
-#, fuzzy
 msgid "Creating links to files"
-msgstr "Прављење меких веза"
+msgstr "Прављење веза до датотека"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
-#, fuzzy
 msgid "Changing attributes of"
 msgstr "Измена особина датотеке"
 
 #: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
 msgid "Changing attributes of files"
 msgstr "Измена особина датотеке"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
-#, fuzzy
 msgid "Restoring"
-msgstr "По_врати"
+msgstr "Поврати"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "графичких датотека"
+msgstr "%s датотека"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Радње са датотекама су у току...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>Датотека:</b>"
+msgstr "<b>%s датотека:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>Датотека:</b>"
+msgstr "<b>%s датотека:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1376,14 +1332,12 @@ msgid "_Hide %s"
 msgstr "_Сакриј %s"
 
 #: ../src/gtk/fm-standard-view.c:839
-#, fuzzy
 msgid "_Move Left"
-msgstr "Премести _лево"
+msgstr "_Премести улево"
 
 #: ../src/gtk/fm-standard-view.c:845
-#, fuzzy
 msgid "Move _Right"
-msgstr "Премести _десно"
+msgstr "Премести у_десно"
 
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
@@ -1391,9 +1345,8 @@ msgid "Show %s"
 msgstr "Прикажи %s"
 
 #: ../src/gtk/fm-standard-view.c:880
-#, fuzzy
 msgid "_Forget Width"
-msgstr "Заборави _ширину"
+msgstr "_Заборави ширину"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
@@ -1457,12 +1410,12 @@ msgid "Cannot copy file '%s': not supported"
 msgstr "Не могу да умножим датотеку „%s“: није подржано"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Setting display name can be done only for single file"
 msgstr "Постављање назива приказа је могуће само за једну датотеку"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
-#, fuzzy, c-format
+#, c-format
 msgid "Setting target can be done only for single file"
 msgstr "Постављање одредишта је могуће само за једну датотеку"
 
@@ -1479,17 +1432,17 @@ msgstr "ИксМЛ датотека не садржи програмски ко�
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "Не могу да створим ИксМЛ дефиницију за „%s“"
+msgstr "Не могу да створим ИксМЛ дефиницију за '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "Већ постоји путања менија „%s“"
+msgstr "Већ постоји путања изборника „%s“"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
-msgstr "Грешка предмеморије менија"
+msgstr "Грешка предмеморије изборника"
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
@@ -1498,34 +1451,34 @@ msgstr "Ова радња није подржана"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr "Директоријум менија није исправан"
+msgstr "Директоријум изборника није ваљан"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
-msgstr "Ставка менија не може бити без назива"
+msgstr "Ставка у изборнику не може бити без назива"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Директоријум менија „%s“ није исправан"
+msgstr "Директоријум изборника „%s“ није ваљан"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr "Ставка менија није исправна"
+msgstr "Ставка у изборнику није ваљана"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "Ставка менија „%s“ нема одговарајућу улазну датотеку"
+msgstr "Ставка изборника „%s“ нема одговарајућу улазну датотеку"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr "Измена скривеног стања није подржана за директоријум менија"
+msgstr "Измена скривеног стања није подржана за директоријум изборника"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Није подржано постављање атрибута „%s“ "
+msgstr "Није подржано постављање атрибута „%s“"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
@@ -1535,12 +1488,12 @@ msgstr "Неважећа вредност атрибута „%s“"
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr "„%s“ је директоријум менија"
+msgstr "„%s“ је директоријум изборника"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "„%s“ није  ставка менија"
+msgstr "„%s“ није ставка у изборнику"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
@@ -1550,11 +1503,11 @@ msgstr "Оштећена је улазна датотека „%s“"
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Не могу да створим ставку менија „%s“"
+msgstr "Не могу да створим ставку у изборнику  „%s“"
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "Назив директоријума менија се не завршава са „.desktop“"
+msgstr "Назив директоријума изборника се не завршава са \".desktop\""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
@@ -1567,8 +1520,7 @@ msgstr "Неисправно одредиште"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr ""
-"FmMenuVFileMonitor: нисам нашао директоријум „%s“ у предмеморији менија"
+msgstr "FmMenuVFileMonitor: нисам нашао директоријум '%s' у предмеморији менија"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1576,12 +1528,10 @@ msgid "Search"
 msgstr "Пронађи"
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
-msgstr "Пронађено је..."
+msgstr "Пронађено је"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
 msgstr "Изаберите извршну датотеку"
 
@@ -1603,7 +1553,7 @@ msgstr "<b>Опи_с:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "Генерички назив програма"
+msgstr "Општи назив програма"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1628,9 +1578,8 @@ msgid "_Use startup notification"
 msgstr "Користи обавештења при покретањ_у"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "Ставка ра_дне површи"
+msgstr "_Ставка радне површи"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1638,7 +1587,7 @@ msgstr "По_врати"
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
-msgstr "Врати датотеке из Непотребно на оригиналне локације"
+msgstr "Врати датотеке из Непотребног на њ. изворна места"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
@@ -1650,11 +1599,11 @@ msgstr "ИЗВОР"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr "назив резултујуће датотеке"
+msgstr "назив исходишне датотеке"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr "РЕЗУЛТАТ"
+msgstr "ИСХОД"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -1755,11 +1704,11 @@ msgstr "Празан БД-Р диск"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr "БД-РЕ диск"
+msgstr "БД-РВ диск"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "Празан БД-РЕ диск"
+msgstr "Празан БД-РВ диск"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"

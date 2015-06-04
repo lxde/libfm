@@ -17,6 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1392817656.0\n"
+"X-Pootle-Path: /sv/libfm/po/sv.po\n"
+"X-Pootle-Revision: 0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -649,8 +651,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett &-"
-"tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
+"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett "
+"&-tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -692,8 +694,7 @@ msgstr "Elementet \"%s\" avslutades men hade aldrig öppnats"
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
-"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är "
-"\"%s\""
+"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är \"%s\""
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -703,8 +704,7 @@ msgstr "Otillåtet tecken \"%c\" i början på attributvärde"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
-"Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
+msgstr "Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"

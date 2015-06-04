@@ -7,16 +7,18 @@ msgstr ""
 "Project-Id-Version: Libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-07-27 22:22+0000\n"
-"Last-Translator: Jan Helebrant <jhelebrant@seznam.cz>\n"
+"PO-Revision-Date: 2015-03-26 21:26+0000\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1406499736.000000\n"
+"X-Generator: Pootle 2.7.0-alpha1\n"
+"X-POOTLE-MTIME: 1427405194.000000\n"
+"X-Pootle-Path: /cs/libfm/po/cs.po\n"
+"X-Pootle-Revision: 111\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -67,7 +69,7 @@ msgstr "_Spustit v emulátoru terminálu"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "Po spuštění příkazu _ponechat okno terminálu otevřené "
+msgstr "_Po spuštění příkazu ponechat okno terminálu otevřené"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -373,7 +375,7 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "Nezáleží na velikosti písmen"
+msgstr "_Nezáleží na velikosti písmen"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
@@ -540,12 +542,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Došlo k chybám:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
-#, c-format
+#, c-format, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Chybné jméno položky menu '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
-#, c-format
+#, c-format, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Nebyla nalezena výchozí aplikace pro spuštění URIs %s://"
 
@@ -642,8 +644,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Nelze zpracovat „%-.*s“, což by mělo být číslo v odkazu na znak (například "
-"&#234) – číslo je možná příliš velké"
+"Nelze zpracovat '%-.*s', což by mělo být číslo v odkazu na znak (například "
+"&#234;) – číslo je možná příliš velké"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -652,8 +654,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Odkaz na znak nekončí středníkem; pravděpodobně jste použili znak & bez "
-"úmyslu začít entitu – zapište prosím ligaturu et jako &amp;"
+"Odkaz na znak nekončí středníkem; pravděpodobně jste použili znak pro "
+"ampersand bez úmyslu začít entitu – zapište prosím ligaturu et jako &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -665,8 +667,8 @@ msgstr "Odkaz na znak „%-.*s“ nekóduje povolený znak"
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Nalezena prázdná entita „&;“, platnými entitami jsou: &amp; &quot; &lt; &gt; "
-"&apos;"
+"Nalezena prázdná entita '&;' ; platnými entitami jsou: &amp; &quot; &lt; &gt;"
+" &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -679,8 +681,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"Entita nekončí středníkem; pravděpodobně jste použili znak & bez úmyslu "
-"začít entitu – zapište prosím ligaturu et jako &amp;"
+"Entita nekončí středníkem; pravděpodobně jste použili znak pro ampersand bez "
+"úmyslu začít entitu – zapište prosím ligaturu et jako &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -723,7 +725,7 @@ msgid "Customize"
 msgstr "Přizpůsobit"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
+#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Použít vybranou aplikaci pro otevření souborů \"%s\" </b>"
 
@@ -745,7 +747,7 @@ msgstr "Zobrazit strom adresářu v postranním panelu"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
-msgstr "Zrušeno"
+msgstr "_Zrušeno"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
@@ -1051,12 +1053,12 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Toto má právo provádět pouze systémový správce."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
+#, c-format, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Chcete přesunout soubor '%s'  do koše?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, c-format
+#, c-format, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Chcete přesunout %d vybraný soubor do koše?"
@@ -1064,12 +1066,12 @@ msgstr[1] "Chcete přesunout %d vybrané soubory do koše?"
 msgstr[2] "Chcete přesunout %d vybraných souborů do koše?"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, c-format
+#, c-format, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "Opravdu chcete odstranit soubor '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, c-format
+#, c-format, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Opravdu chcete odstranit %d vybraný soubor?"
@@ -1273,7 +1275,7 @@ msgstr "Obnovuje se"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
+#, c-format, c-format
 msgid "%s files"
 msgstr "Soubory %s"
 
@@ -1283,13 +1285,13 @@ msgstr "<b>Probíhá operace se soubory...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>Soubor %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>Soubory %s :</b>"
 
@@ -1357,7 +1359,7 @@ msgstr "_Pohled s náhledy"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr "Detailní pohled"
+msgstr "Podrobný _seznam"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1378,7 +1380,7 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr "Nelze vytvořit odkaz na ne-nativním souborovém systému"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
-#, c-format
+#, c-format, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Nelze obnovit soubor '%s' z koše: původní umístění neznámé"
 
@@ -1399,7 +1401,7 @@ msgid "Destination is a sub folder of source"
 msgstr "Cílové umístění je uvnitř zdrojové složky"
 
 #: ../src/job/fm-file-ops-job-xfer.c:380
-#, c-format
+#, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Nelze kopírovat soubor '%s':  není podporováno"
 
@@ -1414,9 +1416,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Stanovení cíle lze dosáhnout pouze pro jeden soubor"
 
 #: ../src/modules/vfs-menu.c:299
-#, c-format
+#, c-format, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML soubor %s chyba (%d:%d):"
+msgstr "XML soubor %s chyba (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1452,7 +1454,7 @@ msgid "Menu item name cannot be empty"
 msgstr "Název položky menu nemůže být prázdná"
 
 #: ../src/modules/vfs-menu.c:1507
-#, c-format
+#, c-format, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Neplatné menu adresáře %s"
 
@@ -1470,32 +1472,32 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Změna skrytého statusu není podporována pro menu adresáře"
 
 #: ../src/modules/vfs-menu.c:1978
-#, c-format
+#, c-format, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "Nastavení atributu %s není podporováno"
 
 #: ../src/modules/vfs-menu.c:1988
-#, c-format
+#, c-format, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "Neplatná hodnota pro atribut %s"
 
 #: ../src/modules/vfs-menu.c:2025
-#, c-format
+#, c-format, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' je menu adresáře"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
-#, c-format
+#, c-format, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s' není položka menu"
 
 #: ../src/modules/vfs-menu.c:2052
-#, c-format
+#, c-format, c-format
 msgid "The '%s' entry file is broken"
 msgstr "Soubor vstupu '%s' je poškozen"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
-#, c-format
+#, c-format, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Nelze vytvořit položku menu \"%s\""
 
@@ -1512,7 +1514,7 @@ msgid "Invalid destination"
 msgstr "Neplatný cíl"
 
 #: ../src/modules/vfs-menu.c:2979
-#, c-format
+#, c-format, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: složka '%s' nenalezena v menu mezipaměti"
 
