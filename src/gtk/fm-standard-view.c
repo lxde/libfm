@@ -2,7 +2,7 @@
  *      fm-standard-view.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1668,6 +1668,9 @@ static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
     }
     else
         fv->model = NULL;
+    /* reset tooltip after changing folder, it might stick from old one,
+       see how FmCellRendererText works on that regard */
+    g_object_set(G_OBJECT(fv->view), "tooltip-text", NULL, NULL);
 }
 
 typedef struct

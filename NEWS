@@ -50,6 +50,8 @@
 
 * Added 'terminology' into the terminals database.
 
+* Fixed stuck tooltip on entering empty folder.
+
 
 Changes on 1.2.3 since 1.2.2:
 
