@@ -1,7 +1,7 @@
 /*
  *      fm-folder-view.c
  *
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1106,11 +1106,14 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     gtk_widget_realize(GTK_WIDGET(menu));
     /* get all the relative coordinates */
     gtk_widget_get_allocation(widget, &a);
+    screen = gtk_widget_get_screen(widget);
     gdk_window_get_device_position(gtk_widget_get_window(widget),
-                                   gtk_get_current_event_device(), &x2, &y2, NULL);
+                                   gdk_device_manager_get_client_pointer(
+                                        gdk_display_get_device_manager(
+                                            gdk_screen_get_display(screen))),
+                                   &x2, &y2, NULL);
     gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
     parent_window = gtk_widget_get_parent_window(widget);
-    screen = gtk_widget_get_screen(widget);
     /* get absolute coordinate of parent window - we got coords relative to it */
     if (parent_window)
         gdk_window_get_origin(parent_window, x, y);

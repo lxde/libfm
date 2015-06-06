@@ -948,7 +948,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     {
         GdkModifierType mask = 0;
         gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
-                                        gtk_get_current_event_device(),
+                                        gdk_drag_context_get_device(drag_context),
                                         NULL, NULL, &mask);
         mask &= gtk_accelerator_get_default_mod_mask();
         if ((mask & ~GDK_CONTROL_MASK) != 0) /* only "copy" action is allowed */
@@ -1004,7 +1004,7 @@ query_sources:
             gboolean same_fs;
             GdkModifierType mask = 0;
             gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
-                                            gtk_get_current_event_device(),
+                                            gdk_drag_context_get_device(drag_context),
                                             NULL, NULL, &mask);
             mask &= gtk_accelerator_get_default_mod_mask();
             if(fm_path_is_trash(dest_path))

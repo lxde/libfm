@@ -2,7 +2,7 @@
  *      fm-file-menu.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -231,9 +231,7 @@ static gboolean on_key_pressed(GtkWidget *widget, GdkEventKey *event, FmFileMenu
     GtkAction *act;
     GdkModifierType mask = 0;
 
-    gdk_window_get_device_position (gtk_widget_get_window(widget),
-                                    gtk_get_current_event_device(),
-                                    NULL, NULL, &mask);
+    gtk_get_current_event_state(&mask);
     if (mask & GDK_SHIFT_MASK)
     {
         if (!data->shift_pressed)
@@ -252,9 +250,7 @@ static gboolean on_key_released(GtkWidget *widget, GdkEventKey *event, FmFileMen
     GtkAction *act;
     GdkModifierType mask = 0;
 
-    gdk_window_get_device_position (gtk_widget_get_window(widget),
-                                    gtk_get_current_event_device(),
-                                    NULL, NULL, &mask);
+    gtk_get_current_event_state(&mask);
     if (!(mask & GDK_SHIFT_MASK))
     {
         if (data->shift_pressed)
