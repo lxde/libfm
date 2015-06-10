@@ -52,6 +52,8 @@
 
 * Fixed stuck tooltip on entering empty folder.
 
+* Fixed crash on cancelling FmDirListJob while retrieving is in progress.
+
 
 Changes on 1.2.3 since 1.2.2:
 

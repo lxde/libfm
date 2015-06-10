@@ -2,7 +2,7 @@
  *      fm-dir-list-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -215,6 +215,7 @@ static inline FmFileInfo *_new_info_for_native_file(FmDirListJob* job, FmPath* p
     fm_file_info_set_path(fi, path);
     if (fm_file_info_set_from_native_file(fi, path_str, err))
         return fi;
+    g_assert(err != NULL);
     fm_file_info_unref(fi);
     return NULL;
 }
@@ -286,7 +287,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
         _retry:
             fi = _new_info_for_native_file(job, new_path, fpath->str, &err);
-            if (fi == NULL) /* we got a damaged file */
+            if (fi == NULL && !fm_job_is_cancelled(fmjob)) /* we got a damaged file */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 GFile *gf;
