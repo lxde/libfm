@@ -231,7 +231,12 @@ static gboolean on_key_pressed(GtkWidget *widget, GdkEventKey *event, FmFileMenu
     GtkAction *act;
     GdkModifierType mask = 0;
 
-    gtk_get_current_event_state(&mask);
+    gdk_window_get_device_position (gtk_widget_get_window(widget),
+                                    gdk_device_manager_get_client_pointer(
+                                        gdk_display_get_device_manager(
+                                            gdk_screen_get_display(
+                                                gtk_widget_get_screen(widget)))),
+                                    NULL, NULL, &mask);
     if (mask & GDK_SHIFT_MASK)
     {
         if (!data->shift_pressed)
@@ -250,7 +255,12 @@ static gboolean on_key_released(GtkWidget *widget, GdkEventKey *event, FmFileMen
     GtkAction *act;
     GdkModifierType mask = 0;
 
-    gtk_get_current_event_state(&mask);
+    gdk_window_get_device_position (gtk_widget_get_window(widget),
+                                    gdk_device_manager_get_client_pointer(
+                                        gdk_display_get_device_manager(
+                                            gdk_screen_get_display(
+                                                gtk_widget_get_screen(widget)))),
+                                    NULL, NULL, &mask);
     if (!(mask & GDK_SHIFT_MASK))
     {
         if (data->shift_pressed)
