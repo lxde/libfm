@@ -54,6 +54,8 @@
 
 * Fixed crash on cancelling FmDirListJob while retrieving is in progress.
 
+* Fixed incomplete cleanup on folder reloading.
+
 
 Changes on 1.2.3 since 1.2.2:
 

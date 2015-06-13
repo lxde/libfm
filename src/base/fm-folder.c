@@ -1107,6 +1107,31 @@ void fm_folder_reload(FmFolder* folder)
         folder->dir_fi = NULL;
     }
 
+    /* clear all update-lists now, see SF bug #919 - if update comes before
+       listing job is finished, a duplicate may be created in the folder */
+    if (folder->idle_handler)
+    {
+        g_source_remove(folder->idle_handler);
+        folder->idle_handler = 0;
+        if (folder->files_to_add)
+        {
+            g_slist_foreach(folder->files_to_add, (GFunc)fm_path_unref, NULL);
+            g_slist_free(folder->files_to_add);
+            folder->files_to_add = NULL;
+        }
+        if (folder->files_to_update)
+        {
+            g_slist_foreach(folder->files_to_update, (GFunc)fm_path_unref, NULL);
+            g_slist_free(folder->files_to_update);
+            folder->files_to_update = NULL;
+        }
+        if (folder->files_to_del)
+        {
+            g_slist_free(folder->files_to_del);
+            folder->files_to_del = NULL;
+        }
+    }
+
     /* remove all items and re-run a dir list job. */
     GList* l = fm_file_info_list_peek_head_link(folder->files);
 
