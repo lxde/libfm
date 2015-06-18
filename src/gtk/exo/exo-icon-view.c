@@ -5186,6 +5186,8 @@ exo_icon_view_scroll_to_item (ExoIconView     *icon_view,
   gint x, y;
   gint focus_width;
   GtkAllocation allocation;
+  GList *lp;
+  GdkRectangle rect;
 
   gtk_widget_style_get (GTK_WIDGET (icon_view),
                         "focus-line-width", &focus_width,
@@ -5194,21 +5196,42 @@ exo_icon_view_scroll_to_item (ExoIconView     *icon_view,
 
   gdk_window_get_position (icon_view->priv->bin_window, &x, &y);
 
-  if (y + item->area.y - focus_width < 0)
+  rect.x = item->area.x;
+  rect.y = item->area.y;
+  rect.width = rect.height = 0;
+  for (lp = icon_view->priv->cell_list; lp != NULL; lp = lp->next)
+    {
+      ExoIconViewCellInfo *info = EXO_ICON_VIEW_CELL_INFO (lp->data);
+      if (G_UNLIKELY (!gtk_cell_renderer_get_visible(info->cell)))
+        continue;
+
+      if (icon_view->priv->orientation == GTK_ORIENTATION_HORIZONTAL)
+        {
+          rect.width += item->box[info->position].width + (info->position > 0 ? icon_view->priv->spacing : 0);
+          rect.height = MAX (rect.height, item->box[info->position].height);
+        }
+      else
+        {
+          rect.width = MAX (rect.width, item->box[info->position].width);
+          rect.height += item->box[info->position].height + (info->position > 0 ? icon_view->priv->spacing : 0);
+        }
+    }
+
+  if (y + rect.y - focus_width < 0)
     gtk_adjustment_set_value (icon_view->priv->vadjustment,
-                              gtk_adjustment_get_value(icon_view->priv->vadjustment) + y + item->area.y - focus_width);
-  else if (y + item->area.y + item->area.height + focus_width > allocation.height)
+                              gtk_adjustment_get_value(icon_view->priv->vadjustment) + y + rect.y - focus_width);
+  else if (y + rect.y + rect.height + focus_width > allocation.height)
     gtk_adjustment_set_value (icon_view->priv->vadjustment,
-                              gtk_adjustment_get_value(icon_view->priv->vadjustment) + y + item->area.y + item->area.height
+                              gtk_adjustment_get_value(icon_view->priv->vadjustment) + y + rect.y + rect.height
                               + focus_width - allocation.height);
 
-  if (x + item->area.x - focus_width < 0)
+  if (x + rect.x - focus_width < 0)
     {
       gtk_adjustment_set_value (icon_view->priv->hadjustment,
-                                gtk_adjustment_get_value(icon_view->priv->hadjustment) + x + item->area.x - focus_width);
+                                gtk_adjustment_get_value(icon_view->priv->hadjustment) + x + rect.x - focus_width);
     }
-  else if (x + item->area.x + item->area.width + focus_width > allocation.width
-        && item->area.width < allocation.width)
+  else if (x + rect.x + rect.width + focus_width > allocation.width
+        && rect.width < allocation.width)
     {
       /* the second condition above is to make sure that we don't scroll horizontally if the item
        * width is larger than the allocation width. Fixes a weird scrolling bug in the compact view.
@@ -5216,7 +5239,7 @@ exo_icon_view_scroll_to_item (ExoIconView     *icon_view,
        */
 
       gtk_adjustment_set_value (icon_view->priv->hadjustment,
-                                gtk_adjustment_get_value(icon_view->priv->hadjustment) + x + item->area.x + item->area.width
+                                gtk_adjustment_get_value(icon_view->priv->hadjustment) + x + rect.x + rect.width
                                 + focus_width - allocation.width);
     }
 

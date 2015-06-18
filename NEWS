@@ -56,6 +56,12 @@
 
 * Fixed incomplete cleanup on folder reloading.
 
+* Corrected autoscrolling to position in view to not include extra space
+    (so not show all the column/row at once but only fully show exactly
+    the item). This fixes the problem with double-click at the end of the
+    file name when another file in the column/row has longer name and the
+    scrolled column/row causes second click land out of item area.
+
 
 Changes on 1.2.3 since 1.2.2:
 
