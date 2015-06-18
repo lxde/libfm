@@ -2,7 +2,7 @@
  *      fm-cell-renderer-text.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -176,56 +176,31 @@ static void fm_cell_renderer_text_set_property(GObject *object, guint param_id,
     }
 }
 
-#if GTK_CHECK_VERSION(3, 0, 0)
-static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
-                                         cairo_t *cr,
-                                         GtkWidget *widget,
-                                         const GdkRectangle *background_area,
-                                         const GdkRectangle *cell_area,
-                                         GtkCellRendererState flags)
-#else
-static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
-                                         GdkDrawable *window,
-                                         GtkWidget *widget,
-                                         GdkRectangle *background_area,
-                                         GdkRectangle *cell_area,
-                                         GdkRectangle *expose_area,
-                                         GtkCellRendererState flags)
-#endif
+static void _get_size(GtkCellRenderer *cell, GtkWidget *widget,
+                      PangoLayout *layout, gchar *text,
+                      const GdkRectangle *cell_area,
+                      gint *text_width, gint *text_height,
+                      gint *xpad, gint *ypad,
+                      gint *x_offset, gint *y_offset,
+                      gint *x_align_offset)
 {
     FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
-#if GTK_CHECK_VERSION(3, 0, 0)
-    GtkStyleContext* style;
-    GtkStateFlags state;
-#else
-    GtkStyle* style;
-    GtkStateType state;
-#endif
-    gchar* text;
-    gint text_width;
-    gint text_height;
-    gint x_offset;
-    gint y_offset;
-    gint x_align_offset;
-    GdkRectangle rect;
     PangoWrapMode wrap_mode;
     gint wrap_width;
     PangoAlignment alignment;
     gfloat xalign, yalign;
-    gint xpad, ypad;
+    gint a_width, a_height;
+    gint a_xpad, a_ypad;
 
-    /* FIXME: this is time-consuming since it invokes pango_layout.
-     *        if we want to fix this, we must implement the whole cell
-     *        renderer ourselves instead of derived from GtkCellRendererText. */
-    PangoContext* context = gtk_widget_get_pango_context(widget);
-
-    PangoLayout* layout = pango_layout_new(context);
+    if (layout)
+        g_object_ref(layout);
+    else
+        layout = pango_layout_new(gtk_widget_get_pango_context(widget));
 
     g_object_get(G_OBJECT(cell),
                  "wrap-mode" , &wrap_mode,
                  "wrap-width", &wrap_width,
                  "alignment" , &alignment,
-                 "text", &text,
                  NULL);
 
     pango_layout_set_alignment(layout, alignment);
@@ -254,17 +229,85 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 
     pango_layout_set_auto_dir(layout, TRUE);
 
-    pango_layout_get_pixel_size(layout, &text_width, &text_height);
+    if (!text_width)
+        text_width = &a_width;
+    if (!text_height)
+        text_height = &a_height;
+    pango_layout_get_pixel_size(layout, text_width, text_height);
 
     gtk_cell_renderer_get_alignment(cell, &xalign, &yalign);
-    gtk_cell_renderer_get_padding(cell, &xpad, &ypad);
+    if (!xpad)
+        xpad = &a_xpad;
+    if (!ypad)
+        ypad = &a_ypad;
+    gtk_cell_renderer_get_padding(cell, xpad, ypad);
     /* Calculate the real x and y offsets. */
-    x_offset = ((gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL) ? (1.0 - xalign) : xalign)
-             * (cell_area->width - text_width - (2 * xpad));
-    x_offset = MAX(x_offset, 0);
+    if (x_offset)
+    {
+        *x_offset = ((gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL) ? (1.0 - xalign) : xalign)
+                 * (cell_area->width - *text_width - (2 * *xpad));
+        *x_offset = MAX(*x_offset, 0);
+    }
 
-    y_offset = yalign * (cell_area->height - text_height - (2 * ypad));
-    y_offset = MAX (y_offset, 0);
+    if (y_offset)
+    {
+        *y_offset = yalign * (cell_area->height - *text_height - (2 * *ypad));
+        *y_offset = MAX (*y_offset, 0);
+    }
+
+    /* FIXME: this hack is ugly, need to rewrite this later */
+    if (x_align_offset)
+        *x_align_offset = (alignment == PANGO_ALIGN_CENTER) ? (wrap_width - *text_width) / 2 : 0;
+
+    g_object_unref(layout);
+}
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
+                                         cairo_t *cr,
+                                         GtkWidget *widget,
+                                         const GdkRectangle *background_area,
+                                         const GdkRectangle *cell_area,
+                                         GtkCellRendererState flags)
+#else
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
+                                         GdkDrawable *window,
+                                         GtkWidget *widget,
+                                         GdkRectangle *background_area,
+                                         GdkRectangle *cell_area,
+                                         GdkRectangle *expose_area,
+                                         GtkCellRendererState flags)
+#endif
+{
+#if GTK_CHECK_VERSION(3, 0, 0)
+    GtkStyleContext* style;
+    GtkStateFlags state;
+#else
+    GtkStyle* style;
+    GtkStateType state;
+#endif
+    gchar* text;
+    gint text_width;
+    gint text_height;
+    gint x_offset;
+    gint y_offset;
+    gint x_align_offset;
+    GdkRectangle rect;
+    gint xpad, ypad;
+
+    /* FIXME: this is time-consuming since it invokes pango_layout.
+     *        if we want to fix this, we must implement the whole cell
+     *        renderer ourselves instead of derived from GtkCellRendererText. */
+    PangoContext* context = gtk_widget_get_pango_context(widget);
+
+    PangoLayout* layout = pango_layout_new(context);
+
+    g_object_get(G_OBJECT(cell),
+                 "text", &text,
+                 NULL);
+
+    _get_size(cell, widget, layout, text, cell_area, &text_width, &text_height,
+              &xpad, &ypad, &x_offset, &y_offset, &x_align_offset);
 
     if(flags & (GTK_CELL_RENDERER_SELECTED|GTK_CELL_RENDERER_FOCUSED))
     {
@@ -324,8 +367,6 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
         state = GTK_STATE_NORMAL;
 #endif
 
-    x_align_offset = (alignment == PANGO_ALIGN_CENTER) ? (wrap_width - text_width) / 2 : 0;
-
 #if GTK_CHECK_VERSION(3, 0, 0)
     gtk_render_layout(style, cr,
                       cell_area->x + x_offset + xpad - x_align_offset,
@@ -368,18 +409,12 @@ static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
                                            gint                       *width,
                                            gint                       *height)
 {
-    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
-    gint wrap_width;
+    char *text;
 
-    GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
-    g_object_get(G_OBJECT(cell), "wrap-width", &wrap_width, NULL);
-    if (wrap_width > 0)
-        *width = wrap_width;
-    if (self->height > 0)
-    {
-        if(*height > self->height)
-            *height = self->height;
-    }
+    g_object_get(G_OBJECT(cell), "text", &text, NULL);
+    _get_size(cell, widget, NULL, text, rectangle, width, height, NULL, NULL,
+              x_offset, y_offset, NULL);
+    g_free(text);
 }
 
 #if GTK_CHECK_VERSION(3, 0, 0)
@@ -407,16 +442,17 @@ static void fm_cell_renderer_text_get_preferred_height(GtkCellRenderer *cell,
                                                        gint *minimum_size,
                                                        gint *natural_size)
 {
-    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
+    char *text;
+    gint height;
 
-    GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_preferred_height(cell, widget, minimum_size, natural_size);
-    if (self->height > 0)
-    {
-        if(natural_size && *natural_size > self->height)
-            *natural_size = self->height;
-        if(minimum_size && *minimum_size > self->height)
-            *minimum_size = self->height;
-    }
+    g_object_get(G_OBJECT(cell), "text", &text, NULL);
+    _get_size(cell, widget, NULL, text, NULL, NULL, &height, NULL, NULL, NULL, NULL, NULL);
+    g_free(text);
+
+    if(natural_size && *natural_size > height)
+        *natural_size = height;
+    if(minimum_size && *minimum_size > height)
+        *minimum_size = height;
 }
 
 static void fm_cell_renderer_text_get_preferred_height_for_width(GtkCellRenderer *cell,
