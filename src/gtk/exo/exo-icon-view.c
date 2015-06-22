@@ -2676,6 +2676,9 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
   if (dirty)
     g_signal_emit (icon_view, icon_view_signals[SELECTION_CHANGED], 0);
 
+  /* SF bug #929: we have to drop prelit state to drop tooltip, see text renderer */
+  icon_view->priv->prelit_item = NULL;
+
   /* release reference that was taken above */
   g_object_unref(widget);
 
