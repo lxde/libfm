@@ -58,9 +58,12 @@
 
 * Corrected autoscrolling to position in view to not include extra space
     (so not show all the column/row at once but only fully show exactly
-    the item). This fixes the problem with double-click at the end of the
-    file name when another file in the column/row has longer name and the
-    scrolled column/row causes second click land out of item area.
+    the item). This may fix a problem with double-click at the end of the
+    file name which is already visible so no scrolling is needed, but if
+    another file in the column/row has longer name then it could bring a
+    scrolling of the column/row, and second click lands out of item area.
+
+* Fixed timer shown in progress dialog, it should show 01:00, not 00:60.
 
 
 Changes on 1.2.3 since 1.2.2:

@@ -455,11 +455,11 @@ static gboolean on_update_dlg(gpointer user_data)
             guint secs = (guint)remaining;
             guint mins = 0;
             guint hrs = 0;
-            if(secs > 60)
+            if(secs >= 60)
             {
                 mins = secs / 60;
                 secs %= 60;
-                if(mins > 60)
+                if(mins >= 60)
                 {
                     hrs = mins / 60;
                     mins %= 60;
