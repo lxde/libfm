@@ -67,6 +67,10 @@
 
 * Fixed stuck tooltip after right-click on file in view, seen rarely.
 
+* Disabled following symlinked directories on recursive search, that may
+    give undesired results duplicating files and in some rare cases even
+    may lead to endless recursion and endless number of files found.
+
 
 Changes on 1.2.3 since 1.2.2:
 

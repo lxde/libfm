@@ -263,6 +263,10 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
 
             /* recurse upon each directory */
             if(err == NULL && enu->recursive &&
+               /* SF bug #969: very possibly we get multiple instances of the
+                  same file if we follow symlink to a directory
+                  FIXME: make it optional? */
+               !g_file_info_get_is_symlink(file_info) &&
                g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
             {
                 if(enu->show_hidden || !g_file_info_get_is_hidden(file_info))
