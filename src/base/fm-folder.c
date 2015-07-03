@@ -688,10 +688,12 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         case G_FILE_MONITOR_EVENT_CHANGED:
             folder->pending_change_notify = TRUE;
             G_LOCK(lists);
-            folder->files_to_update = g_slist_append(folder->files_to_update,
-                                                     fm_path_new_for_gfile(gf));
-            if(!folder->idle_handler)
-                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+            if (g_slist_find(folder->files_to_update, folder->dir_path) == NULL)
+            {
+                folder->files_to_update = g_slist_append(folder->files_to_update, fm_path_ref(folder->dir_path));
+                if(!folder->idle_handler)
+                    folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+            }
             G_UNLOCK(lists);
             /* g_debug("folder is changed"); */
             break;

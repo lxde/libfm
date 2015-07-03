@@ -412,7 +412,8 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                 if(!arg_found)  /* append %f if no %f, %F, %u, or %U was found. */
                     cmdline = _cmdline = g_strconcat(cmdline, " %f", NULL);
 
-                /* FIXME: is there any better way to do this? */
+                /* FIXME: is there any better way to do this?
+                   this is quite dirty, whole cmdline should be tested instead */
                 /* We need to ensure that no duplicated items are added */
                 if (app_name && app_name[0] && data->mime_type)
                 {
