@@ -71,6 +71,10 @@
     give undesired results duplicating files and in some rare cases even
     may lead to endless recursion and endless number of files found.
 
+* Fixed few small issues with icon view interactive search:
+    - search should be not activated by space key;
+    - cursor was missing in the entry.
+
 
 Changes on 1.2.3 since 1.2.2:
 

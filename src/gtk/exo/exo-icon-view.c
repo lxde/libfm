@@ -2790,6 +2790,10 @@ exo_icon_view_key_press_event (GtkWidget   *widget,
   if ((*GTK_WIDGET_CLASS (exo_icon_view_parent_class)->key_press_event) (widget, event))
     return TRUE;
 
+  /* 'space' keypress should not start search even if there is no selection */
+  if (G_UNLIKELY (event->keyval == GDK_KEY_space))
+    return FALSE;
+
   /* check if typeahead search is enabled */
   if (G_UNLIKELY (!icon_view->priv->enable_search))
     return FALSE;
@@ -8644,6 +8648,8 @@ exo_icon_view_search_ensure_directory (ExoIconView *icon_view)
 
   /* allocate a new search window */
   icon_view->priv->search_window = gtk_window_new (GTK_WINDOW_POPUP);
+  gtk_window_set_type_hint (GTK_WINDOW (icon_view->priv->search_window),
+                            GDK_WINDOW_TYPE_HINT_UTILITY);
   if ((group = gtk_window_get_group (GTK_WINDOW (toplevel))) != NULL)
     gtk_window_group_add_window (group, GTK_WINDOW (icon_view->priv->search_window));
   gtk_window_set_modal (GTK_WINDOW (icon_view->priv->search_window), TRUE);
