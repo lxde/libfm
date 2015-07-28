@@ -319,6 +319,9 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 
 #if GTK_CHECK_VERSION(3, 0, 0)
     style = gtk_widget_get_style_context(widget);
+
+    gtk_style_context_save(style);
+    gtk_style_context_add_class(style, GTK_STYLE_CLASS_VIEW);
 #else
     style = gtk_widget_get_style(widget);
 #endif
@@ -396,6 +399,10 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
     else
         g_object_set(G_OBJECT(widget), "tooltip-text", NULL, NULL);
     g_free(text);
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_style_context_restore(style);
+#endif
 }
 
 static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
