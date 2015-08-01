@@ -6,4 +6,4 @@ Icon=preferences-desktop
 Exec=libfm-pref-apps
 StartupNotify=true
 Categories=Settings;DesktopSettings;X-LXDE-Settings;GTK;
-NotShowIn=GNOME;XFCE;KDE;
+NotShowIn=GNOME;XFCE;KDE;MATE;
