@@ -75,6 +75,10 @@
     - search should be not activated by space key;
     - cursor was missing in the entry.
 
+* Fixed the background of the name of selected file with GTK+ 3.0.
+
+* Fixed not-ignored invalid Path= line on launch a desktop entry.
+
 
 Changes on 1.2.3 since 1.2.2:
 

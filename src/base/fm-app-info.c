@@ -338,7 +338,8 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
             path = NULL;
 
         data.pgid = getpgid(getppid());
-        ret = g_spawn_async(path, argv, NULL,
+                        /* only absolute path is usable, ignore others */
+        ret = g_spawn_async((path && path[0] == '/') ? path : NULL, argv, NULL,
                             G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
                             child_setup, &data, &pid, err);
         if (ret)
