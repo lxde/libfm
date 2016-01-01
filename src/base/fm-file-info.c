@@ -404,7 +404,32 @@ _not_desktop_entry:
             }
         }
         if(!fi->icon)
-            fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
+        {
+            if(S_ISDIR(st.st_mode))
+            {
+                /* If there is a custom folder icon, use it! */
+                char* path_name = fm_path_to_str(fi->path);
+                gchar *dot_dir = g_build_filename (path_name, G_DIR_SEPARATOR_S, ".directory", NULL);
+                g_free(path_name);
+                if(g_file_test(dot_dir, G_FILE_TEST_IS_REGULAR))
+                {
+                    GKeyFile *key = g_key_file_new();
+                    if(g_key_file_load_from_file(key, dot_dir, G_KEY_FILE_NONE, NULL))
+                    {
+                        gchar *icn = g_key_file_get_string(key, "Desktop Entry", "Icon", NULL);
+                        if(icn)
+                        {
+                            fi->icon =  fm_icon_from_name(icn);
+                            g_free(icn);
+                        }
+                    }
+                    g_key_file_free(key);
+                }
+                g_free(dot_dir);
+            }
+            if(!fi->icon)
+                fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
+        }
 
         if (!dname)
             dname = g_filename_display_basename(path);
