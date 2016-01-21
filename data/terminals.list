@@ -70,3 +70,8 @@ noclose_arg=-hold -e
 open_arg=-e
 noclose_arg=--hold -e
 desktop_id=terminology.desktop
+
+[termite]
+open_arg=-e
+noclose_arg=--hold -e
+desktop_id=termite.desktop
