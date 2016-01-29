@@ -950,6 +950,46 @@ char* fm_path_to_str(FmPath* path)
     return ret;
 }
 
+/* recursive internal implem. of fm_path_to_uri returns end of current
+   build string */
+static gchar* fm_path_to_uri_int(FmPath* path, gchar** ret, gint str_len)
+{
+    const char* reserved_chars = G_URI_RESERVED_CHARS_ALLOWED_IN_PATH_ELEMENT;
+    gchar* escaped_name;
+    gint name_len;
+    gchar* pbuf;
+
+    if(!path->parent)
+    {
+        if(g_str_has_prefix(path->name, "mtp://")) /* special handling is required for mtp */
+        {
+            char* tmp = g_uri_escape_string(path->name + 6, "/", FALSE);
+            escaped_name = g_strjoin(NULL, "mtp://", tmp, NULL);
+            g_free(tmp);
+        }
+        else
+        {
+            reserved_chars = G_URI_RESERVED_CHARS_ALLOWED_IN_PATH;
+            escaped_name = g_uri_escape_string(path->name, reserved_chars, FALSE);
+        }
+        name_len = strlen(escaped_name);
+        *ret = g_new0(gchar, str_len + name_len + 1);
+        pbuf = *ret;
+    }
+    else
+    {
+        escaped_name = g_uri_escape_string(path->name, reserved_chars, FALSE);
+        name_len = strlen(escaped_name);
+
+        pbuf = fm_path_to_uri_int(path->parent, ret, str_len + name_len + 1);
+        if (path->parent->parent) /* if parent dir is not root_path */
+            *pbuf++ = G_DIR_SEPARATOR;
+    }
+    memcpy(pbuf, escaped_name, name_len);
+    g_free(escaped_name);
+    return pbuf + name_len;
+}
+
 /**
  * fm_path_to_uri
  * @path: a path
@@ -964,15 +1004,15 @@ char* fm_path_to_str(FmPath* path)
 char* fm_path_to_uri(FmPath* path)
 {
     char* uri = NULL;
-    char* str = fm_path_to_str(path);
-    if( G_LIKELY(str) )
+    if(fm_path_is_native(path))
     {
-        if(str[0] == '/') /* absolute path */
-            uri = g_filename_to_uri(str, NULL, NULL);
-        else /* it's already an URI */
-            return str;
+        char* str = fm_path_to_str(path);
+        uri = g_filename_to_uri(str, NULL, NULL);
         g_free(str);
     }
+    else
+        fm_path_to_uri_int(path, &uri, 0);
+    g_print("uri: %s\n", uri);
     return uri;
 }
 
