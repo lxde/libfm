@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-05-02 08:29+0000\n"
-"Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
+"PO-Revision-Date: 2015-06-04 08:54+0000\n"
+"Last-Translator: markos <jezzivi@yahoo.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7.0-alpha1\n"
-"X-POOTLE-MTIME: 1430555352.000000\n"
-"X-Pootle-Path: /sr/libfm/po/sr.po\n"
-"X-Pootle-Revision: 1298\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1433408071.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -664,11 +662,11 @@ msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "Знаковна референца „%-.*s“ не представља дозвољени знак"
 
 #: ../src/extra/fm-xml-file.c:373
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Уочен празан ентитет „&;“ — прихватљиви ентитети су &amp; &quot; &lt; &gt; "
+"Уочен празан ентитет '&; '; прихватљиви ентитети су &amp; &quot; &lt; &gt; "
 "&apos;"
 
 #: ../src/extra/fm-xml-file.c:380
@@ -736,7 +734,7 @@ msgstr "Доступни програми"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
-msgstr "<Без поддиректоријума>"
+msgstr "<Без подфасцикли>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."

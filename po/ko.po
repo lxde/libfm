@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-20 20:01+0900\n"
+"PO-Revision-Date: 2015-07-20 13:36+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language: ko\n"
@@ -16,10 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.5\n"
-"X-POOTLE-MTIME: 1387201507.0\n"
-"X-Pootle-Path: /ko/libfm/po/ko.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1437399391.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -125,7 +123,7 @@ msgid ""
 msgstr ""
 "<b>이 위치에 같은 이름의 파일이 존재합니다</b>\n"
 "\n"
-"기존의 파일을 바꾸려 "
+"기존의 파일을 바꾸시겠습니까"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
@@ -195,7 +193,7 @@ msgstr "<b>다음으로 열기(_W):</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "이 유형의 파일을 열 때 사용할 프로그램을 선택하십시오"
+msgstr "이 형식의 파일을 열 프로그램을 선택하십시오 "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -503,7 +501,7 @@ msgstr "전자메일 주소를 눌렀을 때 메일 작성시 기본으로 사�
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
-msgstr " <b>터미널 에뮬레이터</b>"
+msgstr " <b>터미널 에뮬레이터</b> "
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
@@ -656,7 +654,7 @@ msgstr "'%-.*s' 문자 참조를 허용 문자로 인코딩할 수 없습니다"
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr "빈 '&;' 엔티티가 발견되었습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; &apos; 입니다"
+msgstr "빈 '&;' 엔티티를 발견했습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; &apos; 입니다"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -1401,7 +1399,7 @@ msgstr "하나의 파일에 대해서만 대상을 설정할 수 있습니다"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "'%s' XML 파일에 오류가 있습니다 (%d:%d):"
+msgstr "'%s' XML 파일에 오류가 있습니다 (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"

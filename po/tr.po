@@ -7,18 +7,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-01-12 02:34+0000\n"
-"Last-Translator: vgezer <volkangezer@gmail.com>\n"
+"PO-Revision-Date: 2015-07-27 23:10+0000\n"
+"Last-Translator: nyucel <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1389494074.0\n"
-"X-Pootle-Path: /tr/libfm/po/tr.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1438038653.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -165,7 +163,7 @@ msgstr "Dosyayı Çalıştır"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Uçbirimde Çalıştır"
+msgstr "Uçbirimde _Çalıştır"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -360,7 +358,7 @@ msgstr "Aşağıdaki takvimden bir tarih seçin"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr "_Dosyaları Ara"
+msgstr "Dosyaları Ara"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
@@ -384,7 +382,7 @@ msgstr "Düzenli _ifade kullan"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Arama Alanları:</b>"
+msgstr "<b>Ara_ma Alanları:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -654,7 +652,7 @@ msgid ""
 "as &amp;"
 msgstr ""
 "Karakter referansı noktalı virgül ile bitmemiş; büyük ihtimalle bir özvarlık "
-"başlatmak istemeksizin & karakteri kullandınız - & işaretini &amp; olarak "
+"başlatmak istemeksizin ve karakteri kullandınız - ve işaretini &amp; olarak "
 "kullanabilirsiniz"
 
 #: ../src/extra/fm-xml-file.c:336
@@ -666,8 +664,7 @@ msgstr "Karakter referansı '%-.*s' izin verilen karakteri kodlamıyor"
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
-"Boş özvarlık '&;' görüldü; geçerli ögeler: &amp; &quot; &lt; &qt; &apos;"
+msgstr "Boş girdi '&;' görüldü; geçerli ögeler: &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -681,7 +678,7 @@ msgid ""
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
 "Özvarlık noktalı virgül ile bitmiyor; büyük ihtimalle bir özvarlık başlatmak "
-"istemeksizin & karakteri kullandınız - & işaretini &amp; olarak "
+"istemeksizin ve karakteri kullandınız - ve işaretini &amp; olarak "
 "kullanabilirsiniz"
 
 #: ../src/extra/fm-xml-file.c:594
@@ -780,7 +777,7 @@ msgstr "_Birlikte Aç..."
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr "Yolları Kopyala"
+msgstr "Yolları Ko_pyala"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"

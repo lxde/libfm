@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-08-08 08:56+0000\n"
+"PO-Revision-Date: 2015-07-10 08:58+0000\n"
 "Last-Translator: Daniele Forsi <daniele@forsi.it>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -16,10 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1407488188.000000\n"
-"X-Pootle-Path: /it/libfm/po/it.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1436518734.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1260,20 +1258,17 @@ msgstr "Eliminazione"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Creazione collegamenti simbolici"
+msgstr "Creazione collegamento"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
 msgstr "<b>In:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
-#, fuzzy
 msgid "Creating links to files"
-msgstr "Creazione collegamenti simbolici"
+msgstr "Creazione collegamenti ai file"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
@@ -1281,9 +1276,8 @@ msgid "Changing attributes of"
 msgstr "Cambiamento attributi di"
 
 #: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
 msgid "Changing attributes of files"
-msgstr "Cambiamento attributi di"
+msgstr "Cambiamento attributi dei file"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614

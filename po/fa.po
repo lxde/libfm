@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2013-06-14 11:50+0330\n"
+"PO-Revision-Date: 2015-06-10 06:14+0000\n"
 "Last-Translator: Ali Yousefi Sabzevar <aysabzevar@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,9 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
-"X-Pootle-Path: /fa/libfm/po/fa.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1433916888.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -47,26 +46,23 @@ msgid "Use selected application to open files"
 msgstr "از نرم‌افزارهای انتخابی برای باز کردن پرونده ها استفاده کن"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "برنامه‌های نصب شده"
+msgstr "_برنامه‌های نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>خط فرمان برای اجرا</b>"
+msgstr "<b>خط فرمان برای اجرا:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "مرور"
+msgstr "_مرور..."
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
-msgstr "اجرا در پایانه شبیه ساز"
+msgstr "_اجرا در پایانه شبیه ساز"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
@@ -98,7 +94,6 @@ msgid "Execute custom command line to open files"
 msgstr "اجرای سفارشی خط فرمان برای باز کردن پرونده ها"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
 msgstr "خط فرمان سفارشی"
 

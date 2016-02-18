@@ -8,18 +8,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-03-23 23:50+0000\n"
-"Last-Translator: Jerome Leclanche <jerome@leclan.ch>\n"
+"PO-Revision-Date: 2015-08-12 15:59+0000\n"
+"Last-Translator: Julien Henry <Julius22@laposte.net>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.7.0-alpha1\n"
-"X-POOTLE-MTIME: 1427154648.000000\n"
-"X-Pootle-Path: /fr/libfm/po/fr.po\n"
-"X-Pootle-Revision: 37\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1439395143.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -504,13 +502,12 @@ msgstr "_Propriétés"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr "<b>Navigateur Internet</b>"
+msgstr "<b>Navigateur Web</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
-"Le navigateur Internet préféré sera utilisé pour ouvrir les liens "
-"hypertextes."
+"Le navigateur Web préféré sera utilisé pour ouvrir les liens hypertextes."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -899,8 +896,8 @@ msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Les fichiers sont cachés si leur nom commence par un point (« . »). Tapez "
-"<Ctrl+H> afficher les fichiers cachés."
+"Les fichiers sur ce système sont cachés si leur nom commence par un point (« "
+". »). Tapez <Ctrl+H> pour basculer l'affichage des fichiers cachés."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -1673,83 +1670,83 @@ msgstr "RÉSULTAT"
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "Disque CD-ROM"
+msgstr "CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "Disque CD-ROM vierge"
+msgstr "CD-ROM vierge"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr "Disque CD-R"
+msgstr "CD-R"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "Disque CD-R vierge"
+msgstr "CD-R vierge"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr "Disque CD-RW"
+msgstr "CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "Disque CD-RW vierge"
+msgstr "CD-RW vierge"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr "Disque DVD-ROM"
+msgstr "DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "Disque DVD-ROM vierge"
+msgstr "DVD-ROM vierge"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr "Disque DVD-RW"
+msgstr "DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "Disque DVD-RW vierge"
+msgstr "DVD-RW vierge"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr "Disque DVD-RAM"
+msgstr "DVD-RAM"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "Disque DVD-RAM vierge"
+msgstr "DVD-RAM vierge"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr "Disque DVD+R"
+msgstr "DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "Disque DVD+R vierge"
+msgstr "DVD+R vierge"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr "Disque DVD+RW"
+msgstr "DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "Disque DVD+RW vierge"
+msgstr "DVD+RW vierge"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "Disque DVD+R DL"
+msgstr "DVD+R DL"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "Disque DVD+R DL vierge"
+msgstr "DVD+R DL vierge"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr "Disque DVD+RW DL"
+msgstr "DVD+RW DL"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "Disque DVD+RW DL vierge"
+msgstr "DVD+RW DL vierge"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
@@ -1777,27 +1774,27 @@ msgstr "Disque Blu-Ray RW vierge"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr "Disque HD DVD"
+msgstr "HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "Disque HD DVD vierge"
+msgstr "HD DVD vierge"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr "Disque HD DVD-R"
+msgstr "HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "Disque HD DVD-R vierge"
+msgstr "HD DVD-R vierge"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr "Disque HD DVD-RW"
+msgstr "HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "Disque HD DVD-RW vierge"
+msgstr "HD DVD-RW vierge"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"

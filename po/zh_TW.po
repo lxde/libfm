@@ -7,18 +7,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-03-20 06:50+0000\n"
-"Last-Translator: <wwycheuk@gmail.com>\n"
+"PO-Revision-Date: 2015-06-29 10:45+0000\n"
+"Last-Translator: wwycheuk <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.6.0-rc2\n"
-"X-POOTLE-MTIME: 1426834204.000000\n"
-"X-Pootle-Path: /zh_TW/libfm/po/zh_TW.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1435574709.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -977,9 +975,8 @@ msgid "Enter a name for the newly created folder:"
 msgstr "為新建資料夾輸入名稱："
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "新建資料夾"
+msgstr "建立新資料夾"
 
 #: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"

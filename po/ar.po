@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-04-10 15:09+0000\n"
+"PO-Revision-Date: 2015-06-14 16:43+0000\n"
 "Last-Translator: صفا الفليج <safa1996alfulaij@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "Language: ar\n"
@@ -18,10 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Pootle 2.7.0-alpha1\n"
-"X-POOTLE-MTIME: 1428678587.000000\n"
-"X-Pootle-Path: /ar/libfm/po/ar.po\n"
-"X-Pootle-Revision: 578\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1434300218.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -598,9 +596,8 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "لم يعيّن محاكي طرفيّة في ضبط libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "وصف غير صالح لتطبيق المصغرات"
+msgstr "وصف غير صالح لتطبيق \"منشئ المصغّرات\""
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -645,7 +642,7 @@ msgstr "مسار URI الفرعيّ '%s' يحوي محارف خلوص غير ص�
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "مقبض متكرّر للوسم <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -690,6 +687,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"لم ينتهِ الكيان بفاصلة منقوطة، أغلب الظّن أنّك استخدمت محرف \"و\" الإنجليزيّ "
+"دون أن تنوي بدء كيان. اهرب من محرف \"و\" الإنجليزي عبر &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -1445,7 +1444,7 @@ msgstr "يمكن تعيين الهدف لملفّ واحد فقط"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr ""
+msgstr "خطأ في ملفّ XML ‏'%s' ‏(%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"

@@ -7,18 +7,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2013-07-18 16:27+0000\n"
-"Last-Translator: Praveen_Illa <mail2ipn@gmail.com>\n"
+"PO-Revision-Date: 2015-06-19 10:23+0000\n"
+"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374164842.0\n"
-"X-Pootle-Path: /te/libfm/po/te.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1434709434.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -27,45 +25,41 @@ msgstr "ప్రాధాన్య అనువర్తనాలు"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"జాల లంకె లేదా ఈమెయిలు చిరునామా పై నొక్కినప్పుడు తెరవబడే అనువర్తనాన్ని "
+"ఎంచుకోండి"
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "లఘువులు"
+msgstr "అడ్డదారుల కూర్పకం"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "ఉన్నటువంటి డెస్కుటాప్ ప్రవేశాన్ని మార్చండి లేదా కొత్తది సృష్టించండి"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "ఒక అనువర్తనాన్ని ఎన్నుకొను"
+msgstr "అనువర్తనాన్ని ఎన్నుకోండి"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
 msgstr "ఫైళ్ళను తెరుచుటకు ఎంచుకున్న అనువర్తనమును వాడు"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Applications"
-msgstr "స్థాపించబడిన అనువర్తనము (_I)"
+msgstr "స్థాపించబడిన అనువర్తనాలు (_I)"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>ఎక్జిక్యూట్‌చేయుటకు కమాండు లైను:</b>"
+msgstr "<b>ఎక్జిక్యూట్‌చేయుటకు కమాండు లైను (_o):</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "అన్వేషించు (_B)"
+msgstr "విహరించు...(_B)"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
-#, fuzzy
 msgid "_Execute in terminal emulator"
 msgstr "టెర్మినల్ ఎమ్యులేటర్‌లో అమలుచేయి (_E)"
 
@@ -73,7 +67,7 @@ msgstr "టెర్మినల్ ఎమ్యులేటర్‌లో అ�
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "ఆదేశం అమలు తరువాత కూడా టెర్మినల్ కిటికీని ఉంచు (_K)"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -92,16 +86,15 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>అనువర్తనం పేరు (ఐచ్ఛికం, సంబంధించిన దానితో తెరుచుటుకు అమర్చండి)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
 msgstr "ఫైళ్ళను తెరుచుటకు అనురూపిత కమాండు లైనును అమలుపరుచు"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "అనురూపిత ఆదేశ పంక్తి (_C)"
+msgstr "అనురూపిత ఆదేశ పంక్తి (_u)"
 
 #: ../data/ui/app-chooser.glade.h:17
 #, fuzzy
@@ -156,20 +149,17 @@ msgstr "ఒక అనువర్తనాన్ని ఎన్నుకొన�
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
-msgstr "వ్యవస్థ అనువర్తనాలు"
+msgstr "వ్యవస్థ ప్రతీక అలంకారం"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
-msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
+msgstr "బొమ్మ దస్త్రాలు"
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>లక్ష్యం(_h):</b>"
+msgstr "<b>ఇక్కడి నుండి ప్రతీకను ఎంచుకోండి:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -177,7 +167,7 @@ msgstr "ఎక్జిక్యూట్ ఫైల్"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "టెర్మినల్‌లో ఎక్జిక్యూట్‌చేయి"
+msgstr "టెర్మినల్‌లో ఎక్జిక్యూట్‌చేయి (_T)"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -185,26 +175,23 @@ msgstr "ఫైల్ లక్షణాలు"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "సంచయం చూడటంలో దస్త్రం యొక్క ప్రతీక"
 
 #: ../data/ui/file-prop.glade.h:3
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>యజమాని (_O):</b>"
+msgstr "<b>పేరు (_N):</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
 msgstr "<b>స్థలము:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>లక్ష్యం:</b>"
+msgstr "<b>లక్ష్య దస్త్రం:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>దస్త్ర రకం:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Open _with:</b>"
@@ -215,34 +202,28 @@ msgid "Select the application used to open files of this type "
 msgstr "ఈ రకపు ఫైళ్ళను తెరుచుటకు అనువర్తనమును ఎంచుకోండి "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>ఫైళ్ళ యొక్క మొత్తం పరిమాణం:</b>"
+msgstr "<b>మొత్తం దస్త్రాల సంఖ్య:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
-msgstr "<b>ఫైళ్ళ యొక్క మొత్తం పరిమాణం:</b>"
+msgstr "<b>మొత్తం దస్త్రాల పరిమాణం:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>డిస్కు పై పరిమాణం:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
-msgstr "<b>ఆఖరి సవరణలు:</b>"
+msgstr "<b>చివరి మార్పు:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
-msgstr "<b>ఆఖరి వాడుక:</b>"
+msgstr "<b>చివరి వాడుక:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>ఆఖరి వాడుక:</b>"
+msgstr "<b>చివరి అనుమతుల మార్పు:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
@@ -274,32 +255,31 @@ msgstr "<b>ప్రత్యేక బిట్లు:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "దస్త్రం/సంచయం యొక్క విషయాలను ఎవరు చదవవచ్చు"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "దస్త్రం/సంచయం యొక్క విషయాలను ఎవరు మార్చవచ్చు"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "ఎవరు దస్త్రమును అమలుచేయగలరు లేదా సంచయంలోకి అడుగు పెట్టగలరు"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "దస్త్రపు అమలు కోసం ప్రత్యేక కేతనాలు"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "సంచయం ప్రాప్యత కోసం ప్రత్యేక కేతనాలు"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>ప్రవేశ నియంత్రణ</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "ఫైళ్ళను తరలిస్తోంది"
+msgstr "దాగిన దస్త్రం"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -318,47 +298,47 @@ msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr ""
+msgstr "అంటివుండేటిది"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
-msgstr ""
+msgstr "జీఐడీ అమర్చు"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "అంటివుండేది & జీఐడీ అమర్చు"
 
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr ""
+msgstr "యూఐడీ అమర్చు"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
-msgstr ""
+msgstr "యూఐడీ & జీఐడీ అమర్చు"
 
 #: ../data/ui/file-prop.glade.h:37
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr ""
+msgstr "యజమాని మాత్రమే"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
-msgstr ""
+msgstr "యజమాని మరియు సమూహం మాత్రమే"
 
 #: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
-msgstr ""
+msgstr "ఎవరైనా"
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
-msgstr ""
+msgstr "ఎవరూకాదు"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "బైట్లు"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -374,21 +354,19 @@ msgstr "గిబై"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr ""
+msgstr "తేదీని ఎంచుకోండి"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "దిగువన పేర్కొన్న క్యాలెండరు నుండి తేదీని ఎంచుకోండి"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "ఫైలు పేరుమార్చు"
+msgstr "దస్త్రాలను వెతుకు"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>దస్త్రం పేరు సరళులు (_N):</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
@@ -398,67 +376,63 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "అక్షరాల తరగతి పట్టింపులేకుండా (_v)"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "రెగ్యులర్ ఎక్స్‌ప్రెషన్స్ వాడు (_U)"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr ""
+msgstr "<b>వెతకాల్సిన స్థలములు (_e):</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "ఉప సంచయాలలో కూడా వెతుకు (_S)"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "దాగిన దస్త్రాలను వెతుకు (_h)"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "పేరు/ప్రాంతం (_L)"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>దస్త్ర రకం:</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr ""
+msgstr "క్రింది పేర్కొన్న రకపు దస్త్రాల కోసం మాత్రమే వెతుకు:"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "ఫైళ్ళను తీసివేస్తోంది"
+msgstr "పాఠ్య దస్త్రాలు (_x)"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
+msgstr "బొమ్మ దస్త్రాలు (_I)"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr ""
+msgstr "ఆడియో దస్త్రాలు (_A)"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr ""
+msgstr "దృశ్య దస్త్రాలు (_V)"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "పత్రాలు (_D)"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "ఫైలు పేరుమార్చు"
+msgstr "సంచయాలు (_r)"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "ఇతరాలు (_h):"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
@@ -467,23 +441,20 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "File _Type"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "దస్త్ర రకం (_T)"
 
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>డిస్కు పై పరిమాణం:</b>"
+msgstr "<b>దస్త్రంలో ఇవి ఉంటాయి (_s):</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
-msgstr ""
+msgstr "విషయము (_o)"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>దస్త్ర రకం</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
@@ -513,9 +484,8 @@ msgid "L_ater than:"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:36
-#, fuzzy
 msgid "_Properties"
-msgstr "ఫైల్ లక్షణాలు"
+msgstr "లక్షణాలు (_P)"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -750,19 +720,17 @@ msgid "Customize"
 msgstr "అనురూపించు"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "ఫైళ్ళను తెరుచుటకు ఎంచుకున్న అనువర్తనమును వాడు"
+msgstr "<b>\"%s\" దస్త్రాలను తెరుచుటకు ఒక అనువర్తనాన్ని ఎంచుకోండి</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
 msgstr "స్థాపించబడిన అనువర్తనాలు"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<ఏ ఉప సంచయం లేదు>"
+msgstr "<ఏ ఉప సంచయాలు లేవు>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -773,9 +741,8 @@ msgid "Shows tree of directories in sidebar"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "_Cancel"
-msgstr "రద్దుచేయబడింది"
+msgstr "రద్దుచేయి (_C)"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
@@ -799,14 +766,12 @@ msgid "_Open"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:152
-#, fuzzy
 msgid "Open _With..."
-msgstr "దీనితో తెరవండి..."
+msgstr "దీనితో తెరవండి...(_W)"
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "దీనితో తెరవండి..."
+msgstr "దీనితో తెరవండి (_W)"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -821,9 +786,8 @@ msgid "Unh_ide"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "ఇష్టాంశము నుండి తొలగించు"
+msgstr "ఇష్టాంశానికి చేర్చు (_A)"
 
 #: ../src/gtk/fm-file-menu.c:162
 #, fuzzy
@@ -831,30 +795,25 @@ msgid "_Rename..."
 msgstr "పేరుమార్చు (_R)"
 
 #: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "కుదించు..."
+msgstr "కుదించు...(_m)"
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Extract _Here"
-msgstr "ఇక్కడ సంగ్రహించు"
+msgstr "ఇక్కడ సంగ్రహించు (_H)"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "ఇచటకి సంగ్రహించు..."
+msgstr "ఇచటకు సంగ్రహించు...(_x)"
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Prop_erties"
-msgstr "ఫైల్ లక్షణాలు"
+msgstr "లక్షణాలు (_e)"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "చెత్తబుట్ట"
+msgstr "చెత్తబుట్టకు తరలించు (_T)"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
@@ -944,9 +903,8 @@ msgid "Size"
 msgstr "పరిమాణం"
 
 #: ../src/gtk/fm-folder-model.c:193
-#, fuzzy
 msgid "Permissions"
-msgstr "అనుమతులు (_P)"
+msgstr "అనుమతులు"
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
@@ -957,9 +915,8 @@ msgid "Modified"
 msgstr "సవరించబడినది"
 
 #: ../src/gtk/fm-folder-model.c:196
-#, fuzzy
 msgid "Location"
-msgstr "<b>స్థలము:</b>"
+msgstr "స్థలము"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
@@ -987,14 +944,12 @@ msgid "_Sort Files"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "ఫైలు పేరుమార్చు"
+msgstr "సంచయం పేరుమార్చు...(_R)"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "ఫైల్ లక్షణాలు"
+msgstr "సంచయం లక్షణాలు (_e)"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
@@ -1011,23 +966,20 @@ msgid "_Ignore Name Case"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:219
-#, fuzzy
 msgid "By _Name"
-msgstr "పేరు"
+msgstr "పేరును బట్టి (_N)"
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:221
-#, fuzzy
 msgid "By _Size"
-msgstr "పరిమాణం"
+msgstr "పరిమాణము బట్టి (_S)"
 
 #: ../src/gtk/fm-folder-view.c:222
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "దస్త్ర రకము బట్టి (_T)"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
@@ -1054,16 +1006,14 @@ msgid "New"
 msgstr "నెట్‌వర్క్"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Enter a name for the new %s:"
-msgstr "ఒక కొత్త పేరును ఇవ్వండి:"
+msgstr "%s కు ఒక కొత్త పేరును ఇవ్వండి:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Creating %s"
-msgstr "symlinksను సృష్టిస్తున్నది"
+msgstr "%s ను సృష్టిస్తున్నది"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1112,10 +1062,9 @@ msgid "Only system administrators have the permission to do this."
 msgstr "దీనిని చేయుటకు వ్యవస్థ నిర్వాహకులు మాత్రమే అనుమతికలిగివున్నారు."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
+msgstr "'%s' దస్త్రమును చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
@@ -1175,54 +1124,44 @@ msgid "Applications"
 msgstr "అనువర్తనాలు"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "దస్త్రవ్యవస్థ రూట్"
 
 #: ../src/gtk/fm-places-view.c:131
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "సంపుటమును అధిరోహించు"
+msgstr "సంపుటమును అధిరోహించు (_M)"
 
 #: ../src/gtk/fm-places-view.c:132
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "సంపుటమును అనధిరోహించు"
+msgstr "సంపుటమును అనధిరోహించు (_U)"
 
 #: ../src/gtk/fm-places-view.c:133
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "తీసివేయదగిన మాధ్యమాన్ని నెట్టివేయి"
+msgstr "తీసివేయదగిన మాధ్యమాన్ని నెట్టివేయి (_E)"
 
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "_Format Volume"
-msgstr "సంపుటమును అధిరోహించు"
+msgstr "సంపుటమును ఫార్మాటుచేయి (_F)"
 
 #: ../src/gtk/fm-places-view.c:150
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "ఇష్టాంశము పేరుమార్చు"
+msgstr "ఇష్టాంశము పేరుమార్చు (_R)"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "ఇష్టాంశము నుండి తొలగించు"
+msgstr "ఇష్టాంశాల నుండి తొలగించు (_m)"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "ఇష్టాంశము నుండి తొలగించు"
+msgstr "ఇష్టాంశమును పైకి తరలించు (_U)"
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "ఇష్టాంశము నుండి తొలగించు"
+msgstr "ఇష్టాంశమును కిందికి తరలించు (_D)"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "చెత్తబుట్టను ఖాళీచేయండి"
+msgstr "చెత్తబుట్టను ఖాళీచేయి (_E)"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1350,16 +1289,14 @@ msgstr ""
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
-#, fuzzy
 msgid "Restoring"
-msgstr "తిరిగివుంచు (_R)"
+msgstr "తిరిగివుంచుతోంది"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "%s files"
-msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
+msgstr "%s దస్త్రాలు"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
@@ -1367,36 +1304,31 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>%s దస్త్రం:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, c-format
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>ఫైల్ రకం:</b>"
+msgstr "<b>%s దస్త్రాలు:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:67
-#, fuzzy
 msgid "_Places"
-msgstr "స్థలములు"
+msgstr "స్థలములు (_P)"
 
 #: ../src/gtk/fm-side-pane.c:68
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "సంచయపు వృక్షం"
+msgstr "సంచయపు వృక్షం (_D)"
 
 #: ../src/gtk/fm-side-pane.c:69
-#, fuzzy
 msgid "_Remote"
-msgstr "దూరస్థం"
+msgstr "సుదూరం (_R)"
 
 #: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
@@ -1629,18 +1561,16 @@ msgid "Executable files"
 msgstr "ఎక్జిక్యూట్ ఫైల్"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>వీరికి:</b>"
+msgstr "<b>ఆదేశం (_m):</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>స్థలము:</b>"
+msgstr "<b>వివరణ (_e):</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
@@ -1656,9 +1586,8 @@ msgid "The working directory to run the program in"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>వీరికి:</b>"
+msgstr "<b>పనిముట్లచిట్కా(_T):</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 #, fuzzy
@@ -1672,9 +1601,8 @@ msgid "_Use startup notification"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "డెస్క్‍టాప్"
+msgstr "డెస్క్‌టాప్ ప్రవేశం (_D)"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"

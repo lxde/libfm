@@ -7,18 +7,16 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-02-10 14:41+0000\n"
-"Last-Translator: Sisco <sisco.garcia@ubuntu.cat>\n"
+"PO-Revision-Date: 2015-06-05 08:43+0000\n"
+"Last-Translator: Davidmp <rbndavid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1392043264.0\n"
-"X-Pootle-Path: /ca/libfm/po/ca.po\n"
-"X-Pootle-Revision: 0\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1433493782.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -68,7 +66,7 @@ msgstr "_Navega..."
 #: ../data/ui/app-chooser.glade.h:6
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
-msgstr "Executa-ho a un emulador de terminal"
+msgstr "_Executa-ho en un emulador de terminal"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
@@ -412,9 +410,8 @@ msgid "Search Files"
 msgstr "Cerca fitxers"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Patrons de nom de fitxer:</b>"
+msgstr "<b>Patrons de _nom de fitxer:</b>"
 
 # reviseu bé aquesta proposta, no ho tinc gens clar
 #: ../data/ui/filesearch.glade.h:9
@@ -427,9 +424,8 @@ msgstr ""
 "separador) com una expressió habitual de POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
-#, fuzzy
 msgid "Case insensiti_ve"
-msgstr "No distingeix majúscules i minúscules"
+msgstr "No distingeix _majúscules ni minúscules"
 
 #: ../data/ui/filesearch.glade.h:11
 #, fuzzy
@@ -437,9 +433,8 @@ msgid "_Use regular expression"
 msgstr "_Utilitzar expressió regular"
 
 #: ../data/ui/filesearch.glade.h:12
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Llocs on cercar:</b>"
+msgstr "<b>_Llocs on cercar:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 #, fuzzy
@@ -466,9 +461,8 @@ msgid "Only search for files of following types:"
 msgstr "Només cerca fitxers dels següents tipus:"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Fitxers de text"
+msgstr "Fit_xers de text"
 
 #: ../data/ui/filesearch.glade.h:19
 #, fuzzy
@@ -490,14 +484,12 @@ msgid "_Documents"
 msgstr "_Documents"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Carpetes"
+msgstr "Ca_rpetes"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "Ot_her:"
-msgstr "Altres:"
+msgstr "_Altres:"
 
 #: ../data/ui/filesearch.glade.h:25
 #, fuzzy
@@ -516,9 +508,8 @@ msgstr "_Tipus de fitxer:"
 
 # No n'he tret l'aigua clara, també podria ser <b>El fitxer conté:</b>
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Contingut del fitxer:</b>"
+msgstr "<b>_Contingut del fitxer:</b>"
 
 # Com en el cas anterior, també podria ser C_onté
 #: ../data/ui/filesearch.glade.h:28
@@ -742,8 +733,7 @@ msgstr ""
 "caràcter de referència (per exemple &#234;). Potser el dígit és massa llarg."
 
 #: ../src/extra/fm-xml-file.c:310
-#, c-format
-#, c-format, fuzzy
+#, c-format, c-format
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
@@ -751,7 +741,7 @@ msgid ""
 msgstr ""
 "La referència del caràcter no acaba amb un punt i coma. Segurament heu "
 "utilitzat un caràcter «&» sense intenció d'iniciar una entitat. Substituïu "
-"el caràcter «&» per &amp;."
+"el caràcter «&» per &amp."
 
 # Hi ha cap diferència entre «%-.+s» i '%-.+s' ?
 #: ../src/extra/fm-xml-file.c:336
@@ -761,13 +751,12 @@ msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "El caràcter de referència «%-.*s» no codifica un caràcter permés"
 
 #: ../src/extra/fm-xml-file.c:373
-#, c-format
-#, c-format, fuzzy
+#, c-format, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"S'ha detectat una entitat buida «&;». Les entitats vàlides són: &amp; &quot; "
-"&lt; &gt; &apos;."
+"S'ha detectat una entitat buida: «&;». Les entitats vàlides són &amp; &quot; "
+"&lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -776,15 +765,13 @@ msgid "Entity name '%-.*s' is not known"
 msgstr "Es desconeix el nom de l'entitat «%-.*s»"
 
 #: ../src/extra/fm-xml-file.c:384
-#, c-format
-#, c-format, fuzzy
+#, c-format, c-format
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
 "L'entitat no acaba amb un punt i coma. Segurament heu utilitzat un caràcter "
-"«&» sense intenció d'iniciar una entitat. Substituïu el caràcter «&» per "
-"&amp;."
+"& sense intenció d'iniciar una entitat. Substituïu el caràcter & per &amp;."
 
 #: ../src/extra/fm-xml-file.c:594
 #, fuzzy
@@ -884,9 +871,8 @@ msgid "_Open"
 msgstr "_Obre"
 
 #: ../src/gtk/fm-file-menu.c:152
-#, fuzzy
 msgid "Open _With..."
-msgstr "Obre amb..."
+msgstr "Obre a_mb..."
 
 #: ../src/gtk/fm-file-menu.c:153
 #, fuzzy
@@ -894,9 +880,8 @@ msgid "Open _With"
 msgstr "Obre _amb"
 
 #: ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Copy Pa_th(s)"
-msgstr "Copia la(es) ruta(es)"
+msgstr "Copia la(es) _ruta(es)"
 
 #: ../src/gtk/fm-file-menu.c:159
 #, fuzzy
@@ -904,9 +889,8 @@ msgid "H_ide"
 msgstr "A_maga"
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "Unh_ide"
-msgstr "Fes visible"
+msgstr "Fes _visible"
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
@@ -917,9 +901,8 @@ msgid "_Rename..."
 msgstr "_Canvia el nom..."
 
 #: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Comprimint..."
+msgstr "Co_mprimeix..."
 
 #: ../src/gtk/fm-file-menu.c:164
 #, fuzzy
@@ -1094,9 +1077,8 @@ msgid "_Rename Folder..."
 msgstr "_Canvia el nom del fitxer..."
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Propietats del fitxer"
+msgstr "Propi_etats del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:205
 #, fuzzy
@@ -1105,9 +1087,8 @@ msgstr "Mostra els _ocults"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Posa davant fitxers de carpetes"
+msgstr "Barreja _fitxers i carpetes"
 
 #: ../src/gtk/fm-folder-view.c:208
 #, fuzzy
@@ -1262,9 +1243,8 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "Estàs segur/a que vols buidar la paperera?"
 
 #: ../src/gtk/fm-path-entry.c:668
-#, fuzzy
 msgid "Pa_ste and Go"
-msgstr "Enganxa i vés-hi"
+msgstr "Enganxa i vé_s-hi"
 
 #: ../src/gtk/fm-path-entry.c:727
 #, fuzzy
@@ -1312,24 +1292,20 @@ msgid "_Format Volume"
 msgstr "_Formata el volum"
 
 #: ../src/gtk/fm-places-view.c:150
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Canvia el nom del marcador"
+msgstr "Canvia el _nom del marcador"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "Suprimeix de les adreces d'interès"
+msgstr "_Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Puja l'adreça d'interès"
+msgstr "Mou l'adreça d'interès a_munt"
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Baixa l'adreça d'interès"
+msgstr "Mou l'adreça d'interès a_vall"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 #, fuzzy
@@ -1349,9 +1325,8 @@ msgid "Rename Bookmark Item"
 msgstr "Canvia el nom del marcador"
 
 #: ../src/gtk/fm-places-view.c:1103
-#, fuzzy
 msgid "Enter a new name:"
-msgstr "Introdueix un nom nou: "
+msgstr "Introduïu un nom nou:"
 
 #: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
@@ -1474,7 +1449,7 @@ msgstr "Canvia atributs d'arxiu"
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
 msgid "Restoring"
-msgstr "_Restaurant"
+msgstr "Restaurant"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
@@ -1537,10 +1512,9 @@ msgid "View of folder contents"
 msgstr "Vista del contingut de la carpeta"
 
 #: ../src/gtk/fm-standard-view.c:831
-#, c-format
-#, c-format, fuzzy
+#, c-format, c-format
 msgid "_Hide %s"
-msgstr "Amaga %s"
+msgstr "Ama_ga %s"
 
 #: ../src/gtk/fm-standard-view.c:839
 #, fuzzy
@@ -1652,10 +1626,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Ajustar la diana només pot fer-se per un únic fitxer"
 
 #: ../src/modules/vfs-menu.c:299
-#, c-format
-#, c-format, fuzzy
+#, c-format, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Error (%d:%d) de fitxer XML '%s': "
+msgstr "Error (%d:%d) de fitxer XML \"%s\": "
 
 #: ../src/modules/vfs-menu.c:309
 #, fuzzy
@@ -1797,9 +1770,8 @@ msgid "Executable files"
 msgstr "Fitxers executables"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Ordre:</b>"
+msgstr "<b>_Ordre:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 #, fuzzy
@@ -1817,9 +1789,8 @@ msgid "Generic name of the application"
 msgstr "El nom genèric de l'aplicació"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Directori de treball:</b>"
+msgstr "<b>Directori de _treball:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 #, fuzzy
@@ -1827,9 +1798,8 @@ msgid "The working directory to run the program in"
 msgstr "El directori de treball per fer funcionar el programa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Consell:</b>"
+msgstr "<b>_Consell:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 #, fuzzy
@@ -1844,9 +1814,8 @@ msgid "_Use startup notification"
 msgstr "_Usar notificació d'inicialització"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "Entrada d'escriptori"
+msgstr "Entra_da d'escriptori"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
