@@ -81,6 +81,9 @@
 
 * Fixed testing URIs like http://some.host.com for MIME type.
 
+* Dropped using shortcuts to URIs like http://host/ as directories, no
+    directory should be in principle used in shortcuts.
+
 
 Changes on 1.2.3 since 1.2.2:
 

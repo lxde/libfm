@@ -3,7 +3,7 @@
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
- *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -290,7 +290,11 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
 
                             /* g_debug("got type %s for URL %s", fm_mime_type_get_type(new_mime_type), uri); */
                             if (strcmp(fm_mime_type_get_type(new_mime_type),
-                                       "application/octet-stream") == 0)
+                                       "application/octet-stream") == 0 ||
+                                /* actually remote links should never be
+                                   directories so let treat them as unknown */
+                                (new_mime_type == _fm_mime_type_get_inode_directory()
+                                 && !g_str_has_prefix(uri, "file:/")))
                             {
                                 /* NOTE: earlier we classified all links to
                                    desktop entry as inode/x-shortcut too but
