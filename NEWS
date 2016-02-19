@@ -79,6 +79,8 @@
 
 * Fixed not-ignored invalid Path= line on launch a desktop entry.
 
+* Fixed testing URIs like http://some.host.com for MIME type.
+
 
 Changes on 1.2.3 since 1.2.2:
 

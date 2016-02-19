@@ -3,7 +3,7 @@
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
- *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -115,6 +115,12 @@ FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
     FmMimeType* mime_type;
     char * type;
     gboolean uncertain;
+    /* let skip scheme and host from non-native names */
+    type = g_strstr_len(ufile_name, -1, "://");
+    if (type != NULL)
+        ufile_name = strchr(&type[3], '/');
+    if (ufile_name == NULL)
+        ufile_name = "unknown";
     type = g_content_type_guess(ufile_name, NULL, 0, &uncertain);
     mime_type = fm_mime_type_from_name(type);
     g_free(type);
