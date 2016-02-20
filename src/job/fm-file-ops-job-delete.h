@@ -30,7 +30,8 @@
 
 G_BEGIN_DECLS
 
-gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmFolder *folder);
+gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf,
+                                      FmFolder *folder, gboolean only_empty);
 gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job);
 
 /* gboolean _fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf); */

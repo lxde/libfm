@@ -3,7 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -475,7 +475,7 @@ _file_copied:
     /* if this is a cross-device move operation, delete source files. */
     /* ret == TRUE means the copy is successful. */
     if( !fm_job_is_cancelled(fmjob) && ret && delete_src )
-        ret = _fm_file_ops_job_delete_file(fmjob, src, inf, src_folder); /* delete the source file. */
+        ret = _fm_file_ops_job_delete_file(fmjob, src, inf, src_folder, TRUE); /* delete the source file. */
 
     if(new_dest)
         g_object_unref(new_dest);

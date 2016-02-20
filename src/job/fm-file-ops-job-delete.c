@@ -2,7 +2,7 @@
  *      fm-file-ops-job-delete.c
  *
  *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012,2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -36,7 +36,8 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
 
-gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmFolder *folder)
+gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf,
+                                      FmFolder *folder, gboolean only_empty)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = FM_FILE_OPS_JOB(job);
@@ -123,7 +124,8 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmF
             /* if it's non-empty dir then descent into it then try again */
             /* trash root gives G_IO_ERROR_PERMISSION_DENIED */
             if(is_trash_root || /* FIXME: need to refactor this! */
-               (is_dir && err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_EMPTY))
+               (is_dir && !only_empty &&
+                err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_EMPTY))
             {
                 GFileEnumerator* enu;
                 FmFolder *sub_folder;
@@ -149,7 +151,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmF
                     if(inf)
                     {
                         GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-                        ok = _fm_file_ops_job_delete_file(job, sub, inf, sub_folder);
+                        ok = _fm_file_ops_job_delete_file(job, sub, inf, sub_folder, FALSE);
                         g_object_unref(sub);
                         g_object_unref(inf);
                         if (!ok) /* stop the job if error happened */
@@ -179,6 +181,13 @@ _failed:
                 is_trash_root = FALSE; /* don't go here again! */
                 is_dir = FALSE;
                 continue;
+            }
+            else if (is_dir && only_empty)
+            {
+                /* special case: trying delete directory with skipped files
+                   see _fm_file_ops_job_copy_file() for details */
+                g_error_free(err);
+                return TRUE;
             }
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
             {
@@ -259,7 +268,7 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
         parent = fm_path_get_parent(path);
         src = fm_path_to_gfile(path);
 
-        ret = _fm_file_ops_job_delete_file(fmjob, src, NULL, parent_folder);
+        ret = _fm_file_ops_job_delete_file(fmjob, src, NULL, parent_folder, FALSE);
         g_object_unref(src);
     }
     if (parent_folder)
