@@ -100,9 +100,6 @@
           <object class="GtkCalendar" id="calendar">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="year">2012</property>
-            <property name="month">8</property>
-            <property name="day">15</property>
           </object>
           <packing>
             <property name="expand">True</property>

@@ -86,6 +86,8 @@
 
 * Fixed possible data loss on cross-partition data movement.
 
+* Fixed incorrect data in the search dialog date selection window.
+
 
 Changes on 1.2.3 since 1.2.2:
 
