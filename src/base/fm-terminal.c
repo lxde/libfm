@@ -1,7 +1,7 @@
 /*
  *      fm-terminal.c
  *
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -298,6 +298,12 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
         cmd = _cmd = g_strdup_printf("%s %s", term->program, term->launch);
     else
         cmd = term->program;
+    if (term->custom_args)
+    {
+        cmd = g_strdup_printf("%s %s", cmd, term->custom_args);
+        g_free(_cmd);
+        _cmd = (char *)cmd;
+    }
     if(!g_shell_parse_argv(cmd, &argc, &argv, error))
         argv = NULL;
     g_free(_cmd);
