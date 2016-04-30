@@ -193,10 +193,15 @@ FmConfig *fm_config_new(void)
 static void _on_cfg_file_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                                  GFileMonitorEvent evt, FmConfig *cfg)
 {
+    gchar * tmpname;
     if (evt == G_FILE_MONITOR_EVENT_DELETED)
         _cfg_monitor_free(cfg);
     else
-        fm_config_load_from_file(cfg, cfg->_cfg_name);
+    {
+        tmpname = g_strdup(cfg->_cfg_name);
+        fm_config_load_from_file(cfg, tmpname);
+	g_free(tmpname);
+    }
 }
 
 /**
