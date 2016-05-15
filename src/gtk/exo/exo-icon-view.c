@@ -453,7 +453,7 @@ static void     exo_icon_view_search_preedit_changed    (GtkIMContext   *im_cont
 #endif
 static gboolean exo_icon_view_search_start              (ExoIconView    *icon_view,
                                                          gboolean        keybinding);
-static gboolean exo_icon_view_search_equal_func         (GtkTreeModel   *model,
+gboolean exo_icon_view_search_equal_func         (GtkTreeModel   *model,
                                                          gint            column,
                                                          const gchar    *key,
                                                          GtkTreeIter    *iter,
@@ -8935,7 +8935,7 @@ exo_icon_view_search_start (ExoIconView *icon_view,
 
 
 
-static gboolean
+gboolean
 exo_icon_view_search_equal_func (GtkTreeModel *model,
                                  gint          column,
                                  const gchar  *key,
@@ -8982,7 +8982,7 @@ exo_icon_view_search_equal_func (GtkTreeModel *model,
       case_normalized_key = g_utf8_casefold (normalized_key, -1);
 
       /* compare the casefolded strings */
-      if (strncmp (case_normalized_key, case_normalized_string, strlen (case_normalized_key)) == 0)
+      if (strstr (case_normalized_string, case_normalized_key) != 0)
         retval = FALSE;
     }
 
