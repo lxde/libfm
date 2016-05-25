@@ -221,6 +221,9 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
                                                       GCancellable *cancellable,
                                                       GError **error)
 {
+    g_return_val_if_fail(G_IS_FILE_ENUMERATOR(enumerator), NULL);
+    g_return_val_if_fail(enumerator != NULL, NULL);
+
     FmVfsSearchEnumerator *enu = FM_VFS_SEACRH_ENUMERATOR(enumerator);
     FmSearchIntIter *iter;
     GFileInfo * file_info;
@@ -313,6 +316,9 @@ static gboolean _fm_vfs_search_enumerator_close(GFileEnumerator *enumerator,
                                               GCancellable *cancellable,
                                               GError **error)
 {
+    g_return_val_if_fail(G_IS_FILE_ENUMERATOR (enumerator), FALSE);
+    g_return_val_if_fail(enumerator != NULL, FALSE);
+
     FmVfsSearchEnumerator *enu = FM_VFS_SEACRH_ENUMERATOR(enumerator);
     FmSearchIntIter *iter;
 
