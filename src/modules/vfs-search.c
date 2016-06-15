@@ -564,7 +564,9 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
 
             if(name_regex)
             {
-                GRegexCompileFlags flags = 0;
+                /* we set G_REGEX_RAW because GLib might cause a crash
+                   if a search is done in a non-utf8 string */
+                GRegexCompileFlags flags = G_REGEX_RAW;
                 if(priv->name_case_insensitive)
                     flags |= G_REGEX_CASELESS;
                 priv->name_regex = g_regex_new(name_regex, flags, 0, NULL);
@@ -573,7 +575,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
 
             if(content_regex)
             {
-                GRegexCompileFlags flags = 0;
+                GRegexCompileFlags flags = G_REGEX_RAW; /* like above */
                 if(priv->content_case_insensitive)
                     flags |= G_REGEX_CASELESS;
                 priv->content_regex = g_regex_new(content_regex, flags, 0, NULL);
