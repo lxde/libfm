@@ -1,5 +1,11 @@
 * Fixed 'Launch in Terminal' issue when custom args were ignored.
 
+* Fixed crash with non-UTF regex search pattern.
+
+* Added 'termite' into the terminals database.
+
+* Fixed possible crash on FmPlacesView.
+
 
 Changes on 1.2.4 since 1.2.3:
 

@@ -527,7 +527,7 @@ gboolean fm_modules_add_directory(const char *path)
     GSList *l;
     gboolean res = FALSE;
 
-    g_return_val_if_fail(path != NULL || path[0] != '/', FALSE);
+    g_return_val_if_fail(path != NULL && path[0] == '/', FALSE);
     G_LOCK(idle_handler);
     if (fm_modules_loaded) /* it's too late... */
         goto _finish;

@@ -1212,9 +1212,7 @@ static void fm_places_view_set_property(GObject *object,
     {
     case PROP_HOME_DIR:
         home_dir = g_value_get_string(value);
-        if (home_dir && !*home_dir)
-            home_dir = NULL;
-        if (strcmp(home_dir, fm_get_home_dir()) == 0)
+        if (home_dir && (!*home_dir || strcmp(home_dir, fm_get_home_dir()) == 0))
             home_dir = NULL;
         g_free(view->home_dir);
         view->home_dir = g_strdup(home_dir);

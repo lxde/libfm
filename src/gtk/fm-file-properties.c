@@ -572,7 +572,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
         if(data->all_native && !isdigit(tmp[0])) /* entering names instead of numbers is only allowed for local files. */
         {
             struct passwd* pw;
-            if(!tmp || !*tmp || !(pw = getpwnam(tmp)))
+            if(!(pw = getpwnam(tmp)))
                 ret = FALSE;
             else
                 data->uid = pw->pw_uid;
@@ -602,7 +602,7 @@ static gboolean ensure_valid_group(FmFilePropData* data)
         if(data->all_native && !isdigit(tmp[0])) /* entering names instead of numbers is only allowed for local files. */
         {
             struct group* gr;
-            if(!tmp || !*tmp || !(gr = getgrnam(tmp)))
+            if(!(gr = getgrnam(tmp)))
                 ret = FALSE;
             else
                 data->gid = gr->gr_gid;
