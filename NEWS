@@ -6,6 +6,8 @@
 
 * Fixed possible crash on FmPlacesView.
 
+* Fixed crash on non-existent directory listing job.
+
 
 Changes on 1.2.4 since 1.2.3:
 

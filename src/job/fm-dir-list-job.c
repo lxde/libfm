@@ -215,7 +215,6 @@ static inline FmFileInfo *_new_info_for_native_file(FmDirListJob* job, FmPath* p
     fm_file_info_set_path(fi, path);
     if (fm_file_info_set_from_native_file(fi, path_str, err))
         return fi;
-    g_assert(err != NULL);
     fm_file_info_unref(fi);
     return NULL;
 }
