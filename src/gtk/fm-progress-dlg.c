@@ -333,7 +333,7 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
             gtk_widget_show(GTK_WIDGET(data->msg));
             if(fm_job_is_cancelled(FM_JOB(job)))
             {
-                gtk_label_set_markup(data->msg, _("<b>Errors occured before file operation was stopped.</b>"));
+                gtk_label_set_markup(data->msg, _("<b>Errors occurred before file operation was stopped.</b>"));
                 gtk_window_set_title(GTK_WINDOW(data->dlg),
                                      _("Cancelled"));
             }
