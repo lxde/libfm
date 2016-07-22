@@ -72,12 +72,33 @@ static void append_file_to_cmd(GFile* gf, GString* cmd)
 
 static void append_uri_to_cmd(GFile* gf, GString* cmd)
 {
-    char* uri = g_file_get_uri(gf);
-    char* quote = g_shell_quote(uri);
-    g_string_append(cmd, quote);
-    g_string_append_c(cmd, ' ');
-    g_free(quote);
-    g_free(uri);
+    char* uri = NULL;
+    if(!g_file_has_uri_scheme(gf, "file"))
+    {
+        /* When gvfs-fuse is in use, try to convert all URIs that are not file:// to 
+         * their corresponding FUSE-mounted local paths.  GDesktopAppInfo internally does this, too.
+         * With this, non-gtk+ applications can correctly open files in gvfs-mounted remote filesystems.
+         */
+        char* path = g_file_get_path(gf);
+        if(path)
+        {
+            uri = g_filename_to_uri(path, NULL, NULL);
+            g_free(path);
+        }
+    }
+    if(!uri)
+    {
+        uri = g_file_get_uri(gf);
+    }
+
+    if(uri)
+    {
+        char* quote = g_shell_quote(uri);
+        g_string_append(cmd, quote);
+        g_string_append_c(cmd, ' ');
+        g_free(quote);
+        g_free(uri);
+    }
 }
 
 static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path,
@@ -263,6 +284,7 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path,
     GPid pid;
 
     cmd = expand_exec_macros(appinfo, full_desktop_path, kf, inp, &gfiles);
+    g_print("%s\n", cmd);
     if (cmd == NULL || cmd[0] == '\0')
     {
         g_free(cmd);
