@@ -88,8 +88,7 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>Naam van toepassing (naar keuze, stel dit in om associatie te behouden)</"
-"b>"
+"<b>Naam van toepassing (naar keuze, stel dit in om associatie te behouden)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
