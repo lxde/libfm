@@ -348,7 +348,7 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
         GKeyFile *kf = g_key_file_new();
         char *filename = fm_path_to_str(file->path);
         char *tmp;
-        GError *error;
+        GError *error = NULL;
         gboolean hidden;
 
         if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, &error))
