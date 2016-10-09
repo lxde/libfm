@@ -77,6 +77,10 @@ void fm_icon_reset_user_data_cache(GQuark quark);
 
 void fm_icon_unload_cache();
 
+typedef void (*FmIconCacheForeachFunc)(GIcon* key, FmIcon* value, gpointer user_data);
+
+void fm_icon_cache_foreach(FmIconCacheForeachFunc func, gpointer user_data);
+
 G_END_DECLS
 
 #endif /* __FM_ICON_H__ */

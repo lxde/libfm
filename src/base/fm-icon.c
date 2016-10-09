@@ -279,3 +279,21 @@ void fm_icon_set_user_data_destroy(GDestroyNotify func)
     g_hash_table_foreach(hash, (GHFunc)reload_user_data_cache, NULL);
     G_UNLOCK(hash);
 }
+
+/**
+ * fm_icon_cache_foreach
+ * @func: function to call for each cached FmIcon object.
+ *
+ * Iterate through all FmIcon objects in the cache. This API is not intended to
+ * be called by application developers. It's used by different GUI bindings of
+ * libfm, such as libfm-qt, to update the data stored in the cached icons.
+ * 
+ * Since: 1.2.5
+ */
+void fm_icon_cache_foreach(FmIconCacheForeachFunc func, gpointer user_data)
+{
+    G_LOCK(hash);
+    g_hash_table_foreach(hash, (GHFunc)func, user_data);
+    G_UNLOCK(hash);
+}
+
