@@ -2,6 +2,7 @@
  *      fm-templates.c
  *
  *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2016 Mamoru TASAKA <mtasaka@fedoraproject.org>
  *
  *      This file is a part of the Libfm library.
  *

@@ -8,6 +8,8 @@
 
 * Fixed crash on non-existent directory listing job.
 
+* Fixed crash in _fm_template_update().
+
 
 Changes on 1.2.4 since 1.2.3:
 
