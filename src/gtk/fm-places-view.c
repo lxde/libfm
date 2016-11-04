@@ -1284,7 +1284,7 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
                                     g_param_spec_string("home-dir-path",
                                                         "Home item directory",
                                                         "What directory path will be used for Home item",
-                                                        fm_get_home_dir(),
+                                                        NULL,
                                                         G_PARAM_READWRITE));
 
     /**
