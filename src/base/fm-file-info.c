@@ -189,37 +189,6 @@ FmFileInfo* fm_file_info_new ()
 }
 
 /**
- * _fm_file_info_set_emblems:
- * @fi:  A FmFileInfo struct
- * @inf: A GFileInfo object
- *
- * Read icon emblems metadata from the "metadata::emblems" attribute of
- * a GFileInfo object and make the GIcon store in the FmFileInfo a 
- * GEmblemedIcon object if the file has emblems.
- */
-static void _fm_file_info_set_emblems(FmFileInfo* fi, GFileInfo* inf)
-{
-    char** emblem_names = g_file_info_get_attribute_stringv(inf, "metadata::emblems");
-    if(emblem_names)
-    {
-        GIcon* gicon = g_emblemed_icon_new(G_ICON(fi->icon), NULL);
-        char** emblem_name;
-        for(emblem_name = emblem_names; *emblem_name; ++emblem_name)
-        {
-            GIcon* emblem_icon = g_themed_icon_new(*emblem_name);
-            GEmblem* emblem = g_emblem_new(emblem_icon);
-            g_object_unref(emblem_icon);
-            g_emblemed_icon_add_emblem(G_EMBLEMED_ICON(gicon), emblem);
-            g_object_unref(emblem);
-        }
-        /* replace the original GIcon with an GEmblemedIcon */
-        g_object_unref(fi->icon);
-        fi->icon = fm_icon_from_gicon(gicon);
-        g_object_unref(gicon);
-    }
-}
-
-/**
  * fm_file_info_set_from_native_file:
  * @fi:  A FmFileInfo struct
  * @path:  full path of the file
@@ -244,9 +213,6 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
     g_return_val_if_fail(fi && fi->path, FALSE);
     if(lstat(path, &st) == 0)
     {
-        GFile* gfile;
-        GFileInfo* inf;
-
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
         fi->atime = st.st_atime;
@@ -444,16 +410,6 @@ _not_desktop_entry:
         if(!fi->icon)
             fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
 
-        gfile = g_file_new_for_path(path);
-        
-        /* get emblems using gio/gvfs-metadata */
-        inf = g_file_query_info(gfile, "metadata::emblems,standard::icon", G_FILE_QUERY_INFO_NONE, NULL, NULL);
-        if(inf)
-        {
-            _fm_file_info_set_emblems(fi, inf);
-            g_object_unref(inf);
-        }
-
         if (!dname)
             dname = g_filename_display_basename(path);
         _fm_path_set_display_name(fi->path, dname);
@@ -463,15 +419,17 @@ _not_desktop_entry:
         fi->fs_is_ro = FALSE;
         if (S_ISDIR(st.st_mode))
         {
-            inf = g_file_query_filesystem_info(gfile, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
+            GFile *gf = g_file_new_for_path(path);
+            GFileInfo *inf;
+            inf = g_file_query_filesystem_info(gf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
                                                NULL, NULL);
             if (inf)
             {
                 fi->fs_is_ro = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY);
                 g_object_unref(inf);
             }
+            g_object_unref(gf);
         }
-        g_object_unref(gfile);
     }
     else
     {
@@ -694,9 +652,6 @@ _file_is_symlink:
         fi->icon = g_object_ref(icon_locked_folder);
     else
         fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
-
-    /* if the file has emblems, add them to the icon */
-    _fm_file_info_set_emblems(fi, inf);
 
     if(fm_path_is_native(fi->path))
     {

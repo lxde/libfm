@@ -44,7 +44,7 @@
 static void fm_file_info_job_dispose              (GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
-const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*,id::filesystem,metadata::emblems";
+const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*,id::filesystem";
 
 enum {
     GOT_INFO,
