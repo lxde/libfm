@@ -30,7 +30,7 @@
 #include "fm-xml-file.h"
 
 #include <glib/gi18n-lib.h>
-#include <menu-cache/menu-cache.h>
+#include <menu-cache.h>
 
 /* support for libmenu-cache 0.4.x */
 #ifndef MENU_CACHE_CHECK_VERSION
