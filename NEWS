@@ -8,7 +8,18 @@
 
 * Fixed crash on non-existent directory listing job.
 
+* Added new MIME type for rar files to the archivers.list file.
+
 * Fixed crash in _fm_template_update().
+
+* Fixed incorrect initialization of FmPlacesViewClass, it should not call
+    fm_get_home_dir() but initialized with NULL, that will do the same at
+    runtime.
+
+* Fixed FTBFS when libmenu-cache was installed to non-standard location.
+
+* Added check for edit name "/" for remote root directory so display name
+    should be used in such cases as more sensible one.
 
 
 Changes on 1.2.4 since 1.2.3:
