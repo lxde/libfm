@@ -27,6 +27,8 @@
 
 * Fixed wrong width requested by FmCellRendererText (1.2.4 regression).
 
+* Updated list of MIME types handled by xarchiver.
+
 
 Changes on 1.2.4 since 1.2.3:
 
