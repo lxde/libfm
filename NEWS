@@ -8,6 +8,10 @@
 
 * Fixed crash on non-existent directory listing job.
 
+* Added conversion of all URIs schemes to file:/// by mapping them to
+    FUSE-mounted local paths if that is possible. This is required for
+    non-gio applications to open files mounted by gvfs.
+
 * Added new MIME type for rar files to the archivers.list file.
 
 * Fixed crash in _fm_template_update().
@@ -20,6 +24,8 @@
 
 * Added check for edit name "/" for remote root directory so display name
     should be used in such cases as more sensible one.
+
+* Fixed wrong width requested by FmCellRendererText (1.2.4 regression).
 
 
 Changes on 1.2.4 since 1.2.3:

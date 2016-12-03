@@ -2,7 +2,7 @@
  *      fm-cell-renderer-text.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2015 Mamoru TASAKA <mtasaka@fedoraproject.org>
  *
  *      This program is free software; you can redistribute it and/or modify
@@ -235,6 +235,9 @@ static void _get_size(GtkCellRenderer *cell, GtkWidget *widget,
     if (!text_height)
         text_height = &a_height;
     pango_layout_get_pixel_size(layout, text_width, text_height);
+
+    if (wrap_width > 0)
+        *text_width = wrap_width;
 
     gtk_cell_renderer_get_alignment(cell, &xalign, &yalign);
     if (!xpad)
