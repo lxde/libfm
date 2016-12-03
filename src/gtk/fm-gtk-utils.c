@@ -2,7 +2,7 @@
  *      fm-gtk-utils.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
@@ -1093,9 +1093,14 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     new_name = fm_get_user_input_rename(parent, _("Rename File"),
                                         _("Please enter a new name:"),
                                         old_name);
-    g_free(old_name);
-    if( !new_name )
+    /* if file name wasn't changed then do nothing */
+    if (new_name == NULL || strcmp(old_name, new_name) == 0)
+    {
+        g_free(old_name);
+        g_free(new_name);
         return;
+    }
+    g_free(old_name);
     files = fm_path_list_new();
     fm_path_list_push_tail(files, file);
     job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, files);

@@ -29,6 +29,8 @@
 
 * Updated list of MIME types handled by xarchiver.
 
+* Don't show error message when attempting to rename file into the same.
+
 
 Changes on 1.2.4 since 1.2.3:
 
