@@ -362,9 +362,9 @@ static gboolean on_idle_reload(FmFolder* folder)
     /* check if folder still exists */
     if(g_source_is_destroyed(g_main_current_source()))
     {
+        /* FIXME: it should be impossible, folder cannot be disposed at this point */
         return FALSE;
     }
-    g_object_ref(folder);
     fm_folder_reload(folder);
     G_LOCK(query);
     folder->idle_reload_handler = 0;
@@ -377,7 +377,8 @@ static void queue_reload(FmFolder* folder)
 {
     G_LOCK(query);
     if(!folder->idle_reload_handler)
-        folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
+        folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload,
+                                                      g_object_ref(folder), NULL);
     G_UNLOCK(query);
 }
 
@@ -927,6 +928,7 @@ static void fm_folder_dispose(GObject *object)
     G_LOCK(query);
     if(folder->idle_reload_handler)
     {
+        /* FIXME: it should be impossible, folder should be referenced if handler added */
         g_source_remove(folder->idle_reload_handler);
         folder->idle_reload_handler = 0;
     }
@@ -942,6 +944,7 @@ static void fm_folder_dispose(GObject *object)
     G_LOCK(lists);
     if(folder->idle_handler)
     {
+        /* FIXME: it should be impossible, folder should be referenced if handler added */
         g_source_remove(folder->idle_handler);
         folder->idle_handler = 0;
         if(folder->files_to_add)
