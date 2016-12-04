@@ -31,6 +31,8 @@
 
 * Don't show error message when attempting to rename file into the same.
 
+* Fixed crash after file info job finished on a folder that already left.
+
 
 Changes on 1.2.4 since 1.2.3:
 
