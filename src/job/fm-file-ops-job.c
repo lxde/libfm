@@ -2,7 +2,7 @@
  *      fm-file-ops-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -414,6 +414,10 @@ static gpointer emit_percent(FmJob* job, gpointer percent)
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 {
     guint percent;
+
+    if (fm_job_is_cancelled(FM_JOB(job)))
+        return;
+
     if(job->total > 0)
     {
         gdouble dpercent = (gdouble)(job->finished + job->current_file_finished) / job->total;

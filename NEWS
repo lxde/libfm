@@ -33,6 +33,10 @@
 
 * Fixed crash after file info job finished on a folder that already left.
 
+* Changed limitations on libfm-pref-apps.desktop to show only in LXDE.
+
+* Fixed incomplete file copy job pausing in some cases.
+
 
 Changes on 1.2.4 since 1.2.3:
 
