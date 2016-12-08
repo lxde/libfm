@@ -37,6 +37,8 @@
 
 * Fixed incomplete file copy job pausing in some cases.
 
+* Fixed missing 'Empty Trash Can' option in desktop's trash context menu.
+
 
 Changes on 1.2.4 since 1.2.3:
 

@@ -2,7 +2,7 @@
  *      gtk-menu-trash.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
                                         FmFileMenu* menu, FmFileInfoList* files,
                                         gboolean single_file)
 {
-    gboolean can_restore = TRUE;
+    gboolean can_restore = TRUE, is_trash_root = FALSE;
     GList *l;
     GtkAction *act;
 
@@ -59,6 +59,8 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
     for(l = fm_file_info_list_peek_head_link(files);l;l=l->next)
     {
         FmPath *trash_path = fm_file_info_get_path(FM_FILE_INFO(l->data));
+        if(single_file)
+            is_trash_root = fm_path_is_trash_root(trash_path);
         if(!fm_path_get_parent(trash_path) ||
            !fm_path_is_trash_root(fm_path_get_parent(trash_path)))
         {
@@ -76,6 +78,17 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
         gtk_action_group_add_action(act_grp, act);
         g_string_append(xml, "<popup><placeholder name='ph1'>"
                              "<menuitem action='UnTrash'/>"
+                             "</placeholder></popup>");
+    }
+    else if (is_trash_root)
+    {
+        act = gtk_action_new("EmptyTrash",
+                             _("_Empty Trash Can"),
+                             NULL, NULL);
+        g_signal_connect(act, "activate", G_CALLBACK(on_empty_trash), window);
+        gtk_action_group_add_action(act_grp, act);
+        g_string_append(xml, "<popup><placeholder name='ph1'>"
+                             "<menuitem action='EmptyTrash'/>"
                              "</placeholder></popup>");
     }
     act = gtk_ui_manager_get_action(ui, "/popup/Open");
