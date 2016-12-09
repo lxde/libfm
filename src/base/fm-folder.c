@@ -2,7 +2,7 @@
  *      fm-folder.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -362,9 +362,9 @@ static gboolean on_idle_reload(FmFolder* folder)
     /* check if folder still exists */
     if(g_source_is_destroyed(g_main_current_source()))
     {
+        /* FIXME: it should be impossible, folder cannot be disposed at this point */
         return FALSE;
     }
-    g_object_ref(folder);
     fm_folder_reload(folder);
     G_LOCK(query);
     folder->idle_reload_handler = 0;
@@ -377,7 +377,8 @@ static void queue_reload(FmFolder* folder)
 {
     G_LOCK(query);
     if(!folder->idle_reload_handler)
-        folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
+        folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload,
+                                                      g_object_ref(folder), NULL);
     G_UNLOCK(query);
 }
 
@@ -446,9 +447,9 @@ static gboolean on_idle(FmFolder* folder)
     /* check if folder still exists */
     if(g_source_is_destroyed(g_main_current_source()))
     {
+        /* it should be impossible, folder cannot be disposed at this point */
         return FALSE;
     }
-    g_object_ref(folder);
     G_LOCK(lists);
     folder->idle_handler = 0;
     stop_emission = folder->stop_emission;
@@ -542,9 +543,19 @@ static gboolean on_idle(FmFolder* folder)
         G_UNLOCK(query);
     /* g_debug("folder: on_idle() done"); */
 _finish:
+    /* release reference borrowed in queue_update() */
     g_object_unref(folder);
 
     return FALSE;
+}
+
+/* should be called only with G_LOCK(lists) on! */
+static inline void queue_update(FmFolder *folder)
+{
+    if (!folder->idle_handler)
+        /* borrow reference on folder */
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle,
+                                               g_object_ref(folder), NULL);
 }
 
 /* returns TRUE if reference was taken from path */
@@ -580,8 +591,8 @@ gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path)
     else
         /* file already queued for adding, don't duplicate */
         added = FALSE;
-    if(added && !folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    if (added)
+        queue_update(folder);
     G_UNLOCK(lists);
     return added;
 }
@@ -599,8 +610,7 @@ gboolean _fm_folder_event_file_changed(FmFolder *folder, FmPath *path)
     {
         folder->files_to_update = g_slist_append(folder->files_to_update, path);
         added = TRUE;
-        if(!folder->idle_handler)
-            folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+        queue_update(folder);
     }
     else
     {
@@ -632,8 +642,7 @@ void _fm_folder_event_file_deleted(FmFolder *folder, FmPath *path)
     }
     else
         path = NULL;
-    if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    queue_update(folder);
     G_UNLOCK(lists);
     if (path != NULL)
         fm_path_unref(path); /* link was freed above so we should unref it */
@@ -691,8 +700,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             if (g_slist_find(folder->files_to_update, folder->dir_path) == NULL)
             {
                 folder->files_to_update = g_slist_append(folder->files_to_update, fm_path_ref(folder->dir_path));
-                if(!folder->idle_handler)
-                    folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+                queue_update(folder);
             }
             G_UNLOCK(lists);
             /* g_debug("folder is changed"); */
@@ -733,8 +741,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         return;
     }
     G_LOCK(lists);
-    if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    queue_update(folder);
     G_UNLOCK(lists);
 }
 
@@ -921,12 +928,23 @@ static void fm_folder_dispose(GObject *object)
     G_LOCK(query);
     if(folder->idle_reload_handler)
     {
+        /* FIXME: it should be impossible, folder should be referenced if handler added */
         g_source_remove(folder->idle_reload_handler);
         folder->idle_reload_handler = 0;
     }
 
+    if(folder->fs_size_cancellable)
+    {
+        g_cancellable_cancel(folder->fs_size_cancellable);
+        g_object_unref(folder->fs_size_cancellable);
+        folder->fs_size_cancellable = NULL;
+    }
+    G_UNLOCK(query);
+
+    G_LOCK(lists);
     if(folder->idle_handler)
     {
+        /* FIXME: it should be impossible, folder should be referenced if handler added */
         g_source_remove(folder->idle_handler);
         folder->idle_handler = 0;
         if(folder->files_to_add)
@@ -947,14 +965,7 @@ static void fm_folder_dispose(GObject *object)
             folder->files_to_del = NULL;
         }
     }
-
-    if(folder->fs_size_cancellable)
-    {
-        g_cancellable_cancel(folder->fs_size_cancellable);
-        g_object_unref(folder->fs_size_cancellable);
-        folder->fs_size_cancellable = NULL;
-    }
-    G_UNLOCK(query);
+    G_UNLOCK(lists);
 
     /* remove from hash table */
     if(folder->dir_path)
@@ -1447,8 +1458,7 @@ _out:
     G_UNLOCK(query);
     /* we have a reference borrowed by async query still */
     G_LOCK(lists);
-    if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    queue_update(folder);
     G_UNLOCK(lists);
     g_object_unref(folder);
 }
@@ -1511,10 +1521,10 @@ FmFolder *fm_folder_find_by_path(FmPath *path)
 void fm_folder_block_updates(FmFolder *folder)
 {
     /* g_debug("fm_folder_block_updates %p", folder); */
-    G_LOCK(query);
+    G_LOCK(lists);
     /* just set the flag */
     folder->stop_emission = TRUE;
-    G_UNLOCK(query);
+    G_UNLOCK(lists);
 }
 
 /**
@@ -1533,8 +1543,7 @@ void fm_folder_unblock_updates(FmFolder *folder)
     G_LOCK(lists);
     folder->stop_emission = FALSE;
     /* query update now */
-    if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    queue_update(folder);
     G_UNLOCK(lists);
     /* g_debug("fm_folder_unblock_updates OK"); */
 }

@@ -180,7 +180,7 @@ static void _check_gfile_display_names(FmPath *path, GFile *child)
     if (inf != NULL)
     {
         const char *dname = g_file_info_get_edit_name(inf);
-        if (!dname)
+        if (!dname || strcmp(dname, "/") == 0)
             dname = g_file_info_get_display_name(inf);
         _fm_path_set_display_name(path, dname);
         g_object_unref(inf);
