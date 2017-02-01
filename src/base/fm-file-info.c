@@ -1361,7 +1361,8 @@ gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
-    if(strncmp(fm_mime_type_get_type(fi->mime_type), "text/", 5) == 0)
+    const char* type = fm_mime_type_get_type(fi->mime_type);
+    if(strncmp(type, "text/", 5) == 0)
     { /* g_content_type_can_be_executable reports text files as executables too */
         /* We don't execute remote files nor files in trash */
         if(fm_path_is_native(fi->path) && (fi->mode & (S_IXOTH|S_IXGRP|S_IXUSR)))
@@ -1378,6 +1379,13 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
                     return TRUE;
             }
         }
+        return FALSE;
+    }
+    else if(strcmp(type, "application/x-desktop") == 0)
+    { /* treat desktop entries as executables if
+         they are native and have read permission */
+        if(fm_path_is_native(fi->path) && (fi->mode & (S_IRUSR|S_IRGRP|S_IROTH)))
+            return TRUE;
         return FALSE;
     }
     return g_content_type_can_be_executable(fm_mime_type_get_type(fi->mime_type));
