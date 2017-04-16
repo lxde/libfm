@@ -863,7 +863,25 @@ static GObject* scale_pix(GObject* ori_pix, int size)
         scaled_pix = backend.scale_image(ori_pix, new_width, new_height);
     }
 
-    return scaled_pix;
+    GObject* scaled_pix_square = backend.new_image (
+        backend.get_colorspace(ori_pix),
+        TRUE,
+        backend.get_bits_per_sample(ori_pix),
+        size,
+        size);
+    backend.fill_image(scaled_pix_square, 0x00000000);
+    
+    backend.composite(
+        scaled_pix, scaled_pix_square, /* src, dst */
+        (size-new_width)/2, /* dst_x */
+        (size-new_height)/2, /* dst_y */
+        new_width, /* dst_width */
+        new_height, /* dst_height */
+        (size-new_width)/2, /* offset_x */
+        (size-new_height)/2, /* offset_y */
+        1, 1, /* scale_x, scale_y */
+        255); /* overall_alpha */
+    return scaled_pix_square;
 }
 
 /* in thread */

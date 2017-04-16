@@ -58,6 +58,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_THRESHOLD 48
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_OVERLAY TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 
 #define     FM_CONFIG_DEFAULT_FORCE_S_NOTIFY    TRUE
@@ -173,6 +174,7 @@ struct _FmConfig
     gboolean confirm_trash;
     gboolean show_thumbnail;
     gboolean thumbnail_local;
+    gboolean thumbnail_overlay;
     gboolean show_internal_volumes;
     gboolean si_unit;
     gboolean advanced_mode;

@@ -1593,7 +1593,30 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
             GDK_THREADS_ENTER();
             tp = fm_folder_model_get_path(GTK_TREE_MODEL(model), &it);
             if(item->icon)
+            {
+                if (fm_config->thumbnail_overlay)
+                {
+                    float overlay_relative_size = 0.5;
+                    int thumbnail_width = gdk_pixbuf_get_width(pix);
+                    int thumbnail_height = gdk_pixbuf_get_height(pix);
+                    int icon_width = gdk_pixbuf_get_width(item->icon);
+                    int icon_height = gdk_pixbuf_get_height(item->icon);
+                    int overlay_width = thumbnail_width * overlay_relative_size;
+                    int overlay_height = thumbnail_height * overlay_relative_size;
+                    gdk_pixbuf_composite(
+                        item->icon, pix, /* src, dst */
+                        thumbnail_width - overlay_width, /* dst_x */
+                        thumbnail_height - overlay_height, /* dst_y */
+                        overlay_width, /* dst_width */
+                        overlay_height, /* dst_height */
+                        thumbnail_width - overlay_width, /* offset_x */
+                        thumbnail_height - overlay_height, /* offset_y */
+                        overlay_relative_size, overlay_relative_size, /* scale_x, scale_y */
+                        GDK_INTERP_BILINEAR, 255 /* interp_type, overall_alpha */
+                    );
+                }
                 g_object_unref(item->icon);
+            }
             item->icon = g_object_ref(pix);
             item->is_thumbnail = TRUE;
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
