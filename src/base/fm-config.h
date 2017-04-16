@@ -57,6 +57,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 
 #define     FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_THRESHOLD 48
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 
 #define     FM_CONFIG_DEFAULT_FORCE_S_NOTIFY    TRUE
@@ -162,6 +163,7 @@ struct _FmConfig
     gint pane_icon_size;
     gint thumbnail_size;
     gint thumbnail_max;
+    gint thumbnail_threshold;
     gint auto_selection_delay;
     gint drop_default_action;
 

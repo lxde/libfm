@@ -741,7 +741,9 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
 
         /* if we want to show a thumbnail */
         /* if we're on local filesystem or thumbnailing for remote files is allowed */
-        if(fm_config->show_thumbnail && (fm_path_is_native_or_trash(fm_file_info_get_path(info)) || !fm_config->thumbnail_local))
+        /* if current icon size is at least equal to the threshold size */
+        if(fm_config->show_thumbnail && (fm_path_is_native_or_trash(fm_file_info_get_path(info)) || !fm_config->thumbnail_local)
+           && (model->icon_size >= fm_config->thumbnail_threshold) )
         {
             if(!item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
             {

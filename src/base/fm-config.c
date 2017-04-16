@@ -144,6 +144,7 @@ static void fm_config_init(FmConfig *self)
     self->thumbnail_size = FM_CONFIG_DEFAULT_THUMBNAIL_SIZE;
     self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
     self->thumbnail_local = FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL;
+    self->thumbnail_threshold = FM_CONFIG_DEFAULT_THUMBNAIL_THRESHOLD;
     self->thumbnail_max = FM_CONFIG_DEFAULT_THUMBNAIL_MAX;
     /* show_internal_volumes defaulted to FALSE */
     /* si_unit defaulted to FALSE */
@@ -302,6 +303,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "small_icon_size", &cfg->small_icon_size);
     fm_key_file_get_int(kf, "ui", "pane_icon_size", &cfg->pane_icon_size);
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
+    fm_key_file_get_int(kf, "ui", "thumbnail_threshold", &cfg->thumbnail_threshold);
     fm_key_file_get_bool(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
     fm_key_file_get_bool(kf, "ui", "shadow_hidden", &cfg->shadow_hidden);
     g_free(cfg->list_view_size_units);
@@ -509,6 +511,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_int(str, cfg, small_icon_size);
                 _save_config_int(str, cfg, pane_icon_size);
                 _save_config_int(str, cfg, thumbnail_size);
+                _save_config_int(str, cfg, thumbnail_threshold);
                 _save_config_bool(str, cfg, show_thumbnail);
                 _save_config_bool(str, cfg, shadow_hidden);
                 if (cfg->list_view_size_units && cfg->list_view_size_units[0])
