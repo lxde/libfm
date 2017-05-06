@@ -860,10 +860,10 @@ static GObject* scale_pix(GObject* ori_pix, int size)
     if(new_height == 0)
         new_height = 1;
 
-    double scale_factor = double)new_width/width;
+    double scale_factor = (double)new_width/width;
 
     /* create new size*size image*/
-    GObject* scaled_pix = backend.new_image (
+    scaled_pix = backend.new_image (
         backend.get_colorspace(ori_pix),
         TRUE,
         backend.get_bits_per_sample(ori_pix),
