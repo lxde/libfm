@@ -164,7 +164,6 @@ struct _FmConfig
     gint pane_icon_size;
     gint thumbnail_size;
     gint thumbnail_max;
-    gint thumbnail_threshold;
     gint auto_selection_delay;
     gint drop_default_action;
 
@@ -174,7 +173,6 @@ struct _FmConfig
     gboolean confirm_trash;
     gboolean show_thumbnail;
     gboolean thumbnail_local;
-    gboolean thumbnail_overlay;
     gboolean show_internal_volumes;
     gboolean si_unit;
     gboolean advanced_mode;
@@ -212,9 +210,10 @@ struct _FmConfig
     gboolean smart_desktop_autodrop;
     gchar *saved_search;
     /*< private >*/
-    gpointer _reserved1; /* reserved space for updates until next ABI */
-    gpointer _reserved2;
-    gpointer _reserved3;
+    
+    gint thumbnail_threshold;
+    gboolean thumbnail_overlay;
+    gpointer _reserved3; /* reserved space for updates until next ABI */
     gpointer _reserved4;
     gpointer _reserved5;
     gpointer _reserved6;
