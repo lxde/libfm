@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-03-27 19:59+0000\n"
+"PO-Revision-Date: 2017-05-23 05:58+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1427486376.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1495519136.202726\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -50,7 +50,7 @@ msgstr "Aplicaciones _instaladas"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Línea de ó_rdenes a ejecutar:</b>"
+msgstr "<b>O_rden de consola que ejecutar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
@@ -114,7 +114,7 @@ msgstr "_Omitir"
 
 #: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
-msgstr "_Renombrar"
+msgstr "Cambia_r nombre"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "_Overwrite"
@@ -132,7 +132,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
-msgstr "con el siguiente archivo?"
+msgstr "con el siguiente?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File name:"
@@ -255,15 +255,15 @@ msgstr "<b>Bits especiales:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr "Quién puede leer el contenido del archivo/directorio"
+msgstr "Quiénes pueden leer el contenido del archivo o la carpeta"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr "Quién puede cambiar el contenido del archivo/directorio"
+msgstr "Quiénes pueden modificar el contenido del archivo o la carpeta"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr "Quién puede ejecutar el archivo o entrar al directorio"
+msgstr "Quiénes pueden ejecutar el archivo o entrar en la carpeta"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
@@ -342,7 +342,7 @@ msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
-msgstr "KB"
+msgstr "kB"
 
 #: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
 msgid "MB"
@@ -373,8 +373,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
-"Das Muster entspricht entweder der POSIX shell Musterliste (mit ',' als "
-"Trennzeichen) oder POSIX regulären Ausdruck."
+"El patrón puede ser una lista de patrones de consola POSIX (con «,» como "
+"separador) o una expresión regular de POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -406,7 +406,7 @@ msgstr "<b>Tipo de archivo</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr "Solo buscar archivos de los siguientes tipos:"
+msgstr "Buscar solo archivos de los tipos siguientes:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -441,8 +441,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"Jeder beliebige Content-Type kann eingegeben werden. Wildcard '*' ist am "
-"Ende des Typus erlaubt. Mehrere Typen müssen mit einem ';' getrennt werden."
+"Aquí puede proporcionarse cualquier tipo de contenido válido. Se permite el "
+"comodín «*» al final del tipo. Separe varios tipos por «;»."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -684,8 +684,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"La entidad no termina con punto y coma; probablemente usó el carácter «&» "
-"sin pretender iniciar una entidad, para utilizarlo escriba &amp;"
+"La entidad no termina con punto y coma: probablemente usó el carácter «&» "
+"sin pretender iniciar una entidad; para utilizarlo escriba &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -802,7 +802,7 @@ msgstr "_Añadir a los marcadores"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "_Rename..."
-msgstr "_Renombrar…"
+msgstr "Cambia_r nombre…"
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -866,7 +866,7 @@ msgstr "Ocultar o revelar el archivo"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Este archivo está oculto porque su nombre comienza con un punto («.»)."
+msgstr "Este archivo está oculto porque su nombre comienza por un punto («.»)."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
@@ -951,7 +951,7 @@ msgstr "_Ordenar archivos"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder..."
-msgstr "_Renombrar la carpeta…"
+msgstr "Cambia_r nombre de carpeta…"
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -1026,8 +1026,8 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"El archivo de texto «%s» parece ser un guión ejecutable.\n"
-"¿Qué quiere hacer con él?"
+"El archivo de texto «%s» parece ser una secuencia de órdenes ejecutable.\n"
+"¿Qué quiere hacer con ella?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:148
 #, c-format
@@ -1085,7 +1085,7 @@ msgstr[1] "¿Quiere eliminar los %d archivos seleccionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
-msgstr "Renombrar archivo"
+msgstr "Cambiar nombre de archivo"
 
 #: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
@@ -1138,7 +1138,7 @@ msgstr "_Formatear el volumen"
 
 #: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
-msgstr "_Renombrar marcador"
+msgstr "Cambia_r nombre de marcador"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
@@ -1164,7 +1164,7 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
-msgstr "Renombrar marcador"
+msgstr "Cambiar nombre de marcador"
 
 #: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
@@ -1288,7 +1288,7 @@ msgstr "%s archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr "<b>Operación en progreso…</b>"
+msgstr "<b>Operación en curso…</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
