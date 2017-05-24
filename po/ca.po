@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-06-05 08:43+0000\n"
+"PO-Revision-Date: 2017-05-24 08:36+0000\n"
 "Last-Translator: Davidmp <rbndavid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1433493782.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1495615006.533803\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1628,7 +1628,7 @@ msgstr "Ajustar la diana només pot fer-se per un únic fitxer"
 #: ../src/modules/vfs-menu.c:299
 #, c-format, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Error (%d:%d) de fitxer XML \"%s\": "
+msgstr "Error \"%s\" de fitxer XML (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 #, fuzzy
