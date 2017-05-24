@@ -1442,8 +1442,8 @@ gboolean fm_file_info_is_backup(FmFileInfo* fi)
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */
-    if( fi->size == 0 || /* don't generate thumbnails for empty files */
-        !(fi->mode & S_IFREG) ||
+    if( (fi->size == 0 && !(fi->mode & S_IFDIR)) ||  /* don't generate thumbnails for empty files */
+        !(fi->mode & (S_IFREG | S_IFDIR)) ||
         fm_file_info_is_desktop_entry(fi) ||
         fm_file_info_is_unknown_type(fi))
         return FALSE;
