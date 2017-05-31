@@ -869,6 +869,12 @@ static GObject* scale_pix(GObject* ori_pix, int size)
 /* in thread */
 static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char* path)
 {
+    /* do not save thumbnails generated in thumbail cache directory
+     * (prevents runaway thumbnailing when browsing thumbail cache directory) */
+    if(strncmp(path,thumb_dir,strlen(thumb_dir)) == 0)
+    {
+        return;
+    }
     /* save the generated thumbnail to disk */
     char* tmpfile = g_strconcat(path, ".XXXXXX", NULL);
     gint fd;
