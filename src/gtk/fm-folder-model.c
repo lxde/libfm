@@ -1646,6 +1646,10 @@ void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size)
 {
     if(model->icon_size == icon_size)
         return;
+    if(model->icon_size >= fm_config->thumbnail_threshold && icon_size < fm_config->thumbnail_threshold)
+    {
+        g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
+    }
     model->icon_size = icon_size;
     reload_icons(model, RELOAD_BOTH);
 }
