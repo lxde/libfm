@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2014-05-13 06:00+0000\n"
-"Last-Translator: Algimantas Margevičius <algimantas@margevicius.lt>\n"
+"PO-Revision-Date: 2017-05-31 21:51+0000\n"
+"Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1399960836.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1496267506.032327\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,22 +25,26 @@ msgstr "Pageidaujamos programos"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Pasirinkite programą kuri bus paleista paspaudus ant interneto nuorodos ar "
-"el. pašto adreso"
+"Pasirinkti programas, kurios bus paleidžiamos, spustelėjus saityno nuorodą "
+"ar el. pašto adresą"
 
 #: ../data/lxshortcut.desktop.in.h:1
+#, fuzzy
 msgid "Shortcut Editor"
 msgstr "Nuorodų redaktorius"
 
 #: ../data/lxshortcut.desktop.in.h:2
+#, fuzzy
 msgid "Create new or change existing desktop entry"
 msgstr "Sukurti naują ar keisti esamą darbastalio įrašą"
 
 #: ../data/ui/app-chooser.glade.h:1
+#, fuzzy
 msgid "Choose Application"
 msgstr "Pasirinkite programą"
 
 #: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
 msgid "Use selected application to open files"
 msgstr "Failus atverti naudojant pasirinktą programą"
 
@@ -50,7 +54,7 @@ msgstr "Į_diegtos programos"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Vykdyti _komandinę eilutę:</b>"
+msgstr "<b>_Komandų eilutė, kurią vykdyti:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
@@ -67,7 +71,7 @@ msgstr "_Vykdyti terminale"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "_Įvykdžius komandą, palikti terminalo langą atvertą"
+msgstr "Įv_ykdžius komandą, palikti terminalo langą atvertą"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -78,27 +82,28 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Komandinėje eilutėje gali būti naudojami šie specialūs kodai:</b>\n"
-"  <b>%f</b>: reiškia vieno failo pavadinimą\n"
-"  <b>%F</b>: reiškia kelių failų pavadinimus\n"
-"  <b>%u</b>: reiškia vieną failo URI\n"
-"  <b>%U</b>: reiškia kelis URI"
+"<b>Komandų eilutėje gali būti naudojami šie specialūs kodai:</b>\n"
+"  <b>%f</b>: atvaizduoja vieno failo pavadinimą\n"
+"  <b>%F</b>: atvaizduoja kelių failų pavadinimus\n"
+"  <b>%u</b>: atvaizduoja vieną failo URI\n"
+"  <b>%U</b>: atvaizduoja kelis URI"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>_Programos pavadinimas (nebūtina, reikalingas tik asociacijai)</b>"
+msgstr "<b>_Programos pavadinimas (nebūtinas, reikalingas tik asociacijai)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+#, fuzzy
 msgid "Execute custom command line to open files"
 msgstr "Failų atvėrimui naudoti pasirinktinę komandą"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
-msgstr "_Pasirinktinė komandinė eilutė"
+msgstr "_Pasirinktinė komandų eilutė"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr "Pasirinkite programą"
+msgstr "Nu_statyti pasirinktą programą kaip numatytąjį veiksmą šiam failo tipui"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -122,7 +127,7 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Šiame aplanke jau yra failas tokiu pačiu pavadinimu.</b>\n"
+"<b>Šioje vietoje jau yra failas tokiu pačiu pavadinimu.</b>\n"
 "\n"
 "Ar norite pakeisti esamą failą"
 
@@ -136,7 +141,7 @@ msgstr "_Failo pavadinimas:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
-msgstr "_Pritaikyti šią nuostatą visiems failams"
+msgstr "_Taikyti šią parinktį visiems esamiems failams"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
@@ -145,12 +150,12 @@ msgstr "Pasirinkite piktogramą..."
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
 msgid "system icon theme"
-msgstr "sistemos piktogramų tema"
+msgstr "sistemos piktogramų temos"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
 msgid "image files"
-msgstr "paveikslėlių failai"
+msgstr "paveikslų failų"
 
 #: ../data/ui/choose-icon.ui.h:6
 msgid "<b>Choose icon from:</b>"
@@ -190,11 +195,11 @@ msgstr "<b>Failo tipas:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Open _with:</b>"
-msgstr "<b>_Atverti su:</b>"
+msgstr "<b>_Atverti naudojant:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Pasirinkite programą su kuria bus atveriami tokio tipo failai"
+msgstr "Pasirinkite programą, kuri bus naudojama atverti šio tipo failus"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -202,7 +207,7 @@ msgstr "<b>Viso failų:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
-msgstr "<b>Visų failų dydis:</b>"
+msgstr "<b>Bendras failų dydis:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on disk:</b>"
@@ -210,7 +215,7 @@ msgstr "<b>Dydis diske:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Last modification:</b>"
-msgstr "<b>Paskutinį kartą pakeista:</b>"
+msgstr "<b>Paskutinį kartą keista:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Last access:</b>"
@@ -230,7 +235,7 @@ msgstr "<b>_Savininkas:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
-msgstr "<b>_Grupė:</b>"
+msgstr "<b>G_rupė:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
@@ -250,27 +255,27 @@ msgstr "<b>Specialūs bitai:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr "Kas gali skaityti failo/aplanko turinį"
+msgstr "Kas gali skaityti failo/katalogo turinį"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr "Kas gali keisti failo/aplanko turinį"
+msgstr "Kas gali keisti failo/katalogo turinį"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr "Kas gali vykdyti failą ar įeiti į aplanką"
+msgstr "Kas gali vykdyti failą ar įeiti į katalogą"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr "Specialios žymės failo vykdymui"
+msgstr "Specialios vėliavėlės failo vykdymui"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr "Specialios žymės aplanko pasiekiamumui"
+msgstr "Specialios vėliavėlės prieigai prie katalogo"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
-msgstr "<b>Priėjimo kontrolė</b>"
+msgstr "<b>Prieigos valdymas</b>"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
@@ -286,7 +291,7 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "None"
-msgstr "Joks"
+msgstr "Nėra"
 
 #: ../data/ui/file-prop.glade.h:32
 msgctxt ""
@@ -333,7 +338,7 @@ msgstr "Niekas"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr "Bitai"
+msgstr "Baitai"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -353,7 +358,7 @@ msgstr "Pasirinkite datą"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Iš kalendoriaus pasirinkite datą"
+msgstr "Pasirinkite kalendoriuje datą"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
@@ -361,23 +366,23 @@ msgstr "Ieškoti failų"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>_Failo vardo šablonai:</b>"
+msgstr "<b>Failo pavadi_nimo šablonai:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
-"Šablonas gali būti POSIX shell šablono sąrašas („,“ skirtukas) arba POSIX "
-"reguliarioji išraiška."
+"Šablonas gali būti POSIX apvalkalo šablono sąrašas (kur „,“ yra kaip "
+"skirtukas) arba POSIX reguliarusis reiškinys."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "_Skirti raidžių dydį"
+msgstr "_Neskirti raidžių dydžio"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr "_Naudoti reguliariąsias išraiškas"
+msgstr "_Naudoti reguliariuosius reiškinius"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
@@ -385,7 +390,7 @@ msgstr "<b>Kur ieškoti:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "_Ieškoti poaplankiuose"
+msgstr "_Ieškoti pakatalogiuose"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
@@ -393,7 +398,7 @@ msgstr "Ieškoti _paslėptų failų"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "Vardas/_Vieta"
+msgstr "Pavadinimas/_Vieta"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -401,7 +406,7 @@ msgstr "<b>Failo tipas</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr "Ieškoti tik šių failų tipų:"
+msgstr "Ieškoti tik šių failo tipų:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -409,15 +414,15 @@ msgstr "Te_kstiniai failai"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr "_Paveikslėlių failai"
+msgstr "_Paveikslų failai"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "_Garso failai"
+msgstr "_Garso įrašų failai"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr "_Video failai"
+msgstr "_Vaizdo įrašų failai"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
@@ -436,8 +441,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"Čia galima įvesti betkokį tinkamą turinį. Galima naudoti ir „*“. Keli tipai "
-"atskiriami „;“. "
+"Čia galima įvesti bet kokį tinkamą turinį. Tipo gale yra leidžiamas naudoti "
+"„*“ pakaitos simbolis. Keli tipai turėtų būti atskiriami „;“. "
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -465,16 +470,16 @@ msgstr "_Didesnis nei:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Paskutinį kartą pakeistas</b>"
+msgstr "<b>Paskutinį kartą keistas</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
 msgid "(None)"
-msgstr "(Joks)"
+msgstr "(Nėra)"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr "_Seniau nei:"
+msgstr "_Anksčiau nei:"
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
@@ -486,13 +491,11 @@ msgstr "_Savybės"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr "<b>Naršyklė:</b>"
+msgstr "<b>Saityno naršyklė:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Numatyta interneto naršyklė bus naudojama atverti interneto puslapių "
-"adresams."
+msgstr "Pageidaujama saityno naršyklė bus naudojama saitams atverti."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -503,7 +506,8 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Kai paspausite ant el. pašto adreso bus atvertas numatytas pašto klientas."
+"Pageidaujamas el. pašto klientas bus naudojamas laiškų rašymui, kai "
+"spustelėsite ant el. pašto adreso."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -511,13 +515,14 @@ msgstr "<b>Terminalo emuliatorius</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
-msgstr "Komandinė eilutė:"
+msgstr "Komandų eilutė:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
 msgstr "Sistemos programos"
 
 #: ../data/ui/preferred-apps.glade.h:9
+#, fuzzy
 msgid "File Associations"
 msgstr "Failų sąsajos"
 
@@ -529,7 +534,7 @@ msgstr "<b>Į:</b>"
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:4
 msgid "Preparing..."
-msgstr "Ruošiamasi..."
+msgstr "Ruošiama..."
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -542,22 +547,22 @@ msgstr "<b>Įvyko klaidos:</b>"
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Netinkamas darbastalio įrašo failas: „%s“"
+msgstr "Neteisingas darbalaukio įrašo failas: „%s“"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Nėra numatytosios programos URI  „%s://“ paleidimui"
+msgstr "Nėra nustatytos numatytosios programos, skirtos URI „%s://“ paleidimui"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Nepavyko pakeisti darbinio aplanko „%s“ į „%s“"
+msgstr "Nepavyksta nustatyti darbinį katalogą į „%s“: „%s“"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Nepavyko nustatyti „%s“ turinio tipo paleidimui"
+msgstr "Norint paleisti, nepavyko nustatyti failo „%s“ turinio tipo"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
@@ -579,12 +584,13 @@ msgid "Trash Can"
 msgstr "Šiukšlinė"
 
 #: ../src/base/fm-mime-type.c:86
+#, fuzzy
 msgid "shortcut to URI"
 msgstr "nuoroda į URI"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr "fm_template_create_file: netinkamas argumentas"
+msgstr "fm_template_create_file: neteisingas argumentas"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
@@ -592,7 +598,7 @@ msgstr "Libfm konfigūracijoje nenustatytas terminalo emuliatorius"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr "Netinkamas miniatiūro programos aprašymas"
+msgstr "Neteisingas miniatiūrų programos aprašas"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
