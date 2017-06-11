@@ -102,6 +102,20 @@ struct _FmThumbnailLoaderBackend {
 gboolean fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
                                 __attribute__((warn_unused_result,nonnull(1)));
 
+typedef enum
+{
+    LOAD_NORMAL = 1 << 0, /* need to load normal thumbnail */
+    LOAD_LARGE = 1 << 1, /* need to load large thumbnail */
+    GENERATE_NORMAL = 1 << 2, /* need to regenerated normal thumbnail */
+    GENERATE_LARGE = 1 << 3, /* need to regenerated large thumbnail */
+}ThumbnailTaskFlags;
+
+static gchar thumbnails_path[] = ".thumbnails";
+static gchar thumbnails_normal_path[] = "normal";
+static gchar thumbnails_large_path[] = "large";
+static gchar thumbnails_empty_basename[] = "00000000000000000000000000000000.png";
+void get_thumbnail_paths( gchar* src_uri, gchar* dst_normal, gchar* dst_large, ThumbnailTaskFlags flags);
+
 G_END_DECLS
 
 #endif /* __FM_THUMBNAIL_LOADER_H__ */

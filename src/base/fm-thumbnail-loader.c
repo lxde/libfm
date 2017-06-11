@@ -64,14 +64,6 @@
 static gboolean backend_loaded = FALSE;
 static FmThumbnailLoaderBackend backend = {NULL};
 
-typedef enum
-{
-    LOAD_NORMAL = 1 << 0, /* need to load normal thumbnail */
-    LOAD_LARGE = 1 << 1, /* need to load large thumbnail */
-    GENERATE_NORMAL = 1 << 2, /* need to regenerated normal thumbnail */
-    GENERATE_LARGE = 1 << 3, /* need to regenerated large thumbnail */
-}ThumbnailTaskFlags;
-
 typedef struct _ThumbnailTask ThumbnailTask;
 struct _ThumbnailTask
 {
@@ -427,14 +419,33 @@ _out:
     return;
 }
 
+/* dst_normal and dst_large should be already allocated and contain the name of a thumbnail file */
+void get_thumbnail_paths( gchar* src_uri, gchar* dst_normal, gchar* dst_large, ThumbnailTaskFlags flags)
+{
+    GChecksum* sum = g_checksum_new(G_CHECKSUM_MD5);
+    g_checksum_update(sum, (guchar*)src_uri, -1);
+    const char* md5;
+    md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
+
+    if ( (flags & LOAD_NORMAL) || (flags & GENERATE_NORMAL) ){
+        gchar* basename = strrchr(dst_normal, '/') + 1;
+        memcpy( basename, md5, strlen(md5) );
+    }
+
+    if ( (flags & LOAD_LARGE) || (flags & GENERATE_LARGE) ){
+        gchar* basename = strrchr(dst_large, '/') + 1;
+        memcpy( basename, md5, strlen(md5) );
+    }
+}
+
 /* in thread */
 static gpointer load_thumbnail_thread(gpointer user_data)
 {
     ThumbnailTask* task;
     GChecksum* sum = g_checksum_new(G_CHECKSUM_MD5);
-    gchar* normal_path  = g_build_filename(thumb_dir, "normal/00000000000000000000000000000000.png", NULL);
+    gchar* normal_path  = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
     gchar* normal_basename = strrchr(normal_path, '/') + 1;
-    gchar* large_path = g_build_filename(thumb_dir, "large/00000000000000000000000000000000.png", NULL);
+    gchar* large_path = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
     gchar* large_basename = strrchr(large_path, '/') + 1;
 
     /* ensure thumbnail directories exists */
@@ -453,7 +464,6 @@ static gpointer load_thumbnail_thread(gpointer user_data)
         if(G_LIKELY(task))
         {
             char* uri;
-            const char* md5;
             GList *reql;
 
             for (reql = task->requests; reql; reql = reql->next)
@@ -466,20 +476,15 @@ static gpointer load_thumbnail_thread(gpointer user_data)
             g_mutex_unlock(lock_ptr);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
-            /* generate filename for the thumbnail */
-            g_checksum_update(sum, (guchar*)uri, -1);
-            md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
-
             task->uri = uri;
 
+            get_thumbnail_paths( (gchar*)uri, normal_path, large_path, task->flags );
             if (task->flags & LOAD_NORMAL)
             {
-                memcpy( normal_basename, md5, 32 );
                 task->normal_path = normal_path;
             }
             if (task->flags & LOAD_LARGE)
             {
-                memcpy( large_basename, md5, 32 );
                 task->large_path = large_path;
             }
             /* FIXME: support fail/<PRG>/<MD5>.png to skip creation */
@@ -746,7 +751,7 @@ guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req)
 /* in main loop */
 void _fm_thumbnail_loader_init()
 {
-    thumb_dir = g_build_filename(fm_get_home_dir(), ".thumbnails", NULL);
+    thumb_dir = g_build_filename(fm_get_home_dir(), thumbnails_path, NULL);
     hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
 #if !GLIB_CHECK_VERSION(2, 32, 0)
     lock_ptr = g_mutex_new();
