@@ -68,6 +68,10 @@ static FmIcon* icon_locked_folder = NULL;
 /* all of the user special dirs are direct child of home directory */
 static gboolean special_dirs_all_in_home = TRUE;
 
+/* some functions may be called after FmFileInfo and FmMimeType
+   are finalized, so we need to make them return immediately */
+static gboolean is_initialized = FALSE;
+
 typedef struct _SpecialDirInfo
 {
     const char* path_str;
@@ -168,10 +172,12 @@ void _fm_file_info_init(void)
             special_dir_info[i].path_str = path_str;
         }
     }
+    is_initialized = TRUE;
 }
 
 void _fm_file_info_finalize()
 {
+    is_initialized = FALSE;
     g_object_unref(icon_locked_folder);
 }
 
@@ -242,7 +248,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
     char *dname;
 
     g_return_val_if_fail(fi && fi->path, FALSE);
-    if(lstat(path, &st) == 0)
+    if(is_initialized && lstat(path, &st) == 0)
     {
         GFile* gfile;
         GFileInfo* inf;
@@ -548,6 +554,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
  */
 void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf)
 {
+    if (!is_initialized) return;
     const char *tmp, *uri;
     GIcon* gicon;
     GFile *_gf = NULL;
@@ -789,6 +796,7 @@ FmFileInfo* fm_file_info_new_from_g_file_data(GFile *gf, GFileInfo *inf, FmPath 
  */
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
+    if (!is_initialized) return;
     const char* icon_name;
     icon_name = menu_cache_item_get_icon(item);
     _fm_path_set_display_name(fi->path, menu_cache_item_get_name(item));
@@ -943,6 +951,7 @@ void fm_file_info_unref(FmFileInfo* fi)
  */
 void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
 {
+    if (!is_initialized) return;
     FmPath* tmp_path = fm_path_ref(src->path);
     FmMimeType* tmp_type = fm_mime_type_ref(src->mime_type);
     FmIcon* tmp_icon = g_object_ref(src->icon);
@@ -1361,6 +1370,7 @@ gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
+    if (!is_initialized) return FALSE;
     if(strncmp(fm_mime_type_get_type(fi->mime_type), "text/", 5) == 0)
     { /* g_content_type_can_be_executable reports text files as executables too */
         /* We don't execute remote files nor files in trash */
