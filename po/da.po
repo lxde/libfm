@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2017-05-23 17:53+0000\n"
+"PO-Revision-Date: 2017-08-16 18:21+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.8\n"
-"X-POOTLE-MTIME: 1495562014.700125\n"
+"X-POOTLE-MTIME: 1502907660.733869\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -25,7 +25,7 @@ msgstr "Foretrukne programmer"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
+msgstr "Vælg programmer som skal bruges ved klik på weblink eller e-mailadresse"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -33,7 +33,7 @@ msgstr "Rediger Genveje"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "Opret ny eller ændre eksisterende desktop element"
+msgstr "Opret ny eller ændre eksisterende skrivebordspost"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -53,7 +53,6 @@ msgstr "<b>K_ommando der skal køres:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
 msgstr "_Gennemse..."
 
@@ -67,7 +66,7 @@ msgstr "Kør i t_erminalemulator"
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Hold terminalvinduet åbent efter kommandoen er udført"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -86,24 +85,21 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Programnavn (valgfri, sæt den for at beholde tilknytning)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
 msgstr "Kør tilpasset kommandolinje for at åbne filer"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "Tilpasset kommandolinje"
+msgstr "_Tilpasset kommandolinje"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
-msgstr "Angiv valgt program som standardhandling for denne filtype"
+msgstr "_Angiv valgt program som standardhandling for denne filtype"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Bekræft overskrivning af filer"
 
@@ -134,36 +130,30 @@ msgid "with the following file?"
 msgstr "med den følgende fil?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
-msgstr "Filnavn:"
+msgstr "_Filnavn:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Anvend dette tilvalg til alle eksisterende filer"
+msgstr "_Anvend dette tilvalg til alle eksisterende filer"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Vælg et program"
+msgstr "Vælg et ikon..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
-msgstr "Systemprogrammer"
+msgstr "systemets ikontema"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
-msgstr "Smider filer ud"
+msgstr "billedfiler"
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Mål:</b>"
+msgstr "<b>Vælg ikon fra:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -179,24 +169,21 @@ msgstr "Filegenskaber"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Ikonet for filen i mappevisning"
 
 #: ../data/ui/file-prop.glade.h:3
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>_Ejer:</b>"
+msgstr "<b>_Navn:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Location:</b>"
 msgstr "<b>Placering:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Mål:</b>"
+msgstr "<b>Målfil:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Filtype:</b>"
 
@@ -209,97 +196,84 @@ msgid "Select the application used to open files of this type "
 msgstr "Vælg programmet som bruges til at åbne filer af denne type "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Samlet størrelse på filer:</b>"
+msgstr "<b>Samlet antal filer:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Samlet størrelse på filer:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Size on disk:</b>"
-msgstr "<b>Størrelse på harddisk:</b>"
+msgstr "<b>Størrelse på disk:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Sidste ændring:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Sidste adgang:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
-msgstr "<b>Sidste adgang:</b>"
+msgstr "<b>Sidste ændring af tilladelser:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "_General"
 msgstr "_Generelt"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Ejer:</b>"
+msgstr "<b>_Ejer:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Gruppe:</b>"
+msgstr "<b>_Gruppe:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Postklient</b>"
+msgstr "<b>_Vis indhold:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Mål:</b>"
+msgstr "<b>_Skift indhold:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Andre:</b>"
+msgstr "<b>_Eksekver:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Åbn _med:</b>"
+msgstr "<b>Specielle bit:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Hvem kan læse indholdet af filen/mappen"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Hvem kan ændre indholdet af filen/mappen"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Hvem kan eksekvere filen eller gå ind i mappen"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Specielle flag for fileksekvering"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Specielle flag for mappeadgang"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
 msgstr "<b>Adgangskontrol</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
-msgstr "Flytter filer"
+msgstr "Skjult fil"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -318,47 +292,47 @@ msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr ""
+msgstr "Klæbrig"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
-msgstr ""
+msgstr "Sæt GID"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Klæbrig og sæt GID"
 
 #: ../data/ui/file-prop.glade.h:35
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr ""
+msgstr "Sæt UID"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Sæt UID og GID"
 
 #: ../data/ui/file-prop.glade.h:37
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
-msgstr ""
+msgstr "Kun ejer"
 
 #: ../data/ui/file-prop.glade.h:38
 msgid "Only owner and group"
-msgstr ""
+msgstr "Kun ejer og gruppe"
 
 #: ../data/ui/file-prop.glade.h:39
 msgid "Anyone"
-msgstr ""
+msgstr "Alle"
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
-msgstr ""
+msgstr "Ingen"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Byte"
 
 #: ../data/ui/filesearch.glade.h:2
 msgid "KB"
@@ -374,147 +348,140 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose Date"
-msgstr ""
+msgstr "Vælg dato"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Vælg en dato fra følgende kalender"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "Omdøb fil"
+msgstr "Søg efter filer"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Fil_navn-mønstre:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Mønster kan enten være POSIX-skal-mønsterliste (med \",\" som separator) "
+"eller POSIX-regulært udtryk."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Der skelnes _ikke mellem store og små bogstaver"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Brug regulært udtryk"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr ""
+msgstr "<b>_Steder hvor der skal søges:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Søg i undermapper"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Søg i _skjulte filer"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Navn/_placering"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Filtype</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types:"
-msgstr ""
+msgstr "Søg kun efter filer af følgende typer:"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Sletter filer"
+msgstr "_Tekstfiler"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Smider filer ud"
+msgstr "_Billedfiler"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr ""
+msgstr "_Lydfiler"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr ""
+msgstr "_Videofiler"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Dokumenter"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "Folde_rs"
-msgstr "Omdøb fil"
+msgstr "_Mapper"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Andre:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Enhver gyldig indholdstype kan indtastes her. Jokertegn \"*\" er tilladt ved "
+"slutningen af typen. Flere typer skal spareres med \";\"."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
 msgstr "Fil_type"
 
 #: ../data/ui/filesearch.glade.h:27
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Størrelse på harddisk:</b>"
+msgstr "<b>Fil _indeholder:</b>"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "C_ontent"
-msgstr ""
+msgstr "_Indhold"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Filstørrelse:</b>"
 
 #: ../data/ui/filesearch.glade.h:30
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Mindre end:"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Større end:"
 
 #: ../data/ui/filesearch.glade.h:32
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Sidste ændring:</b>"
+msgstr "<b>Tidspunkt for sidste ændring</b>"
 
 #: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
 #: ../src/gtk/fm-gtk-file-launcher.c:659
-#, fuzzy
 msgid "(None)"
-msgstr "Ingen"
+msgstr "(ingen)"
 
 #: ../data/ui/filesearch.glade.h:34
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Tidligere end:"
 
 #: ../data/ui/filesearch.glade.h:35
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Senere end:"
 
 #: ../data/ui/filesearch.glade.h:36
-#, fuzzy
 msgid "_Properties"
-msgstr "Filegenskaber"
+msgstr "_Egenskaber"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -526,12 +493,10 @@ msgstr ""
 "Den foretrukne internetbrowser vil blive brugt til at åbne internetadresser."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>Postklient</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -570,39 +535,38 @@ msgid "<b>Time remaining:</b>"
 msgstr "<b>Tid tilbage:</b>"
 
 #: ../data/ui/progress.glade.h:6
-#, fuzzy
 msgid "<b>Errors occurred:</b>"
-msgstr "<b>Fejl opstod:</b>"
+msgstr "<b>Opståede fejl:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr ""
+msgstr "Ugyldig skrivebordspost-fil: '%s'"
 
 #: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Intet standardprogram er sat til at starte URI'er %s://"
 
 #: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Kan ikke sætte arbejdsmappe til '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Kunne ikke beslutte indholdstype af filen '%s' for at starte den"
 
 #: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Intet standardprogram er sat for MIME-typen %s"
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Enheder"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -614,25 +578,24 @@ msgid "Trash Can"
 msgstr "Papirkurv"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Genveje"
+msgstr "genvej til URI"
 
 #: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: ugyldigt argument"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Ingen terminalemulator sat i libfm-konfiguration"
 
 #: ../src/base/fm-thumbnailer.c:283
 msgid "Invalid description of thumbnailer application"
-msgstr ""
+msgstr "Ugyldig beskrivelse af miniatureprogram"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:153
 msgid "TB"
@@ -664,12 +627,12 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI-understien \"%s\" indeholder ugyldige undvigetegn"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Duplikeret håndtering for tagget <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -677,6 +640,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Fejl ved fortolkning af \"%-.*s\" som skulle have været et ciffer i en "
+"tegnreference (&#234; f.eks.) - måske er cifret for stort"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -685,22 +650,27 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Tegnreferencensluttede ikke med et semikolon; du har sandsynligvis brugt et "
+"og-tegn uden at det var beregnet på at starte en entitet - undgå dette ved "
+"at bruge &amp; i stedet"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Tegnreferencen \"%-.*s\" koder ikke et tilladt tegn"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Tom entitet \"&;\" fundet; gyldige entiteter er: &amp; &quot; &lt; &gt; "
+"&apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Entitetsnavnet \"%-.*s\" er ukendt"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -708,42 +678,45 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Entiteten sluttede ikke med et semikolon; du har sandsynligvis brugt et og-"
+"tegn uden at det var beregnet på at starte en entitet - dette undgås ved at "
+"bruge &amp; i stedet"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Mellemrum er ikke tilladt i det lukkende tag"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "Elementet '%s' blev lukket men intet element var åbent"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "Elementet \"%s\" blev lukket, men det nuværende åbnet element er \"%s\""
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Ugyldigt tegn '%c' ved begyndelsen af attribut-værdi"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Ugyldigt tegn '%c' ved slutningen af attribut-værdi, forventede '%c'"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Dokumentet sluttede uventet"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Dokumentet var tomt eller indeholdt kun blanktegn"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: fejl ved XML-data"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -759,9 +732,8 @@ msgid "Installed Applications"
 msgstr "Installerede programmer"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<Ingen undermappe>"
+msgstr "<ingen undermapper>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
@@ -769,7 +741,7 @@ msgstr "Indlæser..."
 
 #: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Vis træ af mapper i sidebjælke"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
@@ -777,16 +749,16 @@ msgstr "_Annuller"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
-msgstr ""
+msgstr "_Kopiér her"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
-msgstr ""
+msgstr "_Flyt hertil"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
-msgstr ""
+msgstr "_Henvis hertil"
 
 #: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
@@ -794,59 +766,51 @@ msgstr "XDirectSave mislykkedes."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
-msgstr ""
+msgstr "_Åbn"
 
 #: ../src/gtk/fm-file-menu.c:152
-#, fuzzy
 msgid "Open _With..."
-msgstr "Åbn med..."
+msgstr "Åbn _med..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "Åbn med..."
+msgstr "Åbn _med"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr ""
+msgstr "Kopiér _sti(er)"
 
 #: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
-msgstr ""
+msgstr "_Skjul"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
-msgstr ""
+msgstr "_Vis"
 
 #: ../src/gtk/fm-file-menu.c:161
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "Fjern fra bogmærker"
+msgstr "_Tilføj til bogmærker"
 
 #: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
 msgid "_Rename..."
-msgstr "Om_døb"
+msgstr "_Omdøb..."
 
 #: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Komprimer..."
+msgstr "_Komprimer..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Pak ud her"
+msgstr "Pak ud _her"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Pak ud til..."
+msgstr "Pak ud _til..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Filegenskaber"
+msgstr "Fil_egenskaber"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
@@ -855,12 +819,11 @@ msgstr "Flyt til _papirkurv"
 
 #: ../src/gtk/fm-file-menu.c:773
 msgid "Your bookmarks already have a bookmark for this folder."
-msgstr ""
+msgstr "Dine bogmærker har allerede et bogmærke for denne mappe."
 
 #: ../src/gtk/fm-file-properties.c:368
-#, fuzzy
 msgid "Image files"
-msgstr "Smider filer ud"
+msgstr "Aftryksfiler"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
 msgid "byte"
@@ -871,7 +834,7 @@ msgstr[1] "byte"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr ""
+msgstr "skanner... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -890,39 +853,37 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Skjul eller vis filen"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Denne fil er skjult fordi dens navn begynder med et punktum (\".\")."
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Filer på dette system er skjulte hvis deres navn begynder med et punktum "
+"('.'). Tryk på <Ctrl+H> for at skifte visningen af skjulte filer."
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "Indlæser..."
+msgstr "skanner..."
 
 #: ../src/gtk/fm-file-properties.c:1088
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Adgangskontrol</b>"
+msgstr "<b>_Adgangsindhold:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
 msgstr "Filer af forskellige typer"
 
 #: ../src/gtk/fm-file-properties.c:1283
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Fil:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
-#, fuzzy
 msgid "Multiple files"
 msgstr "Flere filer"
 
@@ -940,13 +901,12 @@ msgid "Size"
 msgstr "Størrelse"
 
 #: ../src/gtk/fm-folder-model.c:193
-#, fuzzy
 msgid "Permissions"
-msgstr "_Tilladelser"
+msgstr "Tilladelser"
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
-msgstr ""
+msgstr "Ejer"
 
 #: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
@@ -958,66 +918,60 @@ msgstr "Placering"
 
 #: ../src/gtk/fm-folder-model.c:197
 msgid "Extension"
-msgstr ""
+msgstr "Udvidelse"
 
 #: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
-msgstr ""
+msgstr "Opret _ny..."
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
-msgstr ""
+msgstr "Mappe"
 
 #: ../src/gtk/fm-folder-view.c:182
-#, fuzzy
 msgid "Empty File"
-msgstr "Kør fil"
+msgstr "Tom fil"
 
 #: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Omvend markering"
 
 #: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Sortér filer"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "Omdøb fil"
+msgstr "_Omdøb mappe..."
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Filegenskaber"
+msgstr "Fil_egenskaber"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Vis _skjulte"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Vælg venligst en mappe"
+msgstr "Bland _filer og mapper"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
-msgstr ""
+msgstr "_Ignorer forskel på store/små bogstaver i navn"
 
 #: ../src/gtk/fm-folder-view.c:219
-#, fuzzy
 msgid "By _Name"
-msgstr "Navn"
+msgstr "Efter _navn"
 
 #: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Efter _ændringstidspunkt"
 
 #: ../src/gtk/fm-folder-view.c:221
-#, fuzzy
 msgid "By _Size"
-msgstr "Størrelse"
+msgstr "Efter _størrelse"
 
 #: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
@@ -1025,27 +979,23 @@ msgstr "Efter Fil_type"
 
 #: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Indtast et navn til det nyligt oprettede mappe:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "Omdøb fil"
+msgstr "Opret ny mappe"
 
 #: ../src/gtk/fm-folder-view.c:859
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Indtast et nyt navn:"
+msgstr "Indtast et navn til den tomme fil:"
 
 #: ../src/gtk/fm-folder-view.c:860
-#, fuzzy
 msgid "Creating ..."
-msgstr "Opretter symbolske henvisninger"
+msgstr "Opretter ..."
 
 #: ../src/gtk/fm-folder-view.c:866
-#, fuzzy
 msgid "New"
-msgstr "Netværk"
+msgstr "Ny"
 
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
@@ -1059,7 +1009,7 @@ msgstr "Opretter %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Kør standardprogram på fil efter oprettelse"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:141
 #, c-format
@@ -1078,12 +1028,11 @@ msgstr "Denne fil '%s' er kørbar. Ønsker du at køre den?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:718
 msgid "No folders are specified."
-msgstr ""
+msgstr "Ingen mapper er angivet."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
-msgstr "Vælg venligst en mappe"
+msgstr "Vælg mappe"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1139,17 +1088,15 @@ msgstr "Er du sikker på, at du vil tømme papirkurven?"
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
-msgstr ""
+msgstr "_Indsæt og gå"
 
 #: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Filassociationer"
+msgstr "Mappeplaceringslinje"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "Omdøb fil"
+msgstr "Hjemmemappe"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1165,44 +1112,36 @@ msgid "Filesystem Root"
 msgstr "Roden af filsystemet"
 
 #: ../src/gtk/fm-places-view.c:131
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Monter arkiv"
+msgstr "_Montér diskenhed"
 
 #: ../src/gtk/fm-places-view.c:132
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Afmonter arkiv"
+msgstr "_Afmontér diskenhed"
 
 #: ../src/gtk/fm-places-view.c:133
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Skub eksternt medie ud"
+msgstr "_Skub flytbart medie ud"
 
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Monter arkiv"
+msgstr "_Formatér diskenhed"
 
 #: ../src/gtk/fm-places-view.c:150
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Omdøb bogmærkepunkt"
+msgstr "_Omdøb bogmærkepost"
 
 #: ../src/gtk/fm-places-view.c:151
-#, fuzzy
 msgid "Re_move from Bookmarks"
-msgstr "Fjern fra bogmærker"
+msgstr "_Fjern fra bogmærker"
 
 #: ../src/gtk/fm-places-view.c:152
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Fjern fra bogmærker"
+msgstr "Flyt bogmærke _op"
 
 #: ../src/gtk/fm-places-view.c:153
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Fjern fra bogmærker"
+msgstr "Flyt bogmærke _ned"
 
 #: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
@@ -1210,7 +1149,7 @@ msgstr "_Tøm papirkurven"
 
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "Viser liste af almene steder, enheder og bogmærker i sidebjælke"
 
 #: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
@@ -1246,7 +1185,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:326
 msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr ""
+msgstr "<b>Der opstod fejl inden filhandlingen blev stoppet.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
@@ -1272,12 +1211,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
-msgstr ""
+msgstr "_Pause"
 
 #: ../src/gtk/fm-progress-dlg.c:405
-#, fuzzy
 msgid "_Resume"
-msgstr "_Gendan"
+msgstr "_Genoptag"
 
 #: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
@@ -1285,9 +1223,8 @@ msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:581
-#, fuzzy
 msgid "Moving"
-msgstr "Flytter filer"
+msgstr "Flytter"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:585
@@ -1296,49 +1233,41 @@ msgstr "Kopierer"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:589
-#, fuzzy
 msgid "Trashing"
-msgstr "Smider filer ud"
+msgstr "Smider ud"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:593
-#, fuzzy
 msgid "Deleting"
-msgstr "Sletter filer"
+msgstr "Sletter"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
 msgid "Creating link"
-msgstr "Opretter symbolske henvisninger"
+msgstr "Opretter henvisning"
 
 #. translators: 'In:' string is followed by destination folder path
 #: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
 msgid "<b>In:</b>"
-msgstr "<b>Til:</b>"
+msgstr "<b>I:</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:600
-#, fuzzy
 msgid "Creating links to files"
-msgstr "Opretter symbolske henvisninger"
+msgstr "Opretter henvisninger til filer"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:607
-#, fuzzy
 msgid "Changing attributes of"
-msgstr "Ændrer filattributter"
+msgstr "Ændre attributter af"
 
 #: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
 msgid "Changing attributes of files"
-msgstr "Ændrer filattributter"
+msgstr "Ændre attributter af filer"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
 #: ../src/gtk/fm-progress-dlg.c:614
-#, fuzzy
 msgid "Restoring"
-msgstr "_Gendan"
+msgstr "Gendanner"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
@@ -1348,7 +1277,7 @@ msgstr "%s filer"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
-msgstr ""
+msgstr "<b>Igangværende filhandling...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
@@ -1364,22 +1293,19 @@ msgstr "<b>%s filer:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr ""
+msgstr "_Fra"
 
 #: ../src/gtk/fm-side-pane.c:67
-#, fuzzy
 msgid "_Places"
-msgstr "Steder"
+msgstr "_Steder"
 
 #: ../src/gtk/fm-side-pane.c:68
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Foldertræ"
+msgstr "_Mappetræ"
 
 #: ../src/gtk/fm-side-pane.c:69
-#, fuzzy
 msgid "_Remote"
-msgstr "Eksternt"
+msgstr "_Fjern"
 
 #: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
 msgid "Places"
@@ -1391,49 +1317,49 @@ msgstr "Foldertræ"
 
 #: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
-msgstr ""
+msgstr "Visning af mappeindhold"
 
 #: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Skjul %s"
 
 #: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
-msgstr ""
+msgstr "_Flyt til venstre"
 
 #: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
-msgstr ""
+msgstr "Flyt til _højre"
 
 #: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "Vis %s"
 
 #: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
-msgstr ""
+msgstr "_Glem bredde"
 
 #: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
-msgstr ""
+msgstr "_Ikonvisning"
 
 #: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
-msgstr ""
+msgstr "_Kompakt visning"
 
 #: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Miniaturevisning"
 
 #: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Detaljeret _listevisning"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Skifter aktivt faneblad"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
@@ -1443,11 +1369,11 @@ msgstr "Den angivne mappe '%s' er ikke gyldig"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Kan ikke tilgå destitionsfil"
 
 #: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "Kan ikke oprette et link på non-native-filsystem"
 
 #: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
@@ -1478,183 +1404,174 @@ msgstr "Kan ikke kopiere filen '%s': ikke understøttet"
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Indstilling af visningsnavn kan kun gøres for en enkelt fil"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Indstilling af mål kan kun gøres for en enkelt fil"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr ""
+msgstr "XML-fil '%s' fejl (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML-filen indeholder ikke programmets rod"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "Kan ikke oprette XML-definition for '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Menustien '%s' findes allerede"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
-msgstr ""
+msgstr "Fejl ved menu-mellemlager"
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
-msgstr ""
+msgstr "Handlingen understøttes ikke"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Ugyldig menumappe"
 
 #: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Navn til menupunkt må ikke være tomt"
 
 #: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
-msgstr ""
+msgstr "Ugyldig menumappe '%s'"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr ""
+msgstr "Ugyldig menupunkt"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Menupunktet '%s' har ikke passende postfil"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Skift af skjult-status understøttes ikke til menumappe"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr ""
+msgstr "Indstilling af attributten '%s' understøttes ikke"
 
 #: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr ""
+msgstr "Ugyldig værdi for attributten '%s'"
 
 #: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
-msgstr ""
+msgstr "'%s' er en menumappe"
 
 #: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
-msgstr ""
+msgstr "'%s' er ikke et menupunkt"
 
 #: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr ""
+msgstr "Postfilen '%s' er ødelagt"
 
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
-msgstr ""
+msgstr "Kan ikke oprette menupunktet \"%s\""
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Navnet på menumappen må ikke slutte med \".desktop\""
 
 #: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Ugyldig handling med menurod"
 
 #: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
-msgstr ""
+msgstr "Ugyldig destination"
 
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: mappen '%s' findes ikke i menu-mellemlager"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
 msgid "Search"
-msgstr ""
+msgstr "Søg"
 
 #: ../src/modules/vfs-search.c:1052
-#, fuzzy
 msgid "Search Results"
-msgstr "Omdøb fil"
+msgstr "Søgeresultater"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Kør fil"
+msgstr "Vælg kørbar fil"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
-msgstr "Kør fil"
+msgstr "Kørbare filer"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Til:</b>"
+msgstr "<b>_Kommando:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Kommando som skal køres, når programikonet aktiveres"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Placering:</b>"
+msgstr "<b>_Beskrivelse:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Generisk navn for programmet"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Ejer:</b>"
+msgstr "<b>_Arbejdsmappe:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Arbejdsmappen som programmet skal køres i"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Til:</b>"
+msgstr "<b>_Værktøjstip:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Vælg et program"
+msgstr "Værktøjstip som vises på program"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr ""
+msgstr "Brug _opstartspåmindelse"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
-msgstr "Skrivebord"
+msgstr "_Skrivebordspost"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1666,19 +1583,19 @@ msgstr "Gendan slettede filer til deres oprindelige sti"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "Kildefilnavn eller skrivebords-id"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "KILDE"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "resultats filnavn"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "RESULTAT"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41

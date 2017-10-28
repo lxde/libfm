@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2017-06-28 16:07+0000\n"
+"PO-Revision-Date: 2017-09-15 14:20+0000\n"
 "Last-Translator: Davidmp <rbndavid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.8\n"
-"X-POOTLE-MTIME: 1498666079.007116\n"
+"X-POOTLE-MTIME: 1505485255.242509\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -42,7 +42,7 @@ msgstr "Trieu una aplicació"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
+msgstr "Utilitza l'aplicació seleccionada per obrir fitxers"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
@@ -81,8 +81,8 @@ msgstr ""
 "<b>Es poden emprar aquests codis especials a l'intèrpret d'ordres:</b>\n"
 "  <b>%f</b>: representa el nom d'un sol fitxer\n"
 "  <b>%F</b>: representa el nom de múltiples fitxers\n"
-"  <b>%u</b>: representa una sola URI de fitxer\n"
-"  <b>%U</b>: representa diverses URI de fitxer"
+"  <b>%u</b>: representa un sol URI de fitxer\n"
+"  <b>%U</b>: representa diversos URI de fitxer"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
-msgstr "Executa la línia de comandes personalitzada per obrir arxius"
+msgstr "Executa la línia d'ordres personalitzada per obrir fitxers"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
@@ -173,7 +173,7 @@ msgstr "Propietats del fitxer"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr "Icona del fitxer en vista de carpetes"
+msgstr "Icona del fitxer a la vista de carpetes"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -197,7 +197,7 @@ msgstr "<b>Obre a_mb...</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Trieu l'aplicació que s'emprarà per a obrir fitxers d'aquest tipus "
+msgstr "Trieu l'aplicació que s'emprarà per obrir fitxers d'aquest tipus "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -497,7 +497,7 @@ msgstr "<b>Navegador web</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "S'emprarà el navegador web preferit per a obrir els hiperenllaços."
+msgstr "S'emprarà el navegador web preferit per obrir els hiperenllaços."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail Client</b>"
@@ -888,7 +888,7 @@ msgstr "<b>_Accediu al contingut:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
-msgstr "Arxius de diferents tipus"
+msgstr "Fitxers de diferents tipus"
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
@@ -1011,7 +1011,7 @@ msgstr "Nou"
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Escriviu un nom per al nou %s:"
+msgstr "Escriviu un nom per al nou element %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format, c-format
@@ -1099,7 +1099,7 @@ msgstr "Esteu segur que voleu buidar la paperera?"
 
 #: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
-msgstr "Enganxa i vé_s-hi"
+msgstr "Enganxa-ho i vé_s-hi"
 
 #: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
@@ -1207,7 +1207,7 @@ msgstr "Cancel·lat"
 
 #: ../src/gtk/fm-progress-dlg.c:332
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "<b>S'ha completat l'operació amb el fitxer amb errors.</b>"
+msgstr "<b>L'operació amb el fitxer s'ha completat amb errors.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1415,7 +1415,7 @@ msgstr "La destinació és una subcarpeta de la font"
 #: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "No es pot copiar el fitxar \"%s\": no s'admet"
+msgstr "No es pot copiar el fitxer %s: no s'admet"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format, c-format
@@ -1472,7 +1472,7 @@ msgstr "Directori de menú \"%s\" no vàlid"
 
 #: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
-msgstr "Element de menú no vàlid"
+msgstr "Element del menú no vàlid"
 
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format, c-format
@@ -1511,7 +1511,7 @@ msgstr "El fitxer d'entrada \"%s\" està trencat"
 #: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "No s'ha pogut crear l'element de menú \"%s\""
+msgstr "No s'ha pogut crear l'element del menú \"%s\""
 
 #: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1529,8 +1529,7 @@ msgstr "Destinació no vàlida"
 #, c-format, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
-"FmMenuVFileMonitor: la carpeta \"%s\" no s'ha trobat a la memòria cau del "
-"menú"
+"FmMenuVFileMonitor: la carpeta %s no s'ha trobat a la memòria cau del menú"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:985
@@ -1597,7 +1596,7 @@ msgstr "_Restaura"
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
-msgstr "Restaura arxius de la paperera a les seves rutes originals"
+msgstr "Restaura fitxers de la paperera als camins originals"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
