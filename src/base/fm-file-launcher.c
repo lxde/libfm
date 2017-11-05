@@ -142,8 +142,12 @@ static FmFileInfo *_fetch_file_info_for_shortcut(const char *target,
     /* if we do fm_job_run_sync_with_mainloop() then we should unlock
        GDK threads before main loop but the libfm in GDK independent
        therefore we cannot use the fm_job_run_sync_with_mainloop() here */
-    if (fm_job_run_sync(FM_JOB(job)))
-        fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
+    if (fm_job_run_sync(FM_JOB(job))) {
+        FmFileInfo* file_info = fm_file_info_list_peek_head(job->file_infos);
+        if (file_info) {
+            fi = fm_file_info_ref(file_info);
+        }
+    }
     g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
     g_object_unref(job);
     return fi;
