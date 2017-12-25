@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-05-05 20:55+0000\n"
+"PO-Revision-Date: 2017-09-11 17:59+0000\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1430859342.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1505152746.542791\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -86,7 +86,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Aplikazioaren izena (hautazkoa, ezarri asoziazioa mantentzeko)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -99,6 +99,7 @@ msgstr "Komando lerro _pertsonalizatua"
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr ""
+"_Ezarri hautatutako aplikazioa fitxategi-mota honen ekintza lehenetsi bezala"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -294,7 +295,7 @@ msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr ""
+msgstr "Itsaskorra"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
@@ -369,6 +370,8 @@ msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
+"Eredua POSIX shell eredu-zerrenda bat (',' banatzaile bezala duena) edo "
+"POSIX adierazpen erregular bat izan daiteke."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -435,6 +438,9 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
+"Baliozko edozein eduki mota sartu daiteke hemen. '*' komodina motaren "
+"amaieran erabil daiteke. Mota bat baino gehiago sartzeko ';' banatzailea "
+"erabili."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -1405,12 +1411,12 @@ msgstr "Ezin da '%s' fitxategia kopiatu: ez da onartzen"
 #: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Bistaratze-izena fitxategi bakunetan soilik ezar daiteke"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Helburua fitxategi bakunetan soilik ezar daiteke"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
@@ -1462,11 +1468,11 @@ msgstr "Menu-elementu baliogabea"
 #: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Menuko '%s' elementuak ez dauka sarrera fitxategi egokirik"
 
 #: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Menu direktorioan ezin da ezkutuko egoera aldatu"
 
 #: ../src/modules/vfs-menu.c:1978
 #, c-format

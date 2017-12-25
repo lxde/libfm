@@ -142,8 +142,12 @@ static FmFileInfo *_fetch_file_info_for_shortcut(const char *target,
     /* if we do fm_job_run_sync_with_mainloop() then we should unlock
        GDK threads before main loop but the libfm in GDK independent
        therefore we cannot use the fm_job_run_sync_with_mainloop() here */
-    if (fm_job_run_sync(FM_JOB(job)))
-        fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
+    if (fm_job_run_sync(FM_JOB(job))) {
+        FmFileInfo* file_info = fm_file_info_list_peek_head(job->file_infos);
+        if (file_info) {
+            fi = fm_file_info_ref(file_info);
+        }
+    }
     g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
     g_object_unref(job);
     return fi;
@@ -202,13 +206,55 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         else if (fm_file_info_is_desktop_entry(fi))
         {
 _launch_desktop_entry:
-            if (!target)
-                filename = fm_path_to_str(fm_file_info_get_path(fi));
-            fm_launch_desktop_entry(ctx, target ? target : filename, NULL,
-                                    launcher, user_data);
-            if (!target)
-                g_free(filename);
-            continue;
+            /* treat desktop entries as executables */
+            if(fm_file_info_is_executable_type(fi))
+            {
+                switch(launcher->exec_file(fi, user_data))
+                {
+                case FM_FILE_LAUNCHER_EXEC_IN_TERMINAL:
+                case FM_FILE_LAUNCHER_EXEC:
+                {
+                    if (!target)
+                        filename = fm_path_to_str(fm_file_info_get_path(fi));
+                    fm_launch_desktop_entry(ctx, target ? target : filename, NULL,
+                                            launcher, user_data);
+                    if (!target)
+                        g_free(filename);
+                    continue;
+                }
+                case FM_FILE_LAUNCHER_EXEC_OPEN:
+                    break;
+                case FM_FILE_LAUNCHER_EXEC_CANCEL:
+                    continue;
+               }
+            }
+            /* make exception for desktop entries under menu */
+            else if(fm_path_is_xdg_menu(fm_file_info_get_path(fi)))
+            {
+                if (!target)
+                    filename = fm_path_to_str(fm_file_info_get_path(fi));
+                fm_launch_desktop_entry(ctx, target ? target : filename, NULL,
+                                        launcher, user_data);
+                if (!target)
+                    g_free(filename);
+                continue;
+            }
+
+            FmMimeType* mime_type = fm_file_info_get_mime_type(fi);
+            if(mime_type && (type = fm_mime_type_get_type(mime_type)))
+            {
+                fis = g_hash_table_lookup(hash, type);
+                fis = g_list_prepend(fis, fi);
+                g_hash_table_insert(hash, (gpointer)type, fis);
+            }
+            else if (launcher->error)
+            {
+                g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Could not determine content type of file '%s' to launch it"),
+                            fm_file_info_get_disp_name(fi));
+                launcher->error(ctx, err, NULL, user_data);
+                g_clear_error(&err);
+            }
         }
         else
         {
@@ -269,7 +315,7 @@ _launch_desktop_entry:
                     if (fm_file_info_is_desktop_entry(fi))
                         goto _launch_desktop_entry;
                 }
-                if(fm_file_info_is_executable_type(fi))
+                if(fm_file_info_is_executable_type(fi) && !fm_file_info_is_desktop_entry(fi))
                 {
                     /* if it's an executable file, directly execute it. */
                     filename = fm_path_to_str(path);

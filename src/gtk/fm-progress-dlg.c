@@ -437,6 +437,7 @@ static gboolean on_update_dlg(gpointer user_data)
     {
         g_string_printf(data->str, "<i>%s %s</i>", data->op_text, data->cur_file);
         gtk_label_set_markup(data->current, data->str->str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->current), data->cur_file);
         g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
         data->cur_file = NULL;
@@ -577,6 +578,7 @@ static gboolean _on_show_dlg(gpointer user_data)
         if(l)
             g_string_append(str, "...");
         gtk_label_set_text(data->src, str->str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->src), str->str);
         g_string_free(str, TRUE);
     }
 
@@ -651,6 +653,7 @@ static gboolean _on_show_dlg(gpointer user_data)
     {
         char* dest_str = fm_path_display_name(dest, TRUE);
         gtk_label_set_text(to, dest_str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->dest), dest_str);
         g_free(dest_str);
     }
     else

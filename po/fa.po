@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-06-10 06:14+0000\n"
+"PO-Revision-Date: 2017-10-24 12:24+0000\n"
 "Last-Translator: Ali Yousefi Sabzevar <aysabzevar@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1433916888.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1508847843.316089\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -741,9 +741,9 @@ msgid "Customize"
 msgstr "سفارشی سازی"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "از نرم‌افزارهای انتخابی برای باز کردن پرونده ها استفاده کن"
+msgstr "<b>یک برنامه برای باز کردن پرونده‌های \"%s\" انتخاب کنید</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -1031,14 +1031,14 @@ msgid "New"
 msgstr "جدید"
 
 #: ../src/gtk/fm-folder-view.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "یک نام برای پرونده جدید ساخته شده وارد کنید:"
+msgstr "یک نام برای %s جدید ساخته شده وارد کنید:"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "پیوندهای نمادین"
+msgstr "ساخت %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
@@ -1085,26 +1085,26 @@ msgid "Only system administrators have the permission to do this."
 msgstr "فقط مدیران سیستم اجازه ی اینکار را دارند."
 
 #: ../src/gtk/fm-gtk-utils.c:923
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "آیا می خواهید پرونده‌های انتخابی را به زباله‌دان منتقل کنید؟"
+msgstr "آیا می خواهید پرونده‌ '%s' را به زباله‌دان منتقل کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:928
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "آیا می خواهید پرونده‌های انتخابی را به زباله‌دان منتقل کنید؟"
+msgstr[0] "آیا می خواهید %d را به زباله‌دان منتقل کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "آیا می خواهید پرونده‌های انتخاب شده را حذف کنید؟"
+msgstr "آیا می خواهید پرونده‌ '%s' را حذف کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "آیا می خواهید پرونده‌های انتخاب شده را حذف کنید؟"
+msgstr[0] "آیا می خواهید %d را حذف کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
@@ -1231,9 +1231,8 @@ msgid "Cancelled"
 msgstr "لغو شده"
 
 #: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr "عملیات پرونده لغو شده و تعدادی خطا رخ داده است"
+msgstr "<b>عملیات پرونده با خطا پایان یافت.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
@@ -1322,9 +1321,9 @@ msgstr "_بازیابی"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:624
-#, fuzzy, c-format
+#, c-format
 msgid "%s files"
-msgstr "پرونده‌های تصویری"
+msgstr "پرونده‌های %s"
 
 #: ../src/gtk/fm-progress-dlg.c:627
 msgid "<b>File operation is in progress...</b>"
@@ -1332,15 +1331,15 @@ msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
 #: ../src/gtk/fm-progress-dlg.c:633
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s file:</b>"
-msgstr "<b>نوع پرونده:</b>"
+msgstr "<b> پرونده %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
 #: ../src/gtk/fm-progress-dlg.c:636
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>نوع پرونده:</b>"
+msgstr "<b>پرونده‌های %s:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1414,9 +1413,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "دایرکتوری مشخص شده معتبر نیست"
+msgstr "دایرکتوری '%s' مشخص شده معتبر نیست"
 
 #: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
