@@ -1008,12 +1008,7 @@ static char *_fm_vfs_search_get_relative_path(GFile *parent, GFile *descendant)
 
 static GFile *_fm_vfs_search_resolve_relative_path(GFile *file, const char *relative_path)
 {
-    FmSearchVFile *search = FM_SEARCH_VFILE(file);
-
-    /* g_debug("_fm_vfs_search_resolve_relative_path: '%s'/'%s'", search->path, relative_path); */
-    g_return_val_if_fail(file != NULL && relative_path != NULL && search->current != NULL, NULL);
-
-    return g_file_resolve_relative_path(search->current, relative_path);
+    return NULL;
 }
 
 static GFile *_fm_vfs_search_get_child_for_display_name(GFile *file,

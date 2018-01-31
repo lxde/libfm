@@ -51,7 +51,12 @@ static gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFil
 {
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    if(job->type == FM_FILE_OP_MOVE && g_file_equal(src, dest))
+    if(dest == NULL) /* as with search:/// */
+    {
+        err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+            _("Destination does not exist"));
+    }
+    else if(job->type == FM_FILE_OP_MOVE && g_file_equal(src, dest))
     {
         err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
             _("Source and destination are the same."));
@@ -97,9 +102,6 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src,
     guint32 mode;
     gboolean skip_dir_content = FALSE;
 
-    /* FIXME: g_file_get_child() failed? generate error! */
-    g_return_val_if_fail(dest != NULL, FALSE);
-
     job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP | FM_FILE_OP_OVERWRITE;
     if( G_LIKELY(inf) )
         g_object_ref(inf);
@@ -118,7 +120,7 @@ _retry_query_src_info:
         }
     }
 
-    if(!_fm_file_ops_job_check_paths(job, src, inf, dest))
+    if(!_fm_file_ops_job_check_paths(job, src, inf, dest)) /* also checks dest */
     {
         g_object_unref(inf);
         return FALSE;
@@ -747,7 +749,8 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         if(!_fm_file_ops_job_copy_file(job, src, NULL, dest, NULL, df))
             ret = FALSE;
         g_object_unref(src);
-        g_object_unref(dest);
+        if(dest != NULL)
+            g_object_unref(dest);
     }
 
     /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
@@ -871,7 +874,8 @@ _retry_query_dest_info:
         if(!_fm_file_ops_job_move_file(job, src, NULL, dest, path, sf, df))
             ret = FALSE;
         g_object_unref(src);
-        g_object_unref(dest);
+        if(dest != NULL)
+            g_object_unref(dest);
 
         if(!ret)
             break;
