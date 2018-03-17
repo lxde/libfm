@@ -287,7 +287,9 @@ _retry_enum_children:
                                                                       -1, NULL, NULL, NULL);
                                     /* gvfs escapes it itself */
                                 else /* copy from virtual to native */
-                                    tmp_basename = fm_uri_subpath_to_native_subpath(g_file_info_get_name(inf), NULL);
+                                    /* display name as copying target more prefers, that basename (for example, for Google Drive)
+                                    See https://debarshiray.wordpress.com/2015/09/13/google-drive-and-gnome-what-is-a-volatile-path/ for some explanations*/
+                                    tmp_basename = fm_uri_subpath_to_native_subpath(g_file_info_get_display_name(inf), NULL);
                                 sub_dest = g_file_get_child(dest,
                                         tmp_basename ? tmp_basename : g_file_info_get_name(inf));
                                 g_free(tmp_basename);
@@ -739,8 +741,11 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
                     basename++;
                 else
                     basename = sub_name;
+                tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
             }
-            tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
+            else
+                /* if not URI, better use display name */
+                tmp_basename = fm_path_display_basename(path);
             g_free(sub_name);
         }
         dest = g_file_get_child(dest_dir,
@@ -866,7 +871,7 @@ _retry_query_dest_info:
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
         else /* move from virtual to native/virtual */
-            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
+            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_display_basename(path), NULL);
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
