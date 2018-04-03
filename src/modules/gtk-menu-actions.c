@@ -2,6 +2,7 @@
  *      fm-file-menu.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -28,98 +29,119 @@
 #include "fm-gtk-utils.h"
 #include "gtk-compat.h"
 
-#include "fm-actions.h"
+#include "fm-action.h"
+
+static GQuark _fm_actions_qdata_id = 0;
+static FmActionCache *_fm_actions_cache = NULL;
 
 static void on_custom_action_file(GtkAction* act, gpointer menu)
 {
-    FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
+    GAppInfo* item = g_object_get_qdata(G_OBJECT(act), fm_qdata_id);
     GdkAppLaunchContext* ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
     GList* files = fm_file_info_list_peek_head_link(fm_file_menu_get_file_info_list(menu));
-    char* output = NULL;
+    GError *err = NULL;
+
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(fm_file_menu_get_menu(menu))));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
     /* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
         fm_file_action_item_get_id(item)); */
-    fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
-    if(output)
+    g_app_info_launch(item, files, G_APP_LAUNCH_CONTEXT(ctx), &err);
+    if (err)
     {
-        fm_show_error(NULL, "output", output);
-        g_free(output);
+        fm_show_error(NULL, "output", err->message);
+        g_error_free(err);
     }
     g_object_unref(ctx);
 }
 
 static void on_custom_action_folder(GtkAction* act, gpointer folder_view)
 {
-    FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
+    GAppInfo* item = g_object_get_qdata(G_OBJECT(act), fm_qdata_id);
     GdkAppLaunchContext* ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
     GList* files = g_list_prepend(NULL, fm_folder_view_get_cwd_info(folder_view));
-    char* output = NULL;
+    GError *err = NULL;
+
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(folder_view));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
     /* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
         fm_file_action_item_get_id(item)); */
-    fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
-    if(output)
+    g_app_info_launch(item, files, G_APP_LAUNCH_CONTEXT(ctx), &err);
+    if (err)
     {
-        fm_show_error(NULL, "output", output);
-        g_free(output);
+        fm_show_error(NULL, "output", err->message);
+        g_error_free(err);
     }
     g_object_unref(ctx);
     g_list_free(files);
 }
 
-static void add_custom_action_item(GString* xml, FmFileActionItem* item,
-                                   GtkActionGroup* act_grp,
+static void add_custom_action_item(GString* xml, FmActionMenu *root_menu,
+                                   GAppInfo* item, GtkActionGroup* act_grp,
                                    GCallback cb, gpointer cb_data)
 {
     GtkAction* act;
+
     if(!item) /* separator */
     {
         g_string_append(xml, "<separator/>");
         return;
     }
 
-    if(fm_file_action_item_is_action(item))
-    {
-        if(!(fm_file_action_item_get_target(item) & FM_FILE_ACTION_TARGET_CONTEXT))
-            return;
-    }
-
-    act = gtk_action_new(fm_file_action_item_get_id(item),
-                         fm_file_action_item_get_name(item),
-                         fm_file_action_item_get_desc(item),
+    act = gtk_action_new(g_app_info_get_id(item),
+#if GLIB_CHECK_VERSION(2, 24, 0)
+                         g_app_info_get_display_name(item),
+#else
+                         g_app_info_get_name(item),
+#endif
+                         g_app_info_get_description(item),
                          NULL);
 
-    if(fm_file_action_item_is_action(item))
+    if (FM_IS_ACTION(item))
         g_signal_connect(act, "activate", cb, cb_data);
 
-    gtk_action_set_icon_name(act, fm_file_action_item_get_icon(item));
+    gtk_action_set_gicon(act, g_app_info_get_icon(item));
     gtk_action_group_add_action(act_grp, act);
+    g_object_unref(act);
+    /* hold a reference on the root FmActionMenu object */
+    g_object_set_qdata_full(G_OBJECT(act), _fm_actions_qdata_id,
+                            g_object_ref(root_menu), g_object_unref);
     /* associate the app info object with the action */
-    g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id,
-                            fm_file_action_item_ref(item),
-                            fm_file_action_item_unref);
-    if(fm_file_action_item_is_menu(item))
+    g_object_set_qdata(G_OBJECT(act), fm_qdata_id, item);
+    if (FM_IS_ACTION_MENU(item))
     {
-        GList* subitems = fm_file_action_item_get_sub_items(item);
-        GList* l;
+        const GList* subitems = fm_action_menu_get_children(FM_ACTION_MENU(item));
+        const GList* l;
         g_string_append_printf(xml, "<menu action='%s'>",
-                               fm_file_action_item_get_id(item));
+                               g_app_info_get_id(item));
         for(l=subitems; l; l=l->next)
         {
-            FmFileActionItem* subitem = FM_FILE_ACTION_ITEM(l->data);
-            add_custom_action_item(xml, subitem, act_grp, cb, cb_data);
+            GAppInfo *subitem = l->data;
+            add_custom_action_item(xml, root_menu, subitem, act_grp, cb, cb_data);
         }
         g_string_append(xml, "</menu>");
     }
     else
     {
         g_string_append_printf(xml, "<menuitem action='%s'/>",
-                               fm_file_action_item_get_id(item));
+                               g_app_info_get_id(item));
     }
+}
+
+static void _fm_actions_init(void)
+{
+    if (!_fm_actions_cache)
+        _fm_actions_cache = fm_action_cache_new();
+    if (!_fm_actions_qdata_id)
+        _fm_actions_qdata_id = g_quark_from_string("_fm_actions_qdata_id");
+}
+
+static void _fm_actions_finalize(void)
+{
+    if (_fm_actions_cache)
+       g_object_unref(G_OBJECT(_fm_actions_cache));
+    _fm_actions_cache = NULL;
 }
 
 static void
@@ -128,24 +150,35 @@ _fm_actions_update_file_menu_for_scheme(GtkWindow* window, GtkUIManager* ui,
                                         FmFileMenu* menu, FmFileInfoList* files,
                                         gboolean single_file)
 {
-    GList* files_list = fm_file_info_list_peek_head_link(files);
-    GList* items = fm_get_actions_for_files(files_list);
+    FmActionMenu *root_menu;
+    FmPath *cwd = fm_file_menu_get_cwd(menu);
+    FmFolder *folder;
+    FmFileInfo *location = NULL;
+    const GList *items;
+
+    g_return_if_fail(_fm_actions_cache != NULL && cwd != NULL);
+    folder = fm_folder_find_by_path(cwd);
+    if (folder)
+        location = fm_folder_get_info(folder);
+    if (!location)
+        return;
 
     /* add custom file actions */
+    root_menu = fm_action_get_for_context(_fm_actions_cache, location, files);
+    items = fm_action_menu_get_children(root_menu);
     if(items)
     {
         g_string_append(xml, "<popup><placeholder name='ph3'>");
-        GList* l;
+        const GList* l;
         for(l=items; l; l=l->next)
         {
-            FmFileActionItem* item = FM_FILE_ACTION_ITEM(l->data);
-            add_custom_action_item(xml, item, act_grp,
+            GAppInfo *item = l->data;
+            add_custom_action_item(xml, root_menu, item, act_grp,
                                    G_CALLBACK(on_custom_action_file), menu);
         }
         g_string_append(xml, "</placeholder></popup>");
     }
-    g_list_foreach(items, (GFunc)fm_file_action_item_unref, NULL);
-    g_list_free(items);
+    g_object_unref(root_menu);
 }
 
 static void
@@ -154,38 +187,40 @@ _fm_actions_update_folder_menu_for_scheme(FmFolderView* fv, GtkWindow* window,
                                           FmFileInfoList* files)
 {
     FmFileInfo *fi = fm_folder_view_get_cwd_info(fv);
-    GList *files_list, *items;
+    FmActionMenu *root_menu;
+    const GList *items;
+
+    g_return_if_fail(_fm_actions_cache != NULL);
 
     if (fi == NULL) /* incremental folder - no info yet - ignore it */
         return;
-    files_list = g_list_prepend(NULL, fm_folder_view_get_cwd_info(fv));
-    items = fm_get_actions_for_files(files_list);
+
+    root_menu = fm_action_get_for_location(_fm_actions_cache, fi);
+    items = fm_action_menu_get_children(root_menu);
     if(items)
     {
         GString *xml = g_string_new("<popup><placeholder name='CustomCommonOps'>");
-        GList* l;
+        const GList* l;
 
         for(l=items; l; l=l->next)
         {
-            FmFileActionItem* item = FM_FILE_ACTION_ITEM(l->data);
-            add_custom_action_item(xml, item, act_grp,
+            GAppInfo *item = l->data;
+            add_custom_action_item(xml, root_menu, item, act_grp,
                                    G_CALLBACK(on_custom_action_folder), fv);
         }
         g_string_append(xml, "</placeholder></popup>");
         gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
         g_string_free(xml, TRUE);
     }
-    g_list_foreach(items, (GFunc)fm_file_action_item_unref, NULL);
-    g_list_free(items);
-    g_list_free(files_list);
+    g_object_unref(root_menu);
 }
 
 /* we catch all schemes to be available on every one */
 FM_DEFINE_MODULE(gtk_menu_scheme, *)
 
 FmContextMenuSchemeAddonInit fm_module_init_gtk_menu_scheme = {
-    .init = NULL,
-    .finalize = NULL,
-    _fm_actions_update_file_menu_for_scheme,
-    _fm_actions_update_folder_menu_for_scheme
+    .init = _fm_actions_init,
+    .finalize = _fm_actions_finalize,
+    .update_file_menu_for_scheme = _fm_actions_update_file_menu_for_scheme,
+    .update_folder_menu = _fm_actions_update_folder_menu_for_scheme
 };

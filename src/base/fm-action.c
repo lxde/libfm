@@ -1,7 +1,7 @@
 /*
  *      fm-action.c
  *
- *      Copyright 2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2014-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -167,6 +167,7 @@ struct _FmActionMenu
     GList *children;    /* FmAction / FmActionMenu, ref - NULL for cache-only */
     FmActionMenu *parent; /* menu this item was created for, noref */
     FmFileInfoList *files; /* only for top menu - starting conditions */
+    FmActionTarget target;
     gboolean enabled : 1; /* Enabled field */
 };
 
@@ -254,17 +255,25 @@ static inline FmActionMenu *_get_top_menu(FmActionMenu *menu)
 }
 
 static gboolean _expand_params(GString *str, const char *line,
-                               FmActionMenu *at, GError **error)
-                               /* FIXME: shell-quote always or not? */
+                               FmActionMenu *at, gboolean do_quote, GError **error)
 {
-    FmActionMenu *menu = _get_top_menu(at);
+    FmActionMenu *menu;
     FmFileInfoList *files;
     FmFileInfo *file;
     GList *head, *l;
     char *tmp, *c;
     const char *scheme;
+    char *(*quote_func)(const char *);
     gsize len;
 
+    if (line == NULL || line[0] == '\0')
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Empty value"));
+        return FALSE;
+    }
+
+    menu = _get_top_menu(at);
     if (menu == NULL)
     {
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
@@ -276,6 +285,10 @@ static gboolean _expand_params(GString *str, const char *line,
         menu->files = fm_file_info_list_new();
     head = fm_file_info_list_peek_head_link(menu->files);
     file = head->data;
+    if (do_quote)
+        quote_func = g_shell_quote;
+    else
+        quote_func = g_strdup;
     while (*line)
     {
         if (*line == '%') switch (*++line)
@@ -284,18 +297,18 @@ static gboolean _expand_params(GString *str, const char *line,
             g_string_append_c(str, '%');
             break;
         case 'b':
-            tmp = g_shell_quote(fm_file_info_get_name(file));
+            tmp = quote_func(fm_file_info_get_name(file));
             g_string_append(str, tmp);
             g_free(tmp);
             break;
         case 'B':
-            tmp = g_shell_quote(fm_file_info_get_name(file));
+            tmp = quote_func(fm_file_info_get_name(file));
             g_string_append(str, tmp);
             g_free(tmp);
             for (l = head->next; l != NULL; l = l->next)
             {
                 g_string_append_c(str, ' ');
-                tmp = g_shell_quote(fm_file_info_get_name(l->data));
+                tmp = quote_func(fm_file_info_get_name(l->data));
                 g_string_append(str, tmp);
                 g_free(tmp);
             }
@@ -304,15 +317,21 @@ static gboolean _expand_params(GString *str, const char *line,
             g_string_append_printf(str, "%d", fm_file_info_list_get_length(files));
             break;
         case 'd':
-            tmp = fm_path_to_str(fm_path_get_parent(fm_file_info_get_path(file)));
-            c = g_shell_quote(tmp);
+            if (menu->target == ACTION_TARGET_CONTEXT)
+               tmp = fm_path_to_str(fm_path_get_parent(fm_file_info_get_path(file)));
+            else
+               tmp = fm_path_to_str(fm_file_info_get_path(file));
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
             break;
         case 'D':
-            tmp = fm_path_to_str(fm_path_get_parent(fm_file_info_get_path(file)));
-            c = g_shell_quote(tmp);
+            if (menu->target == ACTION_TARGET_CONTEXT)
+               tmp = fm_path_to_str(fm_path_get_parent(fm_file_info_get_path(file)));
+            else
+               tmp = fm_path_to_str(fm_file_info_get_path(file));
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
@@ -320,7 +339,7 @@ static gboolean _expand_params(GString *str, const char *line,
             {
                 g_string_append_c(str, ' ');
                 tmp = fm_path_to_str(fm_path_get_parent(fm_file_info_get_path(l->data)));
-                c = g_shell_quote(tmp);
+                c = quote_func(tmp);
                 g_string_append(str, c);
                 g_free(c);
                 g_free(tmp);
@@ -328,14 +347,14 @@ static gboolean _expand_params(GString *str, const char *line,
             break;
         case 'f':
             tmp = fm_path_to_str(fm_file_info_get_path(file));
-            c = g_shell_quote(tmp);
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
             break;
         case 'F':
             tmp = fm_path_to_str(fm_file_info_get_path(file));
-            c = g_shell_quote(tmp);
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
@@ -343,7 +362,7 @@ static gboolean _expand_params(GString *str, const char *line,
             {
                 g_string_append_c(str, ' ');
                 tmp = fm_path_to_str(fm_file_info_get_path(l->data));
-                c = g_shell_quote(tmp);
+                c = quote_func(tmp);
                 g_string_append(str, c);
                 g_free(c);
                 g_free(tmp);
@@ -374,7 +393,7 @@ static gboolean _expand_params(GString *str, const char *line,
             if (len > 0)
             {
                 c = g_strndup(tmp, len);
-                tmp = g_shell_quote(c);
+                tmp = quote_func(c);
                 g_free(c);
                 g_string_append(str, tmp);
                 g_free(tmp);
@@ -454,14 +473,14 @@ static gboolean _expand_params(GString *str, const char *line,
             break;
         case 'u':
             tmp = fm_path_to_uri(fm_file_info_get_path(file));
-            c = g_shell_quote(tmp);
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
             break;
         case 'U':
             tmp = fm_path_to_uri(fm_file_info_get_path(file));
-            c = g_shell_quote(tmp);
+            c = quote_func(tmp);
             g_string_append(str, c);
             g_free(c);
             g_free(tmp);
@@ -469,7 +488,7 @@ static gboolean _expand_params(GString *str, const char *line,
             {
                 g_string_append_c(str, ' ');
                 tmp = fm_path_to_uri(fm_file_info_get_path(l->data));
-                c = g_shell_quote(tmp);
+                c = quote_func(tmp);
                 g_string_append(str, c);
                 g_free(c);
                 g_free(tmp);
@@ -477,7 +496,7 @@ static gboolean _expand_params(GString *str, const char *line,
             break;
         case 'w':
             scheme = fm_file_info_get_name(file);
-            tmp = g_shell_quote(scheme);
+            tmp = quote_func(scheme);
             c = strrchr(tmp, '.');
             if (c != NULL)
                 g_string_append_len(str, tmp, c - tmp);
@@ -487,7 +506,7 @@ static gboolean _expand_params(GString *str, const char *line,
             break;
         case 'W':
             scheme = fm_file_info_get_name(file);
-            tmp = g_shell_quote(scheme);
+            tmp = quote_func(scheme);
             c = strrchr(tmp, '.');
             if (c != NULL)
                 g_string_append_len(str, tmp, c - tmp);
@@ -498,7 +517,7 @@ static gboolean _expand_params(GString *str, const char *line,
             {
                 g_string_append_c(str, ' ');
                 scheme = fm_file_info_get_name(l->data);
-                tmp = g_shell_quote(scheme);
+                tmp = quote_func(scheme);
                 c = strrchr(tmp, '.');
                 if (c != NULL)
                     g_string_append_len(str, tmp, c - tmp);
@@ -632,7 +651,7 @@ static GIcon * _fm_action_get_icon(GAppInfo *appinfo)
     FmAction *action = FM_ACTION(appinfo);
     GIcon *icon = NULL;
 
-    _expand_params(str, action->info->icon_name, action->menu, NULL);
+    _expand_params(str, action->info->icon_name, action->menu, FALSE, NULL);
     if (str->len > 0)
         icon = (GIcon *)fm_icon_from_name(str->str);
     g_string_free(str, TRUE);
@@ -694,7 +713,7 @@ static gboolean _do_launch(FmAction *action, GAppLaunchContext *launch_context,
         if (term != &xterm_def)
             g_object_unref(term);
     }
-    if (!_expand_params(str, action->exec, action->menu, error))
+    if (!_expand_params(str, action->exec, action->menu, TRUE, error))
         goto finish;
     if (g_shell_parse_argv(str->str, &argc, &argv, error))
     {
@@ -723,9 +742,9 @@ static gboolean _do_launch(FmAction *action, GAppLaunchContext *launch_context,
         }
         g_string_truncate(str, 0);
         if (action->path)
-            _expand_params(str, action->path, action->menu, NULL);
+            _expand_params(str, action->path, action->menu, FALSE, NULL);
         if (str->str[0] != '/')
-            _expand_params(str, "%d", action->menu, NULL); /* see the spec */
+            _expand_params(str, "%d", action->menu, FALSE, NULL); /* see the spec */
         ok = g_spawn_async(str->str, argv, NULL,
                            G_SPAWN_SEARCH_PATH, child_setup, &data, NULL, error);
         if (!ok)
@@ -816,7 +835,9 @@ static const char * _fm_action_get_commandline(GAppInfo *appinfo)
 static const char * _fm_action_get_display_name(GAppInfo *appinfo)
 {
 //    _expand_params(str, action->info->desc, action->menu, NULL);
-    return FM_ACTION(appinfo)->info->tooltip;
+    if (FM_ACTION(appinfo)->info->tooltip != NULL)
+        return FM_ACTION(appinfo)->info->tooltip;
+    return _fm_action_get_name(appinfo);
 }
 #endif
 
@@ -862,6 +883,7 @@ static void _fm_action_menu_free_children(FmActionMenu *menu)
         {
             FmAction *action = menu->children->data;
             G_LOCK(update);
+            g_assert(action->menu == menu);
             action->menu = NULL;
             G_UNLOCK(update);
         }
@@ -974,7 +996,7 @@ static GIcon * _fm_action_menu_get_icon(GAppInfo *appinfo)
     FmActionMenu *menu = FM_ACTION_MENU(appinfo);
     GIcon *icon = NULL;
 
-    _expand_params(str, menu->icon_name, menu, NULL);
+    _expand_params(str, menu->icon_name, menu, FALSE, NULL);
     if (str->len > 0)
         icon = (GIcon *)fm_icon_from_name(str->str);
     g_string_free(str, TRUE);
@@ -1538,10 +1560,10 @@ static gboolean fm_actions_update_idle(gpointer data)
     return (cache != NULL);
 }
 
+/* lock is on */
 /* consumes filename */
 static void fm_actions_schedule_update(FmActionCache *cache, char *filename)
 {
-    G_LOCK(update);
     if (cache_to_update == NULL) /* no updater running now */
     {
         cache_updater_data = g_new(FmActionCache *, 1);
@@ -1550,7 +1572,6 @@ static void fm_actions_schedule_update(FmActionCache *cache, char *filename)
                         cache_updater_data, g_free);
     }
     cache_to_update = g_slist_prepend(cache_to_update, filename);
-    G_UNLOCK(update);
 }
 
 static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
@@ -1583,8 +1604,12 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
             /* ignore non-desktop files */
             g_free(filename);
         else
+        {
             /* just schedule update */
+            G_LOCK(update);
             fm_actions_schedule_update(cache, filename);
+            G_UNLOCK(update);
+        }
         break;
     case G_FILE_MONITOR_EVENT_DELETED:
         basename = g_file_get_basename(gf);
@@ -1781,7 +1806,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
             break;
         case CONDITION_TYPE_TRY_EXEC: /* TryExec */
             str = g_string_sized_new(64);
-            _expand_params(str, cond->str, root, NULL);
+            _expand_params(str, cond->str, root, TRUE, NULL);
             s = NULL;
             match = FALSE;
             if (!g_path_is_absolute(str->str))
@@ -1794,7 +1819,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
         case CONDITION_TYPE_DBUS: /* ShowIfRegistered */
 #if defined(ENABLE_DBUS) && GLIB_CHECK_VERSION(2, 24, 0)
             str = g_string_size_new(64);
-            _expand_params(str, cond->str, root, NULL);
+            _expand_params(str, cond->str, root, TRUE, NULL);
             /* DBus call is taken from GLib sources: gio/tests/gdbus-names.c */
             conn = g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, NULL);
             result = g_dbus_connection_call_sync(conn,
@@ -1924,7 +1949,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
                         if (cond->type == CONDITION_TYPE_NCASE_BASENAME)
                             g_free(s);
                     }
-                    found = (flist != NULL && l == NULL); /* all match */
+                    found = (flist != NULL && !found); /* all match */
                     g_pattern_spec_free(pattern);
                 }
             }
@@ -2078,6 +2103,7 @@ static void _insert_menu(FmActionMenu *root, GList *elem, GList **menus,
                 {
                     l->data = _fm_action_dup((GAppInfo *)action);
                     g_object_unref(action); /* drop extra reference */
+                    action = l->data;
                 }
                 action->menu = menu;
                 menu->children = g_list_concat(l, menu->children);
@@ -2120,16 +2146,23 @@ static FmActionMenu *fm_action_get_for_content(FmActionCache *cache,
     g_return_val_if_fail(FM_IS_ACTION_CACHE(cache), NULL);
     root = _fm_action_menu_new();
     root->enabled = TRUE;
-    root->files = fm_file_info_list_ref(files);
+    root->target = target;
+    if (target == ACTION_TARGET_CONTEXT)
+        root->files = fm_file_info_list_ref(files);
+    else
+    {
+        root->files = fm_file_info_list_new();
+        fm_file_info_list_push_tail(root->files, location);
+    }
     fm_action_cache_ensure_updates(cache);
     G_LOCK(update);
     /* collect matched menus */
     for (l = cache_menus; l; l = l->next)
-        if (_menu_matches(l->data, location, files, root))
+        if (_menu_matches(l->data, location, root->files, root))
             menus = g_list_prepend(menus, g_object_ref(l->data));
     /* collect matched actions */
     for (l = cache_actions; l; l = l->next)
-        if ((action = _action_matches(l->data, location, files, target, root)))
+        if ((action = _action_matches(l->data, location, root->files, target, root)))
             actions = g_list_prepend(actions, g_object_ref(action));
     G_UNLOCK(update);
     actions = g_list_reverse(actions);
@@ -2142,7 +2175,21 @@ static FmActionMenu *fm_action_get_for_content(FmActionCache *cache,
     }
     /* add leftovers to the root */
     if (actions != NULL)
+    {
+        for (l = actions; l; l = l->next)
+        {
+            action = l->data;
+            /* check if it's already allocated elsewhere so create a dup */
+            if (action->menu != NULL)
+            {
+                l->data = _fm_action_dup((GAppInfo *)action);
+                g_object_unref(action); /* drop extra reference */
+                action = l->data;
+            }
+            action->menu = root;
+        }
         root->children = g_list_concat(root->children, actions);
+    }
     return root;
 }
 
@@ -2169,6 +2216,8 @@ static FmActionMenu *fm_action_get_for_content(FmActionCache *cache,
 FmActionMenu *fm_action_get_for_context(FmActionCache *cache, FmFileInfo *location,
                                         FmFileInfoList *files)
 {
+    if (fm_file_info_list_is_empty(files))
+        return NULL;
     return fm_action_get_for_content(cache, location, files, ACTION_TARGET_CONTEXT);
 }
 
@@ -2186,8 +2235,8 @@ FmActionMenu *fm_action_get_for_toolbar(FmActionCache *cache, FmFileInfo *locati
  * fm_action_menu_get_children
  * @menu: an action menu
  *
- * Returns list of elements that belong to this menu. If element's name
- * is %NULL then element is a separator. Otherwise element may be either
+ * Returns list of elements that belong to this menu. If an element is
+ * %NULL then element is a separator. Otherwise element may be either
  * #FmAction or #FmActionMenu. Returned list owned by @menu and should
  * not be freed by caller.
  *
