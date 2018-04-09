@@ -4,6 +4,7 @@
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
  *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2018 Nikita Sirgienko <warquark@gmail.com>
  *
  *      This file is a part of the Libfm library.
  *
@@ -742,11 +743,11 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
                 else
                     basename = sub_name;
                 tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
+                g_free(sub_name);
             }
             else
                 /* if not URI, better use display name */
                 tmp_basename = fm_path_display_basename(path);
-            g_free(sub_name);
         }
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
@@ -871,7 +872,11 @@ _retry_query_dest_info:
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
         else /* move from virtual to native/virtual */
-            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_display_basename(path), NULL);
+        {
+            char *name = fm_path_display_basename(path);
+            tmp_basename = fm_uri_subpath_to_native_subpath(name, NULL);
+            g_free(name);
+        }
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
