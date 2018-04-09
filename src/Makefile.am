@@ -56,6 +56,7 @@ udisks_SOURCES=
 endif
 
 base_SOURCES = \
+	base/fm-action.c \
 	base/fm-app-info.c \
 	base/fm-archiver.c \
 	base/fm-bookmarks.c \
@@ -162,6 +163,7 @@ else
 LIBFM_INCLUDES = \
 	fm.h \
 	fm-seal.h \
+	base/fm-action.h \
 	base/fm-app-info.h \
 	base/fm-archiver.h \
 	base/fm-bookmarks.h \
