@@ -26,13 +26,11 @@ pkglib_LTLIBRARIES = \
 	$(NULL)
 
 if ENABLE_GTK
-if HAVE_ACTIONS
-pkglib_LTLIBRARIES += gtk-menu-actions.la
-endif
 pkglib_LTLIBRARIES += \
 	gtk-fileprop-x-desktop.la \
 	gtk-fileprop-x-shortcut.la \
 	gtk-menu-trash.la \
+	gtk-menu-actions.la \
 	$(NULL)
 endif
 

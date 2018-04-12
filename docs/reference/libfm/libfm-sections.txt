@@ -13,6 +13,37 @@ FM_SEAL
 </SECTION>
 
 <SECTION>
+<FILE>fm-action</FILE>
+FM_ACTION
+FM_ACTION_CACHE
+FM_ACTION_MENU
+FM_TYPE_ACTION
+FM_TYPE_ACTION_CACHE
+FM_TYPE_ACTION_MENU
+FmAction
+FmActionCache
+FmActionCacheClass
+FmActionClass
+FmActionMenu
+FmActionMenuClass
+fm_action_cache_new
+fm_action_get_for_context
+fm_action_get_for_location
+fm_action_get_for_toolbar
+fm_action_get_startup_wm_class
+fm_action_get_suggested_shortcut
+fm_action_get_toolbar_label
+fm_action_menu_get_children
+<SUBSECTION Standard>
+FM_IS_ACTION
+FM_IS_ACTION_CACHE
+FM_IS_ACTION_MENU
+fm_action_cache_get_type
+fm_action_get_type
+fm_action_menu_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-app-chooser-combo-box</FILE>
 fm_app_chooser_combo_box_dup_selected_app
 fm_app_chooser_combo_box_get_custom_apps
@@ -456,6 +487,7 @@ FmFileMenuMimeAddonInit
 FmFileMenuUpdatePopup
 fm_file_menu_destroy
 fm_file_menu_get_action_group
+fm_file_menu_get_cwd
 fm_file_menu_get_file_info_list
 fm_file_menu_get_menu
 fm_file_menu_get_ui
@@ -1272,4 +1304,3 @@ fm_xml_file_to_data
 FM_IS_XML_FILE
 fm_xml_file_get_type
 </SECTION>
-

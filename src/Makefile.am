@@ -280,7 +280,7 @@ libfm_la_LDFLAGS = \
 	-version-info $(ABI_VERSION) \
 	$(NULL)
 
-if HAVE_ACTIONS
+if HAVE_OLD_ACTIONS
 LIBFMACTIONS = $(top_builddir)/src/actions/libfmactions.la
 libfm_la_LIBADD += $(LIBFMACTIONS)
 libfm_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
