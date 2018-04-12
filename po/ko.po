@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"POT-Creation-Date: 2018-04-13 00:10+0300\n"
 "PO-Revision-Date: 2015-07-20 13:36+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
@@ -338,11 +338,11 @@ msgstr "바이트"
 msgid "KB"
 msgstr "KB"
 
-#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:143
 msgid "MB"
 msgstr "MB"
 
-#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:149
 msgid "GB"
 msgstr "GB"
 
@@ -366,7 +366,9 @@ msgstr "<b>파일 이름 패턴(_N):</b>"
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
-msgstr "패턴은 포직스 쉘 패턴 목록(','를 구분 문자로 사용) 또는 포직스 정규표현식이 되어야 합니다."
+msgstr ""
+"패턴은 포직스 쉘 패턴 목록(','를 구분 문자로 사용) 또는 포직스 정규표현식이 "
+"되어야 합니다."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -433,8 +435,8 @@ msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"유효한 내용 형식을 여기에 입력할 수 있습니다. 와일드카드 문자 '*'는 형식 마지막 부분의 입력을 허용합니다. 다중 형식은 ';'으로 "
-"구분해야 합니다."
+"유효한 내용 형식을 여기에 입력할 수 있습니다. 와일드카드 문자 '*'는 형식 마지"
+"막 부분의 입력을 허용합니다. 다중 형식은 ';'으로 구분해야 합니다."
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -464,8 +466,8 @@ msgstr "다음보다 큰 것(_B):"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>최종 수정 일시</b>"
 
-#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
-#: ../src/gtk/fm-gtk-file-launcher.c:659
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:670
+#: ../src/gtk/fm-gtk-file-launcher.c:677
 msgid "(None)"
 msgstr "(없음)"
 
@@ -497,7 +499,9 @@ msgstr "<b>메일 클라이언트</b>"
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
-msgstr "전자메일 주소를 눌렀을 때 메일 작성시 기본으로 사용할 기본 메일 클라이언트 입니다."
+msgstr ""
+"전자메일 주소를 눌렀을 때 메일 작성시 기본으로 사용할 기본 메일 클라이언트 입"
+"니다."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -526,208 +530,236 @@ msgid "Preparing..."
 msgstr "준비중..."
 
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Data transferred:</b>"
+msgstr "<b>대상 파일:</b>"
+
+#: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
 msgstr "<b>남은 시간:</b>"
 
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:7
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>오류 발생:</b>"
 
-#: ../src/base/fm-file-launcher.c:85
+#: ../src/base/fm-action.c:272
+#, fuzzy
+msgid "Empty value"
+msgstr "빈 파일"
+
+#: ../src/base/fm-action.c:280
+#, fuzzy
+msgid "Invalid selection"
+msgstr "잘못된 대상입니다"
+
+#. ---- GFile implementation ----
+#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
+msgid "Operation not supported"
+msgstr "동작을 지원하지 않습니다"
+
+#: ../src/base/fm-file-launcher.c:87
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "%s 파일 이름이 잘못되었습니다"
 
-#: ../src/base/fm-file-launcher.c:240
-#, c-format
-msgid "No default application is set to launch URIs %s://"
-msgstr "%s:// URI를 실행할 기본 프로그램을 설정하지 않았습니다"
-
-#: ../src/base/fm-file-launcher.c:308
-#, c-format
-msgid "Cannot set working directory to '%s': %s"
-msgstr "작업 디렉터리를 '%s'(으)로 설정할 수 없습니다: %s"
-
-#: ../src/base/fm-file-launcher.c:355
+#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "실행할 '%s' 파일 내용 형식을 판단할 수 없습니다"
 
-#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
+#: ../src/base/fm-file-launcher.c:292
+#, c-format
+msgid "No default application is set to launch URIs %s://"
+msgstr "%s:// URI를 실행할 기본 프로그램을 설정하지 않았습니다"
+
+#: ../src/base/fm-file-launcher.c:360
+#, c-format
+msgid "Cannot set working directory to '%s': %s"
+msgstr "작업 디렉터리를 '%s'(으)로 설정할 수 없습니다: %s"
+
+#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "%s MIME 형식에 대한 기본 프로그램을 설정하지 않았습니다"
 
-#: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
-#: ../src/gtk/fm-places-model.c:997
+#: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
+#: ../src/gtk/fm-places-model.c:1016
 msgid "Devices"
 msgstr "장치"
 
-#: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
-#: ../src/gtk/fm-places-model.c:1012
+#: ../src/base/fm-path.c:185 ../src/gtk/fm-places-model.c:866
+#: ../src/gtk/fm-places-model.c:1031
 msgid "Network"
 msgstr "네트워크"
 
-#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1316 ../src/gtk/fm-places-model.c:898
 msgid "Trash Can"
 msgstr "휴지통"
 
-#: ../src/base/fm-mime-type.c:86
+#: ../src/base/fm-mime-type.c:89
 msgid "shortcut to URI"
 msgstr "URI 바로 가기"
 
-#: ../src/base/fm-templates.c:1020
+#: ../src/base/fm-templates.c:1043
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: 잘못된 인자입니다"
 
-#: ../src/base/fm-terminal.c:248
+#: ../src/base/fm-terminal.c:256
 msgid "No terminal emulator is set in libfm config"
 msgstr "libfm 설정에 터미널 에뮬레이터 설정이 없습니다."
 
-#: ../src/base/fm-thumbnailer.c:283
+#: ../src/base/fm-thumbnailer.c:285
 msgid "Invalid description of thumbnailer application"
 msgstr "섬네일러 프로그램의 설명이 잘못되었습니다"
 
-#: ../src/base/fm-utils.c:136
+#: ../src/base/fm-utils.c:137
 msgid "kB"
 msgstr "kB"
 
-#: ../src/base/fm-utils.c:153
+#: ../src/base/fm-utils.c:154
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:164
+#: ../src/base/fm-utils.c:165
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u 바이트"
 
-#: ../src/base/fm-utils.c:173
+#: ../src/base/fm-utils.c:174
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:179
+#: ../src/base/fm-utils.c:180
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:185
+#: ../src/base/fm-utils.c:186
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:190
+#: ../src/base/fm-utils.c:191
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-utils.c:572
+#: ../src/base/fm-utils.c:573
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
 msgstr "'%s' URI 하위 경로에 잘못된 이스케이프 문자가 있습니다"
 
-#: ../src/extra/fm-xml-file.c:205
+#: ../src/extra/fm-xml-file.c:206
 #, c-format
 msgid "Duplicate handler for tag <%s>"
 msgstr "<%s> 태그에 대한 처리자가 중복되었습니다"
 
-#: ../src/extra/fm-xml-file.c:299
+#: ../src/extra/fm-xml-file.c:300
 #, c-format
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr "문자 참조에 숫자가 들어가야 하는 '%-.*s'를 해석하는데 실패했습니다 - 아마도 숫자값이 너무 큰 것 같습니다"
+msgstr ""
+"문자 참조에 숫자가 들어가야 하는 '%-.*s'를 해석하는데 실패했습니다 - 아마도 "
+"숫자값이 너무 큰 것 같습니다"
 
-#: ../src/extra/fm-xml-file.c:310
+#: ../src/extra/fm-xml-file.c:311
 #, c-format
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"문자 참조를 세미콜론으로 끝내지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 "
-"이스케이프는 &amp;로 표현하십시오"
+"문자 참조를 세미콜론으로 끝내지 않았습니다. 엔티티를 시작하는 의미가 아닌 다"
+"른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 이스케이프는 &amp;로 "
+"표현하십시오"
 
-#: ../src/extra/fm-xml-file.c:336
+#: ../src/extra/fm-xml-file.c:337
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "'%-.*s' 문자 참조를 허용 문자로 인코딩할 수 없습니다"
 
-#: ../src/extra/fm-xml-file.c:373
+#: ../src/extra/fm-xml-file.c:374
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr "빈 '&;' 엔티티를 발견했습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; &apos; 입니다"
+msgstr ""
+"빈 '&;' 엔티티를 발견했습니다. 유효한 엔티티는 &amp; &quot; &lt; &gt; &apos; "
+"입니다"
 
-#: ../src/extra/fm-xml-file.c:380
+#: ../src/extra/fm-xml-file.c:381
 #, c-format
 msgid "Entity name '%-.*s' is not known"
 msgstr "'%-.*s' 엔티티 이름을 알 수 없습니다"
 
-#: ../src/extra/fm-xml-file.c:384
+#: ../src/extra/fm-xml-file.c:385
 #, c-format
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"엔티티가 세미콜론으로 끝나지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 "
-"이스케이프는 &amp;로 표현하십시오"
+"엔티티가 세미콜론으로 끝나지 않았습니다. 엔티티를 시작하는 의미가 아닌 다른 "
+"의미로 앰퍼샌드 문자를 사용한 것 같습니다 - 앰퍼샌드 이스케이프는 &amp;로 표"
+"현하십시오"
 
-#: ../src/extra/fm-xml-file.c:594
+#: ../src/extra/fm-xml-file.c:595
 msgid "Space isn't allowed in the close tag"
 msgstr "태그 주변 공백은 허용하지 않습니다"
 
-#: ../src/extra/fm-xml-file.c:603
+#: ../src/extra/fm-xml-file.c:604
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
 msgstr "'%s' 요소를 닫았지만 열린 요소는 없습니다"
 
-#: ../src/extra/fm-xml-file.c:619
+#: ../src/extra/fm-xml-file.c:620
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr "'%s' 요소를 닫았지만 현재 '%s' 요소가 열렸습니다"
 
-#: ../src/extra/fm-xml-file.c:675
+#: ../src/extra/fm-xml-file.c:676
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
 msgstr "속성 값 시작 부분에 잘못된 '%c' 문자가 있습니다"
 
-#: ../src/extra/fm-xml-file.c:686
+#: ../src/extra/fm-xml-file.c:687
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "속성값 마지막 부분에 '%2$c' 문자를 예상했지만 잘못된 '%1$c' 문자가 있습니다"
+msgstr ""
+"속성값 마지막 부분에 '%2$c' 문자를 예상했지만 잘못된 '%1$c' 문자가 있습니다"
 
-#: ../src/extra/fm-xml-file.c:834
+#: ../src/extra/fm-xml-file.c:835
 msgid "Document ended unexpectedly"
 msgstr "문서에 예상치 못한 끝맺음이 있습니다"
 
-#: ../src/extra/fm-xml-file.c:842
+#: ../src/extra/fm-xml-file.c:843
 msgid "Document was empty or contained only whitespace"
 msgstr "문서가 비어있거나 공백 문자만 있습니다"
 
-#: ../src/extra/fm-xml-file.c:1258
+#: ../src/extra/fm-xml-file.c:1259
 msgid "fm_xml_file_to_data: XML data error"
 msgstr "fm_xml_file_to_data: XML 데이터 오류"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:216
+#: ../src/gtk/fm-app-chooser-combo-box.c:217
 msgid "Customize"
 msgstr "사용자 정의"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:266
+#: ../src/gtk/fm-app-chooser-dlg.c:325
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>\"%s\" 파일을 열 프로그램을 선택하십시오</b>"
 
-#: ../src/gtk/fm-app-menu-view.c:224
+#: ../src/gtk/fm-app-menu-view.c:207
 msgid "Installed Applications"
 msgstr "설치한 프로그램"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
+#: ../src/gtk/fm-dir-tree-model.c:421 ../src/gtk/fm-dir-tree-model.c:1213
 msgid "<No subfolders>"
 msgstr "<하위 폴더 없음>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
+#: ../src/gtk/fm-dir-tree-model.c:423 ../src/gtk/fm-dir-tree-model.c:1214
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-dir-tree-view.c:546 ../src/gtk/fm-side-pane.c:647
 msgid "Shows tree of directories in sidebar"
 msgstr "가장자리 표시줄에 디렉터리 트리 표시"
 
@@ -748,7 +780,7 @@ msgstr "여기로 이동(_M)"
 msgid "_Link Here"
 msgstr "여기에 링크 만들기(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:870
+#: ../src/gtk/fm-dnd-dest.c:876
 msgid "XDirectSave failed."
 msgstr "XDirectSave 실패."
 
@@ -801,11 +833,11 @@ msgid "Prop_erties"
 msgstr "속성(_E)"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
+#: ../src/gtk/fm-file-menu.c:272 ../src/gtk/fm-file-menu.c:533
 msgid "Move to _Trash"
 msgstr "휴지통으로 이동(_T)"
 
-#: ../src/gtk/fm-file-menu.c:773
+#: ../src/gtk/fm-file-menu.c:794
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "이 폴더에 대한 책갈피가 이미 있습니다."
 
@@ -850,7 +882,8 @@ msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"파일 이름이 구두점('.')으로 시작하면 시스템의 파일은 숨겨집니다. 숨김 파일 표시 여부를 전환하려면 <Ctrl+H>키를 치십시오."
+"파일 이름이 구두점('.')으로 시작하면 시스템의 파일은 숨겨집니다. 숨김 파일 표"
+"시 여부를 전환하려면 <Ctrl+H>키를 치십시오."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -996,7 +1029,7 @@ msgstr "%s 만드는 중"
 msgid "_Run default application on file after creation"
 msgstr "파일을 만든 후 기본 프로그램 실행(_R)"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:141
+#: ../src/gtk/fm-gtk-file-launcher.c:144
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -1005,92 +1038,93 @@ msgstr ""
 "'%s' 텍스트 파일은 실행 가능한 스크립트 인 것 같습니다.\n"
 "무엇을 하시겠습니까?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:148
+#: ../src/gtk/fm-gtk-file-launcher.c:151
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' 파일은 실행 가능합니다. 실행하시겠습니까?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:718
+#: ../src/gtk/fm-gtk-file-launcher.c:736
 msgid "No folders are specified."
 msgstr "지정한 폴더가 없습니다."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:775 ../src/gtk/fm-gtk-utils.c:555
 msgid "Select Folder"
 msgstr "폴더를 선택하십시오"
 
-#: ../src/gtk/fm-gtk-utils.c:70
+#. g_message("(!) %s", msg);
+#: ../src/gtk/fm-gtk-utils.c:71
 msgid "Error"
 msgstr "오류"
 
-#: ../src/gtk/fm-gtk-utils.c:99 ../src/gtk/fm-gtk-utils.c:130
+#: ../src/gtk/fm-gtk-utils.c:100 ../src/gtk/fm-gtk-utils.c:131
 msgid "Confirm"
 msgstr "확인"
 
-#: ../src/gtk/fm-gtk-utils.c:184
+#: ../src/gtk/fm-gtk-utils.c:185
 msgid "Question"
 msgstr "질문"
 
-#: ../src/gtk/fm-gtk-utils.c:708
+#: ../src/gtk/fm-gtk-utils.c:709
 msgid "Only system administrators have the permission to do this."
 msgstr "시스템 관리자만 이를 수행할 권한을 보유하고 있습니다."
 
-#: ../src/gtk/fm-gtk-utils.c:923
+#: ../src/gtk/fm-gtk-utils.c:924
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "선택한 '%s' 파일을 휴지통으로 옮기시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:928
+#: ../src/gtk/fm-gtk-utils.c:929
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "선택한 파일 %d개를 휴지통으로 옮기시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:988
+#: ../src/gtk/fm-gtk-utils.c:989
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "선택한 '%s' 파일을 삭제하시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:993
+#: ../src/gtk/fm-gtk-utils.c:994
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "선택한 파일 %d개를 삭제하시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:1092
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Rename File"
 msgstr "파일 이름 바꾸기"
 
-#: ../src/gtk/fm-gtk-utils.c:1093
+#: ../src/gtk/fm-gtk-utils.c:1094
 msgid "Please enter a new name:"
 msgstr "새 이름을 입력하여 주십시오:"
 
-#: ../src/gtk/fm-gtk-utils.c:1160
+#: ../src/gtk/fm-gtk-utils.c:1166
 msgid "Are you sure you want to empty the trash can?"
 msgstr "정말로 휴지통을 비우시겠습니까?"
 
-#: ../src/gtk/fm-path-entry.c:668
+#: ../src/gtk/fm-path-entry.c:675
 msgid "Pa_ste and Go"
 msgstr "붙여넣고 이동(_S)"
 
-#: ../src/gtk/fm-path-entry.c:727
+#: ../src/gtk/fm-path-entry.c:734
 msgid "Folder location bar"
 msgstr "폴더 위치 표시줄"
 
-#: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+#: ../src/gtk/fm-places-model.c:781 ../src/gtk/fm-places-model.c:995
 msgid "Home Folder"
 msgstr "내 폴더"
 
-#: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
+#: ../src/gtk/fm-places-model.c:797 ../src/gtk/fm-places-model.c:1003
 msgid "Desktop"
 msgstr "데스크톱"
 
-#: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
-#: ../src/modules/vfs-menu.c:1565
+#: ../src/gtk/fm-places-model.c:815 ../src/gtk/fm-places-model.c:1023
+#: ../src/modules/vfs-menu.c:1538
 msgid "Applications"
 msgstr "프로그램"
 
-#: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
+#: ../src/gtk/fm-places-model.c:831 ../src/gtk/fm-places-model.c:1009
 msgid "Filesystem Root"
 msgstr "파일 시스템 루트"
 
@@ -1129,27 +1163,28 @@ msgstr "위로 북마크 이동(_U)"
 msgid "Move Bookmark _Down"
 msgstr "아래로 북마크 이동(_D)"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "휴지통 비우기(_E)"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "일반 위치, 장치, 책갈피를 가장자리 표시줄에 목록으로 표시합니다"
 
-#: ../src/gtk/fm-places-view.c:1102
+#: ../src/gtk/fm-places-view.c:1124
 msgid "Rename Bookmark Item"
 msgstr "북마크 항목 이름 바꾸기"
 
-#: ../src/gtk/fm-places-view.c:1103
+#: ../src/gtk/fm-places-view.c:1125
 msgid "Enter a new name:"
 msgstr "새 이름을 입력하십시오:"
 
-#: ../src/gtk/fm-progress-dlg.c:127
+#: ../src/gtk/fm-progress-dlg.c:135
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:231
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1160,7 +1195,7 @@ msgstr ""
 "크기: %s\n"
 "수정: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:219 ../src/gtk/fm-progress-dlg.c:244
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1169,109 +1204,111 @@ msgstr ""
 "유형: %s\n"
 "수정: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:326
-msgid "<b>Errors occured before file operation was stopped.</b>"
+#: ../src/gtk/fm-progress-dlg.c:343
+#, fuzzy
+msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "<b>Virheitä ilmaantui ennen tiedosto-operaation pysäyttämistä.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:345
 msgid "Cancelled"
 msgstr "취소함"
 
-#: ../src/gtk/fm-progress-dlg.c:332
+#: ../src/gtk/fm-progress-dlg.c:349
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr "<b>오류가 난 상태로 파일 처리를 끝냈습니다.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:334
+#: ../src/gtk/fm-progress-dlg.c:351
 msgid "Finished"
 msgstr "완료함"
 
-#: ../src/gtk/fm-progress-dlg.c:356
+#: ../src/gtk/fm-progress-dlg.c:373
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이동할 수 없습니다.\n"
+"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이"
+"동할 수 없습니다.\n"
 "대신 삭제하시겠습니까?"
 
-#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
+#: ../src/gtk/fm-progress-dlg.c:414 ../src/gtk/fm-progress-dlg.c:563
 msgid "_Pause"
 msgstr "일시 정지(_P)"
 
-#: ../src/gtk/fm-progress-dlg.c:405
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "_Resume"
 msgstr "재개(_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:562
+#: ../src/gtk/fm-progress-dlg.c:597
 msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:581
+#: ../src/gtk/fm-progress-dlg.c:617
 msgid "Moving"
 msgstr "이동중"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:585
+#: ../src/gtk/fm-progress-dlg.c:621
 msgid "Copying"
 msgstr "복사중"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:589
+#: ../src/gtk/fm-progress-dlg.c:625
 msgid "Trashing"
 msgstr "휴지통으로 이동중"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:593
+#: ../src/gtk/fm-progress-dlg.c:629
 msgid "Deleting"
 msgstr "삭제중"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:597
+#: ../src/gtk/fm-progress-dlg.c:633
 msgid "Creating link"
 msgstr "링크 만드는 중"
 
 #. translators: 'In:' string is followed by destination folder path
-#: ../src/gtk/fm-progress-dlg.c:599
+#: ../src/gtk/fm-progress-dlg.c:635
 msgid "<b>In:</b>"
 msgstr "<b>대상:</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:600
+#: ../src/gtk/fm-progress-dlg.c:636
 msgid "Creating links to files"
 msgstr "파일로 링크 만드는 중"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:607
+#: ../src/gtk/fm-progress-dlg.c:643
 msgid "Changing attributes of"
 msgstr "다음의 속성 바꾸는 중"
 
-#: ../src/gtk/fm-progress-dlg.c:608
+#: ../src/gtk/fm-progress-dlg.c:644
 msgid "Changing attributes of files"
 msgstr "파일 속성 바꾸는 중"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:614
+#: ../src/gtk/fm-progress-dlg.c:650
 msgid "Restoring"
 msgstr "복원중"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:624
+#: ../src/gtk/fm-progress-dlg.c:660
 #, c-format
 msgid "%s files"
 msgstr "파일 %s"
 
-#: ../src/gtk/fm-progress-dlg.c:627
+#: ../src/gtk/fm-progress-dlg.c:663
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>파일 처리 진행중...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:633
+#: ../src/gtk/fm-progress-dlg.c:669
 #, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>파일 %s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:636
+#: ../src/gtk/fm-progress-dlg.c:672
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>파일 %s:</b>"
@@ -1292,53 +1329,53 @@ msgstr "디렉터리 트리(_D)"
 msgid "_Remote"
 msgstr "원격(_R)"
 
-#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
+#: ../src/gtk/fm-side-pane.c:428 ../src/gtk/fm-side-pane.c:621
 msgid "Places"
 msgstr "위치"
 
-#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
+#: ../src/gtk/fm-side-pane.c:438 ../src/gtk/fm-side-pane.c:623
 msgid "Directory Tree"
 msgstr "디렉터리 트리"
 
-#: ../src/gtk/fm-standard-view.c:254
+#: ../src/gtk/fm-standard-view.c:255
 msgid "View of folder contents"
 msgstr "폴더 내용 표시"
 
-#: ../src/gtk/fm-standard-view.c:831
+#: ../src/gtk/fm-standard-view.c:818
 #, c-format
 msgid "_Hide %s"
 msgstr "%s 숨기기(_H)"
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
 msgstr "왼쪽으로 이동(_M)"
 
-#: ../src/gtk/fm-standard-view.c:845
+#: ../src/gtk/fm-standard-view.c:832
 msgid "Move _Right"
 msgstr "오른쪽으로 이동(_R)"
 
-#: ../src/gtk/fm-standard-view.c:868
+#: ../src/gtk/fm-standard-view.c:855
 #, c-format
 msgid "Show %s"
 msgstr "%s 표시"
 
-#: ../src/gtk/fm-standard-view.c:880
+#: ../src/gtk/fm-standard-view.c:867
 msgid "_Forget Width"
 msgstr "폭 기억하지 않기(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1854
+#: ../src/gtk/fm-standard-view.c:1859
 msgid "_Icon View"
 msgstr "아이콘 보기(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1855
+#: ../src/gtk/fm-standard-view.c:1860
 msgid "_Compact View"
 msgstr "최소화 보기(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1856
+#: ../src/gtk/fm-standard-view.c:1861
 msgid "_Thumbnail View"
 msgstr "섬네일 보기(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1857
+#: ../src/gtk/fm-standard-view.c:1862
 msgid "Detailed _List View"
 msgstr "자세한 목록 보기(_L)"
 
@@ -1346,52 +1383,56 @@ msgstr "자세한 목록 보기(_L)"
 msgid "Changes active tab"
 msgstr "활성 탭을 전환합니다"
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:362
+#: ../src/job/fm-dir-list-job.c:238 ../src/job/fm-dir-list-job.c:251
+#: ../src/job/fm-dir-list-job.c:363
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "지정한 '%s' 디렉터리는 유효하지 않습니다"
 
-#: ../src/job/fm-file-ops-job.c:519
+#: ../src/job/fm-file-ops-job.c:529 ../src/job/fm-file-ops-job.c:604
 msgid "Cannot access destination file"
 msgstr "대상 파일에 접근할 수 없습니다"
 
-#: ../src/job/fm-file-ops-job.c:564
+#: ../src/job/fm-file-ops-job.c:650
 msgid "Cannot create a link on non-native filesystem"
 msgstr "비 전용 파일 시스템에 링크를 만들 수 없습니다"
 
-#: ../src/job/fm-file-ops-job-delete.c:489
+#: ../src/job/fm-file-ops-job-delete.c:501
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "'%s' 파일을 휴지통에서 복원할 수 없음: 원본 경로를 알 수 없습니다"
 
-#: ../src/job/fm-file-ops-job-xfer.c:54
+#: ../src/job/fm-file-ops-job-xfer.c:58
+msgid "Destination does not exist"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."
 msgstr "원본과 대상이 같습니다."
 
-#: ../src/job/fm-file-ops-job-xfer.c:61
+#: ../src/job/fm-file-ops-job-xfer.c:70
 msgid "Cannot move a folder into its sub folder"
 msgstr "하위 폴더에 폴더를 이동할 수 없습니다"
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
+#: ../src/job/fm-file-ops-job-xfer.c:72
 msgid "Cannot copy a folder into its sub folder"
 msgstr "하위 폴더에 폴더를 복사할 수 없습니다"
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
+#: ../src/job/fm-file-ops-job-xfer.c:74
 msgid "Destination is a sub folder of source"
 msgstr "대상은 원본의 하위 폴더 입니다"
 
-#: ../src/job/fm-file-ops-job-xfer.c:380
+#: ../src/job/fm-file-ops-job-xfer.c:391
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "'%s' 파일을 복사할 수 없음: 지원하지 않습니다"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:312
+#: ../src/job/fm-file-ops-job-change-attr.c:314
 #, c-format
 msgid "Setting display name can be done only for single file"
 msgstr "하나의 파일에 대해서만 표시 이름을 설정할 수 있습니다"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:315
+#: ../src/job/fm-file-ops-job-change-attr.c:317
 #, c-format
 msgid "Setting target can be done only for single file"
 msgstr "하나의 파일에 대해서만 대상을 설정할 수 있습니다"
@@ -1411,100 +1452,95 @@ msgstr "XML 파일에 프로그램 루트가 없습니다"
 msgid "Cannot create XML definition for '%s'"
 msgstr "'%s'에 대한 XML 정의를 만들 수 없습니다"
 
-#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2634
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr "'%s' 메뉴 경로가 이미 있습니다"
 
-#: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
-#: ../src/modules/vfs-menu.c:1520
+#: ../src/modules/vfs-menu.c:1102 ../src/modules/vfs-menu.c:1407
+#: ../src/modules/vfs-menu.c:1493
 msgid "Menu cache error"
 msgstr "메뉴 캐시 오류"
 
-#. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
-msgid "Operation not supported"
-msgstr "동작을 지원하지 않습니다"
-
-#: ../src/modules/vfs-menu.c:1394
+#: ../src/modules/vfs-menu.c:1367
 msgid "Invalid menu directory"
 msgstr "메뉴 디렉터리가 잘못되었습니다"
 
-#: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
+#: ../src/modules/vfs-menu.c:1430 ../src/modules/vfs-menu.c:1706
 msgid "Menu item name cannot be empty"
 msgstr "메뉴 항목 이름을 비워둘 수 없습니다"
 
-#: ../src/modules/vfs-menu.c:1507
+#: ../src/modules/vfs-menu.c:1480
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "잘못된 '%s' 메뉴 디렉터리입니다"
 
-#: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
+#: ../src/modules/vfs-menu.c:1623 ../src/modules/vfs-menu.c:1764
 msgid "Invalid menu item"
 msgstr "잘못된 메뉴 항목 입니다"
 
-#: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
+#: ../src/modules/vfs-menu.c:1627 ../src/modules/vfs-menu.c:1768
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "'%s' 메뉴 항목에 적당한 항목 파일이 없습니다"
 
-#: ../src/modules/vfs-menu.c:1820
+#: ../src/modules/vfs-menu.c:1790
 msgid "Change hidden status isn't supported for menu directory"
 msgstr "메뉴 디렉터리에 대한 숨김 상태 바꾸기를 지원하지 않습니다"
 
-#: ../src/modules/vfs-menu.c:1978
+#: ../src/modules/vfs-menu.c:1948
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "'%s' 속성 설정을 지원하지 않습니다"
 
-#: ../src/modules/vfs-menu.c:1988
+#: ../src/modules/vfs-menu.c:1958
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "%s 파일 이름이 잘못되었습니다"
 
-#: ../src/modules/vfs-menu.c:2025
+#: ../src/modules/vfs-menu.c:1995
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s'은(는) 메뉴 디렉터리입니다"
 
-#: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
+#: ../src/modules/vfs-menu.c:1998 ../src/modules/vfs-menu.c:2627
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s'은(는) 메뉴 항목이 아닙니다"
 
-#: ../src/modules/vfs-menu.c:2052
+#: ../src/modules/vfs-menu.c:2022
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr "'%s' 항목 파일이 깨졌습니다"
 
-#: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
+#: ../src/modules/vfs-menu.c:2308 ../src/modules/vfs-menu.c:2397
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "%s 파일 이름이 잘못되었습니다"
 
-#: ../src/modules/vfs-menu.c:2572
+#: ../src/modules/vfs-menu.c:2542
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr "메뉴 디렉터리 이름이 \".desktop\"으로 끝나면 안됩니다"
 
-#: ../src/modules/vfs-menu.c:2617
+#: ../src/modules/vfs-menu.c:2587
 msgid "Invalid operation with menu root"
 msgstr "메뉴 루트에 대한 잘못된 동작입니다"
 
-#: ../src/modules/vfs-menu.c:2706
+#: ../src/modules/vfs-menu.c:2676
 msgid "Invalid destination"
 msgstr "잘못된 대상입니다"
 
-#: ../src/modules/vfs-menu.c:2979
+#: ../src/modules/vfs-menu.c:2952
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: '%s' 폴더가 메뉴 캐시에 없습니다"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:985
+#: ../src/modules/vfs-search.c:991
 msgid "Search"
 msgstr "검색"
 
-#: ../src/modules/vfs-search.c:1052
+#: ../src/modules/vfs-search.c:1053
 msgid "Search Results"
 msgstr "검색 결과"
 
@@ -1558,11 +1594,11 @@ msgstr "시작 알림 사용(_U)"
 msgid "_Desktop Entry"
 msgstr "데스크톱 항목(_D)"
 
-#: ../src/modules/gtk-menu-trash.c:72
+#: ../src/modules/gtk-menu-trash.c:74
 msgid "_Restore"
 msgstr "복원(_R)"
 
-#: ../src/modules/gtk-menu-trash.c:73
+#: ../src/modules/gtk-menu-trash.c:75
 msgid "Restore trashed files to original paths"
 msgstr "휴지통의 파일을 본래 경로로 복원합니다"
 
