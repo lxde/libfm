@@ -1,3 +1,49 @@
+Changes on 1.3.0 since 1.2.5:
+
+* Added emblem support by reading the "metadata::emblems" attribute provided by
+    GFileInfo. The metadata is provided by gio/gvfs and are currently stored in
+    $XDG_DATA_HOME/gvfs-metadata.
+
+* Fixed typo: occured -> occurred.
+
+* Made desktop entries treaten as executables. Now clicking on a native desktop
+    file opens a confirmation dialog instead of executing it. Trashed desktop
+    files are only opened as text files and desktop files under system menu
+    (i.e. menu://applications/) are executed without prompt as before.
+
+* Fixed build error with vala 0.36.1.
+
+* Fixed crash on launching nonexistent link targets.
+
+* Added tooltips for attributes of copying files.
+
+* Fixed thumbnails generation for files in the thumbnails cache directory which
+    actually should never be done.
+
+* Fixed crash on pasting large string when completion matches.
+
+* Prevented creation corrupted image thumbnails with gdk-pixbuf2 >= 2.36.1.
+
+* Fixed crash in fm_config_load_from_file().
+
+* Dropped displaying "extension" for a directory.
+
+* Fixed crash on pasting a file into the search folder, show an error message
+    when the copy destination doesn't exist instead.
+
+* Added new API for FmAction new object type, to replace old VALA-generated
+    code. New API is more convenient, C instead of VALA, and should support all
+    DES-API specification features, not just limited set.
+
+* Migrated module 'gtk-menu-actions' to new DES-EMA actions API.
+
+* Added display of data transferred to progress dialog.
+
+* Fixed wrong names for files, copied from Google Drive and similar places.
+
+
+Changes on 1.2.5 since 1.2.4:
+
 * Fixed 'Launch in Terminal' issue when custom args were ignored.
 
 * Fixed crash with non-UTF regex search pattern.
