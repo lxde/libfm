@@ -2221,11 +2221,41 @@ FmActionMenu *fm_action_get_for_context(FmActionCache *cache, FmFileInfo *locati
     return fm_action_get_for_content(cache, location, files, ACTION_TARGET_CONTEXT);
 }
 
+/**
+ * fm_action_get_for_location
+ * @cache: actions cache
+ * @location: path to current directory
+ *
+ * Checks for files in @cache that mets conditions and returns the list.
+ * Only actions that targetted @location are returned. Returned menu should
+ * be freed using g_object_unref(). Note that every g_app_info_launch*()
+ * call on any of items found in the menu will be always done against
+ * @location and arguments of such call will be always ignored.
+ *
+ * Returns: (transfer full): list of found actions.
+ *
+ * Since: 1.3.0
+ */
 FmActionMenu *fm_action_get_for_location(FmActionCache *cache, FmFileInfo *location)
 {
     return fm_action_get_for_content(cache, location, NULL, ACTION_TARGET_LOCATION);
 }
 
+/**
+ * fm_action_get_for_toolbar
+ * @cache: actions cache
+ * @location: path to current directory
+ *
+ * Checks for files in @cache that mets conditions and returns the list.
+ * Only actions that target toolbar are returned. Returned menu should
+ * be freed using g_object_unref(). Note that every g_app_info_launch*()
+ * call on any of items found in the menu will be always done against
+ * @location and arguments of such call will be always ignored.
+ *
+ * Returns: (transfer full): list of found actions.
+ *
+ * Since: 1.3.0
+ */
 FmActionMenu *fm_action_get_for_toolbar(FmActionCache *cache, FmFileInfo *location)
 {
     return fm_action_get_for_content(cache, location, NULL, ACTION_TARGET_TOOLBAR);
@@ -2251,6 +2281,17 @@ const GList *fm_action_menu_get_children(FmActionMenu *menu)
     return menu->children;
 }
 
+/**
+ * fm_action_get_suggested_shortcut
+ * @action: an action
+ *
+ * Returns suggested keyboard shortcut for @action if available. The format
+ * may look like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".
+ *
+ * Returns: (transfer none): keyboard shortcut string.
+ *
+ * Since: 1.3.0
+ */
 const char *fm_action_get_suggested_shortcut(FmAction *action)
 {
     g_return_val_if_fail(FM_IS_ACTION(action), NULL);
@@ -2258,6 +2299,16 @@ const char *fm_action_get_suggested_shortcut(FmAction *action)
     return action->info->shortcut;
 }
 
+/**
+ * fm_action_get_toolbar_label
+ * @action: an action
+ *
+ * Returns toolbar label for @action or %NULL if not defined.
+ *
+ * Returns: (transfer none): toolbar label.
+ *
+ * Since: 1.3.0
+ */
 const char *fm_action_get_toolbar_label(FmAction *action)
 {
     g_return_val_if_fail(FM_IS_ACTION(action), NULL);
@@ -2266,6 +2317,16 @@ const char *fm_action_get_toolbar_label(FmAction *action)
     return action->info->toolbar_label;
 }
 
+/**
+ * fm_action_get_startup_wm_class
+ * @action: an action
+ *
+ * Returns startup WM class for @action or %NULL if not defined.
+ *
+ * Returns: (transfer none): startup WM class.
+ *
+ * Since: 1.3.0
+ */
 const char *fm_action_get_startup_wm_class(FmAction *action)
 {
     g_return_val_if_fail(FM_IS_ACTION(action), NULL);
@@ -2279,6 +2340,17 @@ gboolean fm_action_cache_set_execution_window(FmActionCache *cache,
                                               FmActionExecEmbedded callback,
                                               gpointer user_data) */
 
+/**
+ * fm_action_cache_new
+ *
+ * Creates and initializes an #FmActionCache object, or returns a reference
+ * for existing one if it was already created. Newly created cache will be
+ * collected on idle if not requested right away (what is highly unlikely).
+ *
+ * Returns: (transfer full): a cache object.
+ *
+ * Since: 1.3.0
+ */
 FmActionCache *fm_action_cache_new(void)
 {
     FmActionCache *cache;

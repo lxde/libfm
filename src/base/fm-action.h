@@ -55,18 +55,30 @@ GType fm_action_menu_get_type(void);
 GType fm_action_cache_get_type(void);
 
 typedef struct _FmActionClass         FmActionClass;
+/**
+ * FmActionClass
+ * @parent: the parent class
+ */
 struct _FmActionClass
 {
     GObjectClass parent;
 };
 
 typedef struct _FmActionMenuClass     FmActionMenuClass;
+/**
+ * FmActionMenuClass
+ * @parent: the parent class
+ */
 struct _FmActionMenuClass
 {
     GObjectClass parent;
 };
 
 typedef struct _FmActionCacheClass    FmActionCacheClass;
+/**
+ * FmActionCacheClass
+ * @parent: the parent class
+ */
 struct _FmActionCacheClass
 {
     GObjectClass parent;
