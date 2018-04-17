@@ -213,7 +213,7 @@ static void _fm_action_conditions_free(FmActionCondition *this)
     }
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 static FmActionInfo *_fm_action_info_ref(FmActionInfo *info, FmAction *action)
 {
     g_assert (g_slist_find(info->profiles, action) == NULL);
@@ -1071,22 +1071,37 @@ G_DEFINE_TYPE(FmActionCache, fm_action_cache, G_TYPE_OBJECT);
 static void _fm_action_cache_finalize(GObject *object)
 {
     FmActionCache *cache = FM_ACTION_CACHE(object);
+    GSList *l_to_update;
+    GList *l_actions, *l_menus;
+    FmActionDir *l_dirs;
 
     G_LOCK(update); /* lock it ahead to prevent race condition */
 #if !GLIB_CHECK_VERSION(2, 32, 0)
     if (!g_atomic_int_dec_and_test(&cache_n_ref))
+    {
+        G_UNLOCK(update);
         goto finish;
+    }
 #endif
     if (cache_to_update != NULL)
         *cache_updater_data = NULL; /* terminate the updater */
     /* updater is finished now, can free everything */
-    g_slist_free_full(cache_to_update, g_free);
-    g_list_free_full(cache_actions, g_object_unref);
-    g_list_free_full(cache_menus, g_object_unref);
-    while (cache_dirs != NULL)
+    l_to_update = cache_to_update;
+    cache_to_update = NULL;
+    l_actions = cache_actions;
+    cache_actions = NULL;
+    l_menus = cache_menus;
+    cache_menus = NULL;
+    l_dirs = cache_dirs;
+    cache_dirs = NULL;
+    G_UNLOCK(update);
+    g_slist_free_full(l_to_update, g_free);
+    g_list_free_full(l_actions, g_object_unref);
+    g_list_free_full(l_menus, g_object_unref);
+    while (l_dirs != NULL)
     {
-        FmActionDir *dir = cache_dirs;
-        cache_dirs = dir->next;
+        FmActionDir *dir = l_dirs;
+        l_dirs = dir->next;
         g_signal_handlers_disconnect_by_func(dir->mon, _action_cache_monitor_event,
                                              cache);
         g_object_unref(dir->mon);
@@ -1096,7 +1111,6 @@ static void _fm_action_cache_finalize(GObject *object)
 #if !GLIB_CHECK_VERSION(2, 32, 0)
 finish:
 #endif
-    G_UNLOCK(update);
 
     G_OBJECT_CLASS(fm_action_cache_parent_class)->finalize(object);
 }
@@ -1149,7 +1163,7 @@ static inline FmActionCondition *_add_condition_str_list(FmActionCondition *clis
     return cond;
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 static FmActionCondition *_g_key_file_get_conditions(GKeyFile *kf, const char *group)
 {
     FmActionCondition *clist = NULL;
@@ -1270,7 +1284,7 @@ static FmActionCondition *_g_key_file_get_conditions(GKeyFile *kf, const char *g
     return clist;
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 static void fm_actions_add_action_from_keyfile(FmActionCache *cache,
                                                GKeyFile *kf, GFile *parent,
                                                const char *id, const char *name)
@@ -1354,32 +1368,35 @@ static void fm_actions_add_action_from_keyfile(FmActionCache *cache,
         info->target |= ACTION_TARGET_TOOLBAR;
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 static void fm_actions_add_menu_from_keyfile(FmActionCache *cache,
                                              GKeyFile *kf, GFile *parent,
                                              const char *id, const char *name)
 {
     FmActionMenu *menu;
+    char **ids;
     int i;
 
     if (g_key_file_get_boolean(kf, "Desktop Entry", "Hidden", NULL)) /* deleted */
         return;
 
-    menu = _fm_action_menu_new();
-    menu->ids = g_key_file_get_string_list(kf, "Desktop Entry", "ItemsList", NULL, NULL);
-    if (menu->ids == NULL || menu->ids[0] == NULL)
+    ids = g_key_file_get_string_list(kf, "Desktop Entry", "ItemsList", NULL, NULL);
+    if (ids == NULL || ids[0] == NULL)
     {
-        g_object_unref(menu);
+        g_strfreev(ids);
         return;
     }
+
+    menu = _fm_action_menu_new();
+    menu->ids = ids;
     /* arggh! crazy Windows style "no-extension"! */
-    for (i = 0; menu->ids[i] != NULL; i++)
+    for (i = 0; ids[i] != NULL; i++)
     {
-        char *orig = menu->ids[i];
+        char *orig = ids[i];
         if (strcmp(orig, "SEPARATOR") == 0)
-            menu->ids[i] = g_strdup("");
+            ids[i] = g_strdup("");
         else
-            menu->ids[i] = g_strconcat(orig, ".desktop", NULL);
+            ids[i] = g_strconcat(orig, ".desktop", NULL);
         g_free(orig);
     }
     menu->cache = cache;
@@ -1398,7 +1415,7 @@ static void fm_actions_add_menu_from_keyfile(FmActionCache *cache,
     cache_menus = g_list_prepend(cache_menus, menu);
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 static void fm_actions_add_for_keyfile(FmActionCache *cache, GKeyFile *kf,
                                        GFile *parent, const char *id)
 {
@@ -1415,7 +1432,7 @@ static void fm_actions_add_for_keyfile(FmActionCache *cache, GKeyFile *kf,
     }
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 /* caller should free id */
 static gboolean fm_action_file_may_update(FmActionCache *cache, const char *file,
                                           GFile **gfp, char **idp, GList **to_drop)
@@ -1560,7 +1577,7 @@ static gboolean fm_actions_update_idle(gpointer data)
     return (cache != NULL);
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 /* consumes filename */
 static void fm_actions_schedule_update(FmActionCache *cache, char *filename)
 {
@@ -1674,7 +1691,7 @@ static void _action_cache_monitor_event(GFileMonitor *mon, GFile *gf,
     }
 }
 
-/* lock is on */
+/* lock is on, don't do any unref! */
 /* prepends path to monitoring list */
 static void fm_action_cache_add_directory(FmActionCache *cache, const char *path)
 {
