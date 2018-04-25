@@ -3,7 +3,8 @@
  *
  *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
- *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2017 Tsu Jan <tsujan2000@gmail.com>
  *
  *      This file is a part of the Libfm library.
  *
@@ -229,7 +230,8 @@ _launch_desktop_entry:
                }
             }
             /* make exception for desktop entries under menu */
-            else if(fm_path_is_xdg_menu(fm_file_info_get_path(fi)))
+            else if (fm_file_info_is_native(fi) /* an exception */ ||
+                     fm_path_is_xdg_menu(fm_file_info_get_path(fi)))
             {
                 if (!target)
                     filename = fm_path_to_str(fm_file_info_get_path(fi));
