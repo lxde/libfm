@@ -3,6 +3,9 @@ Changes on 1.3.1 since 1.3.0:
 * Fixed launching menu entries shortcuts on desktop which was broken by making
     them all executable in 1.3.0 - those should be launchable still.
 
+* Fixed installing modules into non-standard path: libtool cannot relink them
+    properly.
+
 
 Changes on 1.3.0 since 1.2.5:
 

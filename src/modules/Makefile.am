@@ -11,6 +11,7 @@ AM_CPPFLAGS = \
 # tell libtool we compile module not library
 AM_LDFLAGS = \
 	-no-undefined -module -avoid-version -shared -export-dynamic \
+	-L$(libdir) -R$(libdir) \
 	$(GIO_LIBS)
 
 # the module should be linked only with libfm, not libfm-gtk or whatever
