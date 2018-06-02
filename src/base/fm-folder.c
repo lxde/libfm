@@ -397,7 +397,8 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
             FmFileInfo* fi = (FmFileInfo*)l->data;
             FmPath* path = fm_file_info_get_path(fi);
             GList* l2;
-            if (path == fm_file_info_get_path(folder->dir_fi))
+            /* Careful: this can race with the dirlist job. */
+            if (folder->dir_fi && path == fm_file_info_get_path(folder->dir_fi))
                 /* update for folder itself, also see FIXME below! */
                 fm_file_info_update(folder->dir_fi, fi);
             else if ((l2 = _fm_folder_get_file_by_path(folder, path)))
