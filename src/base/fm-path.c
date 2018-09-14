@@ -1291,7 +1291,7 @@ void _fm_path_init()
     }
     else
     {
-        name = desktop_dir + home_len + 1; /* skip home_path dir part / */
+        name = desktop_dir + home_len; /* skip home_path dir part / */
         while (*name == '/') name++; /* skip extra / if any */
         if (*name == '\0')
             name = "Desktop"; /* fallback: never use home_path as desktop_path */
