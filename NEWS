@@ -1,3 +1,8 @@
+Changes on 1.3.1 since 1.3.0.2:
+
+* Fixed crash on reload while directory changes (folder might be not ready yet).
+
+
 Changes on 1.3.0.2 since 1.3.0:
 
 * Fixed launching menu entries shortcuts on desktop which was broken by making
