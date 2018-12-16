@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2014-11-28 22:59+0000\n"
+"PO-Revision-Date: 2018-07-07 21:18+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -12,9 +12,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
+"X-Generator: Pootle 2.8\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-POOTLE-MTIME: 1417215577.000000\n"
+"X-POOTLE-MTIME: 1530998293.843337\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -538,14 +538,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>אירעו שגיאות:</b>"
 
 #: ../src/base/fm-action.c:272
-#, fuzzy
 msgid "Empty value"
-msgstr "קובץ ריק"
+msgstr "ערך ריק"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "יעד שגוי"
+msgstr "בחירה שגויה"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -1102,7 +1100,7 @@ msgstr "האם לפנות את סל האשפה?"
 
 #: ../src/gtk/fm-path-entry.c:675
 msgid "Pa_ste and Go"
-msgstr ""
+msgstr "לה_דביק ולהמשיך"
 
 #: ../src/gtk/fm-path-entry.c:734
 msgid "Folder location bar"
@@ -1352,11 +1350,11 @@ msgstr "ה_סתרת %s"
 
 #: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
-msgstr ""
+msgstr "העברה _שמאלה"
 
 #: ../src/gtk/fm-standard-view.c:832
 msgid "Move _Right"
-msgstr ""
+msgstr "העברה ימי_נה"
 
 #: ../src/gtk/fm-standard-view.c:855
 #, c-format
@@ -1399,7 +1397,7 @@ msgstr "לא ניתן לגשת לקובץ היעד"
 
 #: ../src/job/fm-file-ops-job.c:650
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "לא ניתן ליצור קישור על מערכת קבצים שאינה טבעית"
 
 #: ../src/job/fm-file-ops-job-delete.c:501
 #, c-format
@@ -1408,7 +1406,7 @@ msgstr "לא ניתן לשלות את הקובץ '%s' מהאשפה: הנתיב �
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "היעד לא קיים"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."

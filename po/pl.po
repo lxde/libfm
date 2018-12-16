@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2015-03-23 08:39+0000\n"
+"PO-Revision-Date: 2018-05-16 06:15+0000\n"
 "Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1427099948.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1526451333.893010\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -536,9 +536,8 @@ msgid "Preparing..."
 msgstr "Przygotowywanie..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Data transferred:</b>"
-msgstr "<b>Plik docelowy:</b>"
+msgstr "<b>Przesłane dane:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
@@ -549,14 +548,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Wystąpiły błędy:</b>"
 
 #: ../src/base/fm-action.c:272
-#, fuzzy
 msgid "Empty value"
-msgstr "Pusty plik"
+msgstr "Pusta wartość"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Nieprawidłowe położenie docelowe"
+msgstr "Nieprawidłowy wybór"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -1219,7 +1216,6 @@ msgstr ""
 "Czas modyfikacji: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:343
-#, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "<b>Wystąpiły błędy przed zatrzymaniem działania na plikach.</b>"
 
@@ -1418,7 +1414,7 @@ msgstr "Nie można przywrócić pliku „%s” z kosza: nieznana pierwotna ście
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "Miejsce docelowe nie istnieje"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."

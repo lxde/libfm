@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2014-10-30 10:19+0000\n"
+"PO-Revision-Date: 2018-05-17 08:06+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1414664356.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1526544398.585986\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -537,9 +537,8 @@ msgid "Preparing..."
 msgstr "Aan het voorbereiden..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Data transferred:</b>"
-msgstr "<b>Doelbestand:</b>"
+msgstr "<b>Overgebrachte gegevens:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
@@ -550,14 +549,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Opgetreden fouten:</b>"
 
 #: ../src/base/fm-action.c:272
-#, fuzzy
 msgid "Empty value"
-msgstr "Leeg bestand"
+msgstr "Lege waarde"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Ongeldige bestemming"
+msgstr "Ongeldige keuze"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -1216,7 +1213,6 @@ msgstr ""
 "Aangepast: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:343
-#, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "<b>Er traden fouten op voordat de bestandbewerking werd gestaakt.</b>"
 
@@ -1416,7 +1412,7 @@ msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "Bestemming bestaat niet"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."

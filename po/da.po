@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2018-04-23 18:50+0000\n"
+"PO-Revision-Date: 2018-10-01 23:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.8\n"
-"X-POOTLE-MTIME: 1524509410.092772\n"
+"X-POOTLE-MTIME: 1538435340.869009\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1603,7 +1603,7 @@ msgstr "Gendan slettede filer til deres oprindelige sti"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr "Kildefilnavn eller skrivebords-id"
+msgstr "kildefilnavn eller skrivebords-id"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"

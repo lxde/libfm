@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2015-04-02 10:38+0000\n"
+"PO-Revision-Date: 2018-05-17 05:24+0000\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1427971115.000000\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1526534652.763632\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -545,9 +545,8 @@ msgid "Empty value"
 msgstr "Prazna datoteka"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Neispravno odredište"
+msgstr "Neispravan izbor"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -716,11 +715,11 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:835
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Dokument je neočekivano zatvoren"
 
 #: ../src/extra/fm-xml-file.c:843
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Dokument je bio prazan ili je sadržavao samo prazne znakove"
 
 #: ../src/extra/fm-xml-file.c:1259
 msgid "fm_xml_file_to_data: XML data error"
@@ -862,7 +861,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Sakrij ili otkrij datoteku"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
@@ -1329,7 +1328,7 @@ msgstr "Stablo direktorija"
 
 #: ../src/gtk/fm-standard-view.c:255
 msgid "View of folder contents"
-msgstr ""
+msgstr "Pogled na sadržaj mape"
 
 #: ../src/gtk/fm-standard-view.c:818
 #, c-format

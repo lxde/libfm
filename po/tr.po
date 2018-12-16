@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2015-07-27 23:10+0000\n"
+"PO-Revision-Date: 2018-12-13 17:14+0000\n"
 "Last-Translator: nyucel <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1438038653.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1544721259.662684\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -533,9 +533,8 @@ msgid "Preparing..."
 msgstr "Hazırlanıyor..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Data transferred:</b>"
-msgstr "<b>Hedef dosya:</b>"
+msgstr "<b>Taşınan veri:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
@@ -546,14 +545,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Oluşan hatalar:</b>"
 
 #: ../src/base/fm-action.c:272
-#, fuzzy
 msgid "Empty value"
-msgstr "Boş Dosya"
+msgstr "Boş değer"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Geçersiz hedef"
+msgstr "Geçersiz seçim"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -1205,9 +1202,8 @@ msgstr ""
 "Son değişiklik: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:343
-#, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
-msgstr "<b>Dosya işlemi durmadan önce meydana gelen hatalar.</b>"
+msgstr "<b>Dosya işlemi durmadan önce hatalar meydana geldi.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:345
 msgid "Cancelled"
@@ -1405,7 +1401,7 @@ msgstr "Çöpteki '%s' dosyası geri alınamadı: özgün yol bilinmiyor"
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "Hedef mevcut değil"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."

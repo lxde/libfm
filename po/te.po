@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2015-06-19 10:23+0000\n"
+"PO-Revision-Date: 2018-05-27 14:12+0000\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: te\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1434709434.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1527430356.169218\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1080,16 +1080,16 @@ msgid "Do you want to move the file '%s' to trash can?"
 msgstr "'%s' దస్త్రమును చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:929
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
-msgstr[1] "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
+msgstr[0] "ఎంచుకున్న %d దస్త్రాలన్ని చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
+msgstr[1] "ఎంచుకున్న %d దస్త్రాలను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "ఎంచుకున్న ఫైళ్ళను తీసివేయాలనుకుంటున్నారా?"
+msgstr "ఎంచుకున్న '%s' దస్త్రాలను తొలగించాలనుకుంటున్నారా?"
 
 #: ../src/gtk/fm-gtk-utils.c:994
 #, fuzzy, c-format
