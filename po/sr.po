@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2015-06-04 08:54+0000\n"
+"PO-Revision-Date: 2018-12-23 18:05+0000\n"
 "Last-Translator: markos <jezzivi@yahoo.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1433408071.000000\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1545588324.285562\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -532,9 +532,8 @@ msgid "Preparing..."
 msgstr "Припрема..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Data transferred:</b>"
-msgstr "<b>Одредишна датотека:</b>"
+msgstr "<b>Отпремљени подаци:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
@@ -545,14 +544,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Догодиле су се неке грешке:</b>"
 
 #: ../src/base/fm-action.c:272
-#, fuzzy
 msgid "Empty value"
-msgstr "Празна датотека"
+msgstr "Празна вредност"
 
 #: ../src/base/fm-action.c:280
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Неисправно одредиште"
+msgstr "Неисправан одабир"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
@@ -1212,9 +1209,8 @@ msgstr ""
 "Измењено: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:343
-#, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
-msgstr "<b>Грешке су се догодиле пре заустављања радње са датотеком</b>"
+msgstr "<b>Грешке су се догодиле пре заустављања радње са датотеком.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:345
 msgid "Cancelled"
@@ -1412,7 +1408,7 @@ msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "Одредиште не постоји"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."

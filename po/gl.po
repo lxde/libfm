@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2018-04-13 16:27+0000\n"
+"PO-Revision-Date: 2019-02-22 09:18+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.8\n"
-"X-POOTLE-MTIME: 1523636857.576785\n"
+"X-POOTLE-MTIME: 1550827112.173006\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
-msgstr "Aplicacións preferidas"
+msgstr "Aplicativos preferidos"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
-"Seleccione as aplicacións que chamar ao premer sobre a ligazón web ou o "
+"Seleccione os aplicativos que chamar ao premer sobre a ligazón web ou o "
 "enderezo de correo"
 
 #: ../data/lxshortcut.desktop.in.h:1
@@ -38,15 +38,15 @@ msgstr "Crear ou cambiar unha entrada de escritorio existente"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
-msgstr "Escolla unha aplicación"
+msgstr "Escolla un aplicativo"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Utilizar a aplicación seleccionada para abrir os ficheiros"
+msgstr "Utilizar o aplicativo seleccionado para abrir os ficheiros"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
-msgstr "Aplicacións _instaladas"
+msgstr "Aplicativos _instalados"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -87,7 +87,7 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>_Nome da aplicación (opcional, estabelecela para manter a asociación)</b>"
+"<b>_Nome do aplicativon (opcional, estabelecelo para manter a asociación)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -100,7 +100,7 @@ msgstr "_Liña de ordes personalizada"
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr ""
-"E_stabelecer a aplicación seleccionada como acción predeterminada para os "
+"E_stabelecer oaplicativo seleccionado como acción predeterminada para os "
 "ficheiros deste tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -197,7 +197,7 @@ msgstr "<b>Abrir _con:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Escolla a aplicación utilizada para abrir os ficheiros deste tipo "
+msgstr "Escolla o aplicativo utilizado para abrir os ficheiros deste tipo "
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Total count of files:</b>"
@@ -277,7 +277,7 @@ msgstr "<b>Control de acceso</b>"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
-msgstr "Ficheiro agochado"
+msgstr "Ficheiro agachado"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
@@ -392,7 +392,7 @@ msgstr "Buscar nos _subdirectorios"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "Buscar nos _ficheiros agochados"
+msgstr "Buscar nos _ficheiros agachados"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
@@ -518,7 +518,7 @@ msgstr "Liña de ordes:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
-msgstr "Aplicacións do sistema"
+msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
@@ -575,7 +575,7 @@ msgstr ""
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
-"Non está estabelecida a aplicación predeterminada para iniciar as URI %s://"
+"Non está estabelecido o aplicativo predeterminado para iniciar as URI %s://"
 
 #: ../src/base/fm-file-launcher.c:360
 #, c-format
@@ -585,7 +585,7 @@ msgstr "Non é posíbel estabelecer o directorio de traballo a «%s»: %s"
 #: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "Non está estabelecida a aplicación predeterminada para o tipo MIME %s"
+msgstr "Non está estabelecido o aplicativo predeterminado para o tipo MIME %s"
 
 #: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
 #: ../src/gtk/fm-places-model.c:1016
@@ -616,7 +616,7 @@ msgstr ""
 
 #: ../src/base/fm-thumbnailer.c:285
 msgid "Invalid description of thumbnailer application"
-msgstr "Descrición incorrecta da aplicación de miniaturas"
+msgstr "Descrición incorrecta do aplicativo de miniaturas"
 
 #: ../src/base/fm-utils.c:137
 msgid "kB"
@@ -750,11 +750,11 @@ msgstr "Personalizar"
 #: ../src/gtk/fm-app-chooser-dlg.c:325
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
-msgstr "<b>Seleccione unha aplicación para abrir os ficheiros «%s»</b>"
+msgstr "<b>Seleccione un aplicativo para abrir os ficheiros «%s»</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:207
 msgid "Installed Applications"
-msgstr "Aplicacións instaladas"
+msgstr "Aplicativos instalados"
 
 #: ../src/gtk/fm-dir-tree-model.c:421 ../src/gtk/fm-dir-tree-model.c:1213
 msgid "<No subfolders>"
@@ -879,20 +879,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:960
 msgid "Hide or unhide the file"
-msgstr "Agochar ou amosar o ficheiro"
+msgstr "Agachar ou amosar o ficheiro"
 
 #: ../src/gtk/fm-file-properties.c:965
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
-"Este ficheiro está agochado por por de comezar o seu nome cun punto («.»)"
+msgstr "Este ficheiro está agachado por comezar o seu nome cun punto («.»)"
 
 #: ../src/gtk/fm-file-properties.c:969
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Os ficheiros neste sistema están agochados por por de comezar o seu nome cun "
-"punto («.»). Prema  <Ctrl+H> para amosar os ficheiros agochados."
+"Os ficheiros neste sistema están agachados por comezar o seu nome cun punto "
+"(«.»). Prema  <Ctrl+H> para amosar os ficheiros agachados."
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
@@ -977,7 +976,7 @@ msgstr "Propi_edades do cartafol"
 
 #: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
-msgstr "A_mosar agochados"
+msgstr "A_mosar agachados"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
@@ -1036,7 +1035,7 @@ msgstr "Creando %s"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "E_xecutar a aplicación predeterminada doo ficheiro após a súa creación"
+msgstr "E_xecutar o aplicativo predeterminado do ficheiro após a súa creación"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:144
 #, c-format
@@ -1133,7 +1132,7 @@ msgstr "Escritorio"
 #: ../src/gtk/fm-places-model.c:815 ../src/gtk/fm-places-model.c:1023
 #: ../src/modules/vfs-menu.c:1538
 msgid "Applications"
-msgstr "Aplicacións"
+msgstr "Aplicativos"
 
 #: ../src/gtk/fm-places-model.c:831 ../src/gtk/fm-places-model.c:1009
 msgid "Filesystem Root"
@@ -1354,7 +1353,7 @@ msgstr "Ver o contido do cartafol"
 #: ../src/gtk/fm-standard-view.c:818
 #, c-format
 msgid "_Hide %s"
-msgstr "_Agochar %s"
+msgstr "_Agachar %s"
 
 #: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
@@ -1454,7 +1453,7 @@ msgstr "Produciuse un erro no ficheiro XML «%s» (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr "O ficheiro XML non conten a raíz das aplicacións"
+msgstr "O ficheiro XML non conten a raíz dos aplicativos"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
@@ -1496,7 +1495,7 @@ msgstr "O elemento de menú «%s» non ten un fecheiro de entrada axeitado"
 
 #: ../src/modules/vfs-menu.c:1790
 msgid "Change hidden status isn't supported for menu directory"
-msgstr "Cambiar o estado agochado non é compatíbel co directorio do menú"
+msgstr "Cambiar o estado agachado non é compatíbel co directorio do menú"
 
 #: ../src/modules/vfs-menu.c:1948
 #, c-format
@@ -1568,7 +1567,7 @@ msgstr "<b>O_rde:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr "Orde que executar cando se activa a icona da aplicación"
+msgstr "Orde que executar cando se activa a icona do aplicativo"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1576,7 +1575,7 @@ msgstr "<b>D_escrición:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr "Nome xenérico da aplicación"
+msgstr "Nome xenérico do aplicativo"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1592,7 +1591,7 @@ msgstr "<b>_Xanela emerxente:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
-msgstr "Xanela emerxente para amosar a aplicación"
+msgstr "Xanela emerxente para amosar o aplicativo"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton

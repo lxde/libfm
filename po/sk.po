@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2018-12-15 00:54+0000\n"
+"PO-Revision-Date: 2019-01-18 08:16+0000\n"
 "Last-Translator: mirek <mirek@cnl.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.8\n"
-"X-POOTLE-MTIME: 1544835260.640638\n"
+"X-POOTLE-MTIME: 1547799362.705221\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -89,7 +89,8 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:14
 #, fuzzy
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr "<b>_Názov aplikácie (nepovinný, set it to keep association)</b>"
+msgstr ""
+"<b>_Názov aplikácie (voliteľný, nastavte ho pre zachovanie asociácie)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -435,7 +436,7 @@ msgstr "P_riečinky"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "Ot_her:"
-msgstr ""
+msgstr "_Iné:"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid ""
@@ -889,9 +890,8 @@ msgid "scanning..."
 msgstr "načítava sa..."
 
 #: ../src/gtk/fm-file-properties.c:1088
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Riadenie prístupu</b>"
+msgstr "<b>_Prístup k obsahu:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
@@ -912,7 +912,7 @@ msgstr "Názov"
 
 #: ../src/gtk/fm-folder-model.c:191
 msgid "Description"
-msgstr "Popis"
+msgstr "Opis"
 
 #: ../src/gtk/fm-folder-model.c:192
 msgid "Size"
@@ -972,9 +972,8 @@ msgstr "Zobraziť _skryté"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Všetky súbory a adresáre"
+msgstr "Miešať _súbory a priečinky"
 
 #: ../src/gtk/fm-folder-view.c:208
 msgid "_Ignore Name Case"
@@ -1131,9 +1130,8 @@ msgid "Applications"
 msgstr "Aplikácie"
 
 #: ../src/gtk/fm-places-model.c:831 ../src/gtk/fm-places-model.c:1009
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "Súborový systém"
+msgstr "Koreňový priečinok súborového systému"
 
 #: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
@@ -1324,7 +1322,7 @@ msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
-msgstr ""
+msgstr "_Miesta"
 
 #: ../src/gtk/fm-side-pane.c:68
 #, fuzzy
@@ -1337,7 +1335,7 @@ msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:428 ../src/gtk/fm-side-pane.c:621
 msgid "Places"
-msgstr ""
+msgstr "Miesta"
 
 #: ../src/gtk/fm-side-pane.c:438 ../src/gtk/fm-side-pane.c:623
 msgid "Directory Tree"
@@ -1354,14 +1352,12 @@ msgid "_Hide %s"
 msgstr "_Skryť %s"
 
 #: ../src/gtk/fm-standard-view.c:826
-#, fuzzy
 msgid "_Move Left"
-msgstr "Presunúť:"
+msgstr "_Presunúť vľavo"
 
 #: ../src/gtk/fm-standard-view.c:832
-#, fuzzy
 msgid "Move _Right"
-msgstr "Presunúť _hore"
+msgstr "Presunúť _vpravo"
 
 #: ../src/gtk/fm-standard-view.c:855
 #, c-format
@@ -1455,9 +1451,8 @@ msgid "XML file '%s' error (%d:%d): "
 msgstr "Chyba XML súboru '%s' (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
-#, fuzzy
 msgid "XML file doesn't contain Applications root"
-msgstr "XML súbor neobsahuje Applications root"
+msgstr "XML súbor neobsahuje koreň Applications"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
@@ -1508,9 +1503,9 @@ msgid "Setting attribute '%s' not supported"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1958
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Domovský adresár"
+msgstr "Neplatná hodnota atribútu '%s'"
 
 #: ../src/modules/vfs-menu.c:1995
 #, fuzzy, c-format
@@ -1551,60 +1546,52 @@ msgstr ""
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:991
-#, fuzzy
 msgid "Search"
-msgstr "Hľadať znova"
+msgstr "Hľadať"
 
 #: ../src/modules/vfs-search.c:1053
 msgid "Search Results"
 msgstr "Výsledky vyhľadávania"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Spustiť"
+msgstr "Vyberte si spusiteľný súbor"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
-msgstr "Spustiť"
+msgstr "Spustiteľné súbory"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Do:</b>"
+msgstr "<b>_Príkaz:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Príkaz, ktorý sa spustí po aktivovaní ikony aplikácie"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Umiestnenie:</b>"
+msgstr "<b>_Opis:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Obecný názov aplikácie"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Vlastník:</b>"
+msgstr "<b>P_racovný priečinok:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Pracovný priečinok, v ktorom bude program spustený"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Do:</b>"
+msgstr "<b>P_opisok:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Vyberte aplikáciu"
+msgstr "Popisok, ktorý sa zobrazí nad aplikáciou"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
@@ -1632,7 +1619,7 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ZDROJ"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
@@ -1640,7 +1627,7 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "VÝSLEDOK"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -1648,9 +1635,8 @@ msgid "CD-ROM Disc"
 msgstr "Disk CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:41
-#, fuzzy
 msgid "Blank CD-ROM Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Prázdny disk CD"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
@@ -1673,9 +1659,8 @@ msgid "DVD-ROM Disc"
 msgstr "Disk DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
-#, fuzzy
 msgid "Blank DVD-ROM Disc"
-msgstr "Prázdny disk DVD-ROM"
+msgstr "Prázdny disk DVD"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
@@ -1730,103 +1715,84 @@ msgid "Blank DVD+RW DL Disc"
 msgstr "Prázdny disk DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:52
-#, fuzzy
 msgid "Blu-Ray Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Disk Blu-Ray"
 
 #: ../src/udisks/g-udisks-device.c:52
-#, fuzzy
 msgid "Blank Blu-Ray Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Prázdny disk Blu-Ray"
 
 #: ../src/udisks/g-udisks-device.c:53
-#, fuzzy
 msgid "Blu-Ray R Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Disk Blu-Ray R"
 
 #: ../src/udisks/g-udisks-device.c:53
-#, fuzzy
 msgid "Blank Blu-Ray R Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Prázdny disk Blu-Ray R"
 
 #: ../src/udisks/g-udisks-device.c:54
-#, fuzzy
 msgid "Blu-Ray RW Disc"
-msgstr "Prázdny disk CD-RW"
+msgstr "Disk Blu-Ray RW"
 
 #: ../src/udisks/g-udisks-device.c:54
-#, fuzzy
 msgid "Blank Blu-Ray RW Disc"
-msgstr "Prázdny disk CD-RW"
+msgstr "Prázdny disk Blu-Ray RW"
 
 #: ../src/udisks/g-udisks-device.c:55
-#, fuzzy
 msgid "HD DVD Disc"
-msgstr "Disk DVD-R"
+msgstr "Disk HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:55
-#, fuzzy
 msgid "Blank HD DVD Disc"
-msgstr "Prázdny disk DVD-R"
+msgstr "Prázdny disk HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:56
-#, fuzzy
 msgid "HD DVD-R Disc"
-msgstr "Disk DVD-R"
+msgstr "Disk HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:56
-#, fuzzy
 msgid "Blank HD DVD-R Disc"
-msgstr "Prázdny disk DVD-R"
+msgstr "Prázdny disk HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:57
-#, fuzzy
 msgid "HD DVD-RW Disc"
-msgstr "Disk DVD-RW"
+msgstr "Disk HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:57
-#, fuzzy
 msgid "Blank HD DVD-RW Disc"
-msgstr "Prázdny disk DVD-RW"
+msgstr "Prázdny disk HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:58
-#, fuzzy
 msgid "MO Disc"
-msgstr "Disk CD-ROM"
+msgstr "Disk MO"
 
 #: ../src/udisks/g-udisks-device.c:58
-#, fuzzy
 msgid "Blank MO Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Prázdny disk MO"
 
 #: ../src/udisks/g-udisks-device.c:59
-#, fuzzy
 msgid "MRW Disc"
-msgstr "Disk CD-RW"
+msgstr "Disk MRW"
 
 #: ../src/udisks/g-udisks-device.c:59
-#, fuzzy
 msgid "Blank MRW Disc"
-msgstr "Prázdny disk CD-RW"
+msgstr "Prázdny disk MRW"
 
 #: ../src/udisks/g-udisks-device.c:60
-#, fuzzy
 msgid "MRW/W Disc"
-msgstr "Disk CD-RW"
+msgstr "Disk MRW/W"
 
 #: ../src/udisks/g-udisks-device.c:60
-#, fuzzy
 msgid "Blank MRW/W Disc"
-msgstr "Prázdny disk CD-RW"
+msgstr "Prázdny disk MRW/W"
 
 #: ../src/udisks/g-udisks-device.c:299
-#, fuzzy
 msgid "Blank Optical Disc"
-msgstr "Prázdny disk CD-R"
+msgstr "Prázdny optický disk"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optický disk"
 
 #, fuzzy
 #~ msgid "Symlinking"
