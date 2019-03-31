@@ -2,7 +2,7 @@
  * fm-thumbnail-loader.c
  *
  * Copyright 2010 - 2013 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- * Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ * Copyright 2012-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  * This file is a part of the Libfm library.
  *
@@ -807,11 +807,10 @@ static void generate_thumbnails(ThumbnailTask* task)
     if (fm_file_info_is_image(task->fi) &&
         /* if the image file is too large, don't generate thumbnail for it. */
         (fm_config->thumbnail_max == 0 ||
-         (fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10))) &&
-            generate_thumbnails_with_builtin(task))
-        ;
-        /* if image is too large or the built-in thumbnail generation fails
-         * still call external thumbnailer to handle it. */
+         fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10)))
+    {
+        generate_thumbnails_with_builtin(task);
+    }
     else
         generate_thumbnails_with_thumbnailers(task);
 
@@ -823,7 +822,7 @@ static void generate_thumbnails(ThumbnailTask* task)
 static GObject* scale_pix(GObject* ori_pix, int size)
 {
     GObject* scaled_pix;
-    /* keep aspect ratio and scale to thumbnail size: 128 or 256 */
+    /* keep aspect ratio and scale to thumbnail size: 128 or 512 */
     int width = backend.get_image_width(ori_pix);
     int height = backend.get_image_height(ori_pix);
     int new_width;
@@ -890,6 +889,12 @@ static GObject* scale_pix(GObject* ori_pix, int size)
 /* in thread */
 static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char* path)
 {
+    /* do not save thumbnails generated in thumbail cache directory
+     * (prevents runaway thumbnailing when browsing thumbail cache directory) */
+    if(strncmp(path,thumb_dir,strlen(thumb_dir)) == 0)
+    {
+        return;
+    }
     /* save the generated thumbnail to disk */
     char* tmpfile = g_strconcat(path, ".XXXXXX", NULL);
     gint fd;
@@ -1031,14 +1036,14 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
         if(task->flags & GENERATE_LARGE)
         {
             /* don't create thumbnails for images which are too small */
-            if(width <=256 && height <= 256)
+            if (width <= 512 && height <= 512)
             {
                 large_pix = (GObject*)g_object_ref(ori_pix);
                 need_save = FALSE;
             }
             else
             {
-                large_pix = scale_pix(ori_pix, 256);
+                large_pix = scale_pix(ori_pix, 512);
                 need_save = TRUE;
             }
             if(rotate_degrees != 0)
@@ -1188,7 +1193,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
             {
-                if(run_thumbnailer(thumbnailer, task, task->large_path, 256))
+                if (run_thumbnailer(thumbnailer, task, task->large_path, 512))
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->large_path);

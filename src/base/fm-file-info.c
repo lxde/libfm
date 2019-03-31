@@ -3,7 +3,8 @@
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
- *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2017 Tsu Jan <tsujan2000@gmail.com>
+ *      Copyright 2012-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This file is a part of the Libfm library.
  *
@@ -470,7 +471,7 @@ _not_desktop_entry:
         }
 
         gfile = g_file_new_for_path(path);
-        
+
         /* get emblems using gio/gvfs-metadata */
         inf = g_file_query_info(gfile, "metadata::emblems,standard::icon", G_FILE_QUERY_INFO_NONE, NULL, NULL);
         if(inf)
@@ -1386,7 +1387,8 @@ gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
-    if(strncmp(fm_mime_type_get_type(fi->mime_type), "text/", 5) == 0)
+    const char* type = fm_mime_type_get_type(fi->mime_type);
+    if(strncmp(type, "text/", 5) == 0)
     { /* g_content_type_can_be_executable reports text files as executables too */
         /* We don't execute remote files nor files in trash */
         if(fm_path_is_native(fi->path) && (fi->mode & (S_IXOTH|S_IXGRP|S_IXUSR)))
@@ -1402,6 +1404,31 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
                 if(rdlen == 2 && buf[0] == '#' && buf[1] == '!')
                     return TRUE;
             }
+        }
+        return FALSE;
+    }
+    else if(strcmp(type, "application/x-desktop") == 0)
+    { /* treat desktop entries as executables if
+         they are native and have read permission */
+        if(fm_path_is_native(fi->path) && (fi->mode & (S_IRUSR|S_IRGRP|S_IROTH)))
+        {
+            if (fi->shortcut && fi->target) {
+                /* handle shortcuts from desktop to menu entries:
+                   first check for entries in /usr/share/applications and such
+                   which may be considered as a safe desktop entry path
+                   then check if that is a shortcut to a native file
+                   otherwise it is a link to a file under menu:// */
+                if (!g_str_has_prefix(fi->target, "/usr/share/"))
+                {
+                    FmPath *target = fm_path_new_for_str(fi->target);
+                    gboolean is_native = fm_path_is_native(target);
+                    fm_path_unref(target);
+                    if (is_native)
+                        return TRUE;
+                }
+            }
+            else
+                return TRUE;
         }
         return FALSE;
     }

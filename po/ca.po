@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-11 15:20+0200\n"
-"PO-Revision-Date: 2015-06-05 08:43+0000\n"
+"POT-Creation-Date: 2018-04-13 00:10+0300\n"
+"PO-Revision-Date: 2018-10-01 14:36+0000\n"
 "Last-Translator: Davidmp <rbndavid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -15,47 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1433493782.000000\n"
+"X-Generator: Pootle 2.8\n"
+"X-POOTLE-MTIME: 1538404584.946748\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Aplicacions preferides"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
-#, fuzzy
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
 "Selecciona les aplicacions invocades amb un clic sobre un enllaç web o una "
 "adreça de correu electrònic"
 
 #: ../data/lxshortcut.desktop.in.h:1
-#, fuzzy
 msgid "Shortcut Editor"
 msgstr "Editor de dreceres"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Create new or change existing desktop entry"
-msgstr "Crea una nova o canvia l'entrada d'escriptori existent"
+msgstr "Canvia l'entrada d'escriptori existent o crea'n una de nova"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Tria l'aplicació"
+msgstr "Trieu una aplicació"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "Use selected application to open files"
-msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
+msgstr "Utilitza l'aplicació seleccionada per obrir fitxers"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Applications"
 msgstr "_Aplicacions instal·lades"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>L_ínia de comandes per executar:</b>"
+msgstr "<b>Línia d'_ordres per executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
@@ -71,9 +66,8 @@ msgstr "_Executa-ho en un emulador de terminal"
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7
 #: ../src/modules/gtk-fileprop-x-desktop.c:306
-#, fuzzy
 msgid "_Keep terminal window open after command execution"
-msgstr "_Mantén la finestra del terminal oberta després d'executar la comanda"
+msgstr "_Mantén la finestra del terminal oberta després d'executar l'ordre"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -87,35 +81,31 @@ msgstr ""
 "<b>Es poden emprar aquests codis especials a l'intèrpret d'ordres:</b>\n"
 "  <b>%f</b>: representa el nom d'un sol fitxer\n"
 "  <b>%F</b>: representa el nom de múltiples fitxers\n"
-"  <b>%u</b>: representa una sola URI de fitxer\n"
-"  <b>%U</b>: representa diverses URI de fitxer"
+"  <b>%u</b>: representa un sol URI de fitxer\n"
+"  <b>%U</b>: representa diversos URI de fitxer"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-"<b>_Nom de l'aplicació (opcional, configurar per mantenir l'associació)</b>"
+"<b>Nom de l'_aplicació (opcional, establiu-ho per mantenir l'associació)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
-msgstr "Executa la línia de comandes personalitzada per obrir arxius"
+msgstr "Executa la línia d'ordres personalitzada per obrir fitxers"
 
 #: ../data/ui/app-chooser.glade.h:16
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "L_ínia d'ordres personalitzada"
+msgstr "Línia d'ordres _personalitzada"
 
 #: ../data/ui/app-chooser.glade.h:17
-#, fuzzy
 msgid "_Set selected application as default action for this file type"
 msgstr ""
-"_Defineix l'aplicació seleccionada com a la predeterminada per a aquest "
-"tipus de fitxer"
+"E_stableix l'aplicació seleccionada com a predeterminada per a aquest tipus "
+"de fitxer."
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
-msgstr "Confirmeu per a reemplaçar els fitxers"
+msgstr "Confirmeu el reemplaçament de fitxers"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid "_Skip"
@@ -140,9 +130,8 @@ msgstr ""
 "Voleu reemplaçar el fitxer existent"
 
 #: ../data/ui/ask-rename.glade.h:8
-#, fuzzy
 msgid "with the following file?"
-msgstr "amb el següent fitxer?"
+msgstr "pel fitxer següent?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File name:"
@@ -158,30 +147,25 @@ msgstr "Escolliu una icona..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
-#, fuzzy
 msgid "system icon theme"
 msgstr "tema d'icones del sistema"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:5
-#, fuzzy
 msgid "image files"
 msgstr "fitxers d'imatge"
 
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Tria la icona de:</b>"
+msgstr "<b>Trieu la icona:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
 msgstr "Executa el fitxer"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Executa en un _Terminal"
+msgstr "Executa en un _terminal"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -189,7 +173,7 @@ msgstr "Propietats del fitxer"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr "Icona del fitxer en vista de carpetes"
+msgstr "Icona del fitxer a la vista de carpetes"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -200,31 +184,26 @@ msgid "<b>Location:</b>"
 msgstr "<b>Ubicació:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Fitxer diana:</b>"
+msgstr "<b>Fitxer de destinació:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Tipus de fitxer:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
-#, fuzzy
 msgid "<b>Open _with:</b>"
-msgstr "<b>Obre _amb:</b>"
+msgstr "<b>Obre a_mb...</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
-msgstr "Trieu l'aplicació que s'emprarà per a obrir fitxers d'aquest tipus "
+msgstr "Trieu l'aplicació que s'emprarà per obrir fitxers d'aquest tipus "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total count of files:</b>"
-msgstr "<b>Recompte total dels fitxers:</b>"
+msgstr "<b>Recompte total de fitxers:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Mida total dels fitxers:</b>"
 
@@ -241,7 +220,6 @@ msgid "<b>Last access:</b>"
 msgstr "<b>Últim accés:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Últim canvi de permisos:</b>"
 
@@ -250,57 +228,46 @@ msgid "_General"
 msgstr "_General"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>O_wner:</b>"
 msgstr "<b>P_ropietari:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>G_roup:</b>"
 msgstr "<b>_Grup:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>_Visualitzeu el contingut:</b>"
+msgstr "<b>_Visualitzeu-ne el contingut:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>C_anvieu el contingut:</b>"
+msgstr "<b>Can_vieu-ne el contingut:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>_Executeu:</b>"
+msgstr "<b>_Executa:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "<b>Special bits:</b>"
 msgstr "<b>Bits especials:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
-#, fuzzy
 msgid "Who can read content of the file/directory"
-msgstr "Qui pot llegir el contingut del fitxer/directori"
+msgstr "Qui pot llegir el contingut del fitxer / directori"
 
 #: ../data/ui/file-prop.glade.h:23
-#, fuzzy
 msgid "Who can change content of the file/directory"
-msgstr "Qui pot canviar el contingut del fitxer/directori"
+msgstr "Qui pot canviar el contingut del fitxer / directori"
 
 #: ../data/ui/file-prop.glade.h:24
-#, fuzzy
 msgid "Who can execute the file or enter the directory"
 msgstr "Qui pot executar el fitxer o accedir al directori"
 
 #: ../data/ui/file-prop.glade.h:25
-#, fuzzy
 msgid "Special flags for file execution"
-msgstr "Etiquetes especials per l'execució del fitxer"
+msgstr "Etiquetes especials per a l'execució del fitxer"
 
 #: ../data/ui/file-prop.glade.h:26
-#, fuzzy
 msgid "Special flags for directory access"
 msgstr "Etiquetes especials per accedir al directori"
 
@@ -309,7 +276,6 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Control d'accés</b>"
 
 #: ../data/ui/file-prop.glade.h:28
-#, fuzzy
 msgid "Hidden file"
 msgstr "Fitxer ocult"
 
@@ -326,7 +292,6 @@ msgid "None"
 msgstr "Cap"
 
 #: ../data/ui/file-prop.glade.h:32
-#, fuzzy
 msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
@@ -334,28 +299,23 @@ msgid "Sticky"
 msgstr "Enganxós"
 
 #: ../data/ui/file-prop.glade.h:33
-#, fuzzy
 msgid "Set GID"
-msgstr "Estableix GID"
+msgstr "Estableix el GID"
 
 #: ../data/ui/file-prop.glade.h:34
-#, fuzzy
 msgid "Sticky & set GID"
-msgstr "Fixa i estableix GID"
+msgstr "Fixa i estableix el GID"
 
 #: ../data/ui/file-prop.glade.h:35
-#, fuzzy
 msgctxt "this is a file access mode bit, also known as 'suid'"
 msgid "Set UID"
-msgstr "Estableix UID"
+msgstr "Estableix l'UID"
 
 #: ../data/ui/file-prop.glade.h:36
-#, fuzzy
 msgid "Set UID & GID"
-msgstr "Estableix UID & GID"
+msgstr "Estableix l'UID i el GID"
 
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
@@ -363,22 +323,19 @@ msgid "Only owner"
 msgstr "Només el propietari"
 
 #: ../data/ui/file-prop.glade.h:38
-#, fuzzy
 msgid "Only owner and group"
 msgstr "Només el propietari i el grup"
 
 # també podria ser tothom
 #: ../data/ui/file-prop.glade.h:39
-#, fuzzy
 msgid "Anyone"
-msgstr "Qualsevol"
+msgstr "Tothom"
 
 #: ../data/ui/file-prop.glade.h:40
 msgid "Nobody"
 msgstr "Ningú"
 
 #: ../data/ui/filesearch.glade.h:1
-#, fuzzy
 msgid "Bytes"
 msgstr "Octets"
 
@@ -386,26 +343,23 @@ msgstr "Octets"
 msgid "KB"
 msgstr "KB"
 
-#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:143
 msgid "MB"
 msgstr "MB"
 
-#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:149
 msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
-msgstr "Escolliu la data"
+msgstr "Trieu la data"
 
 #: ../data/ui/filesearch.glade.h:6
-#, fuzzy
 msgid "Choose a date from the following calendar"
-msgstr "Escolliu una data del següent calendari"
+msgstr "Trieu una data del calendari següent"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
 msgstr "Cerca fitxers"
 
@@ -415,67 +369,58 @@ msgstr "<b>Patrons de _nom de fitxer:</b>"
 
 # reviseu bé aquesta proposta, no ho tinc gens clar
 #: ../data/ui/filesearch.glade.h:9
-#, fuzzy
 msgid ""
 "Pattern may be either POSIX shell pattern list (with ',' as separator) or "
 "POSIX regular expression."
 msgstr ""
-"El patró pot ser tant d'una llista de patrons de POSIX (amb ',' com a "
-"separador) com una expressió habitual de POSIX."
+"El patró pot ser tant d'una llista de patrons de POSIX (amb \",\" com a "
+"separador) com una expressió regular de POSIX."
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
 msgstr "No distingeix _majúscules ni minúscules"
 
 #: ../data/ui/filesearch.glade.h:11
-#, fuzzy
 msgid "_Use regular expression"
-msgstr "_Utilitzar expressió regular"
+msgstr "_Usa una expressió regular"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
 msgstr "<b>_Llocs on cercar:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
-#, fuzzy
 msgid "_Search in sub directories"
 msgstr "_Cerca en subdirectoris"
 
 #: ../data/ui/filesearch.glade.h:14
-#, fuzzy
 msgid "Search _hidden files"
 msgstr "Cerca fitxers _ocults"
 
 #: ../data/ui/filesearch.glade.h:15
-#, fuzzy
 msgid "Name/_Location"
-msgstr "Nom/_Ubicació"
+msgstr "Nom / _Ubicació"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
 msgstr "<b>Tipus de fitxer</b>"
 
 #: ../data/ui/filesearch.glade.h:17
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Només cerca fitxers dels següents tipus:"
+msgstr "Cerca només fitxers dels tipus següents:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
 msgstr "Fit_xers de text"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
 msgstr "Fitxers d'_imatge"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
 msgstr "Fitxers d'_àudio"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
 msgstr "Fitxers de _vídeo"
 
@@ -492,17 +437,15 @@ msgid "Ot_her:"
 msgstr "_Altres:"
 
 #: ../data/ui/filesearch.glade.h:25
-#, fuzzy
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
 msgstr ""
-"Aquí es pot introduir qualsevol tipus de contingut vàlid. El comodí '*' és "
+"Aquí es pot escriure qualsevol tipus de contingut vàlid. El comodí \"*\" és "
 "permès al final de cada tipus. Si hi ha més d'un tipus caldria separar-los "
-"amb ';'."
+"amb \";\"."
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "File _Type"
 msgstr "_Tipus de fitxer:"
 
@@ -511,49 +454,40 @@ msgstr "_Tipus de fitxer:"
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>_Contingut del fitxer:</b>"
 
-# Com en el cas anterior, també podria ser C_onté
 #: ../data/ui/filesearch.glade.h:28
-#, fuzzy
 msgid "C_ontent"
 msgstr "C_ontingut"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>File Size</b>"
 msgstr "<b>Mida del fitxer</b>"
 
 #: ../data/ui/filesearch.glade.h:30
-#, fuzzy
 msgid "_Smaller than:"
-msgstr "_Més petit que:"
+msgstr "Mé_s petit que..."
 
 #: ../data/ui/filesearch.glade.h:31
-#, fuzzy
 msgid "_Bigger than:"
-msgstr "_Més gran que:"
+msgstr "Més _gros que..."
 
 #: ../data/ui/filesearch.glade.h:32
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Hora de l'última modificació:</b>"
 
-#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
-#: ../src/gtk/fm-gtk-file-launcher.c:659
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:670
+#: ../src/gtk/fm-gtk-file-launcher.c:677
 msgid "(None)"
 msgstr "(Cap)"
 
 #: ../data/ui/filesearch.glade.h:34
-#, fuzzy
 msgid "_Earlier than:"
-msgstr "_Abans de:"
+msgstr "_Abans de..."
 
 #: ../data/ui/filesearch.glade.h:35
-#, fuzzy
 msgid "L_ater than:"
-msgstr "M_és tard que:"
+msgstr "Més tard qu_e..."
 
 #: ../data/ui/filesearch.glade.h:36
-#, fuzzy
 msgid "_Properties"
 msgstr "_Propietats"
 
@@ -563,21 +497,19 @@ msgstr "<b>Navegador web</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "S'emprarà el navegador web preferit per a obrir els hiperenllaços."
+msgstr "S'emprarà el navegador web preferit per obrir els hiperenllaços."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>Client de correu</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"S'emprarà el client de correu preferit per a redactar correus quan feu clic "
-"damunt adreces de correu electrònic."
+"S'emprarà el client de correu preferit per redactar correus quan feu clic "
+"damunt d'adreces de correu electrònic."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -603,243 +535,238 @@ msgstr "<b>A:</b>"
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:4
 msgid "Preparing..."
-msgstr "S'està preparant..."
+msgstr "Preparant..."
 
 #: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Temps per a la finalització:</b>"
+msgid "<b>Data transferred:</b>"
+msgstr "<b>Dades transmeses:</b>"
 
 #: ../data/ui/progress.glade.h:6
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Temps restant:</b>"
+
+#: ../data/ui/progress.glade.h:7
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>S'han produït alguns errors:</b>"
 
-#: ../src/base/fm-file-launcher.c:85
+#: ../src/base/fm-action.c:272
+msgid "Empty value"
+msgstr "Valor buit"
+
+#: ../src/base/fm-action.c:280
+msgid "Invalid selection"
+msgstr "Selecció no vàlida"
+
+#. ---- GFile implementation ----
+#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
+msgid "Operation not supported"
+msgstr "No s'admet l'operació"
+
+#: ../src/base/fm-file-launcher.c:87
 #, c-format
-#, c-format, fuzzy
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Fitxer d'entrada a l'escriptori no vàlid: '%s'"
+msgstr "Fitxer d'entrada a l'escriptori no vàlid: \"%s\""
 
-#: ../src/base/fm-file-launcher.c:240
+#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
 #, c-format
-#, c-format, fuzzy
-msgid "No default application is set to launch URIs %s://"
-msgstr "No hi ha cap aplicació predeterminada per a llançar URIs %s://"
-
-#: ../src/base/fm-file-launcher.c:308
-#, c-format
-#, c-format, fuzzy
-msgid "Cannot set working directory to '%s': %s"
-msgstr "No es pot configurar el directori de treball per a '%s': %s"
-
-#: ../src/base/fm-file-launcher.c:355
-#, c-format
-#, c-format, fuzzy
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
-"No es pot determinar el tipus de contingut del fitxer '%s' per a llançar-lo"
+"No es pot determinar el tipus de contingut del fitxer \"%s\" per llançar-lo"
 
-#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
+#: ../src/base/fm-file-launcher.c:292
 #, c-format
-#, c-format, fuzzy
-msgid "No default application is set for MIME type %s"
-msgstr "No s'ha configurat cap aplicació predeterminada pels fitxers MIME %s"
+msgid "No default application is set to launch URIs %s://"
+msgstr "No hi ha cap aplicació predeterminada per llançar URIs %s://"
 
-#: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
-#: ../src/gtk/fm-places-model.c:997
+#: ../src/base/fm-file-launcher.c:360
+#, c-format
+msgid "Cannot set working directory to '%s': %s"
+msgstr "No es pot configurar el directori de treball per a \"%s\": %s"
+
+#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
+#, c-format
+msgid "No default application is set for MIME type %s"
+msgstr ""
+"No s'ha configurat cap aplicació predeterminada per als fitxers MIME %s"
+
+#: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
+#: ../src/gtk/fm-places-model.c:1016
 msgid "Devices"
 msgstr "Dispositius"
 
-#: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
-#: ../src/gtk/fm-places-model.c:1012
+#: ../src/base/fm-path.c:185 ../src/gtk/fm-places-model.c:866
+#: ../src/gtk/fm-places-model.c:1031
 msgid "Network"
 msgstr "Xarxa"
 
-#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1316 ../src/gtk/fm-places-model.c:898
 msgid "Trash Can"
 msgstr "Paperera"
 
-#: ../src/base/fm-mime-type.c:86
-#, fuzzy
+#: ../src/base/fm-mime-type.c:89
 msgid "shortcut to URI"
-msgstr "Dreceres a URI"
+msgstr "drecera a URI"
 
-#: ../src/base/fm-templates.c:1020
-#, fuzzy
+#: ../src/base/fm-templates.c:1043
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: argument no vàlid"
 
-#: ../src/base/fm-terminal.c:248
-#, fuzzy
+#: ../src/base/fm-terminal.c:256
 msgid "No terminal emulator is set in libfm config"
-msgstr "No s'ha configurat cap emulador de terminal a la configuració del libfm"
+msgstr "No s'ha establert cap emulador de terminal a la configuració de libfm"
 
-#: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
+#: ../src/base/fm-thumbnailer.c:285
 msgid "Invalid description of thumbnailer application"
-msgstr "Descripció no vàlida de l'aplicació de vista prèvia d'imatges"
+msgstr "Descripció no vàlida de l'aplicació de visualització prèvia d'imatges"
 
-#: ../src/base/fm-utils.c:136
+#: ../src/base/fm-utils.c:137
 msgid "kB"
 msgstr "kB"
 
-#: ../src/base/fm-utils.c:153
+#: ../src/base/fm-utils.c:154
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:164
+#: ../src/base/fm-utils.c:165
 #, c-format
-#, c-format, fuzzy
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "%u octet"
+msgstr[1] "%u octets"
 
-#: ../src/base/fm-utils.c:173
+#: ../src/base/fm-utils.c:174
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:179
+#: ../src/base/fm-utils.c:180
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:185
+#: ../src/base/fm-utils.c:186
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:190
+#: ../src/base/fm-utils.c:191
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-utils.c:572
+#: ../src/base/fm-utils.c:573
 #, c-format
-#, c-format, fuzzy
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "La subruta URI «%s» conté caràcters d'escapada no vàlids"
+msgstr "El camí URI \"%s\" conté caràcters d'escapada no vàlids"
 
-#: ../src/extra/fm-xml-file.c:205
+#: ../src/extra/fm-xml-file.c:206
 #, c-format
-#, c-format, fuzzy
 msgid "Duplicate handler for tag <%s>"
-msgstr "Gestor duplicat per l'etiqueta <%s>"
+msgstr "Gestor duplicat per a l'etiqueta <%s>"
 
-#: ../src/extra/fm-xml-file.c:299
+#: ../src/extra/fm-xml-file.c:300
 #, c-format
-#, c-format, fuzzy
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "No s'ha pogut analitzar «%-.*s»: hi hauria d'haver hagut un dígit dins un "
-"caràcter de referència (per exemple &#234;). Potser el dígit és massa llarg."
+"caràcter de referència (per exemple: &#234). Potser el dígit és massa llarg."
 
-#: ../src/extra/fm-xml-file.c:310
-#, c-format, c-format
+#: ../src/extra/fm-xml-file.c:311
+#, c-format
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"La referència del caràcter no acaba amb un punt i coma. Segurament heu "
-"utilitzat un caràcter «&» sense intenció d'iniciar una entitat. Substituïu "
-"el caràcter «&» per &amp."
+"L'entitat no acaba amb un punt i coma. Segurament heu usat un caràcter & "
+"sense intenció d'iniciar una entitat. Substituïu el caràcter & per &amp;."
 
 # Hi ha cap diferència entre «%-.+s» i '%-.+s' ?
-#: ../src/extra/fm-xml-file.c:336
+#: ../src/extra/fm-xml-file.c:337
 #, c-format
-#, c-format, fuzzy
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "El caràcter de referència «%-.*s» no codifica un caràcter permés"
+msgstr "El caràcter de referència «%-.*s» no codifica un caràcter permès"
 
-#: ../src/extra/fm-xml-file.c:373
-#, c-format, c-format
+#: ../src/extra/fm-xml-file.c:374
+#, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
 "S'ha detectat una entitat buida: «&;». Les entitats vàlides són &amp; &quot; "
 "&lt; &gt; &apos;"
 
-#: ../src/extra/fm-xml-file.c:380
+#: ../src/extra/fm-xml-file.c:381
 #, c-format
-#, c-format, fuzzy
 msgid "Entity name '%-.*s' is not known"
 msgstr "Es desconeix el nom de l'entitat «%-.*s»"
 
-#: ../src/extra/fm-xml-file.c:384
-#, c-format, c-format
+#: ../src/extra/fm-xml-file.c:385
+#, c-format
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
-"L'entitat no acaba amb un punt i coma. Segurament heu utilitzat un caràcter "
-"& sense intenció d'iniciar una entitat. Substituïu el caràcter & per &amp;."
+"L'entitat no acaba amb un punt i coma. Segurament heu usat un caràcter & "
+"sense intenció d'iniciar una entitat. Substituïu el caràcter & per &amp;."
 
-#: ../src/extra/fm-xml-file.c:594
-#, fuzzy
+#: ../src/extra/fm-xml-file.c:595
 msgid "Space isn't allowed in the close tag"
-msgstr "No es permet l'espai per tancar l'etiqueta"
+msgstr "No es permet l'espai a l'etiqueta de tancament"
 
-#: ../src/extra/fm-xml-file.c:603
+#: ../src/extra/fm-xml-file.c:604
 #, c-format
-#, c-format, fuzzy
 msgid "Element '%s' was closed but no element was opened"
 msgstr "L'element «%s» s'ha tancat però no s'ha obert cap element"
 
-#: ../src/extra/fm-xml-file.c:619
+#: ../src/extra/fm-xml-file.c:620
 #, c-format
-#, c-format, fuzzy
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr "L'element «%s» estava tancat. L'element obert actualment és «%s»"
 
-#: ../src/extra/fm-xml-file.c:675
+#: ../src/extra/fm-xml-file.c:676
 #, c-format
-#, c-format, fuzzy
 msgid "Invalid char '%c' at start of attribute value"
-msgstr "Caràcter invàlid «%c» a l'inici del valor de l'atribut"
+msgstr "Caràcter no vàlid «%c» a l'inici del valor de l'atribut"
 
-#: ../src/extra/fm-xml-file.c:686
+#: ../src/extra/fm-xml-file.c:687
 #, c-format
-#, c-format, fuzzy
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "Caràcter invàlid «%c» al final del valor de l'atribut, s'esperava «%c»"
+msgstr ""
+"Caràcter no vàlid «%c» al final del valor de l'atribut, s'esperava «%c»"
 
-#: ../src/extra/fm-xml-file.c:834
-#, fuzzy
+#: ../src/extra/fm-xml-file.c:835
 msgid "Document ended unexpectedly"
-msgstr "El document ha finalitzat de manera inesperada"
+msgstr "Document ha acabat de manera inesperada"
 
-#: ../src/extra/fm-xml-file.c:842
-#, fuzzy
+#: ../src/extra/fm-xml-file.c:843
 msgid "Document was empty or contained only whitespace"
 msgstr "El document era buit o només contenia espais en blanc"
 
-#: ../src/extra/fm-xml-file.c:1258
-#, fuzzy
+#: ../src/extra/fm-xml-file.c:1259
 msgid "fm_xml_file_to_data: XML data error"
 msgstr "fm_xml_file_to_data: error de dades XML"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:216
+#: ../src/gtk/fm-app-chooser-combo-box.c:217
 msgid "Customize"
 msgstr "Personalitza"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:266
+#: ../src/gtk/fm-app-chooser-dlg.c:325
 #, c-format
-#, c-format, fuzzy
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Seleccioneu una aplicació per obrir fitxers «%s»</b>"
 
-#: ../src/gtk/fm-app-menu-view.c:224
+#: ../src/gtk/fm-app-menu-view.c:207
 msgid "Installed Applications"
 msgstr "Aplicacions instal·lades"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
+#: ../src/gtk/fm-dir-tree-model.c:421 ../src/gtk/fm-dir-tree-model.c:1213
 msgid "<No subfolders>"
 msgstr "<No hi ha subcarpetes>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
+#: ../src/gtk/fm-dir-tree-model.c:423 ../src/gtk/fm-dir-tree-model.c:1214
 msgid "Loading..."
-msgstr "S'està carregant..."
+msgstr "Carregant..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-dir-tree-view.c:546 ../src/gtk/fm-side-pane.c:647
 msgid "Shows tree of directories in sidebar"
 msgstr "Mostra l'arbre de directoris a la barra lateral"
 
@@ -848,9 +775,8 @@ msgid "_Cancel"
 msgstr "_Canceŀla"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "C_opy Here"
-msgstr "C_opia aquí"
+msgstr "C_opia-ho aquí"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
@@ -861,10 +787,9 @@ msgstr "_Mou aquí"
 msgid "_Link Here"
 msgstr "_Enllaça aquí"
 
-#: ../src/gtk/fm-dnd-dest.c:870
-#, fuzzy
+#: ../src/gtk/fm-dnd-dest.c:876
 msgid "XDirectSave failed."
-msgstr "XDirectSave fallit."
+msgstr "XDirectSave ha fallat."
 
 #: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
@@ -875,18 +800,16 @@ msgid "Open _With..."
 msgstr "Obre a_mb..."
 
 #: ../src/gtk/fm-file-menu.c:153
-#, fuzzy
 msgid "Open _With"
-msgstr "Obre _amb"
+msgstr "Obre a_mb..."
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
-msgstr "Copia la(es) _ruta(es)"
+msgstr "Copia'n el camí"
 
 #: ../src/gtk/fm-file-menu.c:159
-#, fuzzy
 msgid "H_ide"
-msgstr "A_maga"
+msgstr "Ama_ga"
 
 #: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
@@ -905,31 +828,26 @@ msgid "Co_mpress..."
 msgstr "Co_mprimeix..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Extrau _ací"
+msgstr "Extreu-ho a_quí"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "E_xtract To..."
 msgstr "E_xtreu a..."
 
 #: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Prop_erties"
-msgstr "_Propietats"
+msgstr "Propi_etats"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
-#, fuzzy
+#: ../src/gtk/fm-file-menu.c:272 ../src/gtk/fm-file-menu.c:533
 msgid "Move to _Trash"
-msgstr "Mou a la _paperera"
+msgstr "Mou-ho a la _paperera"
 
-#: ../src/gtk/fm-file-menu.c:773
-#, fuzzy
+#: ../src/gtk/fm-file-menu.c:794
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
-"Les vostres adreces d'interès ja tenen una adreça d'interès per aquesta "
+"Les vostres adreces d'interès ja tenen una adreça d'interès per a aquesta "
 "carpeta."
 
 #: ../src/gtk/fm-file-properties.c:368
@@ -937,7 +855,6 @@ msgid "Image files"
 msgstr "Fitxers d'imatge"
 
 #: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "octet"
@@ -945,70 +862,60 @@ msgstr[1] "octets"
 
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
-#, c-format, fuzzy
 msgid "scanning... %d"
-msgstr "s'està explorant... %d"
+msgstr "explorant... %d"
 
 #: ../src/gtk/fm-file-properties.c:588
-#, fuzzy
 msgid "Please enter a valid user name or numeric id."
-msgstr "Si us plau, introdueix un nom d'usuari/a vàlid o id numèrica."
+msgstr "Si us plau, escriviu un nom d'usuari vàlid o un identificador numèric."
 
 #: ../src/gtk/fm-file-properties.c:618
-#, fuzzy
 msgid "Please enter a valid group name or numeric id."
-msgstr "Si us plau, introdueix un nom de grup vàlid o id numèrica."
+msgstr "Si us plau, escriviu un nom de grup vàlid o un identificador numèric."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:827
-#, fuzzy
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Vols aplicar aquests canvis de forma recursiva a tots els arxius i "
+"Voleu aplicar aquests canvis de forma recursiva a tots els fitxers i "
 "subcarpetes?"
 
 #: ../src/gtk/fm-file-properties.c:960
-#, fuzzy
 msgid "Hide or unhide the file"
-msgstr "Amaga o visualitza el fitxer"
+msgstr "Amaga o mostra el fitxer"
 
 #: ../src/gtk/fm-file-properties.c:965
-#, fuzzy
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Aquest fitxer és ocult perquè el seu nom comença amb un punt («.»)."
+msgstr "Aquest fitxer és ocult perquè el nom comença amb un punt («.»)."
 
 #: ../src/gtk/fm-file-properties.c:969
-#, fuzzy
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Els fitxers d'aquest sistema estan amagats si el seu nom comença amb un punt "
-"(«.»). Premeu <Ctrl+H> per a visualitzar els fitxers ocults."
+"Els fitxers d'aquest sistema estan ocults si el nom comença amb un punt "
+"(«.»). Premeu <Ctrl+H> per mostrar els fitxers ocults."
 
 #: ../src/gtk/fm-file-properties.c:1026
-#, fuzzy
 msgid "scanning..."
-msgstr "s'està explorant..."
+msgstr "explorant..."
 
 #: ../src/gtk/fm-file-properties.c:1088
-#, fuzzy
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Accediu al contingut:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1239
 msgid "Files of different types"
-msgstr "Arxius de diferents tipus"
+msgstr "Fitxers de diferents tipus"
 
 #: ../src/gtk/fm-file-properties.c:1283
 msgid "<b>File:</b>"
 msgstr "<b>Fitxer:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1349
-#, fuzzy
 msgid "Multiple files"
-msgstr "Múltiples fitxers"
+msgstr "Fitxers múltiples"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
@@ -1024,12 +931,10 @@ msgid "Size"
 msgstr "Mida"
 
 #: ../src/gtk/fm-folder-model.c:193
-#, fuzzy
 msgid "Permissions"
 msgstr "Permisos"
 
 #: ../src/gtk/fm-folder-model.c:194
-#, fuzzy
 msgid "Owner"
 msgstr "Propietari"
 
@@ -1038,22 +943,18 @@ msgid "Modified"
 msgstr "Modificat"
 
 #: ../src/gtk/fm-folder-model.c:196
-#, fuzzy
 msgid "Location"
 msgstr "Ubicació"
 
 #: ../src/gtk/fm-folder-model.c:197
-#, fuzzy
 msgid "Extension"
 msgstr "Extensió"
 
 #: ../src/gtk/fm-folder-view.c:178
-#, fuzzy
 msgid "Create _New..."
-msgstr "Crea _nou..."
+msgstr "Crea un element _nou..."
 
 #: ../src/gtk/fm-folder-view.c:179
-#, fuzzy
 msgid "Folder"
 msgstr "Carpeta"
 
@@ -1062,26 +963,22 @@ msgid "Empty File"
 msgstr "Fitxer buit"
 
 #: ../src/gtk/fm-folder-view.c:194
-#, fuzzy
 msgid "_Invert Selection"
 msgstr "_Inverteix la selecció"
 
 #: ../src/gtk/fm-folder-view.c:195
-#, fuzzy
 msgid "_Sort Files"
-msgstr "Fitxers _Diversos"
+msgstr "Ordena els fitxer_s"
 
 #: ../src/gtk/fm-folder-view.c:196
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "_Canvia el nom del fitxer..."
+msgstr "Canvia el nom de la ca_rpeta..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
 msgstr "Propi_etats del fitxer"
 
 #: ../src/gtk/fm-folder-view.c:205
-#, fuzzy
 msgid "Show _Hidden"
 msgstr "Mostra els _ocults"
 
@@ -1091,248 +988,217 @@ msgid "Mingle _Files and Folders"
 msgstr "Barreja _fitxers i carpetes"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "_Ignoreu les majúscules del nom"
+msgstr "_Ignora les majúscules dels noms"
 
 #: ../src/gtk/fm-folder-view.c:219
-#, fuzzy
 msgid "By _Name"
 msgstr "Per _nom"
 
 #: ../src/gtk/fm-folder-view.c:220
-#, fuzzy
 msgid "By _Modification Time"
-msgstr "Per _data de modificació"
+msgstr "Per hora de _modificació"
 
 #: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "Per _mida"
 
 #: ../src/gtk/fm-folder-view.c:222
-#, fuzzy
 msgid "By File _Type"
 msgstr "Per _tipus de fitxer"
 
 #: ../src/gtk/fm-folder-view.c:845
-#, fuzzy
 msgid "Enter a name for the newly created folder:"
-msgstr "Introduïu un nom per a la carpeta acabada de crear:"
+msgstr "Escriviu un nom per a la carpeta acabada de crear:"
 
 #: ../src/gtk/fm-folder-view.c:846
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "Creant una nova carpeta"
+msgstr "Creació d'una carpeta nova"
 
 #: ../src/gtk/fm-folder-view.c:859
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Introdueix un nom per a un fitxer buit:"
+msgstr "Escriviu un nom per al fitxer buit:"
 
 #: ../src/gtk/fm-folder-view.c:860
-#, fuzzy
 msgid "Creating ..."
-msgstr "S'està creant..."
+msgstr "Creant..."
 
 #: ../src/gtk/fm-folder-view.c:866
-#, fuzzy
 msgid "New"
 msgstr "Nou"
 
 #: ../src/gtk/fm-folder-view.c:876
 #, c-format
-#, c-format, fuzzy
 msgid "Enter a name for the new %s:"
-msgstr "Introduïu un nom per al %s nou:"
+msgstr "Escriviu un nom per al nou element %s:"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
-#, c-format, fuzzy
 msgid "Creating %s"
-msgstr "S'està creant %s"
+msgstr "Creant %s"
 
 #: ../src/gtk/fm-folder-view.c:883
-#, fuzzy
 msgid "_Run default application on file after creation"
-msgstr ""
-"_Executa l'aplicació predeterminada en el fitxer després de la seua creació"
+msgstr "_Executa l'aplicació predeterminada per al fitxer després de crear-lo"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:141
+#: ../src/gtk/fm-gtk-file-launcher.c:144
 #, c-format
-#, c-format, fuzzy
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Aquest fitxer de text «%s» sembla ser un escript executable. \n"
-" Què voleu fer amb ell?"
+"Aquest fitxer de text «%s» sembla un script executable.\n"
+"Què voleu fer-ne?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:148
+#: ../src/gtk/fm-gtk-file-launcher.c:151
 #, c-format
-#, c-format, fuzzy
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Aquest fitxer «%s» és executable. Voleu executar-lo?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:718
-#, fuzzy
+#: ../src/gtk/fm-gtk-file-launcher.c:736
 msgid "No folders are specified."
 msgstr "No s'ha especificat cap carpeta."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
+#: ../src/gtk/fm-gtk-file-launcher.c:775 ../src/gtk/fm-gtk-utils.c:555
 msgid "Select Folder"
 msgstr "Seleccioneu una carpeta"
 
-#: ../src/gtk/fm-gtk-utils.c:70
+#. g_message("(!) %s", msg);
+#: ../src/gtk/fm-gtk-utils.c:71
 msgid "Error"
 msgstr "Error"
 
-#: ../src/gtk/fm-gtk-utils.c:99 ../src/gtk/fm-gtk-utils.c:130
-#, fuzzy
+#: ../src/gtk/fm-gtk-utils.c:100 ../src/gtk/fm-gtk-utils.c:131
 msgid "Confirm"
-msgstr "Confirmeu"
+msgstr "Confirmació"
 
-#: ../src/gtk/fm-gtk-utils.c:184
-#, fuzzy
+#: ../src/gtk/fm-gtk-utils.c:185
 msgid "Question"
 msgstr "Pregunta"
 
-#: ../src/gtk/fm-gtk-utils.c:708
+#: ../src/gtk/fm-gtk-utils.c:709
 msgid "Only system administrators have the permission to do this."
 msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
-#: ../src/gtk/fm-gtk-utils.c:923
+#: ../src/gtk/fm-gtk-utils.c:924
 #, c-format
-#, c-format, fuzzy
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Voleu moure el fitxer «%s» a la paperera?"
 
-#: ../src/gtk/fm-gtk-utils.c:928
+#: ../src/gtk/fm-gtk-utils.c:929
 #, c-format
-#, c-format, fuzzy
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "Voleu moure el fitxer seleccionat %d a la paperera?"
 msgstr[1] "Voleu moure els fitxers seleccionats %d a la paperera?"
 
-#: ../src/gtk/fm-gtk-utils.c:988
+#: ../src/gtk/fm-gtk-utils.c:989
 #, c-format
-#, c-format, fuzzy
 msgid "Do you want to delete the file '%s'?"
 msgstr "Voleu suprimir el fitxer «%s»?"
 
-#: ../src/gtk/fm-gtk-utils.c:993
+#: ../src/gtk/fm-gtk-utils.c:994
 #, c-format
-#, c-format, fuzzy
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Voleu suprimir el fitxer seleccionat %d?"
-msgstr[1] "Voleu suprimir els fitxers seleccionats %d?"
+msgstr[1] "Voleu suprimir els %d fitxers seleccionats?"
 
-#: ../src/gtk/fm-gtk-utils.c:1092
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Rename File"
 msgstr "Canvia el nom del fitxer"
 
-#: ../src/gtk/fm-gtk-utils.c:1093
+#: ../src/gtk/fm-gtk-utils.c:1094
 msgid "Please enter a new name:"
 msgstr "Si us plau, escriu un nom nou:"
 
-#: ../src/gtk/fm-gtk-utils.c:1160
+#: ../src/gtk/fm-gtk-utils.c:1166
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Estàs segur/a que vols buidar la paperera?"
+msgstr "Esteu segur que voleu buidar la paperera?"
 
-#: ../src/gtk/fm-path-entry.c:668
+#: ../src/gtk/fm-path-entry.c:675
 msgid "Pa_ste and Go"
-msgstr "Enganxa i vé_s-hi"
+msgstr "Enganxa-ho i vé_s-hi"
 
-#: ../src/gtk/fm-path-entry.c:727
-#, fuzzy
+#: ../src/gtk/fm-path-entry.c:734
 msgid "Folder location bar"
 msgstr "Barra d'ubicació de fitxers"
 
 # No tinc clar quina és la millor opció, si carpeta personal o carpeta de l'usuari :(
-#: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
+#: ../src/gtk/fm-places-model.c:781 ../src/gtk/fm-places-model.c:995
 msgid "Home Folder"
 msgstr "Carpeta personal"
 
-#: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
+#: ../src/gtk/fm-places-model.c:797 ../src/gtk/fm-places-model.c:1003
 msgid "Desktop"
 msgstr "Escriptori"
 
-#: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
-#: ../src/modules/vfs-menu.c:1565
+#: ../src/gtk/fm-places-model.c:815 ../src/gtk/fm-places-model.c:1023
+#: ../src/modules/vfs-menu.c:1538
 msgid "Applications"
 msgstr "Aplicacions"
 
-#: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
+#: ../src/gtk/fm-places-model.c:831 ../src/gtk/fm-places-model.c:1009
 msgid "Filesystem Root"
-msgstr "Sistema de fitxers arrel"
+msgstr "Sistema de fitxers d'arrel"
 
 #: ../src/gtk/fm-places-view.c:131
-#, fuzzy
 msgid "_Mount Volume"
 msgstr "_Munta el volum"
 
 #: ../src/gtk/fm-places-view.c:132
-#, fuzzy
 msgid "_Unmount Volume"
 msgstr "_Desmunta el volum"
 
 #: ../src/gtk/fm-places-view.c:133
-#, fuzzy
 msgid "_Eject Removable Media"
 msgstr "_Extreu el suport extraïble"
 
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "_Format Volume"
 msgstr "_Formata el volum"
 
 #: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
-msgstr "Canvia el _nom del marcador"
+msgstr "Canvia el _nom de l'adreça d'interès"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
-msgstr "_Suprimeix de les adreces d'interès"
+msgstr "Eli_mina de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
-msgstr "Mou l'adreça d'interès a_munt"
+msgstr "Mou l'adreça d'interès am_unt"
 
 #: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "Mou l'adreça d'interès a_vall"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
-#, fuzzy
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "_Buida la paperera"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
-#, fuzzy
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
-"Mostra la llista de llocs comuns, dispositius i adreces d'interès a la barra "
-"lateral"
+"Mostra una llista de llocs comuns, dispositius i adreces d'interès a la "
+"barra lateral"
 
-#: ../src/gtk/fm-places-view.c:1102
-#, fuzzy
+#: ../src/gtk/fm-places-view.c:1124
 msgid "Rename Bookmark Item"
-msgstr "Canvia el nom del marcador"
+msgstr "Canvia el nom de l'adreça d'interès"
 
-#: ../src/gtk/fm-places-view.c:1103
+#: ../src/gtk/fm-places-view.c:1125
 msgid "Enter a new name:"
-msgstr "Introduïu un nom nou:"
+msgstr "Escriviu el nom nou:"
 
-#: ../src/gtk/fm-progress-dlg.c:127
+#: ../src/gtk/fm-progress-dlg.c:135
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:231
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1343,7 +1209,7 @@ msgstr ""
 "Mida: %s\n"
 "Modificat: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:219 ../src/gtk/fm-progress-dlg.c:244
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1352,420 +1218,353 @@ msgstr ""
 "Tipus: %s\n"
 "Modificat: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:326
-#, fuzzy
-msgid "<b>Errors occured before file operation was stopped.</b>"
-msgstr "<b>Hi ha hagut errades abans que l'operació amb el fitxer s'aturés.</b>"
+#: ../src/gtk/fm-progress-dlg.c:343
+msgid "<b>Errors occurred before file operation was stopped.</b>"
+msgstr "<b>Hi ha hagut errors abans que l'operació de fitxer s'aturés.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:345
 msgid "Cancelled"
 msgstr "Cancel·lat"
 
-#: ../src/gtk/fm-progress-dlg.c:332
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:349
 msgid "<b>The file operation was completed with errors.</b>"
-msgstr ""
-"<b>S'ha cancel·lat l'operació de fitxer i s'han produït alguns errors.</b>"
+msgstr "<b>L'operació amb el fitxer s'ha completat amb errors.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:334
+#: ../src/gtk/fm-progress-dlg.c:351
 msgid "Finished"
-msgstr "S'ha finalitzat"
+msgstr "S'ha acabat"
 
-#: ../src/gtk/fm-progress-dlg.c:356
+#: ../src/gtk/fm-progress-dlg.c:373
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arxius no es poden moure a la paperera perquè els sistemes de fitxers "
-"subjacents no admeten aquesta operació. \n"
-"Vols eliminar-los de totes maneres?"
+"Alguns fitxers no es poden moure a la paperera perquè els sistemes de "
+"fitxers subjacents no admeten aquesta operació.\n"
+"En comptes d'això, voleu suprimir-los?"
 
-#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:414 ../src/gtk/fm-progress-dlg.c:563
 msgid "_Pause"
 msgstr "_Pausa"
 
-#: ../src/gtk/fm-progress-dlg.c:405
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "_Resume"
 msgstr "_Reprèn"
 
-#: ../src/gtk/fm-progress-dlg.c:562
+#: ../src/gtk/fm-progress-dlg.c:597
 msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:581
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:617
 msgid "Moving"
-msgstr "S'estan movent els fitxers"
+msgstr "Movent"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:585
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:621
 msgid "Copying"
-msgstr "S'estan copiant els fitxers"
+msgstr "Copiant"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:589
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:625
 msgid "Trashing"
-msgstr "Enviant arxius a la paperera"
+msgstr "Reciclant"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:593
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:629
 msgid "Deleting"
-msgstr "S'estan suprimint els fitxers"
+msgstr "Suprimint"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:597
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:633
 msgid "Creating link"
-msgstr "Creant enllaços simbòlics"
+msgstr "Creant l'enllaç simbòlic"
 
 #. translators: 'In:' string is followed by destination folder path
-#: ../src/gtk/fm-progress-dlg.c:599
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:635
 msgid "<b>In:</b>"
 msgstr "<b>A:</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:600
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:636
 msgid "Creating links to files"
-msgstr "S'està creant enllaços simbòlics a fitxers"
+msgstr "Creant enllaços simbòlics a fitxers"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:607
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:643
 msgid "Changing attributes of"
-msgstr "Canvia atributs d'arxiu"
+msgstr "Es canvien els atributs de"
 
-#: ../src/gtk/fm-progress-dlg.c:608
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:644
 msgid "Changing attributes of files"
-msgstr "Canvia atributs d'arxiu"
+msgstr "Es canvien els atributs dels fitxers"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:614
+#: ../src/gtk/fm-progress-dlg.c:650
 msgid "Restoring"
 msgstr "Restaurant"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:624
+#: ../src/gtk/fm-progress-dlg.c:660
 #, c-format
-#, fuzzy, c-format
 msgid "%s files"
-msgstr "fitxers %s"
+msgstr "%s fitxers"
 
-#: ../src/gtk/fm-progress-dlg.c:627
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:663
 msgid "<b>File operation is in progress...</b>"
-msgstr "<b>Operació amb el fitxer en progrés...</b>"
+msgstr "<b>Operació de fitxer en curs...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:633
+#: ../src/gtk/fm-progress-dlg.c:669
 #, c-format
-#, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s Fitxer:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:636
+#: ../src/gtk/fm-progress-dlg.c:672
 #, c-format
-#, fuzzy, c-format
 msgid "<b>%s files:</b>"
-msgstr "<b>%s fitxer:</b>"
+msgstr "<b>%s fitxers:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
-#, fuzzy
 msgid "_Off"
-msgstr "_Tanca"
+msgstr "Desacti_va"
 
 #: ../src/gtk/fm-side-pane.c:67
-#, fuzzy
 msgid "_Places"
 msgstr "_Llocs"
 
 #: ../src/gtk/fm-side-pane.c:68
-#, fuzzy
 msgid "_Directory Tree"
 msgstr "Arbre del _directori"
 
 #: ../src/gtk/fm-side-pane.c:69
-#, fuzzy
 msgid "_Remote"
 msgstr "_Remot"
 
-#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
+#: ../src/gtk/fm-side-pane.c:428 ../src/gtk/fm-side-pane.c:621
 msgid "Places"
 msgstr "Llocs"
 
-#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
-#, fuzzy
+#: ../src/gtk/fm-side-pane.c:438 ../src/gtk/fm-side-pane.c:623
 msgid "Directory Tree"
 msgstr "Arbre del directori"
 
-#: ../src/gtk/fm-standard-view.c:254
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:255
 msgid "View of folder contents"
 msgstr "Vista del contingut de la carpeta"
 
-#: ../src/gtk/fm-standard-view.c:831
-#, c-format, c-format
+#: ../src/gtk/fm-standard-view.c:818
+#, c-format
 msgid "_Hide %s"
 msgstr "Ama_ga %s"
 
-#: ../src/gtk/fm-standard-view.c:839
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
 msgstr "_Mou a l'esquerra"
 
-#: ../src/gtk/fm-standard-view.c:845
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:832
 msgid "Move _Right"
-msgstr "Mou a la _dreta"
+msgstr "Mou a la d_reta"
 
-#: ../src/gtk/fm-standard-view.c:868
+#: ../src/gtk/fm-standard-view.c:855
 #, c-format
 msgid "Show %s"
 msgstr "Mostra %s"
 
-#: ../src/gtk/fm-standard-view.c:880
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:867
 msgid "_Forget Width"
 msgstr "_Oblida l'amplada"
 
-#: ../src/gtk/fm-standard-view.c:1854
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:1859
 msgid "_Icon View"
 msgstr "Visualització d'_icones"
 
-#: ../src/gtk/fm-standard-view.c:1855
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:1860
 msgid "_Compact View"
 msgstr "Visualització _compacta"
 
-#: ../src/gtk/fm-standard-view.c:1856
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:1861
 msgid "_Thumbnail View"
 msgstr "Visualització de _miniatures"
 
-#: ../src/gtk/fm-standard-view.c:1857
-#, fuzzy
+#: ../src/gtk/fm-standard-view.c:1862
 msgid "Detailed _List View"
-msgstr "Visualització de _llistat detallat"
+msgstr "Visualització de _llista detallada"
 
 #: ../src/gtk/fm-tab-label.c:159
-#, fuzzy
 msgid "Changes active tab"
 msgstr "Pestanya de canvis activa"
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:362
+#: ../src/job/fm-dir-list-job.c:238 ../src/job/fm-dir-list-job.c:251
+#: ../src/job/fm-dir-list-job.c:363
 #, c-format
-#, c-format, fuzzy
 msgid "The specified directory '%s' is not valid"
-msgstr "El directori especificat '%s' no és vàlid"
+msgstr "El directori especificat \"%s\" no és vàlid"
 
-#: ../src/job/fm-file-ops-job.c:519
-#, fuzzy
+#: ../src/job/fm-file-ops-job.c:529 ../src/job/fm-file-ops-job.c:604
 msgid "Cannot access destination file"
 msgstr "No es pot accedir al fitxer de destinació"
 
-#: ../src/job/fm-file-ops-job.c:564
-#, fuzzy
+#: ../src/job/fm-file-ops-job.c:650
 msgid "Cannot create a link on non-native filesystem"
-msgstr "No es pot crear un enllaç simbòlic a un sistema de fitxers no nadiu"
+msgstr "No es pot crear un enllaç simbòlic en un sistema de fitxers no nadiu"
 
-#: ../src/job/fm-file-ops-job-delete.c:489
+#: ../src/job/fm-file-ops-job-delete.c:501
 #, c-format
-#, c-format, fuzzy
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
-"No es pot eliminar de la paperera el fitxer '%s': no es coneix la ruta "
+"No es pot suprimir de la paperera el fitxer \"%s\": no se'n coneix el camí "
 "original"
 
-#: ../src/job/fm-file-ops-job-xfer.c:54
-#, fuzzy
+#: ../src/job/fm-file-ops-job-xfer.c:58
+msgid "Destination does not exist"
+msgstr "La destinació no existeix."
+
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."
 msgstr "L'origen i la destinació són iguals."
 
-#: ../src/job/fm-file-ops-job-xfer.c:61
-#, fuzzy
+#: ../src/job/fm-file-ops-job-xfer.c:70
 msgid "Cannot move a folder into its sub folder"
-msgstr "No s'ha pogut moure una carpeta a la seva pròpia subcarpeta"
+msgstr "No es pot moure una carpeta a la seva subcarpeta"
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
-#, fuzzy
+#: ../src/job/fm-file-ops-job-xfer.c:72
 msgid "Cannot copy a folder into its sub folder"
-msgstr "No es pot copiar una carpeta en una subcarpeta pròpia"
+msgstr "No es pot copiar una carpeta a la seva subcarpeta"
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
-#, fuzzy
+#: ../src/job/fm-file-ops-job-xfer.c:74
 msgid "Destination is a sub folder of source"
 msgstr "La destinació és una subcarpeta de la font"
 
-#: ../src/job/fm-file-ops-job-xfer.c:380
+#: ../src/job/fm-file-ops-job-xfer.c:391
 #, c-format
-#, c-format, fuzzy
 msgid "Cannot copy file '%s': not supported"
-msgstr "No es pot copiar el fitxar '%s': no està suportat"
+msgstr "No es pot copiar el fitxer %s: no s'admet"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:312
+#: ../src/job/fm-file-ops-job-change-attr.c:314
 #, c-format
-#, c-format, fuzzy
 msgid "Setting display name can be done only for single file"
-msgstr "Ajustar el nom mostrat només pot fer-se per un únic fitxer"
+msgstr "Establir el nom que es mostra només es pot fer per a un fitxer únic"
 
-# He traduït «target» per «diana» però tinc dubtes :(
-#: ../src/job/fm-file-ops-job-change-attr.c:315
+#: ../src/job/fm-file-ops-job-change-attr.c:317
 #, c-format
-#, c-format, fuzzy
 msgid "Setting target can be done only for single file"
-msgstr "Ajustar la diana només pot fer-se per un únic fitxer"
+msgstr "Establir la destinació només es pot fer per a un fitxer únic"
 
 #: ../src/modules/vfs-menu.c:299
-#, c-format, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Error (%d:%d) de fitxer XML \"%s\": "
+msgstr "Error \"%s\" de fitxer XML (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
-#, fuzzy
 msgid "XML file doesn't contain Applications root"
-msgstr "El fitxer XML no té aplicacions d'administrador"
+msgstr "El fitxer XML no conté aplicacions d'arrel"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
-#, c-format, fuzzy
 msgid "Cannot create XML definition for '%s'"
-msgstr "No es pot crear una definició XML per a '%s'"
+msgstr "No es pot crear una definició XML per a \"%s\""
 
-#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2634
 #, c-format
-#, c-format, fuzzy
 msgid "Menu path '%s' already exists"
-msgstr "La ruta al menú '%s' ja existeix"
+msgstr "El camí de menú \"%s\" ja existeix"
 
-#: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
-#: ../src/modules/vfs-menu.c:1520
-#, fuzzy
+#: ../src/modules/vfs-menu.c:1102 ../src/modules/vfs-menu.c:1407
+#: ../src/modules/vfs-menu.c:1493
 msgid "Menu cache error"
-msgstr "Error de la memòria del menú"
+msgstr "Error de la memòria cau del menú"
 
-#. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
-#, fuzzy
-msgid "Operation not supported"
-msgstr "Operació no implementada"
-
-#: ../src/modules/vfs-menu.c:1394
-#, fuzzy
+#: ../src/modules/vfs-menu.c:1367
 msgid "Invalid menu directory"
 msgstr "El directori del menú no és vàlid"
 
-#: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
-#, fuzzy
+#: ../src/modules/vfs-menu.c:1430 ../src/modules/vfs-menu.c:1706
 msgid "Menu item name cannot be empty"
-msgstr "El nom de l'element del menú no pot estar buit."
+msgstr "El nom de l'element del menú no pot estar en blanc."
 
-#: ../src/modules/vfs-menu.c:1507
+#: ../src/modules/vfs-menu.c:1480
 #, c-format
-#, c-format, fuzzy
 msgid "Invalid menu directory '%s'"
-msgstr "Directori de menú '%s' no vàlid"
+msgstr "Directori de menú \"%s\" no vàlid"
 
-#: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
-#, fuzzy
+#: ../src/modules/vfs-menu.c:1623 ../src/modules/vfs-menu.c:1764
 msgid "Invalid menu item"
-msgstr "Element de menú no vàlid"
+msgstr "Element del menú no vàlid"
 
-#: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
+#: ../src/modules/vfs-menu.c:1627 ../src/modules/vfs-menu.c:1768
 #, c-format
-#, c-format, fuzzy
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "L'element del menú '%s' no té un fitxer d'entrada adequat"
+msgstr "L'element del menú \"%s\" no té un fitxer d'entrada adequat"
 
-#: ../src/modules/vfs-menu.c:1820
-#, fuzzy
+#: ../src/modules/vfs-menu.c:1790
 msgid "Change hidden status isn't supported for menu directory"
-msgstr "El canvi d'estat ocult no està implementat pel directori de menú"
+msgstr "El canvi d'estat ocult no s'admet per al directori de menú"
 
-#: ../src/modules/vfs-menu.c:1978
+#: ../src/modules/vfs-menu.c:1948
 #, c-format
-#, c-format, fuzzy
 msgid "Setting attribute '%s' not supported"
-msgstr "No està implementat establir l'atribut '%s'"
+msgstr "No s'admet establir l'atribut \"%s\""
 
-#: ../src/modules/vfs-menu.c:1988
+#: ../src/modules/vfs-menu.c:1958
 #, c-format
-#, c-format, fuzzy
 msgid "Invalid value for attribute '%s'"
-msgstr "Valor no vàlid per a l'atribut '%s'"
+msgstr "Valor no vàlid per a l'atribut \"%s\""
 
-#: ../src/modules/vfs-menu.c:2025
+#: ../src/modules/vfs-menu.c:1995
 #, c-format
-#, c-format, fuzzy
 msgid "The '%s' is a menu directory"
-msgstr "El '%s' és un directori de menú"
+msgstr "\"%s\" és un directori de menú"
 
-#: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
+#: ../src/modules/vfs-menu.c:1998 ../src/modules/vfs-menu.c:2627
 #, c-format
-#, c-format, fuzzy
 msgid "The '%s' isn't a menu item"
-msgstr "El '%s' no és un element del menú"
+msgstr "\"%s\" no és un element del menú"
 
-#: ../src/modules/vfs-menu.c:2052
+#: ../src/modules/vfs-menu.c:2022
 #, c-format
-#, c-format, fuzzy
 msgid "The '%s' entry file is broken"
-msgstr "El fitxer d'entrada '%s' està trencat"
+msgstr "El fitxer d'entrada \"%s\" està trencat"
 
-#: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
+#: ../src/modules/vfs-menu.c:2308 ../src/modules/vfs-menu.c:2397
 #, c-format
-#, c-format, fuzzy
 msgid "Cannot create menu item '%s'"
-msgstr "No s'ha pogut crear l'element de menú '%s'"
+msgstr "No s'ha pogut crear l'element del menú \"%s\""
 
-#: ../src/modules/vfs-menu.c:2572
-#, fuzzy
+#: ../src/modules/vfs-menu.c:2542
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr "El nom del directori de menú no hauria d'acabar amb \".desktop\""
 
-#: ../src/modules/vfs-menu.c:2617
-#, fuzzy
+#: ../src/modules/vfs-menu.c:2587
 msgid "Invalid operation with menu root"
 msgstr "Operació no vàlida amb l'arrel del menú"
 
-#: ../src/modules/vfs-menu.c:2706
-#, fuzzy
+#: ../src/modules/vfs-menu.c:2676
 msgid "Invalid destination"
-msgstr "El destí no és vàlid"
+msgstr "Destinació no vàlida"
 
-#: ../src/modules/vfs-menu.c:2979
+#: ../src/modules/vfs-menu.c:2952
 #, c-format
-#, c-format, fuzzy
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
-"FmMenuVFileMonitor: la carpeta '%s' no s'ha trobat a la memòria del menú"
+"FmMenuVFileMonitor: la carpeta %s no s'ha trobat a la memòria cau del menú"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:985
+#: ../src/modules/vfs-search.c:991
 msgid "Search"
 msgstr "Cerca"
 
-#: ../src/modules/vfs-search.c:1052
+#: ../src/modules/vfs-search.c:1053
 msgid "Search Results"
 msgstr "Resultats de la cerca"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
-msgstr "Tria el fitxer executable"
+msgstr "Trieu el fitxer executable"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
 msgstr "Fitxers executables"
 
@@ -1774,17 +1573,14 @@ msgid "<b>Co_mmand:</b>"
 msgstr "<b>_Ordre:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
-#, fuzzy
 msgid "Command to execute when the application icon is activated"
-msgstr "Ordre a executar quan la icona de l'aplicació està activada"
+msgstr "Ordre per executar quan la icona de l'aplicació està activada"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
 msgstr "<b>D_escripció:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
-#, fuzzy
 msgid "Generic name of the application"
 msgstr "El nom genèric de l'aplicació"
 
@@ -1793,40 +1589,36 @@ msgid "<b>_Working directory:</b>"
 msgstr "<b>Directori de _treball:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
-#, fuzzy
 msgid "The working directory to run the program in"
-msgstr "El directori de treball per fer funcionar el programa"
+msgstr "El directori de treball per executar-hi el programa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
 msgstr "<b>_Consell:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Consell per a mostrar a l'aplicació"
+msgstr "Consell per mostrar a l'aplicació"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
-#, fuzzy
 msgid "_Use startup notification"
-msgstr "_Usar notificació d'inicialització"
+msgstr "_Usa la notificació d'inici"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop Entry"
 msgstr "Entra_da d'escriptori"
 
-#: ../src/modules/gtk-menu-trash.c:72
+#: ../src/modules/gtk-menu-trash.c:74
 msgid "_Restore"
 msgstr "_Restaura"
 
-#: ../src/modules/gtk-menu-trash.c:73
+#: ../src/modules/gtk-menu-trash.c:75
 msgid "Restore trashed files to original paths"
-msgstr "Restaura arxius de la paperera a les seves rutes originals"
+msgstr "Restaura fitxers de la paperera als camins originals"
 
 #: ../src/tools/lxshortcut.c:42
-#, fuzzy
 msgid "source file name or desktop id"
 msgstr "nom de fitxer font o identificador d'escriptori"
 
@@ -1835,7 +1627,6 @@ msgid "SOURCE"
 msgstr "FONT"
 
 #: ../src/tools/lxshortcut.c:43
-#, fuzzy
 msgid "result file name"
 msgstr "nom del fitxer de resultat"
 

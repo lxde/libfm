@@ -4,6 +4,7 @@
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
  *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2016 Mamoru TASAKA <mtasaka@fedoraproject.org>
  *
  *      This file is a part of the Libfm library.
  *
@@ -343,14 +344,15 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
 {
     const gchar * const *dirs, * const *dir;
     char *path;
+    char *old_cfg_name;
     GKeyFile* kf = g_key_file_new();
 
+    old_cfg_name = cfg->_cfg_name;
     g_strfreev(cfg->modules_blacklist);
     g_strfreev(cfg->system_modules_blacklist);
     cfg->modules_blacklist = NULL;
     cfg->system_modules_blacklist = NULL;
     _cfg_monitor_free(cfg);
-    g_free(cfg->_cfg_name);
     if(G_LIKELY(!name))
         name = "libfm/libfm.conf";
     else
@@ -394,6 +396,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
 
 _out:
     g_key_file_free(kf);
+    g_free(old_cfg_name);
     g_signal_emit(cfg, signals[CHANGED], 0);
     /* FIXME: compare and send individual changes instead */
 }

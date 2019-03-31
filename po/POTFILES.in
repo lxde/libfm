@@ -8,6 +8,7 @@ data/ui/file-prop.glade
 data/ui/filesearch.glade
 data/ui/preferred-apps.glade
 data/ui/progress.glade
+src/base/fm-action.c
 src/base/fm-file-info.c
 src/base/fm-file-launcher.c
 src/base/fm-path.c

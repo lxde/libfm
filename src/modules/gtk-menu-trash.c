@@ -76,6 +76,7 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
                             NULL);
         g_signal_connect(act, "activate", G_CALLBACK(on_untrash), menu);
         gtk_action_group_add_action(act_grp, act);
+        g_object_unref(act);
         g_string_append(xml, "<popup><placeholder name='ph1'>"
                              "<menuitem action='UnTrash'/>"
                              "</placeholder></popup>");
@@ -114,6 +115,7 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
                          NULL, NULL);
     g_signal_connect(act, "activate", G_CALLBACK(on_empty_trash), window);
     gtk_action_group_add_action(act_grp, act);
+    g_object_unref(act);
     gtk_ui_manager_add_ui_from_string(ui, "<popup>"
                                           "<placeholder name='CustomFileOps'>"
                                           "<menuitem action='EmptyTrash'/>"

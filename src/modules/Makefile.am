@@ -11,6 +11,7 @@ AM_CPPFLAGS = \
 # tell libtool we compile module not library
 AM_LDFLAGS = \
 	-no-undefined -module -avoid-version -shared -export-dynamic \
+	-L$(libdir) \
 	$(GIO_LIBS)
 
 # the module should be linked only with libfm, not libfm-gtk or whatever
@@ -26,13 +27,11 @@ pkglib_LTLIBRARIES = \
 	$(NULL)
 
 if ENABLE_GTK
-if HAVE_ACTIONS
-pkglib_LTLIBRARIES += gtk-menu-actions.la
-endif
 pkglib_LTLIBRARIES += \
 	gtk-fileprop-x-desktop.la \
 	gtk-fileprop-x-shortcut.la \
 	gtk-menu-trash.la \
+	gtk-menu-actions.la \
 	$(NULL)
 endif
 

@@ -78,7 +78,7 @@ public class FileAction : FileActionObject {
 		id = desktop_id;
 		try {
 			kf.load_from_file(desktop_id, 0);
-			FileAction.from_keyfile(kf);
+			this.from_keyfile(kf);
 		}
 		catch(KeyFileError err) {
 		}
@@ -141,7 +141,7 @@ public class FileActionMenu : FileActionObject {
 		id = desktop_id;
 		try {
 			kf.load_from_file(desktop_id, 0);
-			FileActionMenu.from_keyfile(kf);
+			this.from_keyfile(kf);
 		}
 		catch(KeyFileError err) {
 		}

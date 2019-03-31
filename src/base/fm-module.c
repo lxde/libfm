@@ -44,7 +44,7 @@
  * of that type should include:
  * <example id="example-fm-dummy-h">
  * <title>Sample of fm-dummy.h</title>
- * <programlisting>
+ * <programlisting><![CDATA[
  * #include <libfm/fm.h>
  *
  * #define FM_MODULE_dummy_VERSION 1
@@ -54,7 +54,7 @@
  * } FmDummyInit;
  *
  * extern FmDummyInit fm_module_init_dummy;
- * </programlisting>
+ * ]]></programlisting>
  * </example>
  * The FM_MODULE_dummy_VERSION is a number which should be increased each
  * time something in FmDummyInit structure is changed. The FmDummyInit
@@ -65,7 +65,7 @@
  * module handling in your code:
  * <example id="example-fm-dummy-widget-c">
  * <title>Sample of fm-dummy-widget.c</title>
- * <programlisting>
+ * <programlisting><![CDATA[
  * #include "fm-dummy.h"
  *
  * FM_MODULE_DEFINE_TYPE(dummy, FmDummyInit, 1)
@@ -87,7 +87,7 @@
  *         result = module->get_new("test sample");
  *     return result;
  * }
- * </programlisting>
+ * ]]></programlisting>
  * </example>
  *
  * Third thing application should do is to register module type on the
@@ -108,7 +108,7 @@
  * interface (see the fm-dummy.h header example above):
  * <example id="example-fm-dummy-test-c">
  * <title>Sample of module dummy/test</title>
- * <programlisting>
+ * <programlisting><![CDATA[
  * #include "fm-dummy.h"
  *
  * FM_DEFINE_MODULE(dummy, test)
@@ -121,7 +121,7 @@
  * FmDummyInit fm_module_init_dummy = {
  *     fm_dummy_test_get_new;
  * };
- * </programlisting>
+ * ]]></programlisting>
  * </example>
  * The fm_module_init_dummy should be exactly the same structure that is
  * defined in the header file above.
