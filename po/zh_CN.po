@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-11 15:20+0200\n"
+"POT-Creation-Date: 2018-04-13 00:10+0300\n"
 "PO-Revision-Date: 2015-08-17 01:28+0000\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -337,11 +337,11 @@ msgstr "字节"
 msgid "KB"
 msgstr "KB"
 
-#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:143
 msgid "MB"
 msgstr "MB"
 
-#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:149
 msgid "GB"
 msgstr "GB"
 
@@ -431,7 +431,9 @@ msgstr "其他(_H)："
 msgid ""
 "Any valid content type can be entered here. Wildcard '*' is allowed at end "
 "of the type. Multiple types should be separated with ';'."
-msgstr "可以在此输入任意有效的内容类型。类型的末尾可以带“*”通配符。多种类型可以“;”分隔。"
+msgstr ""
+"可以在此输入任意有效的内容类型。类型的末尾可以带“*”通配符。多种类型可以“;”分"
+"隔。"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "File _Type"
@@ -461,8 +463,8 @@ msgstr "大于(_B)："
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>上次修改时间</b>"
 
-#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:652
-#: ../src/gtk/fm-gtk-file-launcher.c:659
+#: ../data/ui/filesearch.glade.h:33 ../src/gtk/fm-gtk-file-launcher.c:670
+#: ../src/gtk/fm-gtk-file-launcher.c:677
 msgid "(None)"
 msgstr "(无)"
 
@@ -523,204 +525,230 @@ msgid "Preparing..."
 msgstr "正在准备..."
 
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Data transferred:</b>"
+msgstr "<b>目标文件：</b>"
+
+#: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
 msgstr "<b>剩余时间：</b>"
 
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:7
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>出现了错误：</b>"
 
-#: ../src/base/fm-file-launcher.c:85
+#: ../src/base/fm-action.c:272
+#, fuzzy
+msgid "Empty value"
+msgstr "空文件"
+
+#: ../src/base/fm-action.c:280
+#, fuzzy
+msgid "Invalid selection"
+msgstr "无效的目标"
+
+#. ---- GFile implementation ----
+#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
+msgid "Operation not supported"
+msgstr "不支持该操作"
+
+#: ../src/base/fm-file-launcher.c:87
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "无效的桌面项文件：“ %s”"
 
-#: ../src/base/fm-file-launcher.c:240
-#, c-format
-msgid "No default application is set to launch URIs %s://"
-msgstr "没有设置用于启动 URI %s:// 的默认应用程序"
-
-#: ../src/base/fm-file-launcher.c:308
-#, c-format
-msgid "Cannot set working directory to '%s': %s"
-msgstr "无法设置工作目录到 '%s'：%s"
-
-#: ../src/base/fm-file-launcher.c:355
+#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "无法确定文件“%s”的内容类型，无法启动它"
 
-#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
+#: ../src/base/fm-file-launcher.c:292
+#, c-format
+msgid "No default application is set to launch URIs %s://"
+msgstr "没有设置用于启动 URI %s:// 的默认应用程序"
+
+#: ../src/base/fm-file-launcher.c:360
+#, c-format
+msgid "Cannot set working directory to '%s': %s"
+msgstr "无法设置工作目录到 '%s'：%s"
+
+#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "没有设置对应于 MIME 类型 %s 的默认应用程序"
 
-#: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
-#: ../src/gtk/fm-places-model.c:997
+#: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
+#: ../src/gtk/fm-places-model.c:1016
 msgid "Devices"
 msgstr "设备"
 
-#: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
-#: ../src/gtk/fm-places-model.c:1012
+#: ../src/base/fm-path.c:185 ../src/gtk/fm-places-model.c:866
+#: ../src/gtk/fm-places-model.c:1031
 msgid "Network"
 msgstr "网络"
 
-#: ../src/base/fm-path.c:1314 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1316 ../src/gtk/fm-places-model.c:898
 msgid "Trash Can"
 msgstr "回收站"
 
-#: ../src/base/fm-mime-type.c:86
+#: ../src/base/fm-mime-type.c:89
 msgid "shortcut to URI"
 msgstr "指向 URI 的快捷方式"
 
-#: ../src/base/fm-templates.c:1020
+#: ../src/base/fm-templates.c:1043
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file：参数无效"
 
-#: ../src/base/fm-terminal.c:248
+#: ../src/base/fm-terminal.c:256
 msgid "No terminal emulator is set in libfm config"
 msgstr "libfm 配置中没有设置终端仿真器"
 
-#: ../src/base/fm-thumbnailer.c:283
+#: ../src/base/fm-thumbnailer.c:285
 msgid "Invalid description of thumbnailer application"
 msgstr "缩略图应用程序的描述无效"
 
-#: ../src/base/fm-utils.c:136
+#: ../src/base/fm-utils.c:137
 msgid "kB"
 msgstr "kB"
 
-#: ../src/base/fm-utils.c:153
+#: ../src/base/fm-utils.c:154
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:164
+#: ../src/base/fm-utils.c:165
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u 字节"
 
-#: ../src/base/fm-utils.c:173
+#: ../src/base/fm-utils.c:174
 msgid "KiB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:179
+#: ../src/base/fm-utils.c:180
 msgid "MiB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:185
+#: ../src/base/fm-utils.c:186
 msgid "GiB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:190
+#: ../src/base/fm-utils.c:191
 msgid "TiB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:572
+#: ../src/base/fm-utils.c:573
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
 msgstr "URI 子路径“%s”中包含无效的转义字符"
 
-#: ../src/extra/fm-xml-file.c:205
+#: ../src/extra/fm-xml-file.c:206
 #, c-format
 msgid "Duplicate handler for tag <%s>"
 msgstr "标记 <%s> 的处理程序重复"
 
-#: ../src/extra/fm-xml-file.c:299
+#: ../src/extra/fm-xml-file.c:300
 #, c-format
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr "解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
+msgstr ""
+"解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
 
-#: ../src/extra/fm-xml-file.c:310
+#: ../src/extra/fm-xml-file.c:311
 #, c-format
 msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr "字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
+msgstr ""
+"字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变"
+"为 &amp;"
 
-#: ../src/extra/fm-xml-file.c:336
+#: ../src/extra/fm-xml-file.c:337
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr "字符引用“%-.*s”未编码一个被允许的字符"
 
-#: ../src/extra/fm-xml-file.c:373
+#: ../src/extra/fm-xml-file.c:374
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr "发现空的实体“&;”；有效的实体为：&amp; &quot; &lt; &gt; &apos;"
 
-#: ../src/extra/fm-xml-file.c:380
+#: ../src/extra/fm-xml-file.c:381
 #, c-format
 msgid "Entity name '%-.*s' is not known"
 msgstr "未知的实体名“%-.*s”"
 
-#: ../src/extra/fm-xml-file.c:384
+#: ../src/extra/fm-xml-file.c:385
 #, c-format
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr "实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
+msgstr ""
+"实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 "
+"&amp;"
 
-#: ../src/extra/fm-xml-file.c:594
+#: ../src/extra/fm-xml-file.c:595
 msgid "Space isn't allowed in the close tag"
 msgstr "闭合标记中不允许有空格"
 
-#: ../src/extra/fm-xml-file.c:603
+#: ../src/extra/fm-xml-file.c:604
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
 msgstr "元素“%s”已结束但没有元素打开"
 
-#: ../src/extra/fm-xml-file.c:619
+#: ../src/extra/fm-xml-file.c:620
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr "元素“%s”已结束，但当前打开的元素是“%s”"
 
-#: ../src/extra/fm-xml-file.c:675
+#: ../src/extra/fm-xml-file.c:676
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
 msgstr "属性值开头有无效字符“%c”"
 
-#: ../src/extra/fm-xml-file.c:686
+#: ../src/extra/fm-xml-file.c:687
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr "属性值末尾有无效字符“%c”，应为“%c”"
 
-#: ../src/extra/fm-xml-file.c:834
+#: ../src/extra/fm-xml-file.c:835
 msgid "Document ended unexpectedly"
 msgstr "文档意外终止"
 
-#: ../src/extra/fm-xml-file.c:842
+#: ../src/extra/fm-xml-file.c:843
 msgid "Document was empty or contained only whitespace"
 msgstr "文档为空或仅含空白字符"
 
-#: ../src/extra/fm-xml-file.c:1258
+#: ../src/extra/fm-xml-file.c:1259
 msgid "fm_xml_file_to_data: XML data error"
 msgstr "fm_xml_file_to_data：XML 数据错误"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:216
+#: ../src/gtk/fm-app-chooser-combo-box.c:217
 msgid "Customize"
 msgstr "自定义"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:266
+#: ../src/gtk/fm-app-chooser-dlg.c:325
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>选择打开“%s”使用的应用程序</b>"
 
-#: ../src/gtk/fm-app-menu-view.c:224
+#: ../src/gtk/fm-app-menu-view.c:207
 msgid "Installed Applications"
 msgstr "已安装的应用程序"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
+#: ../src/gtk/fm-dir-tree-model.c:421 ../src/gtk/fm-dir-tree-model.c:1213
 msgid "<No subfolders>"
 msgstr "<无子文件夹>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
+#: ../src/gtk/fm-dir-tree-model.c:423 ../src/gtk/fm-dir-tree-model.c:1214
 msgid "Loading..."
 msgstr "正在加载..."
 
-#: ../src/gtk/fm-dir-tree-view.c:550 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-dir-tree-view.c:546 ../src/gtk/fm-side-pane.c:647
 msgid "Shows tree of directories in sidebar"
 msgstr "在侧栏中显示目录树"
 
@@ -741,7 +769,7 @@ msgstr "移到这里(_M)"
 msgid "_Link Here"
 msgstr "链接到这里(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:870
+#: ../src/gtk/fm-dnd-dest.c:876
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失败。"
 
@@ -794,11 +822,11 @@ msgid "Prop_erties"
 msgstr "文件属性(_E)"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
+#: ../src/gtk/fm-file-menu.c:272 ../src/gtk/fm-file-menu.c:533
 msgid "Move to _Trash"
 msgstr "移到回收站(_T)"
 
-#: ../src/gtk/fm-file-menu.c:773
+#: ../src/gtk/fm-file-menu.c:794
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "您的书签中已经有了一条对应此文件夹的书签。"
 
@@ -988,7 +1016,7 @@ msgstr "正在创建 %s"
 msgid "_Run default application on file after creation"
 msgstr "创建后对文件运行默认应用程序(_R)"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:141
+#: ../src/gtk/fm-gtk-file-launcher.c:144
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -997,92 +1025,93 @@ msgstr ""
 "“%s”这个文本文件好像是可执行脚本。\n"
 "您想如何处理它？"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:148
+#: ../src/gtk/fm-gtk-file-launcher.c:151
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "“%s”这个文件是可执行文件。您想执行它吗？"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:718
+#: ../src/gtk/fm-gtk-file-launcher.c:736
 msgid "No folders are specified."
 msgstr "未指定文件夹。"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:757 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:775 ../src/gtk/fm-gtk-utils.c:555
 msgid "Select Folder"
 msgstr "选择文件夹"
 
-#: ../src/gtk/fm-gtk-utils.c:70
+#. g_message("(!) %s", msg);
+#: ../src/gtk/fm-gtk-utils.c:71
 msgid "Error"
 msgstr "错误"
 
-#: ../src/gtk/fm-gtk-utils.c:99 ../src/gtk/fm-gtk-utils.c:130
+#: ../src/gtk/fm-gtk-utils.c:100 ../src/gtk/fm-gtk-utils.c:131
 msgid "Confirm"
 msgstr "确认"
 
-#: ../src/gtk/fm-gtk-utils.c:184
+#: ../src/gtk/fm-gtk-utils.c:185
 msgid "Question"
 msgstr "问题"
 
-#: ../src/gtk/fm-gtk-utils.c:708
+#: ../src/gtk/fm-gtk-utils.c:709
 msgid "Only system administrators have the permission to do this."
 msgstr "只有系统管理员有权执行此操作。"
 
-#: ../src/gtk/fm-gtk-utils.c:923
+#: ../src/gtk/fm-gtk-utils.c:924
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "您想将文件“%s”移到回收站吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:928
+#: ../src/gtk/fm-gtk-utils.c:929
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "您想将选择的 %d 个文件移到回收站吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:988
+#: ../src/gtk/fm-gtk-utils.c:989
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "您想删除文件“%s”吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:993
+#: ../src/gtk/fm-gtk-utils.c:994
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "您想删除选择的 %d 个文件吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:1092
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Rename File"
 msgstr "重命名文件"
 
-#: ../src/gtk/fm-gtk-utils.c:1093
+#: ../src/gtk/fm-gtk-utils.c:1094
 msgid "Please enter a new name:"
 msgstr "请输入一个新名称："
 
-#: ../src/gtk/fm-gtk-utils.c:1160
+#: ../src/gtk/fm-gtk-utils.c:1166
 msgid "Are you sure you want to empty the trash can?"
 msgstr "您确定想清空回收站吗？"
 
-#: ../src/gtk/fm-path-entry.c:668
+#: ../src/gtk/fm-path-entry.c:675
 msgid "Pa_ste and Go"
 msgstr "粘贴并执行(_S)"
 
-#: ../src/gtk/fm-path-entry.c:727
+#: ../src/gtk/fm-path-entry.c:734
 msgid "Folder location bar"
 msgstr "文件夹位置栏"
 
-#: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+#: ../src/gtk/fm-places-model.c:781 ../src/gtk/fm-places-model.c:995
 msgid "Home Folder"
 msgstr "主文件夹"
 
-#: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
+#: ../src/gtk/fm-places-model.c:797 ../src/gtk/fm-places-model.c:1003
 msgid "Desktop"
 msgstr "桌面"
 
-#: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
-#: ../src/modules/vfs-menu.c:1565
+#: ../src/gtk/fm-places-model.c:815 ../src/gtk/fm-places-model.c:1023
+#: ../src/modules/vfs-menu.c:1538
 msgid "Applications"
 msgstr "应用程序"
 
-#: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
+#: ../src/gtk/fm-places-model.c:831 ../src/gtk/fm-places-model.c:1009
 msgid "Filesystem Root"
 msgstr "文件系统根目录"
 
@@ -1118,27 +1147,28 @@ msgstr "上移书签(_U)"
 msgid "Move Bookmark _Down"
 msgstr "下移书签(_D)"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "清空回收站(_E)"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:643
+#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "在侧栏中显示常用位置、设备和书签列表"
 
-#: ../src/gtk/fm-places-view.c:1102
+#: ../src/gtk/fm-places-view.c:1124
 msgid "Rename Bookmark Item"
 msgstr "重命名书签项"
 
-#: ../src/gtk/fm-places-view.c:1103
+#: ../src/gtk/fm-places-view.c:1125
 msgid "Enter a new name:"
 msgstr "输入新名称："
 
-#: ../src/gtk/fm-progress-dlg.c:127
+#: ../src/gtk/fm-progress-dlg.c:135
 msgid ": "
 msgstr "："
 
-#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:231
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1149,7 +1179,7 @@ msgstr ""
 "大小：%s\n"
 "修改时间：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:219 ../src/gtk/fm-progress-dlg.c:244
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1158,23 +1188,24 @@ msgstr ""
 "类型：%s\n"
 "修改时间：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:326
-msgid "<b>Errors occured before file operation was stopped.</b>"
+#: ../src/gtk/fm-progress-dlg.c:343
+#, fuzzy
+msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "<b>文件操作停止前出现了错误。</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:345
 msgid "Cancelled"
 msgstr "取消"
 
-#: ../src/gtk/fm-progress-dlg.c:332
+#: ../src/gtk/fm-progress-dlg.c:349
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr "<b>文件操作完成，但出现了一些错误。</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:334
+#: ../src/gtk/fm-progress-dlg.c:351
 msgid "Finished"
 msgstr "完成"
 
-#: ../src/gtk/fm-progress-dlg.c:356
+#: ../src/gtk/fm-progress-dlg.c:373
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1183,84 +1214,84 @@ msgstr ""
 "有些文件无法移到回收站，因为所处的文件系统不支持该操作。\n"
 "您想直接删除它们吗？"
 
-#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
+#: ../src/gtk/fm-progress-dlg.c:414 ../src/gtk/fm-progress-dlg.c:563
 msgid "_Pause"
 msgstr "暂停(_P)"
 
-#: ../src/gtk/fm-progress-dlg.c:405
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "_Resume"
 msgstr "继续(_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:562
+#: ../src/gtk/fm-progress-dlg.c:597
 msgid ", "
 msgstr "，"
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:581
+#: ../src/gtk/fm-progress-dlg.c:617
 msgid "Moving"
 msgstr "正在移动"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:585
+#: ../src/gtk/fm-progress-dlg.c:621
 msgid "Copying"
 msgstr "正在复制"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:589
+#: ../src/gtk/fm-progress-dlg.c:625
 msgid "Trashing"
 msgstr "正在移到回收站"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:593
+#: ../src/gtk/fm-progress-dlg.c:629
 msgid "Deleting"
 msgstr "正在删除"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:597
+#: ../src/gtk/fm-progress-dlg.c:633
 msgid "Creating link"
 msgstr "正在创建符号链接"
 
 #. translators: 'In:' string is followed by destination folder path
-#: ../src/gtk/fm-progress-dlg.c:599
+#: ../src/gtk/fm-progress-dlg.c:635
 msgid "<b>In:</b>"
 msgstr "<b>到：</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:600
+#: ../src/gtk/fm-progress-dlg.c:636
 msgid "Creating links to files"
 msgstr "创建文件的链接"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:607
+#: ../src/gtk/fm-progress-dlg.c:643
 msgid "Changing attributes of"
 msgstr "正在修改文件属性"
 
-#: ../src/gtk/fm-progress-dlg.c:608
+#: ../src/gtk/fm-progress-dlg.c:644
 msgid "Changing attributes of files"
 msgstr "正在修改文件属性"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:614
+#: ../src/gtk/fm-progress-dlg.c:650
 msgid "Restoring"
 msgstr "正在还原"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:624
+#: ../src/gtk/fm-progress-dlg.c:660
 #, c-format
 msgid "%s files"
 msgstr "%s 个文件"
 
-#: ../src/gtk/fm-progress-dlg.c:627
+#: ../src/gtk/fm-progress-dlg.c:663
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>正在进行文件操作...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:633
+#: ../src/gtk/fm-progress-dlg.c:669
 #, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>%s 个文件：</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:636
+#: ../src/gtk/fm-progress-dlg.c:672
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>%s 个文件：</b>"
@@ -1281,53 +1312,53 @@ msgstr "目录树(_D)"
 msgid "_Remote"
 msgstr "远程(_R)"
 
-#: ../src/gtk/fm-side-pane.c:426 ../src/gtk/fm-side-pane.c:619
+#: ../src/gtk/fm-side-pane.c:428 ../src/gtk/fm-side-pane.c:621
 msgid "Places"
 msgstr "位置"
 
-#: ../src/gtk/fm-side-pane.c:436 ../src/gtk/fm-side-pane.c:621
+#: ../src/gtk/fm-side-pane.c:438 ../src/gtk/fm-side-pane.c:623
 msgid "Directory Tree"
 msgstr "目录树"
 
-#: ../src/gtk/fm-standard-view.c:254
+#: ../src/gtk/fm-standard-view.c:255
 msgid "View of folder contents"
 msgstr "文件夹内容视图"
 
-#: ../src/gtk/fm-standard-view.c:831
+#: ../src/gtk/fm-standard-view.c:818
 #, c-format
 msgid "_Hide %s"
 msgstr "隐藏 %s (_H)"
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
 msgstr "左移(_M)"
 
-#: ../src/gtk/fm-standard-view.c:845
+#: ../src/gtk/fm-standard-view.c:832
 msgid "Move _Right"
 msgstr "右移(_R)"
 
-#: ../src/gtk/fm-standard-view.c:868
+#: ../src/gtk/fm-standard-view.c:855
 #, c-format
 msgid "Show %s"
 msgstr "显示 %s"
 
-#: ../src/gtk/fm-standard-view.c:880
+#: ../src/gtk/fm-standard-view.c:867
 msgid "_Forget Width"
 msgstr "忘记宽度(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1854
+#: ../src/gtk/fm-standard-view.c:1859
 msgid "_Icon View"
 msgstr "图标视图(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1855
+#: ../src/gtk/fm-standard-view.c:1860
 msgid "_Compact View"
 msgstr "紧缩视图(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1856
+#: ../src/gtk/fm-standard-view.c:1861
 msgid "_Thumbnail View"
 msgstr "缩略视图(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1857
+#: ../src/gtk/fm-standard-view.c:1862
 msgid "Detailed _List View"
 msgstr "详细列表视图(_L)"
 
@@ -1335,52 +1366,56 @@ msgstr "详细列表视图(_L)"
 msgid "Changes active tab"
 msgstr "更改活动标签"
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
-#: ../src/job/fm-dir-list-job.c:362
+#: ../src/job/fm-dir-list-job.c:238 ../src/job/fm-dir-list-job.c:251
+#: ../src/job/fm-dir-list-job.c:363
 #, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "指定的目录“%s”无效"
 
-#: ../src/job/fm-file-ops-job.c:519
+#: ../src/job/fm-file-ops-job.c:529 ../src/job/fm-file-ops-job.c:604
 msgid "Cannot access destination file"
 msgstr "无法访问目标文件"
 
-#: ../src/job/fm-file-ops-job.c:564
+#: ../src/job/fm-file-ops-job.c:650
 msgid "Cannot create a link on non-native filesystem"
 msgstr "无法在非本地文件系统中创建链接"
 
-#: ../src/job/fm-file-ops-job-delete.c:489
+#: ../src/job/fm-file-ops-job-delete.c:501
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "无法还原文件“%s”：原路径未知"
 
-#: ../src/job/fm-file-ops-job-xfer.c:54
+#: ../src/job/fm-file-ops-job-xfer.c:58
+msgid "Destination does not exist"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."
 msgstr "源位置和目的位置相同。"
 
-#: ../src/job/fm-file-ops-job-xfer.c:61
+#: ../src/job/fm-file-ops-job-xfer.c:70
 msgid "Cannot move a folder into its sub folder"
 msgstr "无法将文件夹移动到其子文件夹中"
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
+#: ../src/job/fm-file-ops-job-xfer.c:72
 msgid "Cannot copy a folder into its sub folder"
 msgstr "无法将文件夹复制到其子文件夹中"
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
+#: ../src/job/fm-file-ops-job-xfer.c:74
 msgid "Destination is a sub folder of source"
 msgstr "目标位置是源位置的子文件夹"
 
-#: ../src/job/fm-file-ops-job-xfer.c:380
+#: ../src/job/fm-file-ops-job-xfer.c:391
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "无法复制文件“%s”：不支持"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:312
+#: ../src/job/fm-file-ops-job-change-attr.c:314
 #, c-format
 msgid "Setting display name can be done only for single file"
 msgstr "只能对单个文件设置显示名"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:315
+#: ../src/job/fm-file-ops-job-change-attr.c:317
 #, c-format
 msgid "Setting target can be done only for single file"
 msgstr "只能对单个文件设置目标"
@@ -1400,100 +1435,95 @@ msgstr "XML 文件不包含 应用程序 根节点"
 msgid "Cannot create XML definition for '%s'"
 msgstr "无法为“%s”创建 XML 定义"
 
-#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2634
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr "菜单路径“%s”已存在"
 
-#: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
-#: ../src/modules/vfs-menu.c:1520
+#: ../src/modules/vfs-menu.c:1102 ../src/modules/vfs-menu.c:1407
+#: ../src/modules/vfs-menu.c:1493
 msgid "Menu cache error"
 msgstr "菜单缓存错误"
 
-#. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
-msgid "Operation not supported"
-msgstr "不支持该操作"
-
-#: ../src/modules/vfs-menu.c:1394
+#: ../src/modules/vfs-menu.c:1367
 msgid "Invalid menu directory"
 msgstr "无效的菜单目录"
 
-#: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
+#: ../src/modules/vfs-menu.c:1430 ../src/modules/vfs-menu.c:1706
 msgid "Menu item name cannot be empty"
 msgstr "菜单项名称不能为空"
 
-#: ../src/modules/vfs-menu.c:1507
+#: ../src/modules/vfs-menu.c:1480
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "无效的菜单目录“%s”"
 
-#: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
+#: ../src/modules/vfs-menu.c:1623 ../src/modules/vfs-menu.c:1764
 msgid "Invalid menu item"
 msgstr "无效的菜单项"
 
-#: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
+#: ../src/modules/vfs-menu.c:1627 ../src/modules/vfs-menu.c:1768
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "菜单项“%s”不包含正确的项文件"
 
-#: ../src/modules/vfs-menu.c:1820
+#: ../src/modules/vfs-menu.c:1790
 msgid "Change hidden status isn't supported for menu directory"
 msgstr "不支持更改菜单目录的隐藏状态"
 
-#: ../src/modules/vfs-menu.c:1978
+#: ../src/modules/vfs-menu.c:1948
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "不支持设置属性“%s”"
 
-#: ../src/modules/vfs-menu.c:1988
+#: ../src/modules/vfs-menu.c:1958
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "属性“%s”的值无效"
 
-#: ../src/modules/vfs-menu.c:2025
+#: ../src/modules/vfs-menu.c:1995
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr "“%s”是一个菜单目录"
 
-#: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
+#: ../src/modules/vfs-menu.c:1998 ../src/modules/vfs-menu.c:2627
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "“%s”不是一个菜单项"
 
-#: ../src/modules/vfs-menu.c:2052
+#: ../src/modules/vfs-menu.c:2022
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr "“%s”项文件损坏"
 
-#: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
+#: ../src/modules/vfs-menu.c:2308 ../src/modules/vfs-menu.c:2397
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "无法创建菜单项“%s”"
 
-#: ../src/modules/vfs-menu.c:2572
+#: ../src/modules/vfs-menu.c:2542
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr "菜单目录名不应以“.desktop”结尾"
 
-#: ../src/modules/vfs-menu.c:2617
+#: ../src/modules/vfs-menu.c:2587
 msgid "Invalid operation with menu root"
 msgstr "对菜单根的操作无效"
 
-#: ../src/modules/vfs-menu.c:2706
+#: ../src/modules/vfs-menu.c:2676
 msgid "Invalid destination"
 msgstr "无效的目标"
 
-#: ../src/modules/vfs-menu.c:2979
+#: ../src/modules/vfs-menu.c:2952
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor：在菜单缓存中未找到文件夹“%s”"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:985
+#: ../src/modules/vfs-search.c:991
 msgid "Search"
 msgstr "搜索"
 
-#: ../src/modules/vfs-search.c:1052
+#: ../src/modules/vfs-search.c:1053
 msgid "Search Results"
 msgstr "搜索结果"
 
@@ -1547,11 +1577,11 @@ msgstr "使用启动通知(_U)"
 msgid "_Desktop Entry"
 msgstr "桌面项(_D)"
 
-#: ../src/modules/gtk-menu-trash.c:72
+#: ../src/modules/gtk-menu-trash.c:74
 msgid "_Restore"
 msgstr "还原(_R)"
 
-#: ../src/modules/gtk-menu-trash.c:73
+#: ../src/modules/gtk-menu-trash.c:75
 msgid "Restore trashed files to original paths"
 msgstr "将移到回收站的文件还原到原位置"
 

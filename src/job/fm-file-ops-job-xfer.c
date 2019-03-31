@@ -4,6 +4,7 @@
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
  *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2018 Nikita Sirgienko <warquark@gmail.com>
  *
  *      This file is a part of the Libfm library.
  *
@@ -52,7 +53,12 @@ static gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFil
 {
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    if(job->type == FM_FILE_OP_MOVE && g_file_equal(src, dest))
+    if(dest == NULL) /* as with search:/// */
+    {
+        err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+            _("Destination does not exist"));
+    }
+    else if(job->type == FM_FILE_OP_MOVE && g_file_equal(src, dest))
     {
         err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
             _("Source and destination are the same."));
@@ -98,9 +104,6 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src,
     guint32 mode;
     gboolean skip_dir_content = FALSE;
 
-    /* FIXME: g_file_get_child() failed? generate error! */
-    g_return_val_if_fail(dest != NULL, FALSE);
-
     job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP | FM_FILE_OP_OVERWRITE;
     if( G_LIKELY(inf) )
         g_object_ref(inf);
@@ -119,7 +122,7 @@ _retry_query_src_info:
         }
     }
 
-    if(!_fm_file_ops_job_check_paths(job, src, inf, dest))
+    if(!_fm_file_ops_job_check_paths(job, src, inf, dest)) /* also checks dest */
     {
         g_object_unref(inf);
         return FALSE;
@@ -286,7 +289,9 @@ _retry_enum_children:
                                                                       -1, NULL, NULL, NULL);
                                     /* gvfs escapes it itself */
                                 else /* copy from virtual to native */
-                                    tmp_basename = fm_uri_subpath_to_native_subpath(g_file_info_get_name(inf), NULL);
+                                    /* display name as copying target more prefers, that basename (for example, for Google Drive)
+                                    See https://debarshiray.wordpress.com/2015/09/13/google-drive-and-gnome-what-is-a-volatile-path/ for some explanations*/
+                                    tmp_basename = fm_uri_subpath_to_native_subpath(g_file_info_get_display_name(inf), NULL);
                                 sub_dest = g_file_get_child(dest,
                                         tmp_basename ? tmp_basename : g_file_info_get_name(inf));
                                 g_free(tmp_basename);
@@ -738,9 +743,12 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
                     basename++;
                 else
                     basename = sub_name;
+                tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
+                g_free(sub_name);
             }
-            tmp_basename = fm_uri_subpath_to_native_subpath(basename, NULL);
-            g_free(sub_name);
+            else
+                /* if not URI, better use display name */
+                tmp_basename = fm_path_display_basename(path);
         }
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
@@ -781,7 +789,8 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         }
 
         g_object_unref(src);
-        g_object_unref(dest);
+        if(dest != NULL)
+            g_object_unref(dest);
     }
 
     /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
@@ -897,7 +906,11 @@ _retry_query_dest_info:
                                               -1, NULL, NULL, NULL);
             /* gvfs escapes it itself */
         else /* move from virtual to native/virtual */
-            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
+        {
+            char *name = fm_path_display_basename(path);
+            tmp_basename = fm_uri_subpath_to_native_subpath(name, NULL);
+            g_free(name);
+        }
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
@@ -938,7 +951,8 @@ _retry_query_dest_info:
         }
 
         g_object_unref(src);
-        g_object_unref(dest);
+        if(dest != NULL)
+            g_object_unref(dest);
 
         if(!ret)
             break;

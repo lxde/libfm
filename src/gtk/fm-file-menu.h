@@ -2,7 +2,7 @@
  *      fm-file-menu.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -46,6 +46,8 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 
 /* call fm_file_info_list_ref() if you need to own reference to the returned list. */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
+
+FmPath* fm_file_menu_get_cwd(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
 

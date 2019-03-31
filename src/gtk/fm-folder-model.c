@@ -828,11 +828,20 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     case FM_FOLDER_MODEL_COL_EXT:
         {
             const char *name = fm_file_info_get_disp_name(info);
-            const char *str = strrchr(name, '.');
-            if (str == name)
+            const char *str;
+            if (fm_file_info_is_dir(info))
+            {
+                /* don't look for extension in directories*/
                 str = NULL;
-            else if (str)
-                str++;
+            }
+            else
+            {
+                str = strrchr(name, '.');
+                if (str == name)
+                    str = NULL;
+                else if (str)
+                    str++;
+            }
             g_value_set_string(value, str);
         }
         break;

@@ -1,5 +1,5 @@
 # for use in libtool -version-info
-ABI_VERSION=4:4:0
+ABI_VERSION=5:2:1
 
 NULL=
 
@@ -56,6 +56,7 @@ udisks_SOURCES=
 endif
 
 base_SOURCES = \
+	base/fm-action.c \
 	base/fm-app-info.c \
 	base/fm-archiver.c \
 	base/fm-bookmarks.c \
@@ -162,6 +163,7 @@ else
 LIBFM_INCLUDES = \
 	fm.h \
 	fm-seal.h \
+	base/fm-action.h \
 	base/fm-app-info.h \
 	base/fm-archiver.h \
 	base/fm-bookmarks.h \
@@ -278,7 +280,7 @@ libfm_la_LDFLAGS = \
 	-version-info $(ABI_VERSION) \
 	$(NULL)
 
-if HAVE_ACTIONS
+if HAVE_OLD_ACTIONS
 LIBFMACTIONS = $(top_builddir)/src/actions/libfmactions.la
 libfm_la_LIBADD += $(LIBFMACTIONS)
 libfm_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)

@@ -3,6 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2017 Nathan Osman <nathan@quickmediasolutions.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -34,7 +35,9 @@
 #endif
 
 #include "fm-progress-dlg.h"
+#include "fm-config.h"
 #include "fm-gtk-utils.h"
+#include "fm-utils.h"
 #include <glib/gi18n-lib.h>
 
 #define SHOW_DLG_DELAY  1000
@@ -60,6 +63,8 @@ struct _FmProgressDisplay
     GtkWidget* dest;
     GtkLabel* current;
     GtkProgressBar* progress;
+    GtkLabel* data_transferred;
+    GtkLabel* data_transferred_label;
     GtkLabel* remaining_time;
     GtkLabel *remaining_time_label;
     GtkWidget* error_pane;
@@ -75,6 +80,8 @@ struct _FmProgressDisplay
     const char *op_text;
     char* cur_file;
     char* old_cur_file;
+    goffset data_transferred_size;
+    goffset data_total_size;
     guint percent;
 
     guint delay_timeout;
@@ -428,6 +435,10 @@ static gboolean on_update_dlg(gpointer user_data)
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
     gdouble elapsed;
 
+    char* data_transferred_str;
+    char trans_size_str[128];
+    char total_size_str[128];
+
     if (g_source_is_destroyed(g_main_current_source()) || data->dlg == NULL)
         return FALSE;
     data->update_timeout = 0;
@@ -437,6 +448,7 @@ static gboolean on_update_dlg(gpointer user_data)
     {
         g_string_printf(data->str, "<i>%s %s</i>", data->op_text, data->cur_file);
         gtk_label_set_markup(data->current, data->str->str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->current), data->cur_file);
         g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
         data->cur_file = NULL;
@@ -444,6 +456,15 @@ static gboolean on_update_dlg(gpointer user_data)
     g_string_printf(data->str, "%d %%", data->percent);
     gtk_progress_bar_set_fraction(data->progress, (gdouble)data->percent/100);
     gtk_progress_bar_set_text(data->progress, data->str->str);
+
+    /* display the amount of data transferred */
+    fm_file_size_to_str(trans_size_str, sizeof(trans_size_str),
+        data->data_transferred_size, fm_config->si_unit);
+    fm_file_size_to_str(total_size_str, sizeof(total_size_str),
+        data->data_total_size, fm_config->si_unit);
+    data_transferred_str = g_strdup_printf("%s / %s", trans_size_str, total_size_str);
+    gtk_label_set_text(data->data_transferred, data_transferred_str);
+    g_free(data_transferred_str);
 
     elapsed = g_timer_elapsed(data->timer, NULL);
     if(elapsed >= 0.5 && data->percent > 0)
@@ -485,6 +506,8 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 
 static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data)
 {
+    data->data_transferred_size = job->finished;
+    data->data_total_size = job->total;
     data->percent = percent;
     if(data->dlg && data->update_timeout == 0)
         data->update_timeout = gdk_threads_add_timeout(500, on_update_dlg, data);
@@ -532,6 +555,8 @@ static gboolean _on_show_dlg(gpointer user_data)
     data->progress = GTK_PROGRESS_BAR(gtk_builder_get_object(builder, "progress"));
     data->error_pane = (GtkWidget*)gtk_builder_get_object(builder, "error_pane");
     data->error_msg = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "error_msg"));
+    data->data_transferred = GTK_LABEL(gtk_builder_get_object(builder, "data_transferred"));
+    data->data_transferred_label = GTK_LABEL(gtk_builder_get_object(builder, "data_transferred_label"));
     data->remaining_time = GTK_LABEL(gtk_builder_get_object(builder, "remaining_time"));
     data->remaining_time_label = GTK_LABEL(gtk_builder_get_object(builder, "remaining_time_label"));
     data->cancel = GTK_BUTTON(gtk_builder_get_object(builder, "cancel"));
@@ -577,6 +602,7 @@ static gboolean _on_show_dlg(gpointer user_data)
         if(l)
             g_string_append(str, "...");
         gtk_label_set_text(data->src, str->str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->src), str->str);
         g_string_free(str, TRUE);
     }
 
@@ -651,6 +677,7 @@ static gboolean _on_show_dlg(gpointer user_data)
     {
         char* dest_str = fm_path_display_name(dest, TRUE);
         gtk_label_set_text(to, dest_str);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(data->dest), dest_str);
         g_free(dest_str);
     }
     else

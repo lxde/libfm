@@ -746,7 +746,7 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
     gtk_tree_model_get(model, iter, COL_BASENAME, &model_file_name, -1);
     model_file_name_len = strlen(model_file_name);
 
-    if( priv->highlight_completion_match )
+    if( priv->highlight_completion_match && (model_file_name_len >= priv->typed_basename_len) )
     {
         int buf_len = model_file_name_len + 14 + 1;
         gchar* markup = g_malloc(buf_len);

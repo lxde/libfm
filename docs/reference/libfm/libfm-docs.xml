@@ -27,6 +27,7 @@ used to develop other file manager-related tools as well.
     <chapter id="libfm-core">
       <title>Libfm Core Reference.</title>
       <xi:include href="xml/fm.xml"/>
+      <xi:include href="xml/fm-action.xml"/>
       <xi:include href="xml/fm-app-info.xml"/>
       <xi:include href="xml/fm-archiver.xml"/>
       <xi:include href="xml/fm-bookmarks.xml"/>
@@ -105,6 +106,41 @@ used to develop other file manager-related tools as well.
     <title>API Index</title>
     <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
   </index>
-
+  <index id="api-index-deprecated">
+    <title>Index of deprecated symbols</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback/></xi:include>
+  </index>
+  <index role="1.0.0">
+    <title>Index of symbols included in 1.0.0</title>
+    <xi:include href="xml/api-index-0.1.0.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.1.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.5.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.9.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.10.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.11.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.12.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.14.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.15.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.16.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.17.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-0.1.99.xml"><xi:fallback/></xi:include>
+    <xi:include href="xml/api-index-1.0.0.xml"><xi:fallback/></xi:include>
+  </index>
+  <index role="1.0.1">
+    <title>Index of new symbols in 1.0.1</title>
+    <xi:include href="xml/api-index-1.0.1.xml"><xi:fallback/></xi:include>
+  </index>
+  <index role="1.1.0">
+    <title>Index of new symbols in 1.1.0</title>
+    <xi:include href="xml/api-index-1.0.2.xml"><xi:fallback/></xi:include>
+  </index>
+  <index role="1.2.0">
+    <title>Index of new symbols in 1.2.0</title>
+    <xi:include href="xml/api-index-1.2.0.xml"><xi:fallback/></xi:include>
+  </index>
+  <index role="1.3.0">
+    <title>Index of new symbols in 1.3.0</title>
+    <xi:include href="xml/api-index-1.3.0.xml"><xi:fallback/></xi:include>
+  </index>
   <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
 </book>

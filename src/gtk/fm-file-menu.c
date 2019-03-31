@@ -2,7 +2,7 @@
  *      fm-file-menu.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2013-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -190,6 +190,7 @@ void fm_file_menu_destroy(FmFileMenu* menu)
     if (win)
         g_object_weak_unref(win, (GWeakNotify)gtk_menu_detach, menu->menu);
 
+    gtk_menu_detach(menu->menu);
     gtk_widget_destroy(GTK_WIDGET(menu->menu));
 
     if(menu->file_infos)
@@ -410,6 +411,7 @@ _next_app:
             g_signal_connect(act, "activate", G_CALLBACK(on_open_with_app), data);
             gtk_action_set_gicon(act, g_app_info_get_icon(app));
             gtk_action_group_add_action(act_grp, act);
+            g_object_unref(act);
             /* associate the app info object with the action */
             g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, g_object_unref);
             g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
@@ -597,6 +599,22 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu)
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 {
     return menu->menu;
+}
+
+/**
+ * fm_file_menu_get_cwd
+ * @menu: a menu
+ *
+ * Retrieves working directory @menu was created for. Returned data are owned
+ * by @menu and should be not freed by caller.
+ *
+ * Returns: (transfer none): working directory path.
+ *
+ * Since: 1.3.0
+ */
+FmPath* fm_file_menu_get_cwd(FmFileMenu* menu)
+{
+    return menu->cwd;
 }
 
 static void on_open(GtkAction* action, gpointer user_data)
