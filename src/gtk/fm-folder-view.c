@@ -1378,6 +1378,20 @@ static inline GtkMenu *_make_file_menu(FmFolderView* fv, GtkWindow *win,
     return fm_file_menu_get_menu(menu);
 }
 
+static inline GtkMenu *_make_app_menu(FmFolderView* fv, GtkWindow *win,
+                                       FmFolderViewUpdatePopup update_popup,
+                                       FmLaunchFolderFunc open_folders,
+                                       FmFileInfoList* files)
+{
+    FmFileMenu* menu;
+
+    menu = fm_app_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
+    fm_file_menu_set_folder_func(menu, open_folders, win);
+
+    gtk_ui_manager_ensure_update(fm_file_menu_get_ui(menu));
+    return fm_file_menu_get_menu(menu);
+}
+
 static void on_file_menu(GtkAction* act, FmFolderView* fv)
 {
     FmFolderViewInterface *iface = FM_FOLDER_VIEW_GET_IFACE(fv);
@@ -1769,6 +1783,24 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
         fm_launch_files_simple(win, NULL, fm_file_info_list_peek_head_link(files),
                                open_folders, win);
         fm_file_info_list_unref(files);
+        break;
+    case FM_FV_MIDDLE_CLICK: /* middle click */
+        files = iface->dup_selected_files(fv);
+        if(fi && fm_file_info_is_dir(fi))
+        {
+            /* handled by PCManFm */
+        }
+        else
+        {
+           if(fi)
+            {
+                files = iface->dup_selected_files(fv);
+                popup = _make_app_menu(fv, win, update_popup, open_folders, files);
+                fm_file_info_list_unref(files);
+                gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
+                               gtk_get_current_event_time());
+            }
+        }
         break;
     case FM_FV_CONTEXT_MENU:
         if(fi && iface->count_selected_files(fv) > 0)

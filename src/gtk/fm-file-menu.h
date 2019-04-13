@@ -33,6 +33,7 @@ G_BEGIN_DECLS
 typedef struct _FmFileMenu FmFileMenu;
 
 FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy);
+FmFileMenu* fm_app_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy);
 FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy);
 void fm_file_menu_destroy(FmFileMenu* menu);
 
