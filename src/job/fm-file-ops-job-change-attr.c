@@ -172,8 +172,8 @@ _retry_disp_name:
                 GFile* src_large = g_file_new_for_path(src_path_large);
                 GFile* dest_normal = g_file_new_for_path(dest_path_normal);
                 GFile* dest_large = g_file_new_for_path(dest_path_large);
-                g_file_copy (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
-                g_file_copy (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+                g_file_move (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+                g_file_move (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
                 g_free(thumb_dir);
                 g_free(src_path_normal);
                 g_free(src_path_large);
