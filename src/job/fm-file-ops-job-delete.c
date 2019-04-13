@@ -275,22 +275,7 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
         /* delete thumbnails, if existing */
         if(ret == TRUE && g_file_is_native(src))
         {
-            gchar* thumb_dir = g_build_filename(fm_get_home_dir(), thumbnails_path, NULL);
-            gchar* src_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
-            gchar* src_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
-            gchar* src_uri = g_file_get_uri(src);
-            ThumbnailTaskFlags flags = LOAD_NORMAL | LOAD_LARGE;
-            get_thumbnail_paths( src_uri, src_path_normal, src_path_large, flags);
-            GFile* src_normal = g_file_new_for_path(src_path_normal);
-            GFile* src_large = g_file_new_for_path(src_path_large);
-            g_file_delete (src_normal, NULL, NULL);
-            g_file_delete (src_large, NULL, NULL);
-            g_free(thumb_dir);
-            g_free(src_path_normal);
-            g_free(src_path_large);
-            g_free(src_uri);
-            g_object_unref(src_normal);
-            g_object_unref(src_large);
+            thumbnail_files_operation(src, NULL, FM_FILE_OP_DELETE);
         }
 
         g_object_unref(src);

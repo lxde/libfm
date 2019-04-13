@@ -27,6 +27,7 @@
 #include <glib.h>
 #include "fm-file-info.h"
 #include "fm-config.h"
+#include "fm-file-ops-job.h"
 
 /* If we're not using GNU C, elide __attribute__ */
 #ifndef __GNUC__
@@ -116,6 +117,12 @@ static gchar thumbnails_normal_path[] = "normal";
 static gchar thumbnails_large_path[] = "large";
 static gchar thumbnails_empty_basename[] = "00000000000000000000000000000000.png";
 void get_thumbnail_paths( gchar* src_uri, gchar* dst_normal, gchar* dst_large, ThumbnailTaskFlags flags);
+
+static gchar *thumbnail_file_op_src_path_normal = NULL;
+static gchar *thumbnail_file_op_src_path_large = NULL;
+static gchar *thumbnail_file_op_dest_path_normal = NULL;
+static gchar *thumbnail_file_op_dest_path_large = NULL;
+void thumbnail_files_operation(GFile* src, GFile* dest, FmFileOpType opType);
 
 G_END_DECLS
 

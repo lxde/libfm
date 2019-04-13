@@ -158,33 +158,7 @@ _retry_disp_name:
             /* move thumbnail, if existing */
             if(renamed != NULL && g_file_is_native(gf))
             {
-                gchar* thumb_dir = g_build_filename(fm_get_home_dir(), thumbnails_path, NULL);
-                gchar* src_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
-                gchar* src_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
-                gchar* dest_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
-                gchar* dest_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
-                gchar* src_uri = g_file_get_uri(gf);
-                gchar* dest_uri = g_file_get_uri(renamed);
-                ThumbnailTaskFlags flags = LOAD_NORMAL | LOAD_LARGE;
-                get_thumbnail_paths( src_uri, src_path_normal, src_path_large, flags);
-                get_thumbnail_paths( dest_uri, dest_path_normal, dest_path_large, flags);
-                GFile* src_normal = g_file_new_for_path(src_path_normal);
-                GFile* src_large = g_file_new_for_path(src_path_large);
-                GFile* dest_normal = g_file_new_for_path(dest_path_normal);
-                GFile* dest_large = g_file_new_for_path(dest_path_large);
-                g_file_move (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
-                g_file_move (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
-                g_free(thumb_dir);
-                g_free(src_path_normal);
-                g_free(src_path_large);
-                g_free(dest_path_normal);
-                g_free(dest_path_large);
-                g_free(src_uri);
-                g_free(dest_uri);
-                g_object_unref(src_normal);
-                g_object_unref(src_large);
-                g_object_unref(dest_normal);
-                g_object_unref(dest_large);
+                thumbnail_files_operation(gf, renamed, FM_FILE_OP_MOVE);
             }
 
             g_object_unref(renamed);

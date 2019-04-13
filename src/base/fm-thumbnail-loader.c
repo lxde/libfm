@@ -438,6 +438,71 @@ void get_thumbnail_paths( gchar* src_uri, gchar* dst_normal, gchar* dst_large, T
     }
 }
 
+/* Copy, move, or delete an existing thumbnail file */
+void thumbnail_files_operation(GFile* src, GFile* dest, FmFileOpType opType)
+{
+    gchar *src_uri, *dest_uri;
+    GFile *src_normal, *src_large, *dest_normal, *dest_large;
+    ThumbnailTaskFlags flags = LOAD_NORMAL | LOAD_LARGE;
+
+    if(thumbnail_file_op_src_path_normal == NULL)
+    {
+        thumbnail_file_op_src_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_src_path_large == NULL)
+    {
+        thumbnail_file_op_src_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_dest_path_normal == NULL)
+    {
+        thumbnail_file_op_dest_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_dest_path_large == NULL)
+    {
+        thumbnail_file_op_dest_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
+    }
+
+    src_uri = g_file_get_uri(src);
+    get_thumbnail_paths(src_uri, thumbnail_file_op_src_path_normal, thumbnail_file_op_src_path_large, flags);
+    src_normal = g_file_new_for_path(thumbnail_file_op_src_path_normal);
+    src_large = g_file_new_for_path(thumbnail_file_op_src_path_large);
+
+    if(opType == FM_FILE_OP_COPY || opType == FM_FILE_OP_MOVE)
+    {
+        dest_uri = g_file_get_uri(dest);
+        get_thumbnail_paths(dest_uri, thumbnail_file_op_dest_path_normal, thumbnail_file_op_dest_path_large, flags);
+        dest_normal = g_file_new_for_path(thumbnail_file_op_dest_path_normal);
+        dest_large = g_file_new_for_path(thumbnail_file_op_dest_path_large);
+    }
+
+    switch(opType)
+    {
+    case FM_FILE_OP_COPY:
+        g_file_copy (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        g_file_copy (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        break;
+    case FM_FILE_OP_MOVE:
+        g_file_move (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        g_file_move (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        break;
+    case FM_FILE_OP_DELETE:
+        g_file_delete (src_normal, NULL, NULL);
+        g_file_delete (src_large, NULL, NULL);
+        break;
+    }
+
+    g_free(src_uri);
+    g_object_unref(src_normal);
+    g_object_unref(src_large);
+
+    if(opType == FM_FILE_OP_COPY || opType == FM_FILE_OP_MOVE)
+    {
+        g_free(dest_uri);
+        g_object_unref(dest_normal);
+        g_object_unref(dest_large);
+    }
+}
+
 /* in thread */
 static gpointer load_thumbnail_thread(gpointer user_data)
 {
