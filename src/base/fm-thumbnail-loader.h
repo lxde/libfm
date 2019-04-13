@@ -26,6 +26,7 @@
 
 #include <glib.h>
 #include "fm-file-info.h"
+#include "fm-config.h"
 
 /* If we're not using GNU C, elide __attribute__ */
 #ifndef __GNUC__
