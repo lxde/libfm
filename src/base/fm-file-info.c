@@ -1393,7 +1393,8 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
                    which may be considered as a safe desktop entry path
                    then check if that is a shortcut to a native file
                    otherwise it is a link to a file under menu:// */
-                if (!g_str_has_prefix(fi->target, "/usr/share/"))
+                if (!g_str_has_prefix(fi->target, "/usr/share/") &&
+                        !g_str_has_prefix(fi->target, "/usr/local/share/"))
                 {
                     FmPath *target = fm_path_new_for_str(fi->target);
                     gboolean is_native = fm_path_is_native(target);
