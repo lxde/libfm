@@ -506,7 +506,7 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 
 static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data)
 {
-    data->data_transferred_size = job->finished;
+    data->data_transferred_size = job->finished + job->current_file_finished;
     data->data_total_size = job->total;
     data->percent = percent;
     if(data->dlg && data->update_timeout == 0)
