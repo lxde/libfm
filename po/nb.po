@@ -65,7 +65,7 @@ msgstr "_Kjør i terminalemulator"
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:7 ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
-msgstr "_Hold terminalvinduet åpent etter kommanokjøring"
+msgstr "_Hold terminalvinduet åpent etter kommandokjøring"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -79,7 +79,7 @@ msgstr ""
 "<b>Disse spesielle kodene kan brukes i ledeteksten:</b>\n"
 "  <b>%f</b>: Representerer et individuelt filnavn\n"
 "  <b>%F</b>: Representerer flere filnavn\n"
-"  <b>%u</b>: Representer et individuelt URI av filen\n"
+"  <b>%u</b>: Representerer et individuelt URI av filen\n"
 "  <b>%U</b>: Representerer flere URIer"
 
 #: ../data/ui/app-chooser.glade.h:14
@@ -292,7 +292,7 @@ msgctxt ""
 "It is a directory access bit - 'sticky' - where only owner can delete a file "
 "from it"
 msgid "Sticky"
-msgstr "Fast"
+msgstr "Klister"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Set GID"
