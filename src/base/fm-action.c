@@ -1872,7 +1872,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
                 {
                     if (strncmp(&tst[1], "all/", 4) == 0)
                     {
-                        if (strcmp(&tst[5], "allfiles"))
+                        if (strcmp(&tst[5], "allfiles") == 0)
                         {
                             for (l = flist; match && l; l = l->next)
                                 if (S_ISREG(fm_file_info_get_mode(l->data)))
@@ -1902,7 +1902,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
                 {
                     if (strncmp(tst, "all/", 4) == 0)
                     {
-                        if (strcmp(&tst[4], "allfiles"))
+                        if (strcmp(&tst[4], "allfiles") == 0)
                         {
                             for (l = flist; l; l = l->next)
                                 if (!S_ISREG(fm_file_info_get_mode(l->data)))
