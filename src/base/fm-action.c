@@ -1,7 +1,8 @@
 /*
  *      fm-action.c
  *
- *      Copyright 2014-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2014-2020 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2020 Leonardo Citrolo <leoc@users.sourceforge.net>
  *
  *      This file is a part of the Libfm library.
  *
@@ -1272,6 +1273,8 @@ static FmActionCondition *_g_key_file_get_conditions(GKeyFile *kf, const char *g
             c++, type = CONDITION_TYPE_COUNT_LESS;
         else if (c[0] == '>')
             c++, type = CONDITION_TYPE_COUNT_MORE;
+        else if (c[0] == '=')
+            c++, type = CONDITION_TYPE_COUNT;
         else
             type = CONDITION_TYPE_COUNT;
         while (c[0] == ' ') c++;
