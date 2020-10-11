@@ -135,7 +135,7 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
     else /* unknown terminal */
     {
         if (strcmp(basename, "x-terminal-emulator") == 0)
-            g_message("x-terminal-emulator has very limited support, consider choose another terminal");
+            g_message("x-terminal-emulator has very limited support, consider choosing another terminal");
         else
             g_warning("terminal %s isn't known, consider report it to LibFM developers",
                       basename);
