@@ -460,9 +460,9 @@ static void fm_cell_renderer_text_get_preferred_height(GtkCellRenderer *cell,
     _get_size(cell, widget, NULL, text, NULL, NULL, &height, NULL, NULL, NULL, NULL, NULL);
     g_free(text);
 
-    if(natural_size && *natural_size > height)
+    if(natural_size)
         *natural_size = height;
-    if(minimum_size && *minimum_size > height)
+    if(minimum_size)
         *minimum_size = height;
 }
 
