@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2020-12-04 13:39+0100\n"
+"PO-Revision-Date: 2020-12-11 14:00+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -32,7 +32,7 @@ msgstr "Verknüpfungs-Editor"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
-msgstr "Erstelle neuen oder ändere existieren .desktop-Datei Eintrag"
+msgstr "Neue .desktop-Datei erstellen oder eine vorhandene bearbeiten"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose Application"
@@ -586,7 +586,7 @@ msgstr "Keine vorgegebene Anwendung für MIME-Typ %s festgelegt."
 #: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
 #: ../src/gtk/fm-places-model.c:1016
 msgid "Devices"
-msgstr "Geräte"
+msgstr "Laufwerke"
 
 #: ../src/base/fm-path.c:185 ../src/gtk/fm-places-model.c:866
 #: ../src/gtk/fm-places-model.c:1031
@@ -1182,7 +1182,7 @@ msgstr "_Papierkorb leeren"
 #: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
-"Liste häufig verwendeter Pfade, Geräte und Favoriten in der "
+"Liste häufig verwendeter Pfade, Laufwerke und Favoriten in der "
 "Seitenleiste anzeigen"
 
 #: ../src/gtk/fm-places-view.c:1124
