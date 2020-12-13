@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2020-12-11 14:00+0100\n"
+"PO-Revision-Date: 2020-12-13 12:28+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -139,7 +139,7 @@ msgstr "_Auswahl auf alle Dateien anwenden"
 
 #: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
-msgstr "Wählen Sie ein Symbol aus …"
+msgstr "Symbol auswählen"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:3
@@ -153,7 +153,7 @@ msgstr "Bilddateien"
 
 #: ../data/ui/choose-icon.ui.h:6
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Symbol auswählen aus:</b>"
+msgstr "<b>Wählen Sie ein Symbol aus:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -760,7 +760,7 @@ msgstr "<Keine Unterordner>"
 
 #: ../src/gtk/fm-dir-tree-model.c:423 ../src/gtk/fm-dir-tree-model.c:1214
 msgid "Loading..."
-msgstr "Wird geladen …"
+msgstr "wird geladen …"
 
 #: ../src/gtk/fm-dir-tree-view.c:546 ../src/gtk/fm-side-pane.c:647
 msgid "Shows tree of directories in sidebar"
@@ -858,7 +858,7 @@ msgstr[1] "Bytes"
 #: ../src/gtk/fm-file-properties.c:510
 #, c-format
 msgid "scanning... %d"
-msgstr "Wird ermittelt … %d"
+msgstr "wird ermittelt … %d"
 
 #: ../src/gtk/fm-file-properties.c:588
 msgid "Please enter a valid user name or numeric id."
@@ -868,7 +868,7 @@ msgstr "Bitte gültigen Benutzernamen oder numerische ID eingeben."
 msgid "Please enter a valid group name or numeric id."
 msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
-# Direkte Anrede: Wollen Sie... ????
+# Direkte Anrede: Möchten Sie... ????
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:827
 msgid ""
@@ -897,7 +897,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1026
 msgid "scanning..."
-msgstr "Wird ermittelt …"
+msgstr "wird ermittelt …"
 
 #: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
@@ -1019,7 +1019,7 @@ msgstr "Geben Sie einen Namen für die leere Datei an:"
 
 #: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
-msgstr "Erstellen …"
+msgstr "Datei erstellen"
 
 #: ../src/gtk/fm-folder-view.c:866
 msgid "New"
@@ -1635,160 +1635,160 @@ msgstr "Ergebnis"
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "CD-ROM Medium"
+msgstr "CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "CD-ROM Rohling"
+msgstr "Leere CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr "CD-R Medium"
+msgstr "CD-R"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "CD-R Rohling"
+msgstr "Leere CD-R"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr "CD-RW Medium"
+msgstr "CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "CD-RW Rohling"
+msgstr "Leere CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr "DVD-ROM Medium"
+msgstr "DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "DVD-ROM Rohling"
+msgstr "Leere DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr "DVD-RW Medium"
+msgstr "DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "DVD-RW Rohling"
+msgstr "Leere DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr "DVD-RAM Medium"
+msgstr "DVD-RAM"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "DVD-RAM Rohling"
+msgstr "Leere DVD-RAM"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr "DVD+R Medium"
+msgstr "DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "DVD+R Rohling"
+msgstr "Leere DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr "DVD+RW Medium"
+msgstr "DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "DVD+RW Rohling"
+msgstr "Leere DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "DVD+R DL Medium"
+msgstr "DVD+R DL"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "DVD+R DL Rohling"
+msgstr "Leere DVD+R DL"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr "DVD+ DL Medium (wiederbeschreibbar)"
+msgstr "DVD+RW DL"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "DVD+ DL Rohling (wiederbeschreibbar)"
+msgstr "Leere DVD+RW DL"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr "Blu-Ray Medium"
+msgstr "Blu-ray"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr "Blu-Ray Rohling"
+msgstr "Leere Blu-ray"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr "Blu-Ray R Medium"
+msgstr "BD-R"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr "Blu-Ray R Rohling"
+msgstr "Leere BD-R"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr "Blu-Ray Medium (wiederbeschreibbar)"
+msgstr "BD-RE"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "Blu-Ray Rohling (wiederbeschreibbar)"
+msgstr "Leere BD-RE"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr "HD DVD Medium"
+msgstr "HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "HD DVD Rohling"
+msgstr "Leere HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr "HD DVD-R Medium"
+msgstr "HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "HD DVD-R Rohling"
+msgstr "Leere HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr "HD DVD-RW Medium"
+msgstr "HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "HD DVD-RW Rohling"
+msgstr "Leere HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr "MO Medium"
+msgstr "MO-Disk"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr "Leeres MO Medium"
+msgstr "Leere MO-Disk"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr "MRW Medium"
+msgstr "MRW-Disk"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr "Leeres MRW Medium"
+msgstr "Leere MRW-Disk"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr "MRW/W Medium"
+msgstr "MRW/W-Disk"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr "Leeres MRW/W Medium"
+msgstr "Leere MRW/W-Disk"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "Leeres optisches Medium"
+msgstr "Leerer optischer Datenträger"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "Optisches Medium"
+msgstr "Optischer Datenträger"
