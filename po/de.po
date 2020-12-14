@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2020-12-14 10:56+0100\n"
+"PO-Revision-Date: 2020-12-14 11:12+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -1362,11 +1362,11 @@ msgstr "%s _verstecken"
 
 #: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
-msgstr "Nach _Links verschieben"
+msgstr "Nach _links verschieben"
 
 #: ../src/gtk/fm-standard-view.c:832
 msgid "Move _Right"
-msgstr "Nach _Rechts verschieben"
+msgstr "Nach _rechts verschieben"
 
 #: ../src/gtk/fm-standard-view.c:855
 #, c-format
