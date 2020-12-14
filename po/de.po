@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2020-12-14 11:12+0100\n"
+"PO-Revision-Date: 2020-12-14 12:27+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -97,7 +97,7 @@ msgstr "_Benutzerdefinierte Befehlszeile"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
-msgstr "_Gewählte Anwendung als Standard für diesen Dateityp festlegen"
+msgstr "_Gewählte Anwendung als Vorgabe für diesen Dateityp festlegen"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -571,7 +571,7 @@ msgstr "Der Dateityp von '%s' konnte nicht bestimmt werden um es auszuführen"
 #: ../src/base/fm-file-launcher.c:292
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Keine festgelegte Anwendung für MIME-Typ %s://"
+msgstr "Keine vorgegebene Anwendung festgelegt, um URIs %s:// zu öffnen"
 
 #: ../src/base/fm-file-launcher.c:360
 #, c-format
@@ -581,7 +581,7 @@ msgstr "Arbeitsverzeichnis setzen zu '%s': %s fehlgeschlagen"
 #: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr "Keine vorgegebene Anwendung für MIME-Typ %s festgelegt."
+msgstr "Keine vorgegebene Anwendung für MIME-Typ %s festgelegt"
 
 #: ../src/base/fm-path.c:179 ../src/gtk/fm-places-model.c:848
 #: ../src/gtk/fm-places-model.c:1016
@@ -1037,7 +1037,7 @@ msgstr "%s wird erstellt"
 
 #: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
-msgstr "Datei nach dem Erstellen mit der Standa_rdanwendung öffnen"
+msgstr "Datei nach der E_rstellung mit der vorgegebenen Anwendung öffnen"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:144
 #, c-format
@@ -1358,7 +1358,7 @@ msgstr "Ansicht von Ordnerinhalten"
 #: ../src/gtk/fm-standard-view.c:818
 #, c-format
 msgid "_Hide %s"
-msgstr "%s _verstecken"
+msgstr "%s _nicht anzeigen"
 
 #: ../src/gtk/fm-standard-view.c:826
 msgid "_Move Left"
@@ -1375,7 +1375,7 @@ msgstr "%s anzeigen"
 
 #: ../src/gtk/fm-standard-view.c:867
 msgid "_Forget Width"
-msgstr "Breite _vergessen"
+msgstr "Normale _Breite"
 
 #: ../src/gtk/fm-standard-view.c:1859
 msgid "_Icon View"
