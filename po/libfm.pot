@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-13 00:10+0300\n"
+"POT-Creation-Date: 2020-12-14 13:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -526,41 +526,41 @@ msgstr ""
 msgid "<b>Errors occurred:</b>"
 msgstr ""
 
-#: ../src/base/fm-action.c:272
+#: ../src/base/fm-action.c:273
 msgid "Empty value"
 msgstr ""
 
-#: ../src/base/fm-action.c:280
+#: ../src/base/fm-action.c:281
 msgid "Invalid selection"
 msgstr ""
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:808 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:87
+#: ../src/base/fm-file-launcher.c:88
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
+#: ../src/base/fm-file-launcher.c:255 ../src/base/fm-file-launcher.c:409
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:292
+#: ../src/base/fm-file-launcher.c:294
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:360
+#: ../src/base/fm-file-launcher.c:362
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
+#: ../src/base/fm-file-launcher.c:456 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
@@ -1728,6 +1728,10 @@ msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:278
+msgid "Audio CD"
 msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:299
