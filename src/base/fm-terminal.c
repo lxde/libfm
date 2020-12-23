@@ -137,7 +137,7 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
         if (strcmp(basename, "x-terminal-emulator") == 0)
             g_message("x-terminal-emulator has very limited support, consider choosing another terminal");
         else
-            g_warning("terminal %s isn't known, consider report it to LibFM developers",
+            g_warning("terminal %s isn't known, consider reporting it to the LibFM developers",
                       basename);
         term->program = name;
         term->open_arg = g_strdup("-e"); /* assume it is default */
