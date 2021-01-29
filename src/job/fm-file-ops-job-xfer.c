@@ -35,6 +35,7 @@
 #include <unistd.h>
 #include "fm-utils.h"
 #include <glib/gi18n-lib.h>
+#include "../base/fm-thumbnail-loader.h"
 
 static const char query[]=
     G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -754,6 +755,18 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         g_free(tmp_basename);
         if(!_fm_file_ops_job_copy_file(job, src, NULL, dest, NULL, df))
             ret = FALSE;
+
+        /* copy thumbnails, if existing */
+        if(ret == TRUE &&
+            (
+                (fm_config->thumbnail_local && g_file_is_native(src) && g_file_is_native(dest)) ||
+                !fm_config->thumbnail_local
+            )
+        )
+        {
+            thumbnail_files_operation(src, dest, FM_FILE_OP_COPY);
+        }
+
         g_object_unref(src);
         if(dest != NULL)
             g_object_unref(dest);
@@ -883,6 +896,20 @@ _retry_query_dest_info:
 
         if(!_fm_file_ops_job_move_file(job, src, NULL, dest, path, sf, df))
             ret = FALSE;
+
+        /* move or delete thumbnails, if existing */
+        if(ret == TRUE)
+        {
+            if( (fm_config->thumbnail_local && g_file_is_native(src) && g_file_is_native(dest)) || !fm_config->thumbnail_local )
+            {
+                thumbnail_files_operation(src, dest, FM_FILE_OP_MOVE);
+            }
+            else
+            {
+                thumbnail_files_operation(src, NULL, FM_FILE_OP_DELETE);
+            }
+        }
+
         g_object_unref(src);
         if(dest != NULL)
             g_object_unref(dest);

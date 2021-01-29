@@ -30,6 +30,8 @@
 #include "fm-config.h"
 #include "fm-file.h"
 #include <glib/gi18n-lib.h>
+#include "fm-utils.h"
+#include "../base/fm-thumbnail-loader.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -269,6 +271,13 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
         src = fm_path_to_gfile(path);
 
         ret = _fm_file_ops_job_delete_file(fmjob, src, NULL, parent_folder, FALSE);
+
+        /* delete thumbnails, if existing */
+        if(ret == TRUE && g_file_is_native(src))
+        {
+            thumbnail_files_operation(src, NULL, FM_FILE_OP_DELETE);
+        }
+
         g_object_unref(src);
     }
     if (parent_folder)

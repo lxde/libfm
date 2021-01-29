@@ -64,14 +64,6 @@
 static gboolean backend_loaded = FALSE;
 static FmThumbnailLoaderBackend backend = {NULL};
 
-typedef enum
-{
-    LOAD_NORMAL = 1 << 0, /* need to load normal thumbnail */
-    LOAD_LARGE = 1 << 1, /* need to load large thumbnail */
-    GENERATE_NORMAL = 1 << 2, /* need to regenerated normal thumbnail */
-    GENERATE_LARGE = 1 << 3, /* need to regenerated large thumbnail */
-}ThumbnailTaskFlags;
-
 typedef struct _ThumbnailTask ThumbnailTask;
 struct _ThumbnailTask
 {
@@ -427,14 +419,98 @@ _out:
     return;
 }
 
+/* dst_normal and dst_large should be already allocated and contain the name of a thumbnail file */
+void get_thumbnail_paths( gchar* src_uri, gchar* dst_normal, gchar* dst_large, ThumbnailTaskFlags flags)
+{
+    GChecksum* sum = g_checksum_new(G_CHECKSUM_MD5);
+    g_checksum_update(sum, (guchar*)src_uri, -1);
+    const char* md5;
+    md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
+
+    if ( (flags & LOAD_NORMAL) || (flags & GENERATE_NORMAL) ){
+        gchar* basename = strrchr(dst_normal, '/') + 1;
+        memcpy( basename, md5, strlen(md5) );
+    }
+
+    if ( (flags & LOAD_LARGE) || (flags & GENERATE_LARGE) ){
+        gchar* basename = strrchr(dst_large, '/') + 1;
+        memcpy( basename, md5, strlen(md5) );
+    }
+}
+
+/* Copy, move, or delete an existing thumbnail file */
+void thumbnail_files_operation(GFile* src, GFile* dest, FmFileOpType opType)
+{
+    gchar *src_uri, *dest_uri;
+    GFile *src_normal, *src_large, *dest_normal, *dest_large;
+    ThumbnailTaskFlags flags = LOAD_NORMAL | LOAD_LARGE;
+
+    if(thumbnail_file_op_src_path_normal == NULL)
+    {
+        thumbnail_file_op_src_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_src_path_large == NULL)
+    {
+        thumbnail_file_op_src_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_dest_path_normal == NULL)
+    {
+        thumbnail_file_op_dest_path_normal = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
+    }
+    if(thumbnail_file_op_dest_path_large == NULL)
+    {
+        thumbnail_file_op_dest_path_large = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
+    }
+
+    src_uri = g_file_get_uri(src);
+    get_thumbnail_paths(src_uri, thumbnail_file_op_src_path_normal, thumbnail_file_op_src_path_large, flags);
+    src_normal = g_file_new_for_path(thumbnail_file_op_src_path_normal);
+    src_large = g_file_new_for_path(thumbnail_file_op_src_path_large);
+
+    if(opType == FM_FILE_OP_COPY || opType == FM_FILE_OP_MOVE)
+    {
+        dest_uri = g_file_get_uri(dest);
+        get_thumbnail_paths(dest_uri, thumbnail_file_op_dest_path_normal, thumbnail_file_op_dest_path_large, flags);
+        dest_normal = g_file_new_for_path(thumbnail_file_op_dest_path_normal);
+        dest_large = g_file_new_for_path(thumbnail_file_op_dest_path_large);
+    }
+
+    switch(opType)
+    {
+    case FM_FILE_OP_COPY:
+        g_file_copy (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        g_file_copy (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        break;
+    case FM_FILE_OP_MOVE:
+        g_file_move (src_normal, dest_normal, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        g_file_move (src_large, dest_large, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+        break;
+    case FM_FILE_OP_DELETE:
+        g_file_delete (src_normal, NULL, NULL);
+        g_file_delete (src_large, NULL, NULL);
+        break;
+    }
+
+    g_free(src_uri);
+    g_object_unref(src_normal);
+    g_object_unref(src_large);
+
+    if(opType == FM_FILE_OP_COPY || opType == FM_FILE_OP_MOVE)
+    {
+        g_free(dest_uri);
+        g_object_unref(dest_normal);
+        g_object_unref(dest_large);
+    }
+}
+
 /* in thread */
 static gpointer load_thumbnail_thread(gpointer user_data)
 {
     ThumbnailTask* task;
     GChecksum* sum = g_checksum_new(G_CHECKSUM_MD5);
-    gchar* normal_path  = g_build_filename(thumb_dir, "normal/00000000000000000000000000000000.png", NULL);
+    gchar* normal_path  = g_build_filename(thumb_dir, thumbnails_normal_path, thumbnails_empty_basename, NULL);
     gchar* normal_basename = strrchr(normal_path, '/') + 1;
-    gchar* large_path = g_build_filename(thumb_dir, "large/00000000000000000000000000000000.png", NULL);
+    gchar* large_path = g_build_filename(thumb_dir, thumbnails_large_path, thumbnails_empty_basename, NULL);
     gchar* large_basename = strrchr(large_path, '/') + 1;
 
     /* ensure thumbnail directories exists */
@@ -453,7 +529,6 @@ static gpointer load_thumbnail_thread(gpointer user_data)
         if(G_LIKELY(task))
         {
             char* uri;
-            const char* md5;
             GList *reql;
 
             for (reql = task->requests; reql; reql = reql->next)
@@ -466,20 +541,15 @@ static gpointer load_thumbnail_thread(gpointer user_data)
             g_mutex_unlock(lock_ptr);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
-            /* generate filename for the thumbnail */
-            g_checksum_update(sum, (guchar*)uri, -1);
-            md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
-
             task->uri = uri;
 
+            get_thumbnail_paths( (gchar*)uri, normal_path, large_path, task->flags );
             if (task->flags & LOAD_NORMAL)
             {
-                memcpy( normal_basename, md5, 32 );
                 task->normal_path = normal_path;
             }
             if (task->flags & LOAD_LARGE)
             {
-                memcpy( large_basename, md5, 32 );
                 task->large_path = large_path;
             }
             /* FIXME: support fail/<PRG>/<MD5>.png to skip creation */
@@ -746,7 +816,7 @@ guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req)
 /* in main loop */
 void _fm_thumbnail_loader_init()
 {
-    thumb_dir = g_build_filename(fm_get_home_dir(), ".thumbnails", NULL);
+    thumb_dir = g_build_filename(fm_get_home_dir(), thumbnails_path, NULL);
     hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
 #if !GLIB_CHECK_VERSION(2, 32, 0)
     lock_ptr = g_mutex_new();

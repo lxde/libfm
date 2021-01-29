@@ -29,6 +29,8 @@
 
 #include "fm-file-ops-job-change-attr.h"
 #include "fm-folder.h"
+#include "fm-utils.h"
+#include "../base/fm-thumbnail-loader.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -153,6 +155,12 @@ _retry_disp_name:
         }
         else
         {
+            /* move thumbnail, if existing */
+            if(renamed != NULL && g_file_is_native(gf))
+            {
+                thumbnail_files_operation(gf, renamed, FM_FILE_OP_MOVE);
+            }
+
             g_object_unref(renamed);
             changed = TRUE;
         }
