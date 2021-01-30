@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-13 00:10+0300\n"
-"PO-Revision-Date: 2020-12-16 12:34+0100\n"
+"POT-Creation-Date: 2020-12-14 13:51+0100\n"
+"PO-Revision-Date: 2021-01-30 18:09+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -50,20 +50,17 @@ msgstr "_Installierte Anwendungen"
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>Be_fehlszeile zum Ausführen:</b>"
 
-#: ../data/ui/app-chooser.glade.h:5
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
+#: ../data/ui/app-chooser.glade.h:5 ../src/modules/gtk-fileprop-x-desktop.c:275
 msgid "_Browse..."
 msgstr "_Durchsuchen …"
 
 #. row 1: "Terminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:6
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
+#: ../data/ui/app-chooser.glade.h:6 ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
 msgstr "_Im Terminal ausführen"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:7
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
+#: ../data/ui/app-chooser.glade.h:7 ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
 msgstr "_Das Terminalfenster nach dem Ausführen des Befehls geöffnet lassen"
 
@@ -544,41 +541,41 @@ msgstr "<b>Verbleibende Zeit:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Aufgetretene Fehler:</b>"
 
-#: ../src/base/fm-action.c:272
+#: ../src/base/fm-action.c:273
 msgid "Empty value"
 msgstr "Parameter fehlt"
 
-#: ../src/base/fm-action.c:280
+#: ../src/base/fm-action.c:281
 msgid "Invalid selection"
 msgstr "Ungültige Auswahl"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:808 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "Aktion wird nicht unterstützt"
 
-#: ../src/base/fm-file-launcher.c:87
+#: ../src/base/fm-file-launcher.c:88
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Ungültige .desktop-Datei: '%s'"
 
-#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
+#: ../src/base/fm-file-launcher.c:255 ../src/base/fm-file-launcher.c:409
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "Der Dateityp von '%s' konnte nicht bestimmt werden um es auszuführen"
 
-#: ../src/base/fm-file-launcher.c:292
+#: ../src/base/fm-file-launcher.c:294
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Keine vorgegebene Anwendung festgelegt, um URIs %s:// zu öffnen"
 
-#: ../src/base/fm-file-launcher.c:360
+#: ../src/base/fm-file-launcher.c:362
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "Arbeitsverzeichnis setzen zu '%s': %s fehlgeschlagen"
 
-#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
+#: ../src/base/fm-file-launcher.c:456 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "Keine vorgegebene Anwendung für MIME-Typ %s festgelegt"
@@ -1784,6 +1781,10 @@ msgstr "MRW/W-Disk"
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
 msgstr "Leere MRW/W-Disk"
+
+#: ../src/udisks/g-udisks-device.c:278
+msgid "Audio CD"
+msgstr "Audio-CD"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
