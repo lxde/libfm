@@ -3,6 +3,7 @@
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2020 wb9688 <wb9688@users.noreply.github.com>
  *
  *      This file is a part of the Libfm library.
  *

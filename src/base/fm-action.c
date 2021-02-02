@@ -1,8 +1,9 @@
 /*
  *      fm-action.c
  *
- *      Copyright 2014-2020 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2014-2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2020 Leonardo Citrolo <leoc@users.sourceforge.net>
+ *      Copyright 2020 wb9688 <wb9688@users.noreply.github.com>
  *
  *      This file is a part of the Libfm library.
  *

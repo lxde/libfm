@@ -4,6 +4,7 @@
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012-2016 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2015 Mamoru TASAKA <mtasaka@fedoraproject.org>
+ *      Copyright 2020 wb9688 <wb9688@users.noreply.github.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by

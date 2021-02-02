@@ -3,6 +3,7 @@
  *
  * Copyright 2010 - 2013 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  * Copyright 2012-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ * Copyright 2020 Ingo Brückl <ib@wupperonline.de>
  *
  * This file is a part of the Libfm library.
  *

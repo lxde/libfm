@@ -1,3 +1,30 @@
+Changes on 1.3.2 since 1.3.1:
+
+* Fixed all/allfiles parse conditions in FmAction, it was inverted.
+
+* Fixed 'SelectionCount' condition parsing in FmAction if '=' was used.
+
+* Fix memory access error if home path == desktop path.
+
+* Added treating /usr/local/share/ as trusted for *.desktop files.
+
+* Fixed value for amount of data transferred in progress dialog.
+
+* Fixed preferred height in fm-cell-renderer-text.
+
+* Fixed search_window immediately disappearing on Wayland.
+
+* Changed thumbnails placement according to the XDG Base Directory
+  Specification.
+
+* Changed xarchiver command invocation to create archive. It was incompatibly
+  changed by the author in 2017.
+
+* Don't set $DISPLAY for spawned process, let it be inherited from parent.
+
+* Fixed memory leak on sn_id in fm-action.c.
+
+
 Changes on 1.3.1 since 1.3.0.2:
 
 * Fixed crash on reload while directory changes (folder might be not ready yet).
