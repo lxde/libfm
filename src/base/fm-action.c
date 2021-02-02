@@ -746,6 +746,7 @@ static gboolean _do_launch(FmAction *action, GAppLaunchContext *launch_context,
             if (data.sn_id)
                 g_app_launch_context_launch_failed(launch_context, data.sn_id);
         }
+        g_free(data.sn_id);
         g_strfreev(argv);
     }
 
