@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [1.3.1], [http://pcmanfm.sourceforge.net/])
+AC_INIT([libfm], [1.3.2], [http://pcmanfm.sourceforge.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects no-dist-gzip dist-xz -Wno-portability])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
