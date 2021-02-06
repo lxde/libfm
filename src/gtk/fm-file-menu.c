@@ -116,6 +116,7 @@ static void on_hide(GtkAction* action, FmFileMenu* menu);
 static void on_unhide(GtkAction* action, FmFileMenu* menu);
 static void on_add_bookmark(GtkAction* action, FmFileMenu* menu);
 static void on_rename(GtkAction* action, gpointer user_data);
+static void on_mail_to(GtkAction* action, gpointer user_data);
 static void on_compress(GtkAction* action, gpointer user_data);
 static void on_extract_here(GtkAction* action, gpointer user_data);
 static void on_extract_to(GtkAction* action, gpointer user_data);
@@ -139,6 +140,7 @@ const char base_menu_xml[]=
   "<placeholder name='MoveCategory'/>"
   "<separator/>"
   "<menuitem action='Rename'/>"
+  "<menuitem action='MailTo'/>"
   "<separator/>"
   "<placeholder name='ph3'/>"
   "<separator/>"
@@ -160,6 +162,7 @@ GtkActionEntry base_menu_actions[]=
     {"Unhide", NULL, N_("Unh_ide"), NULL, NULL, G_CALLBACK(on_unhide)},
     {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
     {"Rename", NULL, N_("_Rename..."), NULL, NULL, G_CALLBACK(on_rename)},
+    {"MailTo", NULL, N_("_Mail to..."), NULL, NULL, G_CALLBACK(on_mail_to)},
     {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
     {"Extract", NULL, N_("Extract _Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
     {"ExtractTo", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
@@ -803,6 +806,15 @@ static void on_rename(GtkAction* action, gpointer user_data)
     GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
     if(fi)
         fm_rename_file(window, fm_file_info_get_path(fi));
+}
+
+static void on_mail_to(GtkAction* action, gpointer user_data)
+{
+    FmFileMenu* data = (FmFileMenu*)user_data;
+    FmPathList* files = fm_path_list_new_from_file_info_list(data->file_infos);
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
+    if(files)
+        fm_launch_command_simple(window, NULL, 0, "xdg-email --attach", files);
 }
 
 static void on_compress(GtkAction* action, gpointer user_data)
