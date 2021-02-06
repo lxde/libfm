@@ -275,7 +275,7 @@ const char* g_udisks_device_get_disc_name(GUDisksDevice* dev)
     if(dev->media && *dev->media)
     {
         if(dev->num_audio_tracks > 0 && g_str_has_prefix(dev->media, "optical_cd"))
-            name = "Audio CD";
+            name = _("Audio CD");
         else
         {
             guint i;
