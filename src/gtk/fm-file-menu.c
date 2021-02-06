@@ -166,6 +166,13 @@ GtkActionEntry base_menu_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
+
+GtkActionEntry open_menu_actions[]=
+{
+    {"Open", GTK_STOCK_OPEN, N_("_Open"), NULL, NULL, G_CALLBACK(on_open)},
+    {"OpenWith", NULL, N_("Open _With..."), NULL, NULL, G_CALLBACK(on_open_with)},
+};
+
 /* plugins for MIME type */
 typedef struct {
     FmMimeType *mime_type;
@@ -531,6 +538,168 @@ _disable_open:
         g_signal_connect(data->menu, "key-release-event", G_CALLBACK(on_key_released), data);
         act = gtk_ui_manager_get_action(ui, "/popup/Del");
         gtk_action_set_label(act, _("Move to _Trash"));
+    }
+
+    g_string_free(xml, TRUE);
+    return data;
+}
+
+/**
+ * fm_app_menu_new_for_files
+ * @parent: window to place menu over
+ * @files: target files
+ * @cwd: working directory
+ * @auto_destroy: %TRUE if menu should be destroyed after some action was activated
+ *
+ * Creates new application menu for some files list.
+ *
+ * Returns: a new #FmFileMenu object.
+ *
+ */
+FmFileMenu* fm_app_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
+{
+    GtkUIManager* ui;
+    GtkActionGroup* act_grp;
+    GtkAction* act;
+    FmFileInfo* fi;
+    FmFileMenu* data = g_slice_new0(FmFileMenu);
+    GString* xml;
+    GList* mime_types = NULL;
+    GList* l;
+    GList* apps = NULL;
+    gboolean all_native = TRUE;
+    unsigned items_num = fm_file_info_list_get_length(files);
+
+    data->file_infos = fm_file_info_list_ref(files);
+
+    /* create list of mime types */
+    for(l = fm_file_info_list_peek_head_link(files); l; l = l->next)
+    {
+        FmMimeType* mime_type;
+        GList* l2;
+
+        fi = l->data;
+        if (!fm_file_info_is_native(fi))
+            all_native = FALSE;
+        else if (all_native && fm_file_info_is_shortcut(fi))
+        {
+            /* this takes some time but it's inevitable */
+            FmPath *tp = fm_path_new_for_str(fm_file_info_get_target(fi));
+            if (!fm_path_is_native(tp))
+                all_native = FALSE;
+            fm_path_unref(tp);
+        }
+        mime_type = fm_file_info_get_mime_type(fi);
+        if(mime_type == NULL)
+            continue;
+        for(l2 = mime_types; l2; l2 = l2->next)
+            if(l2->data == mime_type)
+                break;
+        if(l2) /* already added */
+            continue;
+        mime_types = g_list_prepend(mime_types, fm_mime_type_ref(mime_type));
+    }
+    fi = fm_file_info_list_peek_head(files); /* we'll test it below */
+    /* create apps list */
+    if(mime_types)
+    {
+        data->same_type = (mime_types->next == NULL);
+        apps = g_app_info_get_all_for_type(fm_mime_type_get_type(mime_types->data));
+        for(l = mime_types->next; l; l = l->next)
+        {
+            GList *apps2, *l2, *l3;
+            apps2 = g_app_info_get_all_for_type(fm_mime_type_get_type(l->data));
+            for(l2 = apps; l2; )
+            {
+                for(l3 = apps2; l3; l3 = l3->next)
+                    if(g_app_info_equal(l2->data, l3->data))
+                        break;
+                if(l3) /* this app supports all files */
+                {
+                    /* g_debug("%s supports %s", g_app_info_get_id(l2->data), fm_mime_type_get_type(l->data)); */
+                    l2 = l2->next;
+                    continue;
+                }
+                /* g_debug("%s invalid for %s", g_app_info_get_id(l2->data), fm_mime_type_get_type(l->data)); */
+                g_object_unref(l2->data);
+                l3 = l2->next; /* save for next iter */
+                apps = g_list_delete_link(apps, l2);
+                l2 = l3; /* continue with next item */
+            }
+            g_list_foreach(apps2, (GFunc)g_object_unref, NULL);
+            g_list_free(apps2);
+        }
+    }
+
+    data->ui = ui = gtk_ui_manager_new();
+    data->act_grp = act_grp = gtk_action_group_new("Popup");
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
+
+    if(cwd)
+        data->cwd = fm_path_ref(cwd);
+
+    gtk_action_group_add_actions(act_grp, open_menu_actions, G_N_ELEMENTS(open_menu_actions), data);
+    gtk_ui_manager_add_ui_from_string(ui, base_menu_xml, -1, NULL);
+    gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+
+    xml = g_string_new("<popup><placeholder name='ph2'>");
+    if(apps) /* add specific menu items for those files */
+    {
+        gboolean use_sub = g_list_length(apps) > 50;
+        gboolean found_app = FALSE;
+
+        for(l=apps;l;l=l->next)
+        {
+            GAppInfo* app = l->data;
+
+            /*g_debug("app %s, executable %s, command %s\n",
+                g_app_info_get_name(app),
+                g_app_info_get_executable(app),
+                g_app_info_get_commandline(app));*/
+
+            gchar * program_path = g_find_program_in_path(g_app_info_get_executable(app));
+            if (!program_path)
+                goto _next_app;
+            g_free(program_path);
+            if (!all_native && !g_app_info_supports_uris(app))
+            {
+_next_app:
+                g_object_unref(app);
+                continue;
+            }
+            found_app = TRUE;
+
+            act = gtk_action_new(g_app_info_get_id(app),
+                                 g_app_info_get_name(app),
+                                 g_app_info_get_description(app),
+                                 NULL);
+            g_signal_connect(act, "activate", G_CALLBACK(on_open_with_app), data);
+            gtk_action_set_gicon(act, g_app_info_get_icon(app));
+            gtk_action_group_add_action(act_grp, act);
+            /* associate the app info object with the action */
+            g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, g_object_unref);
+            g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
+        }
+
+        g_list_free(apps); /* don't unref GAppInfos now */
+    }
+    act = gtk_ui_manager_get_action(ui, "/popup/Open");
+    gtk_action_set_visible(act, FALSE);
+    g_string_append(xml, "<menuitem action='OpenWith'/>");
+    g_string_append(xml, "</placeholder></popup>");
+
+
+    gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
+
+    data->menu = GTK_MENU(gtk_ui_manager_get_widget(data->ui, "/popup"));
+    gtk_menu_attach_to_widget(data->menu, GTK_WIDGET(parent), NULL);
+    g_object_weak_ref(G_OBJECT(parent), (GWeakNotify)gtk_menu_detach, data->menu);
+    fm_widget_menu_fix_tooltips(data->menu);
+
+    if(auto_destroy)
+    {
+        g_signal_connect_swapped(data->menu, "selection-done",
+                                 G_CALLBACK(fm_file_menu_destroy), data);
     }
 
     g_string_free(xml, TRUE);
