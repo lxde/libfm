@@ -260,7 +260,6 @@ libfm_la_SOURCES = \
 libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	$(DBUS_CFLAGS) \
 	$(EXIF_CFLAGS) \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	-DPACKAGE_MODULES_DIR=\""$(libdir)/@PACKAGE@/modules"\" \
@@ -269,7 +268,6 @@ libfm_la_CFLAGS = \
 libfm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(MENU_CACHE_LIBS) \
-	$(DBUS_LIBS) \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)

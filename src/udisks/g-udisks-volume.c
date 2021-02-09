@@ -1,6 +1,7 @@
 //      g-udisks-volume.c
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -21,22 +22,27 @@
 #include <config.h>
 #endif
 
-#include "g-udisks-volume.h"
 #include <glib/gi18n-lib.h>
-#include <string.h>
-#include "udisks.h"
-#include "udisks-device.h"
 #include "g-udisks-mount.h"
+#include "g-udisks-drive.h"
 #include "dbus-utils.h"
+
+#include <string.h>
+
+struct _GUDisksVolume
+{
+    GObject parent;
+    GUDisksDevice* dev; /* weak ref */
+    char* name;
+    GList* mounts; /* of GUDisksMount */
+    GFile* activation_root;
+};
 
 typedef struct
 {
     GUDisksVolume* vol;
     GAsyncReadyCallback callback;
     gpointer user_data;
-    DBusGProxy* proxy;
-    DBusGProxyCall* call;
-    GCancellable* cancellable;
 }AsyncData;
 
 static guint sig_changed;
@@ -46,9 +52,6 @@ static void g_udisks_volume_volume_iface_init (GVolumeIface * iface);
 static void g_udisks_volume_finalize            (GObject *object);
 
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data);
-
-// static gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data);
-// static gboolean g_udisks_volume_eject_with_operation_co (UdisksVolumeEjectWithOperationData* data);
 
 G_DEFINE_TYPE_EXTENDED (GUDisksVolume, g_udisks_volume, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (G_TYPE_VOLUME,
@@ -63,27 +66,6 @@ static void g_udisks_volume_class_init(GUDisksVolumeClass *klass)
     g_object_class->finalize = g_udisks_volume_finalize;
 }
 
-static void g_udisks_volume_clear(GUDisksVolume* vol)
-{
-    if(vol->mount)
-    {
-        g_object_unref(vol->mount);
-        vol->mount = NULL;
-    }
-
-    if(vol->icon)
-    {
-        g_object_unref(vol->icon);
-        vol->icon = NULL;
-    }
-
-    if(vol->name)
-    {
-        g_free(vol->name);
-        vol->name = NULL;
-    }
-}
-
 static void g_udisks_volume_finalize(GObject *object)
 {
     GUDisksVolume *self;
@@ -93,9 +75,20 @@ static void g_udisks_volume_finalize(GObject *object)
 
     self = G_UDISKS_VOLUME(object);
     if(self->dev)
-        g_object_unref(self->dev);
+        g_object_remove_weak_pointer(G_OBJECT(self->dev), (gpointer *)&self->dev);
 
-    g_udisks_volume_clear(self);
+    while(self->mounts)
+    {
+        g_udisks_mount_unmounted(self->mounts->data);
+        g_object_unref(self->mounts->data);
+        self->mounts = g_list_delete_link(self->mounts, self->mounts);
+    }
+
+    if(self->activation_root)
+        g_object_unref(self->activation_root);
+
+    g_free(self->name);
+
     G_OBJECT_CLASS(g_udisks_volume_parent_class)->finalize(object);
 }
 
@@ -105,30 +98,36 @@ static void g_udisks_volume_init(GUDisksVolume *self)
 }
 
 
-GUDisksVolume *g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+GUDisksVolume *g_udisks_volume_new(GUDisksDevice* dev, GFile* activation_root)
 {
     GUDisksVolume* vol = (GUDisksVolume*)g_object_new(G_TYPE_UDISKS_VOLUME, NULL);
     vol->dev = g_object_ref(dev);
-    vol->mon = mon;
+    if (activation_root)
+        vol->activation_root = g_object_ref_sink(activation_root);
+    g_object_add_weak_pointer(G_OBJECT(dev), (gpointer *)&vol->dev);
+    g_udisks_device_set_volume(dev, G_VOLUME(vol));
     return vol;
 }
 
 static gboolean g_udisks_volume_can_eject (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return vol->dev->is_ejectable;
+    GDrive* drive = g_udisks_device_get_drive(vol->dev);
+    gboolean ejectable = drive ? g_drive_can_eject(drive) : FALSE;
+    if (drive)
+        g_object_unref(drive);
+    return ejectable;
 }
 
 static gboolean g_udisks_volume_can_mount (GVolume* base)
 {
     /* FIXME, is this correct? */
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return !vol->dev->is_mounted;
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    return TRUE;
 }
 
 static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
@@ -151,20 +150,22 @@ static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_da
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    if(vol->drive && g_drive_can_eject(G_DRIVE(vol->drive)))
+    GDrive* drive = g_udisks_device_get_drive(vol->dev);
+    if(drive && g_drive_can_eject(drive))
     {
         EjectData* data = g_slice_new(EjectData);
         data->vol = g_object_ref(vol);
         data->callback = callback;
         data->user_data = user_data;
-        g_drive_eject_with_operation(G_DRIVE(vol->drive), flags, mount_operation,
+        g_drive_eject_with_operation(drive, flags, mount_operation,
                                      cancellable, on_drive_ejected, data);
     }
+    if(drive)
+        g_object_unref(drive);
 }
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
 {
-    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     char** kinds = g_new0(char*, 4);
     kinds[0] = g_strdup(G_VOLUME_IDENTIFIER_KIND_LABEL);
     kinds[1] = g_strdup(G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
@@ -177,24 +178,25 @@ static GFile* g_udisks_volume_get_activation_root (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     /* FIXME: is this corrcet? */
-    return vol->mount ? g_mount_get_root((GMount*)vol->mount) : NULL;
+    if(vol->mounts)
+        return g_mount_get_root((GMount*)vol->mounts->data);
+    return vol->activation_root ? g_object_ref(vol->activation_root) : NULL;
 }
 
 static GDrive* g_udisks_volume_get_drive (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return vol->drive ? (GDrive*)g_object_ref(vol->drive) : NULL;
+    return g_udisks_device_get_drive(vol->dev);
 }
 
 static GIcon* g_udisks_volume_get_icon (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    if(!vol->icon)
-    {
-        const char* icon_name = g_udisks_device_get_icon_name(vol->dev);
-        vol->icon = g_themed_icon_new_with_default_fallbacks(icon_name);
-    }
-    return (GIcon*)g_object_ref(vol->icon);
+    GDrive* drive = g_udisks_device_get_drive(vol->dev);
+    GIcon* icon = drive ? g_drive_get_icon(drive) : NULL;
+    if (drive)
+        g_object_unref(drive);
+    return icon;
 }
 
 static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
@@ -203,11 +205,11 @@ static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
     if(kind)
     {
         if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_LABEL) == 0)
-            return g_strdup(vol->dev->label);
+            return g_udisks_device_get_label(vol->dev);
         else if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE) == 0)
-            return g_strdup(vol->dev->dev_file);
+            return g_udisks_device_get_dev_file(vol->dev);
         else if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_UUID) == 0)
-            return g_strdup(vol->dev->uuid);
+            return g_udisks_device_get_uuid(vol->dev);
     }
     return NULL;
 }
@@ -215,26 +217,25 @@ static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
 static GMount* g_udisks_volume_get_mount (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    if(vol->dev->is_mounted && !vol->mount)
-    {
-        /* FIXME: will this work? */
-        vol->mount = g_udisks_mount_new(vol);
-    }
-    return vol->mount ? (GMount*)g_object_ref(vol->mount) : NULL;
+    return vol->mounts ? (GMount*)g_object_ref(vol->mounts->data) : NULL;
 }
 
 static char* g_udisks_volume_get_name (GVolume* base)
 {
-    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     if(!vol->name)
     {
         GUDisksDevice* dev = vol->dev;
+        GDrive* drive = g_udisks_device_get_drive(dev);
         /* build a human readable name */
 
         /* FIXME: find a better way to build a nicer volume name */
-        if(dev->label && *dev->label)
-            vol->name = g_strdup(dev->label);
+        vol->name = g_udisks_device_get_label(dev);
+        if(vol->name && !vol->name[0])
+        {
+            g_free(vol->name);
+            vol->name = NULL;
+        }
 /*
         else if(vol->dev->partition_size > 0)
         {
@@ -243,14 +244,13 @@ static char* g_udisks_volume_get_name (GVolume* base)
             g_free(size_str);
         }
 */
-        else if(dev->is_optic_disc)
-            vol->name = g_strdup(g_udisks_device_get_disc_name(dev));
-        else if(dev->dev_file_presentation && *dev->dev_file_presentation)
-            vol->name = g_path_get_basename(dev->dev_file_presentation);
-        else if(dev->dev_file && *dev->dev_file)
-            vol->name = g_path_get_basename(vol->dev->dev_file);
-        else
-            vol->name = g_path_get_basename(vol->dev->obj_path);
+        if(!vol->name && drive)
+            vol->name = g_strdup(g_udisks_drive_get_disc_name(G_UDISKS_DRIVE(drive)));
+        if(!vol->name)
+            vol->name = g_udisks_device_get_dev_basename(dev);
+
+        if (drive)
+            g_object_unref(drive);
     }
     return g_strdup(vol->name);
 }
@@ -258,23 +258,21 @@ static char* g_udisks_volume_get_name (GVolume* base)
 static char* g_udisks_volume_get_uuid (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return g_strdup(vol->dev->uuid);
+    return g_udisks_device_get_uuid(vol->dev);
 }
 
-static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
+static void mount_callback(GObject *source, GAsyncResult *result, gpointer user_data)
 {
-    AsyncData* data = (AsyncData*)user_data;
-    dbus_g_proxy_cancel_call(data->proxy, data->call);
-}
-
-static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *error, gpointer user_data)
-{
+    GDBusProxy* proxy = (GDBusProxy *)source;
     AsyncData* data = (AsyncData*)user_data;
     GSimpleAsyncResult* res;
+    GError *error = NULL;
+    GVariant *val = g_dbus_proxy_call_finish(proxy, result, &error);
+    const char *mount_path;
+
     g_debug("mount callback!!");
     if(error)
     {
-        error = g_udisks_error_to_gio_error(error);
         res = g_simple_async_result_new_from_error(G_OBJECT(data->vol),
                                                    data->callback,
                                                    data->user_data,
@@ -288,90 +286,88 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
                                         data->user_data,
                                         NULL);
         g_simple_async_result_set_op_res_gboolean(res, TRUE);
-
-        /* FIXME: ensure we have working mount paths to generate GMount object. */
-        if(data->vol->dev->mount_paths)
-        {
-            char** p = data->vol->dev->mount_paths;
-            for(; *p; ++p)
-                if(strcmp(*p, OUT_mount_path) == 0)
-                    break;
-            if(!*p) /* OUT_mount_path is not in mount_paths */
-            {
-                int len = g_strv_length(data->vol->dev->mount_paths);
-                data->vol->dev->mount_paths = g_realloc(data->vol->dev->mount_paths, + 2);
-                memcpy(data->vol->dev->mount_paths, data->vol->dev->mount_paths + sizeof(char*), len * sizeof(char*));
-                data->vol->dev->mount_paths[0] = g_strdup(OUT_mount_path);
-            }
-        }
-        else
-        {
-            data->vol->dev->mount_paths = g_new0(char*, 2);
-            data->vol->dev->mount_paths[0] = g_strdup(OUT_mount_path);
-            data->vol->dev->mount_paths[1] = NULL;
-        }
-
+        g_variant_unref(val);
     }
+    g_object_ref_sink(res);
     g_simple_async_result_complete(res);
     g_object_unref(res);
 
-    if(data->cancellable)
-    {
-        g_signal_handlers_disconnect_by_func(data->cancellable, on_mount_cancelled, data);
-        g_object_unref(data->cancellable);
-    }
     g_object_unref(data->vol);
-    g_object_unref(data->proxy);
     g_slice_free(AsyncData, data);
 
 }
 
-static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* user_data)
+static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags,
+                                     GMountOperation* mount_operation,
+                                     GCancellable* cancellable,
+                                     GAsyncReadyCallback callback, void* user_data)
 {
     /* FIXME: need to make sure this works correctly */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     GUDisksDevice* dev = vol->dev;
-    GUDisksVolumeMonitor* mon = vol->mon;
-    AsyncData* data = g_slice_new(AsyncData);
-    DBusGProxy* proxy = g_udisks_device_get_proxy(dev, mon->con);
-    data->vol = g_object_ref(vol);
-    data->callback = callback;
-    data->user_data = user_data;
-    data->proxy = proxy;
+    GDBusProxy* proxy = g_udisks_device_get_fs_proxy(dev);
 
-    g_debug("mount_fn");
-
-    data->call = org_freedesktop_UDisks_Device_filesystem_mount_async(
-                    proxy, dev->type ? dev->type : "auto", NULL, mount_callback, data);
-    if(cancellable)
+    if (proxy)
     {
-        data->cancellable = g_object_ref(cancellable);
-        g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_mount_cancelled), data);
+        AsyncData* data = g_slice_new(AsyncData);
+        GVariant* fstype = g_udisks_device_get_fstype(dev);
+        GVariantBuilder b;
+
+        g_debug("send DBus request to mount %s", g_udisks_device_get_obj_path(dev));
+        data->vol = g_object_ref(vol);
+        data->callback = callback;
+        data->user_data = user_data;
+
+        g_variant_builder_init(&b, G_VARIANT_TYPE("(a{sv})"));
+        g_variant_builder_open(&b, G_VARIANT_TYPE ("a{sv}"));
+        g_variant_builder_add(&b, "{sv}", "fstype", fstype);
+        g_variant_builder_close(&b);
+        g_dbus_proxy_call(proxy, "Mount", g_variant_builder_end(&b),
+                          G_DBUS_CALL_FLAGS_NONE, -1, cancellable,
+                          mount_callback, data);
+        g_object_unref(proxy);
+        g_variant_unref(fstype);
     }
+    else
+    {
+        GSimpleAsyncResult* res;
+        char *dev_file = g_udisks_device_get_dev_file(dev);
+
+        res = g_simple_async_result_new_error(G_OBJECT(vol), callback, user_data,
+                                              G_IO_ERROR, G_IO_ERROR_FAILED,
+                                              _("No filesystem proxy for '%s'"),
+                                              dev_file);
+        g_object_ref_sink(res);
+        g_simple_async_result_complete(res);
+        g_object_unref(res);
+        g_free(dev_file);
+    }
+    g_object_unref(dev);
 }
 
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
 {
-    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return vol->dev->auto_mount;
+    return g_udisks_device_can_auto_mount(vol->dev);
 }
 
 static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    GDrive* drive = g_udisks_device_get_drive(vol->dev);
     /* FIXME: is this correct? */
-    return g_drive_eject_with_operation_finish(G_DRIVE(vol->drive), res, error);
+    gboolean ret = g_drive_eject_with_operation_finish(drive, res, error);
+    g_object_unref(drive);
+    return ret;
 }
 
 static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
-    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return g_udisks_volume_eject_with_operation_finish(base, res, error);
 }
 
@@ -400,14 +396,106 @@ static void g_udisks_volume_volume_iface_init (GVolumeIface * iface)
     sig_removed = g_signal_lookup("removed", G_TYPE_VOLUME);
 }
 
+/**
+ * g_udisks_volume_set_mounts
+ * @vol: volume instance
+ * @mount_points: new list of nount points
+ *
+ * Updates mounts list to actual one. Allocates and releases GUDisksMount
+ * objects as needed.
+ *
+ * Returns: %TRUE if list was changed since last call.
+ */
+gboolean g_udisks_volume_set_mounts(GUDisksVolume* vol, char **mount_points)
+{
+    GList *new_list = NULL, *list;
+    char **point;
+    gboolean changed = FALSE;
+
+    g_return_val_if_fail(G_IS_UDISKS_VOLUME(vol), FALSE);
+
+    for (point = mount_points; point && *point; point++)
+    {
+        GFile *new_root = g_file_new_for_path(*point), *mount_root;
+
+        for (list = vol->mounts; list; list = list->next)
+        {
+            mount_root = g_mount_get_root(list->data);
+            if (g_file_equal(new_root, mount_root))
+            {
+                g_object_unref(mount_root);
+                vol->mounts = g_list_remove_link(vol->mounts, list);
+                new_list = g_list_concat(list, new_list);
+                break;
+            }
+            g_object_unref(mount_root);
+        }
+        if (!list)
+        {
+            new_list = g_list_prepend(new_list,
+                          g_object_ref_sink(g_udisks_mount_new(vol, new_root)));
+            g_debug("adding new mount for '%s' at '%s'",
+                    strrchr(g_udisks_device_get_obj_path(vol->dev), '/'),
+                    *point);
+            /* emit mount-added signal */
+            g_udisks_device_mount_added(vol->dev, new_list->data);
+            changed = TRUE;
+        }
+        g_object_unref(new_root);
+    }
+    while(vol->mounts)
+    {
+        GFile *f_root = g_mount_get_root(vol->mounts->data);
+        char *c_root = g_file_get_path(f_root);
+        g_debug("removing gone mount '%s'", c_root);
+        g_free(c_root);
+        g_object_unref(f_root);
+        /* emit mount-removed signals */
+        g_udisks_device_mount_removed(vol->dev, vol->mounts->data);
+        g_udisks_mount_unmounted(vol->mounts->data);
+        g_object_unref(vol->mounts->data);
+        vol->mounts = g_list_delete_link(vol->mounts, vol->mounts);
+        changed = TRUE;
+    }
+    vol->mounts = g_list_reverse(new_list);
+
+    return changed;
+}
+
+/**
+ * g_udisks_volume_get_mounts
+ * @vol: volume instance
+ *
+ * Retrieves currently mounted points.
+ *
+ * Returns: (element-type GUDisksMount)(transfer container): list of mounts.
+ */
+GList *g_udisks_volume_get_mounts(GUDisksVolume* vol)
+{
+    g_return_val_if_fail(G_IS_UDISKS_VOLUME(vol), NULL);
+    return g_list_copy(vol->mounts);
+}
+
+/**
+ * g_udisks_volume_get_device
+ * @vol: volume instance
+ *
+ * Retrieves device which volume belongs to.
+ *
+ * Returns: (transfer none): GUDisksDevice instance.
+ */
+GUDisksDevice *g_udisks_volume_get_device(GUDisksVolume* vol)
+{
+    g_return_val_if_fail(G_IS_UDISKS_VOLUME(vol), NULL);
+    return vol->dev;
+}
+
 void g_udisks_volume_changed(GUDisksVolume* vol)
 {
-    g_udisks_volume_clear(vol);
     g_signal_emit(vol, sig_changed, 0);
 }
 
 void g_udisks_volume_removed(GUDisksVolume* vol)
 {
-    vol->drive = NULL;
     g_signal_emit(vol, sig_removed, 0);
 }

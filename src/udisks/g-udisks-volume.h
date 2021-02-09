@@ -1,6 +1,7 @@
 //      g-udisks-volume.h
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -23,9 +24,6 @@
 
 #include <gio/gio.h>
 #include "g-udisks-device.h"
-#include "g-udisks-drive.h"
-#include "g-udisks-mount.h"
-#include "g-udisks-volume-monitor.h"
 
 G_BEGIN_DECLS
 
@@ -45,17 +43,6 @@ G_BEGIN_DECLS
 typedef struct _GUDisksVolume            GUDisksVolume;
 typedef struct _GUDisksVolumeClass        GUDisksVolumeClass;
 
-struct _GUDisksVolume
-{
-    GObject parent;
-    GUDisksDevice* dev;
-    GIcon* icon;
-    char* name;
-    GUDisksDrive* drive;
-    GUDisksMount* mount;
-    GUDisksVolumeMonitor* mon;
-};
-
 struct _GUDisksVolumeClass
 {
     GObjectClass parent_class;
@@ -63,7 +50,12 @@ struct _GUDisksVolumeClass
 
 
 GType        g_udisks_volume_get_type(void);
-GUDisksVolume* g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
+GUDisksVolume* g_udisks_volume_new(GUDisksDevice* dev, GFile* activation_root);
+
+gboolean g_udisks_volume_set_mounts(GUDisksVolume* vol, char **mount_points);
+GList *g_udisks_volume_get_mounts(GUDisksVolume* vol);
+
+GUDisksDevice *g_udisks_volume_get_device(GUDisksVolume* vol);
 
 void g_udisks_volume_changed(GUDisksVolume* vol);
 void g_udisks_volume_removed(GUDisksVolume* vol);

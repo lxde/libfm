@@ -184,7 +184,7 @@ fi
 
 AC_ARG_ENABLE(udisks,
     [AC_HELP_STRING([--enable-udisks],
-        [build libfm with udisks support (Linux only) @<:@default=yes@:>@])],
+        [build libfm with udisks support (Linux only) @<:@default=no@:>@])],
     [enable_udisks="${enableval}"],
     [enable_udisks=no]
 )
@@ -194,12 +194,6 @@ AM_CONDITIONAL(ENABLE_UDISKS, test x"$enable_udisks" = x"yes")
 if test x"$enable_udisks" = x"yes"; then
     # turn on udisks support
     AC_DEFINE_UNQUOTED(USE_UDISKS, [1], [Enable UDisks support])
-
-    # test for availability of dbus
-    dbus_modules="dbus-glib-1"
-    PKG_CHECK_MODULES(DBUS, [$dbus_modules])
-    AC_SUBST(DBUS_CFLAGS)
-    AC_SUBST(DBUS_LIBS)
 fi
 
 AC_ARG_ENABLE([exif],

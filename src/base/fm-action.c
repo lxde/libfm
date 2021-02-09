@@ -1729,6 +1729,10 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
     gsize len;
     int num;
     gboolean match = TRUE, found, match_num;
+#if GLIB_CHECK_VERSION(2, 24, 0)
+    GDBusConnection *conn;
+    GVariant *result;
+#endif
 
     if (files != NULL)
         flist = fm_file_info_list_peek_head_link(files);
@@ -1832,8 +1836,8 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
             g_string_free(str, TRUE);
             break;
         case CONDITION_TYPE_DBUS: /* ShowIfRegistered */
-#if defined(ENABLE_DBUS) && GLIB_CHECK_VERSION(2, 24, 0)
-            str = g_string_size_new(64);
+#if GLIB_CHECK_VERSION(2, 24, 0)
+            str = g_string_sized_new(64);
             _expand_params(str, cond->str, root, TRUE, NULL);
             /* DBus call is taken from GLib sources: gio/tests/gdbus-names.c */
             conn = g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, NULL);
@@ -1852,6 +1856,7 @@ static gboolean _matches_cond(FmFileInfoList *files, FmFileInfo *location,
                 g_variant_unref(result);
             }
             g_string_free(str, TRUE);
+            g_object_unref(conn);
 #endif
             break;
         case CONDITION_TYPE_OUT_TRUE: /* ShowIfTrue */

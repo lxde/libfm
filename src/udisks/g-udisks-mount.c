@@ -1,6 +1,7 @@
 //      g-udisks-mount.c
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -21,18 +22,26 @@
 #include <config.h>
 #endif
 
-#include "g-udisks-volume.h"
-#include "udisks-device.h"
-#include "dbus-utils.h"
+#include "g-udisks-mount.h"
+
+#include <glib/gi18n-lib.h>
+
+struct _GUDisksMount
+{
+    GObject parent;
+    GUDisksVolume* vol; /* weak */
+    GFile* root;
+};
 
 typedef struct
 {
     GUDisksMount* mnt;
     GAsyncReadyCallback callback;
     gpointer user_data;
-    DBusGProxy* proxy;
-    DBusGProxyCall* call;
 }AsyncData;
+
+static guint sig_pre_unmount;
+static guint sig_unmounted;
 
 static void g_udisks_mount_mount_iface_init(GMountIface *iface);
 static void g_udisks_mount_finalize            (GObject *object);
@@ -62,6 +71,8 @@ static void g_udisks_mount_finalize(GObject *object)
     self = G_UDISKS_MOUNT(object);
     if(self->root)
         g_object_unref(self->root);
+    if(self->vol)
+        g_object_remove_weak_pointer(G_OBJECT(self->vol), (gpointer *)&self->vol);
 
     G_OBJECT_CLASS(g_udisks_mount_parent_class)->finalize(object);
 }
@@ -72,24 +83,28 @@ static void g_udisks_mount_init(GUDisksMount *self)
 }
 
 
-GUDisksMount *g_udisks_mount_new(GUDisksVolume* vol)
+GUDisksMount *g_udisks_mount_new(GUDisksVolume* vol, GFile* root)
 {
+    g_return_val_if_fail(vol, NULL);
+    g_return_val_if_fail(root, NULL);
     GUDisksMount* mnt = g_object_new(G_TYPE_UDISKS_MOUNT, NULL);
     /* we don't do g_object_ref here to prevent circular reference. */
     mnt->vol = vol;
+    g_object_add_weak_pointer(G_OBJECT(vol), (gpointer *)&mnt->vol);
+    mnt->root = g_object_ref_sink(root);
     return mnt;
 }
 
 static gboolean g_udisks_mount_can_eject (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    return mnt->vol ? mnt->vol->dev->is_ejectable : FALSE;
+    return mnt->vol ? g_volume_can_eject(G_VOLUME(mnt->vol)) : FALSE;
 }
 
 static gboolean g_udisks_mount_can_unmount (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    return mnt->vol ? mnt->vol->dev->is_mounted : FALSE;
+    return mnt->root != NULL;
 }
 
 typedef struct
@@ -163,11 +178,6 @@ static char* g_udisks_mount_get_name (GMount* base)
 static GFile* g_udisks_mount_get_root (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    if(!mnt->root && mnt->vol->dev->is_mounted && mnt->vol->dev->mount_paths)
-    {
-        /* TODO */
-        mnt->root = g_file_new_for_path(mnt->vol->dev->mount_paths[0]);
-    }
     return mnt->root ? (GFile*)g_object_ref(mnt->root) : NULL;
 }
 
@@ -217,6 +227,7 @@ static gboolean guess_content_job(GIOSchedulerJob *job, GCancellable* cancellabl
                                     data->callback,
                                     data->user_data,
                                     NULL);
+    g_object_ref_sink(res);
     g_simple_async_result_set_op_res_gpointer(res, content_types, (GDestroyNotify)g_strfreev);
     g_simple_async_result_complete_in_idle(res);
     g_object_unref(res);
@@ -265,13 +276,15 @@ static gchar** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean fo
     /* TODO */
 //}
 
-static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_data)
+static void unmount_callback(GObject *source, GAsyncResult *result, gpointer user_data)
 {
+    GDBusProxy *proxy = G_DBUS_PROXY(source);
     AsyncData* data = (AsyncData*)user_data;
     GSimpleAsyncResult* res;
+    GError *error = NULL;
+    GVariant *val = g_dbus_proxy_call_finish(proxy, result, &error);
     if(error)
     {
-        error = g_udisks_error_to_gio_error(error);
         res = g_simple_async_result_new_from_error(G_OBJECT(data->mnt),
                                                    data->callback,
                                                    data->user_data,
@@ -285,19 +298,14 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
                                         data->user_data,
                                         NULL);
         g_simple_async_result_set_op_res_gboolean(res, TRUE);
+        if (val) g_variant_unref(val);
     }
+    g_object_ref_sink(res);
     g_simple_async_result_complete(res);
     g_object_unref(res);
 
     g_object_unref(data->mnt);
-    g_object_unref(data->proxy);
     g_slice_free(AsyncData, data);
-}
-
-static void on_unmount_cancelled(GCancellable* cancellable, gpointer user_data)
-{
-    AsyncData* data = (AsyncData*)user_data;
-    dbus_g_proxy_cancel_call(data->proxy, data->call);
 }
 
 static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
@@ -305,22 +313,43 @@ static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFl
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     if(mnt->vol)
     {
-        GUDisksDevice* dev = mnt->vol->dev;
-        GUDisksVolumeMonitor* mon = mnt->vol->mon;
-        AsyncData* data = g_slice_new(AsyncData);
-        DBusGProxy* proxy = g_udisks_device_get_proxy(dev, mon->con);
-        data->mnt = g_object_ref(mnt);
-        data->callback = callback;
-        data->user_data = user_data;
-        data->proxy = proxy;
+        GUDisksDevice* dev = g_udisks_volume_get_device(mnt->vol);
+        GDBusProxy* proxy = dev ? g_udisks_device_get_fs_proxy(dev) : NULL;
+        if(proxy)
+        {
+            AsyncData* data = g_slice_new(AsyncData);
+            GVariantBuilder b;
+            data->mnt = g_object_ref(mnt);
+            data->callback = callback;
+            data->user_data = user_data;
 
-        g_signal_emit_by_name(mon, "mount-pre-unmount", mnt);
-        g_signal_emit_by_name(mnt, "pre-unmount");
+            g_debug("send DBus request to unmount %s", g_udisks_device_get_obj_path(dev));
+            if (dev)
+                g_udisks_device_mount_preunmount(dev, mnt);
+            g_signal_emit(mnt, sig_pre_unmount, 0);
 
-        data->call = org_freedesktop_UDisks_Device_filesystem_unmount_async(
-                        proxy, NULL, unmount_callback, data);
-        if(cancellable)
-            g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_unmount_cancelled), data);
+            g_variant_builder_init(&b, G_VARIANT_TYPE("(a{sv})"));
+            g_variant_builder_open(&b, G_VARIANT_TYPE ("a{sv}"));
+            g_variant_builder_close(&b);
+            g_dbus_proxy_call(proxy, "Unmount", g_variant_builder_end(&b),
+                              G_DBUS_CALL_FLAGS_NONE, -1, cancellable,
+                              unmount_callback, data);
+            g_object_unref(proxy);
+        }
+        else
+        {
+            GSimpleAsyncResult* res;
+            char *dev_file = dev ? g_udisks_device_get_dev_file(dev) : NULL;
+
+            res = g_simple_async_result_new_error(G_OBJECT(mnt), callback, user_data,
+                                                  G_IO_ERROR, G_IO_ERROR_FAILED,
+                                                  _("No filesystem proxy for '%s'"),
+                                                  dev_file);
+            g_object_ref_sink(res);
+            g_simple_async_result_complete(res);
+            g_object_unref(res);
+            g_free(dev_file);
+        }
     }
 }
 
@@ -362,4 +391,12 @@ void g_udisks_mount_mount_iface_init(GMountIface *iface)
     iface->guess_content_type = g_udisks_mount_guess_content_type;
     iface->guess_content_type_finish = g_udisks_mount_guess_content_type_finish;
     iface->guess_content_type_sync = g_udisks_mount_guess_content_type_sync;
+
+    sig_pre_unmount = g_signal_lookup("pre-unmount", G_TYPE_MOUNT);
+    sig_unmounted = g_signal_lookup("unmounted", G_TYPE_MOUNT);
+}
+
+void g_udisks_mount_unmounted(GUDisksMount* mnt)
+{
+    g_signal_emit(mnt, sig_unmounted, 0);
 }
