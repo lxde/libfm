@@ -1,6 +1,7 @@
 //      g-udisks-device.h
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -22,7 +23,7 @@
 #define __G_UDISKS_DEVICE_H__
 
 #include <glib-object.h>
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -41,77 +42,23 @@ G_BEGIN_DECLS
 
 typedef struct _GUDisksDevice            GUDisksDevice;
 typedef struct _GUDisksDeviceClass        GUDisksDeviceClass;
-typedef struct _GUDisksDevicePrivate        GUDisksDevicePrivate;
-
-struct _GUDisksDevice
-{
-    GObject parent;
-    char* obj_path; /* dbus object path */
-
-    char* dev_file;
-    char* dev_file_presentation;
-    gboolean is_sys_internal : 1;
-    gboolean is_removable : 1;
-    gboolean is_read_only : 1;
-    gboolean is_drive : 1;
-    gboolean is_optic_disc : 1;
-    gboolean is_mounted : 1;
-    gboolean is_media_available : 1;
-    gboolean is_media_change_notification_polling : 1;
-    gboolean is_luks : 1;
-    gboolean is_luks_clear_text : 1;
-    gboolean is_linux_md_component : 1;
-    gboolean is_linux_md : 1;
-    gboolean is_linux_lvm2lv : 1;
-    gboolean is_linux_lvm2pv : 1;
-    gboolean is_linux_dmmp_component : 1;
-    gboolean is_linux_dmmp : 1;
-    gboolean is_ejectable : 1;
-    gboolean is_disc_blank : 1;
-    gboolean is_hidden : 1;
-    gboolean auto_mount : 1;
-
-    guint mounted_by_uid;
-    char** mount_paths;
-    guint64 dev_size;
-    guint64 partition_size;
-
-    guint num_audio_tracks;
-    guint luks_unlocked_by_uid;
-
-    char* name;
-    char* icon_name;
-
-    char* usage;
-    char* type;
-    char* uuid;
-    char* label;
-    char* vender;
-    char* model;
-    char* conn_iface;
-    char* media;
-    char* partition_slave;
-};
-
-struct _GUDisksDeviceClass
-{
-    GObjectClass parent_class;
-};
 
 
 GType g_udisks_device_get_type (void);
-GUDisksDevice* g_udisks_device_new (const char* obj_path, GHashTable* props);
 
-void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props);
+GUDisksDevice* g_udisks_device_get(const char* obj_path, GDBusConnection* con,
+                                   GCancellable* cancellable, GError** error);
 
-DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con);
-
-const char* g_udisks_device_get_icon_name(GUDisksDevice* dev);
-
-/* this is only valid if the device contains a optic disc */
-const char* g_udisks_device_get_disc_name(GUDisksDevice* dev);
-
-gboolean g_udisks_device_is_volume(GUDisksDevice* dev);
+GVariant *g_udisks_device_get_fstype(GUDisksDevice* dev);
+char *g_udisks_device_get_uuid(GUDisksDevice* dev);
+char *g_udisks_device_get_label(GUDisksDevice* dev);
+char *g_udisks_device_get_dev_file(GUDisksDevice* dev);
+char *g_udisks_device_get_dev_basename(GUDisksDevice* dev);
+char *g_udisks_device_get_icon_name(GUDisksDevice* dev);
+char **g_udisks_device_get_mount_paths(GUDisksDevice* dev);
+gboolean g_udisks_device_can_auto_mount(GUDisksDevice* dev);
+const char *g_udisks_device_get_obj_path(GUDisksDevice* dev);
+GDBusProxy *g_udisks_device_get_fs_proxy(GUDisksDevice* dev);
 
 G_END_DECLS
 

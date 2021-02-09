@@ -2,6 +2,7 @@
  *      dbus-utils.h
  *
  *      Copyright 2010 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -22,82 +23,41 @@
 #ifndef __DBUS_UTILS_H__
 #define __DBUS_UTILS_H__
 
-#include <glib.h>
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-// char* dbus_get_prop(DBusGProxy* proxy, const char* iface, const char* prop);
-GHashTable* dbus_get_all_props(DBusGProxy* proxy, const char* iface, GError** err);
-
-static inline const char* dbus_prop_str(GHashTable* props, const char* name)
+static inline char* dbus_prop_dup_str(GDBusProxy* proxy, const char* name)
 {
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_string(val) : NULL;
+    GVariant *var = g_dbus_proxy_get_cached_property(proxy, name);
+    char *str = var ? g_variant_dup_string(var, NULL) : NULL;
+    if (var) g_variant_unref(var);
+    return str;
 }
 
-static inline const char* dbus_prop_obj_path(GHashTable* props, const char* name)
+static inline char** dbus_prop_dup_strv(GDBusProxy* proxy, const char* name)
 {
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? (char*)g_value_get_boxed(val) : NULL;
+    GVariant *var = g_dbus_proxy_get_cached_property(proxy, name);
+    char **strv = var ? g_variant_dup_bytestring_array(var, NULL) : NULL;
+    if (var) g_variant_unref(var);
+    return strv;
 }
 
-static inline const char** dbus_prop_strv(GHashTable* props, const char* name)
+static inline gboolean dbus_prop_bool(GDBusProxy* proxy, const char* name)
 {
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? (const char**)g_value_get_boxed(val) : NULL;
+    GVariant *var = g_dbus_proxy_get_cached_property(proxy, name);
+    gboolean val = var ? g_variant_get_boolean(var) : FALSE;
+    if (var) g_variant_unref(var);
+    return val;
 }
 
-static inline char* dbus_prop_dup_str(GHashTable* props, const char* name)
+static inline guint dbus_prop_uint(GDBusProxy* proxy, const char* name)
 {
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_dup_string(val) : NULL;
+    GVariant *var = g_dbus_proxy_get_cached_property(proxy, name);
+    guint val = var ? g_variant_get_uint32(var) : 0;
+    if (var) g_variant_unref(var);
+    return val;
 }
-
-static inline char* dbus_prop_dup_obj_path(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_strdup((char*)g_value_get_boxed(val)) : NULL;
-}
-
-static inline char** dbus_prop_dup_strv(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_dup_boxed(val) : NULL;
-}
-
-static inline gboolean dbus_prop_bool(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_boolean(val) : FALSE;
-}
-
-static inline gint dbus_prop_int(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_int(val) : 0;
-}
-
-static inline guint dbus_prop_uint(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_uint(val) : 0;
-}
-
-static inline gint64 dbus_prop_int64(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_int64(val) : 0;
-}
-
-static inline guint64 dbus_prop_uint64(GHashTable* props, const char* name)
-{
-    GValue* val = (GValue*)g_hash_table_lookup(props, name);
-    return val ? g_value_get_uint64(val) : 0;
-}
-
-// GHashTable* dbus_get_prop_async();
-// GHashTable* dbus_get_all_props_async();
 
 GError* g_udisks_error_to_gio_error(GError* error);
 
