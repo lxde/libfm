@@ -1,3 +1,10 @@
+Changes on 1.4.0 since 1.3.2:
+
+* Migrated away from dbus-glib-1 which is deprecated for years.
+
+* Migrated from Udisks (which is not used anymore anywhere) to Udisks2 DBus API.
+
+
 Changes on 1.3.2 since 1.3.1:
 
 * Fixed all/allfiles parse conditions in FmAction, it was inverted.

@@ -1,6 +1,7 @@
 //      g-udisks-mount.h
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #define __G_UDISKS_MOUNT_H__
 
 #include <gio/gio.h>
+#include "g-udisks-volume.h"
 
 G_BEGIN_DECLS
 
@@ -40,14 +42,6 @@ G_BEGIN_DECLS
 
 typedef struct _GUDisksMount            GUDisksMount;
 typedef struct _GUDisksMountClass        GUDisksMountClass;
-typedef struct _GUDisksMountPrivate        GUDisksMountPrivate;
-
-struct _GUDisksMount
-{
-    GObject parent;
-    struct _GUDisksVolume* vol;
-    GFile* root;
-};
 
 struct _GUDisksMountClass
 {
@@ -56,8 +50,9 @@ struct _GUDisksMountClass
 
 
 GType        g_udisks_mount_get_type(void);
-GUDisksMount* g_udisks_mount_new(struct _GUDisksVolume* vol);
+GUDisksMount* g_udisks_mount_new(GUDisksVolume* vol, GFile *path);
 
+void g_udisks_mount_unmounted(GUDisksMount* mnt);
 
 G_END_DECLS
 

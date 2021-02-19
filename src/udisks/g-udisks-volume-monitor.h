@@ -24,7 +24,6 @@
 #define __G_UDISKS_VOLUME_MONITOR_H__
 
 #include <gio/gio.h>
-#include <dbus/dbus-glib.h>
 
 G_BEGIN_DECLS
 
@@ -40,19 +39,6 @@ G_BEGIN_DECLS
 
 typedef struct _GUDisksVolumeMonitor            GUDisksVolumeMonitor;
 typedef struct _GUDisksVolumeMonitorClass       GUDisksVolumeMonitorClass;
-
-struct _GUDisksVolumeMonitor
-{
-    GNativeVolumeMonitor parent;
-    DBusGConnection* con;
-    DBusGProxy* udisks_proxy;
-
-    GList* devices;
-    GList* drives;
-    GList* volumes;
-    guint idle_handler;
-    GList* queued_events;
-};
 
 struct _GUDisksVolumeMonitorClass
 {
