@@ -1909,6 +1909,16 @@ exo_icon_view_expose_event (GtkWidget      *widget,
 
   if (!gtk_cairo_should_draw_window (cr, priv->bin_window))
     return FALSE;
+
+  /* draw a background according to the css theme */
+  style = gtk_widget_get_style_context (widget);
+  gtk_style_context_save (style);
+  gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
+  gtk_render_background (style, cr,
+                         0, 0,
+                         gtk_widget_get_allocated_width (widget),
+                         gtk_widget_get_allocated_height (widget));
+  gtk_style_context_restore (style);
 #endif
 
   /* don't handle expose if the layout isn't done yet; the layout
@@ -2009,10 +2019,8 @@ exo_icon_view_expose_event (GtkWidget      *widget,
 #endif
     }
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
   if (G_UNLIKELY (dest_item != NULL || priv->doing_rubberband))
-#if GTK_CHECK_VERSION(3, 0, 0)
-      style = gtk_widget_get_style_context (widget);
-#else
       style = gtk_widget_get_style (widget);
 #endif
 
