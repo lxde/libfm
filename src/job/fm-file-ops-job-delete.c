@@ -348,7 +348,7 @@ _retry_trash:
 
             if(mnt)
             {
-                ret = g_mount_can_unmount(mnt); /* TRUE if it's removable media */
+                ret = g_mount_can_eject(mnt); /* TRUE if it's removable media */
                 g_object_unref(mnt);
                 if(ret)
                     fm_path_list_push_tail(unsupported, FM_PATH(l->data));
