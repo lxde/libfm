@@ -87,3 +87,8 @@ desktop_id=kitty.desktop
 [mintty]
 open_arg=-e
 noclose_arg=--hold always -e
+
+[alacritty]
+open_arg=-e
+noclose_arg=--hold -e
+desktop_id=Alacritty.desktop
