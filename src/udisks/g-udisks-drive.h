@@ -1,6 +1,7 @@
 //      g-udisks-drive.h
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -22,8 +23,6 @@
 #define __G_UDISKS_DRIVE_H__
 
 #include <gio/gio.h>
-#include "g-udisks-device.h"
-#include "g-udisks-volume-monitor.h"
 
 G_BEGIN_DECLS
 
@@ -43,15 +42,6 @@ G_BEGIN_DECLS
 typedef struct _GUDisksDrive            GUDisksDrive;
 typedef struct _GUDisksDriveClass        GUDisksDriveClass;
 
-struct _GUDisksDrive
-{
-    GObject parent;
-    GUDisksDevice* dev;
-    GIcon* icon;
-    char* name;
-    GUDisksVolumeMonitor* mon;
-};
-
 struct _GUDisksDriveClass
 {
     GObjectClass parent_class;
@@ -59,10 +49,21 @@ struct _GUDisksDriveClass
 
 
 GType        g_udisks_drive_get_type(void);
-GUDisksDrive* g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
+GUDisksDrive* g_udisks_drive_new(GDBusConnection* con, const char *obj_path,
+                                 GCancellable* cancellable, GError** error);
 
-void g_udisks_drive_changed(GUDisksDrive* drv);
+void g_udisks_drive_set_device_path(GUDisksDrive* drv, const char* obj_path,
+                                    GDBusConnection* con, GCancellable* cancellable,
+                                    GError** error);
+
 void g_udisks_drive_disconnected(GUDisksDrive* drv);
+
+const char* g_udisks_drive_get_obj_path(GUDisksDrive* drv);
+
+/* this is only valid if the device contains a optic disc */
+const char* g_udisks_drive_get_disc_name(GUDisksDrive* drv);
+
+gboolean g_udisks_drive_is_disc_blank(GUDisksDrive* drv);
 
 G_END_DECLS
 

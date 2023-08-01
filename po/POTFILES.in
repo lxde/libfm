@@ -48,4 +48,6 @@ src/modules/gtk-fileprop-x-desktop.c
 src/modules/gtk-menu-trash.c
 src/tools/libfm-pref-apps.c
 src/tools/lxshortcut.c
-src/udisks/g-udisks-device.c
+src/udisks/g-udisks-drive.c
+src/udisks/g-udisks-mount.c
+src/udisks/g-udisks-volume.c
