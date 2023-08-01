@@ -1,22 +1,23 @@
 # Portuguese translation for libfm package.
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
-# Sérgio Marques <smarquespt@gmail.com>, 2010-2012.
+# Sérgio Marques <smarquespt@gmail.com>, 2010, 2011, 2012.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023.
 # Adaptado ao acordo ortográfico de 1990
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-01 14:43+0200\n"
-"PO-Revision-Date: 2015-03-26 13:35+0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2023-08-01 15:02+0100\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"Language-Team: Portuguese\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.7\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-POOTLE-MTIME: 1427376909.000000\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
@@ -226,7 +227,7 @@ msgstr "_Geral"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>O_wner:</b>"
-msgstr "<b>_Dono:</b>"
+msgstr "<b>Proprietári_o:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>G_roup:</b>"
@@ -270,7 +271,7 @@ msgstr "Marcas para acesso ao diretório"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "<b>Access Control</b>"
-msgstr "<b>Controle de acesso</b>"
+msgstr "<b>Controlo de acesso</b>"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Hidden file"
@@ -290,11 +291,6 @@ msgstr "Nenhum"
 
 #. this is a directory access bit - only owner can delete a file from it
 #: ../data/ui/file-prop.glade.h:33
-#, fuzzy
-#| msgctxt ""
-#| "It is a directory access bit - 'sticky' - where only owner can delete a "
-#| "file from it"
-#| msgid "Sticky"
 msgid "Sticky"
 msgstr "Fixo"
 
@@ -308,9 +304,6 @@ msgstr "Fixo e definir GID"
 
 #. this is a file access mode bit - executable files run with permissions of owner
 #: ../data/ui/file-prop.glade.h:37
-#, fuzzy
-#| msgctxt "this is a file access mode bit, also known as 'suid'"
-#| msgid "Set UID"
 msgid "Set UID"
 msgstr "Definir UID"
 
@@ -320,13 +313,8 @@ msgstr "Definir UID e GID"
 
 #. this is a file access mode - only owner can access the file, for others access is denied
 #: ../data/ui/file-prop.glade.h:40
-#, fuzzy
-#| msgctxt ""
-#| "this is a file access mode - only owner can access the file, for others "
-#| "access is denied"
-#| msgid "Only owner"
 msgid "Only owner"
-msgstr "Proprietário"
+msgstr "Apenas o proprietário"
 
 #: ../data/ui/file-prop.glade.h:41
 msgid "Only owner and group"
@@ -394,7 +382,7 @@ msgstr "<b>Locais a proc_urar</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "Procurar nos _sub-diretórios"
+msgstr "Procurar nos _subdiretórios"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
@@ -540,9 +528,8 @@ msgid "Preparing..."
 msgstr "A preparar..."
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Data transferred:</b>"
-msgstr "<b>Destino:</b>"
+msgstr "<b>Dados transferidos:</b>"
 
 #: ../data/ui/progress.glade.h:6
 msgid "<b>Time remaining:</b>"
@@ -553,14 +540,12 @@ msgid "<b>Errors occurred:</b>"
 msgstr "<b>Ocorreram erros:</b>"
 
 #: ../src/base/fm-action.c:274
-#, fuzzy
 msgid "Empty value"
-msgstr "Ficheiro vazio"
+msgstr "Valor vazio"
 
 #: ../src/base/fm-action.c:282
-#, fuzzy
 msgid "Invalid selection"
-msgstr "Destino inválido"
+msgstr "Seleção inválida"
 
 #. ---- GFile implementation ----
 #: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
@@ -671,7 +656,7 @@ msgid ""
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "Falha ao analisar %-.*s, que devia ser um dígito dentro de uma sequência de "
-"caracteres (&#234; por exemplo). É possível que o dígito seja muito grande."
+"caracteres (&#234; por exemplo) - talvez o dígito seja demasiado grande"
 
 #: ../src/extra/fm-xml-file.c:311
 #, c-format
@@ -1215,9 +1200,8 @@ msgstr ""
 "Modificado: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:344
-#, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
-msgstr "<b>Ocorreram alguns erros antes da operação ser terminada.</b>"
+msgstr "<b>Ocorreram erros antes da operação ser interrompida.</b>"
 
 #: ../src/gtk/fm-progress-dlg.c:346
 msgid "Cancelled"
@@ -1414,7 +1398,7 @@ msgstr "Não foi possível restaurar %s: o caminho original não é conhecido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:58
 msgid "Destination does not exist"
-msgstr ""
+msgstr "O destino não existe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Source and destination are the same."
@@ -1782,10 +1766,8 @@ msgid "Blank MRW/W Disc"
 msgstr "MRW/W vazio"
 
 #: ../src/udisks/g-udisks-device.c:278
-#, fuzzy
-#| msgid "_Audio files"
 msgid "Audio CD"
-msgstr "Á_udio"
+msgstr "CD de Áudio"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
