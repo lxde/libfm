@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2.0-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-13 00:10+0300\n"
+"POT-Creation-Date: 2023-08-01 14:43+0200\n"
 "PO-Revision-Date: 2015-05-04 04:25+0000\n"
 "Last-Translator: rago1975 <take1975@kumamoto.email.ne.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -53,20 +53,17 @@ msgstr "インストールされたアプリケーション(_I)"
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>実行するコマンドライン(_O):</b>"
 
-#: ../data/ui/app-chooser.glade.h:5
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
+#: ../data/ui/app-chooser.glade.h:5 ../src/modules/gtk-fileprop-x-desktop.c:275
 msgid "_Browse..."
 msgstr "ダイアログで選択(_B)"
 
 #. row 1: "Terminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:6
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
+#: ../data/ui/app-chooser.glade.h:6 ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
 msgstr "端末エミュレータで実行する(_E)"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:7
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
+#: ../data/ui/app-chooser.glade.h:7 ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
 msgstr "コマンドの実行が終わっても端末のウィンドウを開いておく(_K)"
 
@@ -291,46 +288,55 @@ msgstr "---"
 msgid "None"
 msgstr "なし"
 
-#: ../data/ui/file-prop.glade.h:32
-msgctxt ""
-"It is a directory access bit - 'sticky' - where only owner can delete a file "
-"from it"
+#. this is a directory access bit - only owner can delete a file from it
+#: ../data/ui/file-prop.glade.h:33
+#, fuzzy
+#| msgctxt ""
+#| "It is a directory access bit - 'sticky' - where only owner can delete a "
+#| "file from it"
+#| msgid "Sticky"
 msgid "Sticky"
 msgstr "スティッキー"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Set GID"
 msgstr "Set GID"
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
 msgid "Sticky & set GID"
 msgstr "スティッキー & set GID"
 
-#: ../data/ui/file-prop.glade.h:35
-msgctxt "this is a file access mode bit, also known as 'suid'"
+#. this is a file access mode bit - executable files run with permissions of owner
+#: ../data/ui/file-prop.glade.h:37
+#, fuzzy
+#| msgctxt "this is a file access mode bit, also known as 'suid'"
+#| msgid "Set UID"
 msgid "Set UID"
 msgstr "Set UID"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:38
 msgid "Set UID & GID"
 msgstr "Set UID & GID"
 
-#: ../data/ui/file-prop.glade.h:37
-msgctxt ""
-"this is a file access mode - only owner can access the file, for others "
-"access is denied"
+#. this is a file access mode - only owner can access the file, for others access is denied
+#: ../data/ui/file-prop.glade.h:40
+#, fuzzy
+#| msgctxt ""
+#| "this is a file access mode - only owner can access the file, for others "
+#| "access is denied"
+#| msgid "Only owner"
 msgid "Only owner"
 msgstr "所有者のみ"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:41
 msgid "Only owner and group"
 msgstr "所有者とグループのみ"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:42
 msgid "Anyone"
 msgstr "すべて"
 
-#: ../data/ui/file-prop.glade.h:40
+#: ../data/ui/file-prop.glade.h:43
 msgid "Nobody"
 msgstr "なし"
 
@@ -546,46 +552,46 @@ msgstr "<b>残り時間:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>エラーが発生しました:</b>"
 
-#: ../src/base/fm-action.c:272
+#: ../src/base/fm-action.c:274
 #, fuzzy
 msgid "Empty value"
 msgstr "空のファイル"
 
-#: ../src/base/fm-action.c:280
+#: ../src/base/fm-action.c:282
 #, fuzzy
 msgid "Invalid selection"
 msgstr "不正な移動先です"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "サポートされていない動作"
 
-#: ../src/base/fm-file-launcher.c:87
+#: ../src/base/fm-file-launcher.c:88
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "不正なデスクトップエントリ名 '%s'"
 
-#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
+#: ../src/base/fm-file-launcher.c:255 ../src/base/fm-file-launcher.c:409
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 "'%s' を立ち上げようとしましたが、そのコンテントタイプを決定できませんでした"
 
-#: ../src/base/fm-file-launcher.c:292
+#: ../src/base/fm-file-launcher.c:294
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 "URI %s:// を立ち上げようとしましたが、デフォルトのアプリケーションが設定され"
 "ていません"
 
-#: ../src/base/fm-file-launcher.c:360
+#: ../src/base/fm-file-launcher.c:362
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "作業ディレクトリを '%s' へ移動出来ませんでした: %s"
 
-#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
+#: ../src/base/fm-file-launcher.c:456 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "MIME タイプ %s にデフォルトのアプリケーションが設定されていません"
@@ -1181,11 +1187,11 @@ msgstr "ブックマークのアイテムの名前を変更する"
 msgid "Enter a new name:"
 msgstr "新しい名前を入力してください:"
 
-#: ../src/gtk/fm-progress-dlg.c:135
+#: ../src/gtk/fm-progress-dlg.c:136
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:231
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1196,7 +1202,7 @@ msgstr ""
 "サイズ: %s\n"
 "更新時刻: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:219 ../src/gtk/fm-progress-dlg.c:244
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:245
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1205,24 +1211,24 @@ msgstr ""
 "ファイルタイプ: %s\n"
 "更新時刻: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:343
+#: ../src/gtk/fm-progress-dlg.c:344
 #, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "<b>ファイル操作が終わる前にエラーが発生しました。</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:345
+#: ../src/gtk/fm-progress-dlg.c:346
 msgid "Cancelled"
 msgstr "キャンセルされました"
 
-#: ../src/gtk/fm-progress-dlg.c:349
+#: ../src/gtk/fm-progress-dlg.c:350
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr "<b>ファイル操作は完了しましたが、エラーがあります。</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:351
+#: ../src/gtk/fm-progress-dlg.c:352
 msgid "Finished"
 msgstr "完了しました"
 
-#: ../src/gtk/fm-progress-dlg.c:373
+#: ../src/gtk/fm-progress-dlg.c:374
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1232,84 +1238,84 @@ msgstr ""
 "す。\n"
 "かわりにこれらを削除しますか?"
 
-#: ../src/gtk/fm-progress-dlg.c:414 ../src/gtk/fm-progress-dlg.c:563
+#: ../src/gtk/fm-progress-dlg.c:415 ../src/gtk/fm-progress-dlg.c:564
 msgid "_Pause"
 msgstr "中断(_P)"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:423
 msgid "_Resume"
 msgstr "再開(_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:597
+#: ../src/gtk/fm-progress-dlg.c:598
 msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:617
+#: ../src/gtk/fm-progress-dlg.c:618
 msgid "Moving"
 msgstr "移動中"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:621
+#: ../src/gtk/fm-progress-dlg.c:622
 msgid "Copying"
 msgstr "コピー中"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:625
+#: ../src/gtk/fm-progress-dlg.c:626
 msgid "Trashing"
 msgstr "ゴミ箱への移動中"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:629
+#: ../src/gtk/fm-progress-dlg.c:630
 msgid "Deleting"
 msgstr "削除中"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:633
+#: ../src/gtk/fm-progress-dlg.c:634
 msgid "Creating link"
 msgstr "シンボリック・リンクの作成中"
 
 #. translators: 'In:' string is followed by destination folder path
-#: ../src/gtk/fm-progress-dlg.c:635
+#: ../src/gtk/fm-progress-dlg.c:636
 msgid "<b>In:</b>"
 msgstr "<b>ここに:</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:636
+#: ../src/gtk/fm-progress-dlg.c:637
 msgid "Creating links to files"
 msgstr "ファイルへのリンクの作成中"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:643
+#: ../src/gtk/fm-progress-dlg.c:644
 msgid "Changing attributes of"
 msgstr "属性変更中"
 
-#: ../src/gtk/fm-progress-dlg.c:644
+#: ../src/gtk/fm-progress-dlg.c:645
 msgid "Changing attributes of files"
 msgstr "ファイルの属性変更中"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:650
+#: ../src/gtk/fm-progress-dlg.c:651
 msgid "Restoring"
 msgstr "復元中"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:660
+#: ../src/gtk/fm-progress-dlg.c:661
 #, c-format
 msgid "%s files"
 msgstr "ファイルを%s"
 
-#: ../src/gtk/fm-progress-dlg.c:663
+#: ../src/gtk/fm-progress-dlg.c:664
 msgid "<b>File operation is in progress...</b>"
 msgstr "<b>ファイル操作の進行中...</b>"
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:669
+#: ../src/gtk/fm-progress-dlg.c:670
 #, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>ファイルを%s:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:672
+#: ../src/gtk/fm-progress-dlg.c:673
 #, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>ファイルを%s:</b>"
@@ -1771,6 +1777,12 @@ msgstr "MRW/W ディスク"
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
 msgstr "空の MRW/W ディスク"
+
+#: ../src/udisks/g-udisks-device.c:278
+#, fuzzy
+#| msgid "_Audio files"
+msgid "Audio CD"
+msgstr "音声ファイル(_A)"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"

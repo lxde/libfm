@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-13 00:10+0300\n"
+"POT-Creation-Date: 2023-08-01 14:43+0200\n"
 "PO-Revision-Date: 2015-08-17 01:28+0000\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,22 +55,19 @@ msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>যে কমান্ড লাইনটি কার্যকর করতে হবে:</b>"
 
-#: ../data/ui/app-chooser.glade.h:5
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
+#: ../data/ui/app-chooser.glade.h:5 ../src/modules/gtk-fileprop-x-desktop.c:275
 #, fuzzy
 msgid "_Browse..."
 msgstr "ব্রাউজ (_B)"
 
 #. row 1: "Terminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:6
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
+#: ../data/ui/app-chooser.glade.h:6 ../src/modules/gtk-fileprop-x-desktop.c:294
 #, fuzzy
 msgid "_Execute in terminal emulator"
 msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:7
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
+#: ../data/ui/app-chooser.glade.h:7 ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
 msgstr ""
 
@@ -320,46 +317,42 @@ msgstr "---"
 msgid "None"
 msgstr "কোনটি না"
 
-#: ../data/ui/file-prop.glade.h:32
-msgctxt ""
-"It is a directory access bit - 'sticky' - where only owner can delete a file "
-"from it"
+#. this is a directory access bit - only owner can delete a file from it
+#: ../data/ui/file-prop.glade.h:33
 msgid "Sticky"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Set GID"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
 msgid "Sticky & set GID"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:35
-msgctxt "this is a file access mode bit, also known as 'suid'"
+#. this is a file access mode bit - executable files run with permissions of owner
+#: ../data/ui/file-prop.glade.h:37
 msgid "Set UID"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:38
 msgid "Set UID & GID"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:37
-msgctxt ""
-"this is a file access mode - only owner can access the file, for others "
-"access is denied"
+#. this is a file access mode - only owner can access the file, for others access is denied
+#: ../data/ui/file-prop.glade.h:40
 msgid "Only owner"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:41
 msgid "Only owner and group"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:42
 msgid "Anyone"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:40
+#: ../data/ui/file-prop.glade.h:43
 msgid "Nobody"
 msgstr ""
 
@@ -586,43 +579,43 @@ msgstr "<b>অবশিষ্ট সময়:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>কিছু ত্রুটি ঘটেছে:</b>"
 
-#: ../src/base/fm-action.c:272
+#: ../src/base/fm-action.c:274
 #, fuzzy
 msgid "Empty value"
 msgstr "অনেকগুলো ফাইল"
 
-#: ../src/base/fm-action.c:280
+#: ../src/base/fm-action.c:282
 #, fuzzy
 msgid "Invalid selection"
 msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:807 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:87
+#: ../src/base/fm-file-launcher.c:88
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:253 ../src/base/fm-file-launcher.c:407
+#: ../src/base/fm-file-launcher.c:255 ../src/base/fm-file-launcher.c:409
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:292
+#: ../src/base/fm-file-launcher.c:294
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:360
+#: ../src/base/fm-file-launcher.c:362
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:454 ../src/base/fm-templates.c:1104
+#: ../src/base/fm-file-launcher.c:456 ../src/base/fm-templates.c:1104
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
@@ -1256,11 +1249,11 @@ msgstr "বুকমার্ক আইটেম নামান্তর কর
 msgid "Enter a new name:"
 msgstr "নতুন একটি নাম দিন:"
 
-#: ../src/gtk/fm-progress-dlg.c:135
+#: ../src/gtk/fm-progress-dlg.c:136
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:231
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1271,7 +1264,7 @@ msgstr ""
 "আকার: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:219 ../src/gtk/fm-progress-dlg.c:244
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:245
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1280,25 +1273,25 @@ msgstr ""
 "টাইপ: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:343
+#: ../src/gtk/fm-progress-dlg.c:344
 #, fuzzy
 msgid "<b>Errors occurred before file operation was stopped.</b>"
 msgstr "ফাইল অপারেশনটি বাতিল হয়েছে এবং কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:345
+#: ../src/gtk/fm-progress-dlg.c:346
 msgid "Cancelled"
 msgstr "বাতিলকৃত"
 
-#: ../src/gtk/fm-progress-dlg.c:349
+#: ../src/gtk/fm-progress-dlg.c:350
 #, fuzzy
 msgid "<b>The file operation was completed with errors.</b>"
 msgstr "ফাইল অপারেশনটি বাতিল হয়েছে এবং কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:351
+#: ../src/gtk/fm-progress-dlg.c:352
 msgid "Finished"
 msgstr "শেষ হয়েছে"
 
-#: ../src/gtk/fm-progress-dlg.c:373
+#: ../src/gtk/fm-progress-dlg.c:374
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1308,95 +1301,95 @@ msgstr ""
 "না।\n"
 "এর বদলে আপনি কি ফাইলগুলো মুছে ফেলতে চান?"
 
-#: ../src/gtk/fm-progress-dlg.c:414 ../src/gtk/fm-progress-dlg.c:563
+#: ../src/gtk/fm-progress-dlg.c:415 ../src/gtk/fm-progress-dlg.c:564
 msgid "_Pause"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:423
 #, fuzzy
 msgid "_Resume"
 msgstr "পুনরায় জমা করুন (_R)"
 
-#: ../src/gtk/fm-progress-dlg.c:597
+#: ../src/gtk/fm-progress-dlg.c:598
 msgid ", "
 msgstr ", "
 
 #. translators: it is part of "Moving files:" or "Moving xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:617
+#: ../src/gtk/fm-progress-dlg.c:618
 #, fuzzy
 msgid "Moving"
 msgstr "ফাইল সরানো হচ্ছে"
 
 #. translators: it is part of "Copying files:" or "Copying xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:621
+#: ../src/gtk/fm-progress-dlg.c:622
 #, fuzzy
 msgid "Copying"
 msgstr "ফাইল অনুলেপন করা হচ্ছে"
 
 #. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:625
+#: ../src/gtk/fm-progress-dlg.c:626
 #, fuzzy
 msgid "Trashing"
 msgstr "ফাইল ফেলে দেয়া হচ্ছে"
 
 #. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:629
+#: ../src/gtk/fm-progress-dlg.c:630
 #, fuzzy
 msgid "Deleting"
 msgstr "ফাইল মুছে ফেলা হচ্ছে"
 
 #. translators: it is part of "Creating link /path/xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:633
+#: ../src/gtk/fm-progress-dlg.c:634
 #, fuzzy
 msgid "Creating link"
 msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 
 #. translators: 'In:' string is followed by destination folder path
-#: ../src/gtk/fm-progress-dlg.c:635
+#: ../src/gtk/fm-progress-dlg.c:636
 #, fuzzy
 msgid "<b>In:</b>"
 msgstr "<b>প্রতি:</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:636
+#: ../src/gtk/fm-progress-dlg.c:637
 #, fuzzy
 msgid "Creating links to files"
 msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 
 #. translators: it is part of "Changing attributes of xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:643
+#: ../src/gtk/fm-progress-dlg.c:644
 #, fuzzy
 msgid "Changing attributes of"
 msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:644
+#: ../src/gtk/fm-progress-dlg.c:645
 #, fuzzy
 msgid "Changing attributes of files"
 msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
 #. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
-#: ../src/gtk/fm-progress-dlg.c:650
+#: ../src/gtk/fm-progress-dlg.c:651
 #, fuzzy
 msgid "Restoring"
 msgstr "পুনরায় জমা করুন (_R)"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:660
+#: ../src/gtk/fm-progress-dlg.c:661
 #, fuzzy, c-format
 msgid "%s files"
 msgstr "ফাইল ফেলে দেয়া হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:663
+#: ../src/gtk/fm-progress-dlg.c:664
 msgid "<b>File operation is in progress...</b>"
 msgstr ""
 
 #. note to translators: resulting string is such as "Deleting file"
-#: ../src/gtk/fm-progress-dlg.c:669
+#: ../src/gtk/fm-progress-dlg.c:670
 #, fuzzy, c-format
 msgid "<b>%s file:</b>"
 msgstr "<b>ফাইল টাইপ:</b>"
 
 #. note to translators: resulting string is such as "Deleting files"
-#: ../src/gtk/fm-progress-dlg.c:672
+#: ../src/gtk/fm-progress-dlg.c:673
 #, fuzzy, c-format
 msgid "<b>%s files:</b>"
 msgstr "<b>ফাইল টাইপ:</b>"
@@ -1866,6 +1859,10 @@ msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:278
+msgid "Audio CD"
 msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:299
