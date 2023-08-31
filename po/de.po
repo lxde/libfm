@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-01 14:43+0200\n"
-"PO-Revision-Date: 2023-08-01 15:10+0200\n"
+"PO-Revision-Date: 2023-08-31 17:01+0200\n"
 "Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -480,11 +480,11 @@ msgstr "_Eigenschaften"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr "<b>Web-Browser</b>"
+msgstr "<b>Webbrowser</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks verwendet."
+msgstr "Der bevorzugte Webbrowser wird zum Öffnen von Hyperlinks verwendet."
 
 # Aus stilistischen Gründen würde ich hier auf das "E-" in E-Mail verzichten da hier sonst 2 Bindestriche sind.
 #: ../data/ui/preferred-apps.glade.h:4
@@ -1070,7 +1070,7 @@ msgstr "Frage"
 # oder doch Systemadministratoren?
 #: ../src/gtk/fm-gtk-utils.c:709
 msgid "Only system administrators have the permission to do this."
-msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
+msgstr "Nur Systemverwalter haben die Erlaubnis, dies zu tun."
 
 #: ../src/gtk/fm-gtk-utils.c:924
 #, c-format
@@ -1148,7 +1148,7 @@ msgstr "_Wechseldatenträger auswerfen"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
-msgstr "Volume _formatieren"
+msgstr "Datenträger _formatieren"
 
 #: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
@@ -1466,7 +1466,7 @@ msgstr "Menüeintrag »%s« existiert bereits"
 #: ../src/modules/vfs-menu.c:1102 ../src/modules/vfs-menu.c:1407
 #: ../src/modules/vfs-menu.c:1493
 msgid "Menu cache error"
-msgstr "Fehler im Menücache"
+msgstr "Fehler im Menü-Zwischenspeicher"
 
 #: ../src/modules/vfs-menu.c:1367
 msgid "Invalid menu directory"
@@ -1541,7 +1541,7 @@ msgstr "Ungültiges Ziel"
 #: ../src/modules/vfs-menu.c:2952
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: Ordner »%s« im Menücache nicht gefunden"
+msgstr "FmMenuVFileMonitor: Ordner »%s« im Menü-Zwischenspeicher nicht gefunden"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:991
