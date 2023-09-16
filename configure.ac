@@ -136,6 +136,9 @@ else
   ac_with_gtk="none"
   LIBFM_PREF_APPS=
 fi
+if test "$ac_with_gtk" = "3.0"; then
+  CFLAGS="$CFLAGS -Wno-deprecated-declarations"
+fi
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 AC_SUBST(LIBFM_GTK_LTLIBRARIES)
