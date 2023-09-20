@@ -67,6 +67,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP  FALSE
 #define     FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE   FALSE
 #define     FM_CONFIG_DEFAULT_SHADOW_HIDDEN     FALSE
+#define     FM_CONFIG_DEFAULT_DATE_TIME_FORMAT  "%x %R"
 #define     FM_CONFIG_DEFAULT_DEFER_CONTENT_TEST FALSE
 #define     FM_CONFIG_DEFAULT_QUICK_EXEC        FALSE
 #define     FM_CONFIG_DEFAULT_SMART_DESKTOP_AUTODROP TRUE
@@ -105,6 +106,7 @@ typedef enum
  * FmConfig:
  * @terminal: command line to launch terminal emulator
  * @archiver: desktop_id of the archiver used
+ * @date_time_format: date-time format (strftime)
  * @big_icon_size: size of big icons
  * @small_icon_size: size of small icons
  * @pane_icon_size: size of side pane icons
@@ -156,6 +158,7 @@ struct _FmConfig
     /*< public >*/
     char* terminal;
     char* archiver;
+    char* date_time_format;
 
     gint big_icon_size;
     gint small_icon_size;
