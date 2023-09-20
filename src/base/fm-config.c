@@ -121,6 +121,8 @@ static void fm_config_finalize(GObject *object)
         g_free(cfg->terminal);
     if(cfg->archiver)
         g_free(cfg->archiver);
+    if(cfg->date_time_format)
+        g_free(cfg->date_time_format);
     g_strfreev(cfg->system_modules_blacklist);
     g_strfreev(cfg->modules_blacklist);
     g_strfreev(cfg->modules_whitelist);
@@ -269,6 +271,14 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     if(cfg->archiver)
         g_free(cfg->archiver);
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
+    if(cfg->date_time_format)
+        g_free(cfg->date_time_format);
+    cfg->date_time_format = g_key_file_get_string(kf, "config", "date_time_format", NULL);
+    if(!cfg->date_time_format) /* absence from config file causes segfault */
+    {
+        cfg->date_time_format = g_malloc(sizeof(char) * strlen(FM_CONFIG_DEFAULT_DATE_TIME_FORMAT));
+        g_stpcpy(cfg->date_time_format, FM_CONFIG_DEFAULT_DATE_TIME_FORMAT);
+    }
     fm_key_file_get_bool(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
@@ -501,6 +511,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
 #endif
                 _save_config_string(str, cfg, terminal);
                 _save_config_string(str, cfg, archiver);
+                _save_config_string(str, cfg, date_time_format);
                 _save_config_string(str, cfg, format_cmd);
                 _save_config_bool(str, cfg, thumbnail_local);
                 _save_config_int(str, cfg, thumbnail_max);
