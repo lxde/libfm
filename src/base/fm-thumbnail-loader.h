@@ -77,11 +77,16 @@ typedef struct _FmThumbnailLoaderBackend FmThumbnailLoaderBackend;
  * @read_image_from_stream: callback to read image by opened #GInputStream
  * @write_image: callback to write thumbnail file from image
  * @scale_image: callback to change image sizes
+ * @new_image: callback to create new image
+ * @fill_image: callback to fill an image with a uniform color
  * @rotate_image: callback to change image orientation
+ * @get_colorspace: callback to retrieve the image colorspace
  * @get_image_width: callback to retrieve width from image
  * @get_image_height: callback to retrieve height from image
+ * @get_bits_per_sample: callback to retrieve the image bit depth
  * @get_image_text: callback to retrieve custom attributes text from image
  * @set_image_text: callback to set custom attributes text into image
+ * @composite: callback to merge two images into one
  *
  * Abstract backend callbacks list.
  */
@@ -90,11 +95,17 @@ struct _FmThumbnailLoaderBackend {
     GObject* (*read_image_from_stream)(GInputStream* stream, guint64 len, GCancellable* cancellable);
     gboolean (*write_image)(GObject* image, const char* filename);
     GObject* (*scale_image)(GObject* ori_pix, int new_width, int new_height);
+    GObject* (*new_image)(int colorspace, gboolean has_alpha, int bits_per_sample, int width, int height);
+    void (*fill_image)(GObject* image, guint32 color);
     GObject* (*rotate_image)(GObject* image, int degree);
+    int (*get_colorspace)(GObject* image);
     int (*get_image_width)(GObject* image);
     int (*get_image_height)(GObject* image);
+    int (*get_bits_per_sample)(GObject* image);
     char* (*get_image_text)(GObject* image, const char* key);
     gboolean (*set_image_text)(GObject* image, const char* key, const char* val);
+    void (*composite)(GObject* src, GObject* dst, int dst_x, int dst_y, int dst_width, int dst_height,
+        double offset_x, double offset_y, double scale_x, double scale_y, int overall_alpha);
     // const char* (*get_image_orientation)(GObject* image);
     // GObject* (*apply_orientation)(GObject* image);
 };

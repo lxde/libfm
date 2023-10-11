@@ -193,6 +193,26 @@ static GObject* scale_image(GObject* ori_pix, int new_width, int new_height)
     return (GObject*)gdk_pixbuf_scale_simple(GDK_PIXBUF(ori_pix), new_width, new_height, GDK_INTERP_BILINEAR);
 }
 
+static GObject* new_image(int colorspace, gboolean has_alpha, int bits_per_sample, int width, int height)
+{
+    return (GObject*)gdk_pixbuf_new(colorspace, has_alpha, bits_per_sample, width, height);
+}
+
+static void fill_image(GObject* image, guint32 color)
+{
+    gdk_pixbuf_fill(GDK_PIXBUF(image), color);
+}
+
+static int get_colorspace(GObject* image)
+{
+    return (int)gdk_pixbuf_get_colorspace(GDK_PIXBUF(image));
+}
+
+static int get_bits_per_sample(GObject* image)
+{
+    return gdk_pixbuf_get_bits_per_sample(GDK_PIXBUF(image));
+}
+
 static int get_image_width(GObject* image)
 {
     return gdk_pixbuf_get_width(GDK_PIXBUF(image));
@@ -213,16 +233,28 @@ static GObject* rotate_image(GObject* image, int degree)
 	return (GObject*)gdk_pixbuf_rotate_simple(GDK_PIXBUF(image), (GdkPixbufRotation)degree);
 }
 
+static void composite(GObject* src, GObject* dst, int dst_x, int dst_y, int dst_width, int dst_height,
+    double offset_x, double offset_y, double scale_x, double scale_y, int overall_alpha)
+{
+    gdk_pixbuf_composite(GDK_PIXBUF(src), GDK_PIXBUF(dst), dst_x, dst_y, dst_width, dst_height,
+    offset_x, offset_y, scale_x, scale_y, GDK_INTERP_BILINEAR, overall_alpha);
+}
+
 static FmThumbnailLoaderBackend gtk_backend = {
     read_image_from_file,
     read_image_from_stream,
     write_image,
     scale_image,
+    new_image,
+    fill_image,
     rotate_image,
+    get_colorspace,
     get_image_width,
     get_image_height,
+    get_bits_per_sample,
     get_image_text,
-    set_image_text
+    set_image_text,
+    composite
 };
 
 /* in main loop */
