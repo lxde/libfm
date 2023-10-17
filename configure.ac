@@ -42,7 +42,7 @@ AM_COND_IF(EXTRALIB_ONLY,
     [enable_actions=no])
 if test x"$enable_actions" = xyes; then
     dnl no vala compiler required when sources are from dist tarball
-    if test -f src/actions/libfmactions_la_vala.stamp; then
+    if test -f $srcdir/src/actions/libfmactions_la_vala.stamp; then
         AM_PROG_VALAC
     else
         AM_PROG_VALAC([0.13.0])
