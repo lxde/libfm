@@ -6,6 +6,7 @@
  *      Copyright 2017 Tsu Jan <tsujan2000@gmail.com>
  *      Copyright 2012-2018 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2019 Mahmoud Al-Qudsi <mqudsi@neosmart.net>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This file is a part of the Libfm library.
  *
@@ -1390,17 +1391,22 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
         {
             if (fi->shortcut && fi->target) {
                 /* handle shortcuts from desktop to menu entries:
-                   first check for entries in /usr/share/applications and such
-                   which may be considered as a safe desktop entry path
-                   then check if that is a shortcut to a native file
-                   otherwise it is a link to a file under menu:// */
-                if (!g_str_has_prefix(fi->target, "/usr/share/") &&
-                    !g_str_has_prefix(fi->target, "/usr/local/share/"))
+                   first check if this is a shortcut to a native file
+                   (otherwise it is a link to a file under menu://),
+                   then check for entries in /usr/share/applications and such
+                   which may be considered as a safe desktop entry path */
+                FmPath *target = fm_path_new_for_str(fi->target);
+                gboolean is_native = fm_path_is_native(target);
+                fm_path_unref(target);
+                if (is_native)
                 {
-                    FmPath *target = fm_path_new_for_str(fi->target);
-                    gboolean is_native = fm_path_is_native(target);
-                    fm_path_unref(target);
-                    if (is_native)
+                    GFile *target = g_file_new_for_path(fi->target);
+                    char *path = g_file_get_path(target);
+                    g_object_unref(target);
+                    gboolean usr_share = (g_str_has_prefix(path, "/usr/share/") ||
+                                          g_str_has_prefix(path, "/usr/local/share/"));
+                    g_free(path);
+                    if (!usr_share)
                         return TRUE;
                 }
             }
