@@ -712,6 +712,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
     }
     else if(info == FM_DND_DEST_TARGET_XDS) /* X direct save */
     {
+        gboolean success = FALSE;
         if(format == 8 && length == 1 && data[0] == 'F')
         {
             GdkWindow *source_window;
@@ -722,9 +723,10 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
         }
         else if(format == 8 && length == 1 && data[0] == 'S')
         {
+            success = TRUE;
             /* XDS succeeds */
         }
-        gtk_drag_finish(drag_context, TRUE, FALSE, time);
+        gtk_drag_finish(drag_context, success, FALSE, time);
         return TRUE;
     }
 
