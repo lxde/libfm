@@ -964,7 +964,7 @@ msgstr "Droits d'accès"
 
 #: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
-msgstr "Seulement le propriétaire"
+msgstr "Propriétaire"
 
 #: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
