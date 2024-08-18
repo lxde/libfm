@@ -36,6 +36,7 @@ if test "x${GTKDOCIZE}" = x; then
     exit 1
 fi
 
+test -d m4 || mkdir m4
 set -ex
 
 gtkdocize --copy
