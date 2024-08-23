@@ -45,7 +45,7 @@ if test x"$enable_actions" = xyes; then
     if test -f src/actions/libfmactions_la_vala.stamp; then
         AM_PROG_VALAC
     else
-        AM_PROG_VALAC([0.13.0])
+        AM_PROG_VALAC([0.13])
         if test x"$VALAC" = xvalac; then
             AC_ERROR([No Vala compiler found but it is required.])
         fi
