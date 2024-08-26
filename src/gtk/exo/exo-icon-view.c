@@ -1601,6 +1601,9 @@ exo_icon_view_realize (GtkWidget *widget)
   attributes.height = MAX (priv->height, allocation.height);
   attributes.event_mask = GDK_EXPOSURE_MASK
                         | GDK_SCROLL_MASK
+#if GTK_CHECK_VERSION(3, 4, 0)
+                        | GDK_SMOOTH_SCROLL_MASK
+#endif
                         | GDK_POINTER_MOTION_MASK
                         | GDK_BUTTON_PRESS_MASK
                         | GDK_BUTTON_RELEASE_MASK
@@ -3413,8 +3416,6 @@ exo_icon_view_adjustment_changed (GtkAdjustment *adjustment,
 
       if (G_UNLIKELY (icon_view->priv->doing_rubberband))
         exo_icon_view_update_rubberband (GTK_WIDGET (icon_view));
-
-      gdk_window_process_updates (icon_view->priv->bin_window, TRUE);
     }
 }
 
