@@ -984,6 +984,7 @@ query_sources:
             /* retrieve the source files */
             gtk_drag_get_data(dd->widget, drag_context, target, time(NULL));
             dd->waiting_data = TRUE;
+            action = drag_context->suggested_action;
         }
     }
     else /* we have got drag source files */
