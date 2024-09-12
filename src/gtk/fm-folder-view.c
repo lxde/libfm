@@ -1091,6 +1091,7 @@ static void on_file_prop(GtkAction* act, FmFolderView* fv)
     }
 }
 
+#if !GTK_CHECK_VERSION(3, 22, 0)
 static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
                                 gboolean *push_in, gpointer user_data)
 {
@@ -1161,6 +1162,7 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     else
         *y = MAX(mr.y, *y); /* place menu below cursor */
 }
+#endif
 
 static void on_menu(GtkAction* act, FmFolderView* fv)
 {
@@ -1283,8 +1285,12 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
 
     /* open popup */
     gtk_ui_manager_ensure_update(ui);
+#if GTK_CHECK_VERSION(3, 22, 0)
+    gtk_menu_popup_at_pointer(popup, NULL);
+#else
     gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                    gtk_get_current_event_time());
+#endif
 }
 
 /* handle 'Menu' and 'Shift+F10' here */
@@ -1397,8 +1403,12 @@ static void on_file_menu(GtkAction* act, FmFolderView* fv)
         iface->get_custom_menu_callbacks(fv, &update_popup, &open_folders);
         popup = _make_file_menu(fv, win, update_popup, open_folders, files);
         fm_file_info_list_unref(files);
+#if GTK_CHECK_VERSION(3, 22, 0)
+        gtk_menu_popup_at_pointer(popup, NULL);
+#else
         gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                        gtk_get_current_event_time());
+#endif
     }
 }
 
@@ -1777,8 +1787,12 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             files = iface->dup_selected_files(fv);
             popup = _make_file_menu(fv, win, update_popup, open_folders, files);
             fm_file_info_list_unref(files);
+#if GTK_CHECK_VERSION(3, 22, 0)
+            gtk_menu_popup_at_pointer(popup, NULL);
+#else
             gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                            gtk_get_current_event_time());
+#endif
         }
         else /* no files are selected. Show context menu of current folder. */
             on_menu(NULL, fv);
