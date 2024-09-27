@@ -457,6 +457,8 @@ static gboolean on_update_dlg(gpointer user_data)
     g_string_printf(data->str, "%d %%", data->percent);
     gtk_progress_bar_set_fraction(data->progress, (gdouble)data->percent/100);
     gtk_progress_bar_set_text(data->progress, data->str->str);
+    g_string_printf(data->str, _("%d%% %s"), data->percent, data->op_text);
+    gtk_window_set_title(GTK_WINDOW(data->dlg), data->str->str);
 
     /* display the amount of data transferred */
     fm_file_size_to_str(trans_size_str, sizeof(trans_size_str),
@@ -658,7 +660,7 @@ static gboolean _on_show_dlg(gpointer user_data)
     else
     {
         /* note to translators: resulting string is such as "Deleting files" */
-        g_string_printf(data->str, _("%s files"), data->op_text);
+        g_string_printf(data->str, _("%d%% %s"), data->percent, data->op_text);
         gtk_window_set_title(GTK_WINDOW(data->dlg), data->str->str);
     }
     gtk_label_set_markup(data->msg, _("<b>File operation is in progress...</b>"));
