@@ -445,7 +445,32 @@ _not_desktop_entry:
             }
         }
         if(!fi->icon)
-            fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
+        {
+            if(S_ISDIR(st.st_mode))
+            {
+                /* If there is a custom folder icon, use it! */
+                char* path_name = fm_path_to_str(fi->path);
+                gchar *dot_dir = g_build_filename (path_name, G_DIR_SEPARATOR_S, ".directory", NULL);
+                g_free(path_name);
+                if(g_file_test(dot_dir, G_FILE_TEST_IS_REGULAR))
+                {
+                    GKeyFile *key = g_key_file_new();
+                    if(g_key_file_load_from_file(key, dot_dir, G_KEY_FILE_NONE, NULL))
+                    {
+                        gchar *icn = g_key_file_get_string(key, "Desktop Entry", "Icon", NULL);
+                        if(icn)
+                        {
+                            fi->icon =  fm_icon_from_name(icn);
+                            g_free(icn);
+                        }
+                    }
+                    g_key_file_free(key);
+                }
+                g_free(dot_dir);
+            }
+            if(!fi->icon)
+                fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
+        }
 
         gfile = g_file_new_for_path(path);
 
@@ -1477,8 +1502,8 @@ gboolean fm_file_info_is_backup(FmFileInfo* fi)
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */
-    if( fi->size == 0 || /* don't generate thumbnails for empty files */
-        !(fi->mode & S_IFREG) ||
+    if( (fi->size == 0 && !(fi->mode & S_IFDIR)) ||  /* don't generate thumbnails for empty files */
+        !(fi->mode & (S_IFREG | S_IFDIR)) ||
         fm_file_info_is_desktop_entry(fi) ||
         fm_file_info_is_unknown_type(fi))
         return FALSE;
