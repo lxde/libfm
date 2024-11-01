@@ -706,7 +706,7 @@ static gboolean _do_launch(FmAction *action, GAppLaunchContext *launch_context,
         }
         if (action->exec_mode == EXEC_MODE_DISPLAY_OUTPUT && term->noclose_arg)
             g_string_append(str, term->noclose_arg);
-        else
+        else if (term->open_arg)
             g_string_append(str, term->open_arg);
         g_string_append_c(str, ' ');
         if (term != &xterm_def)

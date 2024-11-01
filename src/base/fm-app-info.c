@@ -256,8 +256,10 @@ static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
     }
     if(keep_open && term->noclose_arg)
         opts = term->noclose_arg;
-    else
+    else if(term->open_arg)
         opts = term->open_arg;
+    else
+        opts = "";
     if(term->custom_args)
         ret = g_strdup_printf("%s %s %s %s", term->program, term->custom_args,
                               opts, cmd);
