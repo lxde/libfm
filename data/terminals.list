@@ -83,3 +83,7 @@ desktop_id=org.gnome.Germinal.desktop
 [kitty]
 noclose_arg=--hold
 desktop_id=kitty.desktop
+
+[mintty]
+open_arg=-e
+noclose_arg=--hold always -e
