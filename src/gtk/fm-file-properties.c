@@ -3,6 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1319,7 +1320,7 @@ static void update_ui(FmFilePropData* data)
         if(atime > 0)
         {
             localtime_r(&atime, &tm);
-            strftime(buf, sizeof(buf), "%x %R", &tm);
+            strftime(buf, sizeof(buf), fm_config->date_iso_8601 ? "%F %R" : "%x %R", &tm);
             gtk_label_set_text(data->atime, buf);
         }
         else
@@ -1331,7 +1332,7 @@ static void update_ui(FmFilePropData* data)
         if(atime > 0 && data->ctime)
         {
             localtime_r(&atime, &tm);
-            strftime(buf, sizeof(buf), "%x %R", &tm);
+            strftime(buf, sizeof(buf), fm_config->date_iso_8601 ? "%F %R" : "%x %R", &tm);
             gtk_label_set_text(data->ctime, buf);
             gtk_widget_show(data->ctime_label);
             gtk_widget_show(GTK_WIDGET(data->ctime));

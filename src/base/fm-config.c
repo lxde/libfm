@@ -5,6 +5,7 @@
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
  *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2016 Mamoru TASAKA <mtasaka@fedoraproject.org>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This file is a part of the Libfm library.
  *
@@ -156,6 +157,7 @@ static void fm_config_init(FmConfig *self)
     /* saved_search defaulted to NULL */
     self->advanced_mode = FALSE;
     self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
+    self->date_iso_8601 = FM_CONFIG_DEFAULT_DATE_ISO_8601;
     self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
     self->no_usb_trash = FM_CONFIG_DEFAULT_NO_USB_TRASH;
     self->no_child_non_expandable = FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY;
@@ -274,6 +276,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
     fm_key_file_get_bool(kf, "config", "si_unit", &cfg->si_unit);
     fm_key_file_get_bool(kf, "config", "force_startup_notify", &cfg->force_startup_notify);
+    fm_key_file_get_bool(kf, "config", "date_iso_8601", &cfg->date_iso_8601);
     fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
     fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
     fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
@@ -485,6 +488,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_bool(str, cfg, advanced_mode);
                 _save_config_bool(str, cfg, si_unit);
                 _save_config_bool(str, cfg, force_startup_notify);
+                _save_config_bool(str, cfg, date_iso_8601);
                 _save_config_bool(str, cfg, backup_as_hidden);
                 _save_config_bool(str, cfg, no_usb_trash);
                 _save_config_bool(str, cfg, no_child_non_expandable);

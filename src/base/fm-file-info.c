@@ -1628,7 +1628,7 @@ const char* fm_file_info_get_disp_mtime(FmFileInfo* fi)
         {
             char buf[ 128 ];
             strftime(buf, sizeof(buf),
-                      "%x %R",
+                      fm_config->date_iso_8601 ? "%F %R" : "%x %R",
                       localtime(&fi->mtime));
             fi->disp_mtime = g_strdup(buf);
         }

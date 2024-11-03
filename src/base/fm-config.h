@@ -4,6 +4,7 @@
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2009 Juergen Hoetzel <juergen@archlinux.org>
  *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This file is a part of the Libfm library.
  *
@@ -60,6 +61,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 
 #define     FM_CONFIG_DEFAULT_FORCE_S_NOTIFY    TRUE
+#define     FM_CONFIG_DEFAULT_DATE_ISO_8601     FALSE
 #define     FM_CONFIG_DEFAULT_BACKUP_HIDDEN     TRUE
 #define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 #define     FM_CONFIG_DEFAULT_SHOW_FULL_NAMES   FALSE
@@ -122,6 +124,7 @@ typedef enum
  * @si_unit: use SI prefix for file sizes
  * @advanced_mode: enable advanced features for experienced user
  * @force_startup_notify: (since 1.0.1) use startup notify by default
+ * @date_iso_8601: (since 1.3.3) show date in ISO 8601 format instead of current locale format
  * @backup_as_hidden: (since 1.0.1) treat backup files as hidden
  * @no_usb_trash: (since 1.0.1) don't create trash folder on removable media
  * @no_child_non_expandable: (since 1.0.1) hide expanders on empty folder
@@ -175,6 +178,7 @@ struct _FmConfig
     gboolean si_unit;
     gboolean advanced_mode;
     gboolean force_startup_notify;
+    gboolean date_iso_8601;
     gboolean backup_as_hidden;
     gboolean no_usb_trash;
     gboolean no_child_non_expandable;
