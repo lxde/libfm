@@ -79,3 +79,7 @@ desktop_id=termite.desktop
 [germinal]
 open_arg=-e
 desktop_id=org.gnome.Germinal.desktop
+
+[kitty]
+noclose_arg=--hold
+desktop_id=kitty.desktop
