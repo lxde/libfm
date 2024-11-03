@@ -75,3 +75,7 @@ desktop_id=terminology.desktop
 open_arg=-e
 noclose_arg=--hold -e
 desktop_id=termite.desktop
+
+[germinal]
+open_arg=-e
+desktop_id=org.gnome.Germinal.desktop
