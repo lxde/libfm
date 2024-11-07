@@ -4,6 +4,7 @@
  *      Copyright 2014-2021 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2020 Leonardo Citrolo <leoc@users.sourceforge.net>
  *      Copyright 2020 wb9688 <wb9688@users.noreply.github.com>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This file is a part of the Libfm library.
  *
@@ -669,7 +670,7 @@ struct ChildSetup
 static void child_setup(gpointer user_data)
 {
     struct ChildSetup* data = (struct ChildSetup*)user_data;
-    if (data->display)
+    if (data->display && !g_getenv("WAYLAND_DISPLAY"))
         g_setenv("DISPLAY", data->display, TRUE);
     if (data->sn_id)
         g_setenv("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
