@@ -4,6 +4,7 @@
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      Copyright 2013 Mamoru TASAKA <mtasaka@fedoraproject.org>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -87,6 +88,7 @@ struct _FmStandardView
     /* internal switches */
     void (*set_single_click)(GtkWidget* view, gboolean single_click);
     void (*set_auto_selection_delay)(GtkWidget* view, gint auto_selection_delay);
+    void (*set_middle_click)(GtkWidget* view, gboolean middle_click);
     GtkTreePath* (*get_drop_path)(FmStandardView* fv, gint x, gint y);
     void (*set_drag_dest)(FmStandardView* fv, GtkTreePath* tp);
     void (*select_all)(GtkWidget* view);
@@ -125,6 +127,7 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmStandardView* fv);
 
 static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_auto_selection_delay_changed(FmConfig* cfg, FmStandardView* fv);
+static void on_middle_click_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
@@ -186,6 +189,12 @@ static void on_auto_selection_delay_changed(FmConfig* cfg, FmStandardView* fv)
         fv->set_auto_selection_delay(fv->view, cfg->auto_selection_delay);
 }
 
+static void on_middle_click_changed(FmConfig* cfg, FmStandardView* fv)
+{
+    if(fv->set_middle_click)
+        fv->set_middle_click(fv->view, cfg->middle_click);
+}
+
 static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmStandardView* fv)
 {
     fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
@@ -205,6 +214,7 @@ static void fm_standard_view_init(FmStandardView *self)
     /* config change notifications */
     g_signal_connect(fm_config, "changed::single_click", G_CALLBACK(on_single_click_changed), self);
     g_signal_connect(fm_config, "changed::auto_selection_delay", G_CALLBACK(on_auto_selection_delay_changed), self);
+    g_signal_connect(fm_config, "changed::middle_click", G_CALLBACK(on_middle_click_changed), self);
 
     /* dnd support */
     self->dnd_src = fm_dnd_src_new(NULL);
@@ -360,6 +370,7 @@ static void fm_standard_view_dispose(GObject *object)
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
     g_signal_handlers_disconnect_by_func(fm_config, on_auto_selection_delay_changed, object);
+    g_signal_handlers_disconnect_by_func(fm_config, on_middle_click_changed, object);
 
     if(self->sel_changed_idle)
     {
@@ -646,6 +657,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     exo_icon_view_set_single_click((ExoIconView*)fv->view, fm_config->single_click);
     exo_icon_view_set_single_click_timeout((ExoIconView*)fv->view,
                                            fm_config->auto_selection_delay);
+    exo_icon_view_set_middle_click((ExoIconView*)fv->view, fm_config->middle_click);
 
     for(l = sels;l;l=l->next)
         exo_icon_view_select_path((ExoIconView*)fv->view, l->data);
@@ -1036,6 +1048,7 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
     exo_tree_view_set_single_click_timeout((ExoTreeView*)fv->view,
                                            fm_config->auto_selection_delay);
+    exo_tree_view_set_middle_click((ExoTreeView*)fv->view, fm_config->middle_click);
 
     ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
@@ -1204,6 +1217,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             create_icon_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_single_click;
             fv->set_auto_selection_delay = (void(*)(GtkWidget*,gint))exo_icon_view_set_single_click_timeout;
+            fv->set_middle_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_middle_click;
             fv->get_drop_path = get_drop_path_icon_view;
             fv->set_drag_dest = set_drag_dest_icon_item;
             fv->select_all = (void(*)(GtkWidget*))exo_icon_view_select_all;
@@ -1215,6 +1229,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             create_list_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_single_click;
             fv->set_auto_selection_delay = (void(*)(GtkWidget*,gint))exo_tree_view_set_single_click_timeout;
+            fv->set_middle_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_middle_click;
             fv->get_drop_path = get_drop_path_list_view;
             fv->set_drag_dest = set_drag_dest_list_item;
             fv->select_all = select_all_list_view;
@@ -1469,12 +1484,14 @@ static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmStandardV
                             gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
                         }
                     }
+                    if(fm_config->middle_click && evt->button == 2)
+                      fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), tp, FM_FV_ACTIVATED);
                 }
               }
             }
         }
 
-        if(evt->button == 2) /* middle click */
+        if(evt->button == 2 && !fm_config->middle_click)  /* middle click */
             type = FM_FV_MIDDLE_CLICK;
         else if(evt->button == 3) /* right click */
             type = FM_FV_CONTEXT_MENU;

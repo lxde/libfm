@@ -1,6 +1,7 @@
 /*-
  * Copyright (c) 2004-2006  os-cillation e.K.
  * Copyright (c) 2002,2004  Anders Carlsson <andersca@gnu.org>
+ * Copyright 2024 Ingo Brückl
  *
  * Written by Benedikt Meurer <benny@xfce.org>.
  *
@@ -229,6 +230,10 @@ void                  exo_icon_view_set_single_click          (ExoIconView      
 guint                 exo_icon_view_get_single_click_timeout  (const ExoIconView        *icon_view);
 void                  exo_icon_view_set_single_click_timeout  (ExoIconView              *icon_view,
                                                                guint                     single_click_timeout);
+
+gboolean              exo_icon_view_get_middle_click          (const ExoIconView        *icon_view);
+void                  exo_icon_view_set_middle_click          (ExoIconView              *icon_view,
+                                                               gboolean                  middle_click);
 
 void                  exo_icon_view_widget_to_icon_coords     (const ExoIconView        *icon_view,
                                                                gint                      wx,

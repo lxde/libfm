@@ -46,6 +46,7 @@ typedef struct _FmConfig            FmConfig;
 typedef struct _FmConfigClass       FmConfigClass;
 
 #define     FM_CONFIG_DEFAULT_SINGLE_CLICK      FALSE
+#define     FM_CONFIG_DEFAULT_MIDDLE_CLICK      FALSE
 #define     FM_CONFIG_DEFAULT_USE_TRASH         TRUE
 #define     FM_CONFIG_DEFAULT_CONFIRM_DEL       TRUE
 #define     FM_CONFIG_DEFAULT_CONFIRM_TRASH     TRUE
@@ -115,6 +116,7 @@ typedef enum
  * @auto_selection_delay: (since 1.2.0) delay for autoselection in single-click mode, in ms
  * @drop_default_action: (since 1.2.0) default action on drop (see #FmDndDestDropAction)
  * @single_click: single click to open file
+ * @middle_click: (since 1.3.3) middle click to open file
  * @use_trash: delete file to trash can
  * @confirm_del: ask before deleting files
  * @confirm_trash: (since 1.2.0) ask before moving files to trash can
@@ -169,6 +171,7 @@ struct _FmConfig
     gint drop_default_action;
 
     gboolean single_click;
+    gboolean middle_click;
     gboolean use_trash;
     gboolean confirm_del;
     gboolean confirm_trash;

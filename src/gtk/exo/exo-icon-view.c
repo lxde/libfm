@@ -2,6 +2,7 @@
  * Copyright (c) 2008       Jannis Pohlmann <jannis@xfce.org>
  * Copyright (c) 2004-2006  os-cillation e.K.
  * Copyright (c) 2002,2004  Anders Carlsson <andersca@gnu.org>
+ * Copyright 2024 Ingo Brückl
  *
  * Written by Benedikt Meurer <benny@xfce.org>.
  *
@@ -128,6 +129,7 @@ enum
   PROP_REORDERABLE,
   PROP_SINGLE_CLICK,
   PROP_SINGLE_CLICK_TIMEOUT,
+  PROP_MIDDLE_CLICK,
   PROP_ENABLE_SEARCH,
   PROP_SEARCH_COLUMN,
   /* For scrollable interface */
@@ -633,6 +635,9 @@ struct _ExoIconViewPrivate
   guint                         single_click_timeout_id;
   guint                         single_click_timeout_state;
 
+  /* Middle-click support */
+  guint                         middle_click : 1;
+
   /* Interactive search support */
   guint                         enable_search : 1;
   guint                         search_imcontext_changed : 1;
@@ -995,6 +1000,21 @@ exo_icon_view_class_init (ExoIconViewClass *klass)
                                                       _("The amount of time after which the item under the mouse cursor will be selected automatically in single click mode"),
                                                       0, G_MAXUINT, 0,
                                                       EXO_PARAM_READWRITE));
+
+  /**
+   * ExoIconView:middle-click:
+   *
+   * Determines whether items can be activated by single middle-clicks.
+   *
+   * Since: 1.3.3
+   **/
+  g_object_class_install_property (gobject_class,
+                                   PROP_MIDDLE_CLICK,
+                                   g_param_spec_boolean ("middle-click",
+                                                         _("Middle Click"),
+                                                         _("Whether the items in the view can be activated with middle clicks"),
+                                                         FALSE,
+                                                         EXO_PARAM_READWRITE));
 
   /**
    * ExoIconView:spacing:
@@ -1424,6 +1444,10 @@ exo_icon_view_get_property (GObject      *object,
       g_value_set_uint (value, priv->single_click_timeout);
       break;
 
+    case PROP_MIDDLE_CLICK:
+      g_value_set_boolean (value, priv->middle_click);
+      break;
+
     case PROP_SPACING:
       g_value_set_int (value, priv->spacing);
       break;
@@ -1519,6 +1543,10 @@ exo_icon_view_set_property (GObject      *object,
 
     case PROP_SINGLE_CLICK_TIMEOUT:
       exo_icon_view_set_single_click_timeout (icon_view, g_value_get_uint (value));
+      break;
+
+    case PROP_MIDDLE_CLICK:
+      exo_icon_view_set_middle_click (icon_view, g_value_get_boolean (value));
       break;
 
     case PROP_SPACING:
@@ -2629,7 +2657,8 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
             exo_icon_view_start_rubberbanding (icon_view, event->x, event->y);
         }
     }
-  else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS)
+  else if ((event->button == 1 && event->type == GDK_2BUTTON_PRESS) ||
+           (icon_view->priv->middle_click && event->button == 2 && event->type == GDK_BUTTON_PRESS))
     {
       /* ignore double-click events in single-click mode */
       if (G_LIKELY (!icon_view->priv->single_click))
@@ -2682,7 +2711,7 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
   /* release reference that was taken above */
   g_object_unref(widget);
 
-  return event->button == 1;
+  return event->button == (icon_view->priv->middle_click ? 2 : 1);
 }
 
 
@@ -8358,6 +8387,59 @@ static void
 exo_icon_view_single_click_timeout_destroy (gpointer user_data)
 {
   EXO_ICON_VIEW (user_data)->priv->single_click_timeout_id = 0;
+}
+
+
+
+/*----------------------*
+ * Middle-click support *
+ *----------------------*/
+
+/**
+ * exo_icon_view_get_middle_click:
+ * @icon_view : a #ExoIconView.
+ *
+ * Returns %TRUE if @icon_view is currently in middle click mode,
+ * else %FALSE will be returned.
+ *
+ * Return value: whether @icon_view is currently in middle click mode.
+ *
+ * Since: 1.3.3
+ **/
+gboolean
+exo_icon_view_get_middle_click (const ExoIconView *icon_view)
+{
+  g_return_val_if_fail (EXO_IS_ICON_VIEW (icon_view), FALSE);
+  return icon_view->priv->middle_click;
+}
+
+
+
+/**
+ * exo_icon_view_set_middle_click:
+ * @icon_view    : a #ExoIconView.
+ * @middle_click : %TRUE for middle click, %FALSE for double click mode.
+ *
+ * If @middle_click is %TRUE, @icon_view will be in middle click mode
+ * afterwards, else @icon_view will be in double click mode.
+ *
+ * Since: 1.3.3
+ **/
+void
+exo_icon_view_set_middle_click (ExoIconView *icon_view,
+                                gboolean     middle_click)
+{
+  g_return_if_fail (EXO_IS_ICON_VIEW (icon_view));
+
+  /* normalize the value */
+  middle_click = !!middle_click;
+
+  /* check if we have a new setting here */
+  if (icon_view->priv->middle_click != middle_click)
+    {
+      icon_view->priv->middle_click = middle_click;
+      g_object_notify (G_OBJECT (icon_view), "middle-click");
+    }
 }
 
 

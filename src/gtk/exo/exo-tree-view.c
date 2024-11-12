@@ -1,5 +1,6 @@
 /*-
  * Copyright (c) 2004-2006 Benedikt Meurer <benny@xfce.org>
+ * Copyright 2024 Ingo Brückl
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -75,6 +76,7 @@ enum
   PROP_0,
   PROP_SINGLE_CLICK,
   PROP_SINGLE_CLICK_TIMEOUT,
+  PROP_MIDDLE_CLICK,
 };
 
 
@@ -124,6 +126,9 @@ struct _ExoTreeViewPrivate
   guint        single_click_timeout;
   gint         single_click_timeout_id;
   guint        single_click_timeout_state;
+
+  /* middle click mode */
+  guint        middle_click : 1;
 
   /* the path below the pointer or NULL */
   GtkTreePath *hover_path;
@@ -221,6 +226,23 @@ exo_tree_view_class_init (ExoTreeViewClass *klass)
                                                       _("The amount of time after which the item under the mouse cursor will be selected automatically in single click mode"),
                                                       0, G_MAXUINT, 0,
                                                       EXO_PARAM_READWRITE));
+
+  /**
+   * ExoTreeView:middle-click:
+   *
+   * %TRUE to activate items using a middle click instead of a
+   * double click.
+   *
+   * Since: 1.3.3
+   **/
+  g_object_class_install_property (gobject_class,
+                                   PROP_MIDDLE_CLICK,
+                                   g_param_spec_boolean ("middle-click",
+                                                         _("Middle Click"),
+                                                         _("Whether the items in the view can be activated with middle clicks"),
+                                                         FALSE,
+                                                         EXO_PARAM_READWRITE));
+
 }
 
 
@@ -271,6 +293,10 @@ exo_tree_view_get_property (GObject    *object,
       g_value_set_uint (value, exo_tree_view_get_single_click_timeout (tree_view));
       break;
 
+    case PROP_MIDDLE_CLICK:
+      g_value_set_boolean (value, exo_tree_view_get_middle_click (tree_view));
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -295,6 +321,10 @@ exo_tree_view_set_property (GObject      *object,
 
     case PROP_SINGLE_CLICK_TIMEOUT:
       exo_tree_view_set_single_click_timeout (tree_view, g_value_get_uint (value));
+      break;
+
+    case PROP_MIDDLE_CLICK:
+      exo_tree_view_set_middle_click (tree_view, g_value_get_boolean (value));
       break;
 
     default:
@@ -957,6 +987,50 @@ exo_tree_view_set_single_click_timeout (ExoTreeView *tree_view,
       g_object_notify (G_OBJECT (tree_view), "single-click-timeout");
     }
 }
+
+/**
+ * exo_tree_view_get_middle_click:
+ * @tree_view : an #ExoTreeView.
+ *
+ * Returns %TRUE if @tree_view is in middle-click mode, else %FALSE.
+ *
+ * Return value: whether @tree_view is in middle-click mode.
+ *
+ * Since: 1.3.3
+ **/
+gboolean
+exo_tree_view_get_middle_click (const ExoTreeView *tree_view)
+{
+  g_return_val_if_fail (EXO_IS_TREE_VIEW (tree_view), FALSE);
+  return tree_view->priv->middle_click;
+}
+
+
+
+/**
+ * exo_tree_view_set_middle_click:
+ * @tree_view    : an #ExoTreeView.
+ * @middle_click : %TRUE to use middle-click for @tree_view, %FALSE otherwise.
+ *
+ * If @middle_click is %TRUE, @tree_view will use middle-click mode, else
+ * the default double-click mode will be used.
+ *
+ * Since: 1.3.3
+ **/
+void
+exo_tree_view_set_middle_click (ExoTreeView *tree_view,
+                                gboolean     middle_click)
+{
+  g_return_if_fail (EXO_IS_TREE_VIEW (tree_view));
+
+  if (tree_view->priv->middle_click != !!middle_click)
+    {
+      tree_view->priv->middle_click = !!middle_click;
+      g_object_notify (G_OBJECT (tree_view), "middle-click");
+    }
+}
+
+
 
 /* 2008.07.16 added by Hong Jen Yee for PCManFM.
  * If activable column is set, only the specified column can be activated.

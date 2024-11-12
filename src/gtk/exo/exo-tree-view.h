@@ -1,6 +1,7 @@
 /* $Id: exo-tree-view.h 20828 2006-04-09 17:16:48Z benny $ */
 /*-
  * Copyright (c) 2004-2006 Benedikt Meurer <benny@xfce.org>
+ * Copyright 2024 Ingo Brückl
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -83,6 +84,10 @@ void       exo_tree_view_set_single_click         (ExoTreeView       *tree_view,
 guint      exo_tree_view_get_single_click_timeout (const ExoTreeView *tree_view);
 void       exo_tree_view_set_single_click_timeout (ExoTreeView       *tree_view,
                                                    guint              single_click_timeout);
+
+gboolean   exo_tree_view_get_middle_click         (const ExoTreeView *tree_view);
+void       exo_tree_view_set_middle_click         (ExoTreeView       *tree_view,
+                                                   gboolean           middle_click);
 
 /* 2008.07.16 added by Hong Jen Yee for PCManFM.
  * If activable column is set, only the specified column can be activated.
