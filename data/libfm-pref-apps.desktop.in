@@ -5,5 +5,5 @@ _Comment=Select applications called on click on Web link or e-mail address
 Icon=preferences-desktop
 Exec=libfm-pref-apps
 StartupNotify=true
-Categories=Settings;DesktopSettings;X-LXDE-Settings;GTK;
+Categories=GTK;Settings;DesktopSettings;X-LXDE-Settings;
 OnlyShowIn=LXDE;
