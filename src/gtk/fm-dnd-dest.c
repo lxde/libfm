@@ -942,7 +942,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
     /* this is XDirectSave */
     if(target == dest_target_atom[FM_DND_DEST_TARGET_XDS])
-        return GDK_ACTION_COPY;
+        return gdk_drag_context_get_suggested_action(drag_context);
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
         /* query drag sources in any case */
