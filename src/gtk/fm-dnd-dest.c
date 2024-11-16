@@ -3,6 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -939,6 +940,10 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     FmPath* dest_path;
     int can_drop;
 
+    /* this is XDirectSave */
+    if(target == dest_target_atom[FM_DND_DEST_TARGET_XDS])
+        return GDK_ACTION_COPY;
+
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
         /* query drag sources in any case */
         goto query_sources;
@@ -967,10 +972,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         }
         return GDK_ACTION_COPY;
     }
-
-    /* this is XDirectSave */
-    if(target == dest_target_atom[FM_DND_DEST_TARGET_XDS])
-        return GDK_ACTION_COPY;
 
     /* we have no valid data, query it now */
     if(!dd->src_files || dd->context != drag_context)
