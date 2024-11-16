@@ -868,7 +868,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                     /* setup the property */
                     gdk_property_change(source_window, target,
                                        text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)uri,
-                                       strlen(uri) + 1);
+                                       strlen(uri));
                     fm_path_unref(path);
                     g_free(uri);
                 }
