@@ -3,6 +3,7 @@
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -287,7 +288,9 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
             fm_dnd_dest_set_dest_file(view->dnd_dest, NULL);
             /* FmDndDest requires this call */
             fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
-            if( (!tp || fm_places_model_path_is_bookmark(model, tp))
+            if(!gtk_drag_get_source_widget(drag_context))
+                action = 0; /* an other application can't link */
+            else if( (!tp || fm_places_model_path_is_bookmark(model, tp))
                && get_bookmark_drag_dest(view, &tp, &pos)) /* tp is after separator */
                 action = GDK_ACTION_LINK;
             else
