@@ -861,6 +861,8 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                 FmFileInfo* dest = fm_dnd_dest_get_dest_file(dd);
                 if( dest && fm_file_info_is_dir(dest) )
                 {
+                    data = g_realloc(data, len + 1);
+                    data[len] = 0;
                     FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), (gchar*)data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
