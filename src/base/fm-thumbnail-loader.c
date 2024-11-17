@@ -846,23 +846,44 @@ static GObject* scale_pix(GObject* ori_pix, int size)
         new_width = new_height = size;
     }
 
-    if((new_width == width && new_height == height) ||
-       (size > width && size > height )) /* don't scale up */
+    /* if original size is smaller, use original size. */
+    if (size > width && size > height )
     {
-        /* if size is not changed or original size is smaller, use original size. */
-        scaled_pix = (GObject*)g_object_ref(ori_pix);
-    }
-    else
-    {
-        /* avoid width or height of 0 pixel.
-         * FIXME: or we should just fail creating the thumbnail for the image? */
-        if(new_width == 0)
-            new_width = 1;
-        if(new_height == 0)
-            new_height = 1;
-        scaled_pix = backend.scale_image(ori_pix, new_width, new_height);
+        new_width = width;
+        new_height = height;
     }
 
+    /* avoid width or height of 0 pixel.
+    * FIXME: or we should just fail creating the thumbnail for the image? */
+    if(new_width == 0)
+        new_width = 1;
+    if(new_height == 0)
+        new_height = 1;
+
+    double scale_factor = (double)new_width/width;
+
+    /* create new size*size image*/
+    scaled_pix = backend.new_image (
+        backend.get_colorspace(ori_pix),
+        TRUE,
+        backend.get_bits_per_sample(ori_pix),
+        size,
+        size);
+
+    /* fill the image with transparent pixels */
+    backend.fill_image(scaled_pix, 0x00000000);
+
+    /* scale original image composite it into the new image*/
+    backend.composite(
+        ori_pix, scaled_pix, /* src, dst */
+        (size-new_width)/2, /* dst_x */
+        (size-new_height)/2, /* dst_y */
+        new_width, /* dst_width */
+        new_height, /* dst_height */
+        (size-new_width)/2, /* offset_x */
+        (size-new_height)/2, /* offset_y */
+        scale_factor, scale_factor, /* scale_x, scale_y */
+        255); /* overall_alpha */
     return scaled_pix;
 }
 

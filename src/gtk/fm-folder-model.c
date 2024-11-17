@@ -741,7 +741,9 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
 
         /* if we want to show a thumbnail */
         /* if we're on local filesystem or thumbnailing for remote files is allowed */
-        if(fm_config->show_thumbnail && (fm_path_is_native_or_trash(fm_file_info_get_path(info)) || !fm_config->thumbnail_local))
+        /* if current icon size is at least equal to the threshold size */
+        if(fm_config->show_thumbnail && (fm_path_is_native_or_trash(fm_file_info_get_path(info)) || !fm_config->thumbnail_local)
+           && (model->icon_size >= fm_config->thumbnail_threshold) )
         {
             if(!item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
             {
@@ -1600,7 +1602,30 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
             GDK_THREADS_ENTER();
             tp = fm_folder_model_get_path(GTK_TREE_MODEL(model), &it);
             if(item->icon)
+            {
+                if (fm_config->thumbnail_overlay)
+                {
+                    float overlay_relative_size = 0.5;
+                    int thumbnail_width = gdk_pixbuf_get_width(pix);
+                    int thumbnail_height = gdk_pixbuf_get_height(pix);
+                    int icon_width = gdk_pixbuf_get_width(item->icon);
+                    int icon_height = gdk_pixbuf_get_height(item->icon);
+                    int overlay_width = thumbnail_width * overlay_relative_size;
+                    int overlay_height = thumbnail_height * overlay_relative_size;
+                    gdk_pixbuf_composite(
+                        item->icon, pix, /* src, dst */
+                        thumbnail_width - overlay_width, /* dst_x */
+                        thumbnail_height - overlay_height, /* dst_y */
+                        overlay_width, /* dst_width */
+                        overlay_height, /* dst_height */
+                        thumbnail_width - overlay_width, /* offset_x */
+                        thumbnail_height - overlay_height, /* offset_y */
+                        overlay_relative_size, overlay_relative_size, /* scale_x, scale_y */
+                        GDK_INTERP_BILINEAR, 255 /* interp_type, overall_alpha */
+                    );
+                }
                 g_object_unref(item->icon);
+            }
             item->icon = g_object_ref(pix);
             item->is_thumbnail = TRUE;
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
@@ -1630,6 +1655,10 @@ void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size)
 {
     if(model->icon_size == icon_size)
         return;
+    if(model->icon_size >= fm_config->thumbnail_threshold && icon_size < fm_config->thumbnail_threshold)
+    {
+        g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
+    }
     model->icon_size = icon_size;
     reload_icons(model, RELOAD_BOTH);
 }

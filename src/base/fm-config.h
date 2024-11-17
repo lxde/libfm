@@ -58,6 +58,8 @@ typedef struct _FmConfigClass       FmConfigClass;
 
 #define     FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_THRESHOLD 48
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_OVERLAY TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 
 #define     FM_CONFIG_DEFAULT_FORCE_S_NOTIFY    TRUE
@@ -212,9 +214,10 @@ struct _FmConfig
     gboolean smart_desktop_autodrop;
     gchar *saved_search;
     /*< private >*/
-    gpointer _reserved1; /* reserved space for updates until next ABI */
-    gpointer _reserved2;
-    gpointer _reserved3;
+    
+    gint thumbnail_threshold;
+    gboolean thumbnail_overlay;
+    gpointer _reserved3; /* reserved space for updates until next ABI */
     gpointer _reserved4;
     gpointer _reserved5;
     gpointer _reserved6;
