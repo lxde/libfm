@@ -726,7 +726,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
         {
             success = TRUE;
         }
-        gtk_drag_finish(drag_context, success, FALSE, time);
+        gtk_drag_finish(drag_context, success, gdk_drag_context_get_selected_action(drag_context) == GDK_ACTION_MOVE, time);
         return TRUE;
     }
 
