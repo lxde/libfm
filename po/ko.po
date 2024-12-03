@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 14:43+0200\n"
+"POT-Creation-Date: 2024-12-03 13:55+0100\n"
 "PO-Revision-Date: 2015-07-20 13:36+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
@@ -548,18 +548,18 @@ msgstr "<b>남은 시간:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>오류 발생:</b>"
 
-#: ../src/base/fm-action.c:274
+#: ../src/base/fm-action.c:275
 #, fuzzy
 msgid "Empty value"
 msgstr "빈 파일"
 
-#: ../src/base/fm-action.c:282
+#: ../src/base/fm-action.c:283
 #, fuzzy
 msgid "Invalid selection"
 msgstr "잘못된 대상입니다"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:811 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "동작을 지원하지 않습니다"
@@ -748,7 +748,12 @@ msgstr "fm_xml_file_to_data: XML 데이터 오류"
 msgid "Customize"
 msgstr "사용자 정의"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:325
+#: ../src/gtk/fm-app-chooser-dlg.c:234
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
+msgid "Executable files"
+msgstr "실행 파일"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:326
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>\"%s\" 파일을 열 프로그램을 선택하십시오</b>"
@@ -769,24 +774,24 @@ msgstr "불러오는 중..."
 msgid "Shows tree of directories in sidebar"
 msgstr "가장자리 표시줄에 디렉터리 트리 표시"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "C_opy Here"
 msgstr "여기로 복사(_O)"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Move Here"
 msgstr "여기로 이동(_M)"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:416
+#: ../src/gtk/fm-dnd-dest.c:417
 msgid "_Link Here"
 msgstr "여기에 링크 만들기(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:876
+#: ../src/gtk/fm-dnd-dest.c:880
 msgid "XDirectSave failed."
 msgstr "XDirectSave 실패."
 
@@ -847,43 +852,43 @@ msgstr "휴지통으로 이동(_T)"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "이 폴더에 대한 책갈피가 이미 있습니다."
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:369
 msgid "Image files"
 msgstr "그림 파일"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:495 ../src/gtk/fm-file-properties.c:504
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "바이트"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:511
 #, c-format
 msgid "scanning... %d"
 msgstr "검색중... %d"
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:589
 msgid "Please enter a valid user name or numeric id."
 msgstr "유효한 사용자 이름이나 번호 ID를 입력하여 주십시오."
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:619
 msgid "Please enter a valid group name or numeric id."
 msgstr "유효한 그룹 이름이나 번호 ID를 입력하여 주십시오."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:828
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "모든 파일과 하위 폴더에 대해 바뀔 내용을 재귀적으로 적용하시겠습니까?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:961
 msgid "Hide or unhide the file"
 msgstr "파일을 보이거나 숨깁니다"
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:966
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "파일 이름이 구두점('.')으로 시작하여 숨겨져 있습니다."
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:970
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -891,23 +896,23 @@ msgstr ""
 "파일 이름이 구두점('.')으로 시작하면 시스템의 파일은 숨겨집니다. 숨김 파일 표"
 "시 여부를 전환하려면 <Ctrl+H>키를 치십시오."
 
-#: ../src/gtk/fm-file-properties.c:1026
+#: ../src/gtk/fm-file-properties.c:1027
 msgid "scanning..."
 msgstr "검색중..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr "<b>내용 접근(_A):</b>"
 
-#: ../src/gtk/fm-file-properties.c:1239
+#: ../src/gtk/fm-file-properties.c:1240
 msgid "Files of different types"
 msgstr "다른 형식의 파일"
 
-#: ../src/gtk/fm-file-properties.c:1283
+#: ../src/gtk/fm-file-properties.c:1284
 msgid "<b>File:</b>"
 msgstr "<b>파일:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1349
+#: ../src/gtk/fm-file-properties.c:1350
 msgid "Multiple files"
 msgstr "여러 파일"
 
@@ -1135,54 +1140,54 @@ msgid "Filesystem Root"
 msgstr "파일 시스템 루트"
 
 # 동작
-#: ../src/gtk/fm-places-view.c:131
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Mount Volume"
 msgstr "볼륨 마운트(_M)"
 
 # 동작
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Unmount Volume"
 msgstr "볼륨 마운트 해제(_U)"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Eject Removable Media"
 msgstr "이동식 미디어 꺼내기(_E)"
 
 # 동작
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "_Format Volume"
 msgstr "볼륨 포맷(_F)"
 
-#: ../src/gtk/fm-places-view.c:150
+#: ../src/gtk/fm-places-view.c:151
 msgid "_Rename Bookmark Item"
 msgstr "북마크 항목 이름 바꾸기(_R)"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:152
 msgid "Re_move from Bookmarks"
 msgstr "북마크에서 제거(_M)"
 
-#: ../src/gtk/fm-places-view.c:152
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Up"
 msgstr "위로 북마크 이동(_U)"
 
-#: ../src/gtk/fm-places-view.c:153
+#: ../src/gtk/fm-places-view.c:154
 msgid "Move Bookmark _Down"
 msgstr "아래로 북마크 이동(_D)"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/gtk/fm-places-view.c:167 ../src/modules/gtk-menu-trash.c:87
 #: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "휴지통 비우기(_E)"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-places-view.c:536 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "일반 위치, 장치, 책갈피를 가장자리 표시줄에 목록으로 표시합니다"
 
-#: ../src/gtk/fm-places-view.c:1124
+#: ../src/gtk/fm-places-view.c:1127
 msgid "Rename Bookmark Item"
 msgstr "북마크 항목 이름 바꾸기"
 
-#: ../src/gtk/fm-places-view.c:1125
+#: ../src/gtk/fm-places-view.c:1128
 msgid "Enter a new name:"
 msgstr "새 이름을 입력하십시오:"
 
@@ -1343,45 +1348,45 @@ msgstr "위치"
 msgid "Directory Tree"
 msgstr "디렉터리 트리"
 
-#: ../src/gtk/fm-standard-view.c:255
+#: ../src/gtk/fm-standard-view.c:265
 msgid "View of folder contents"
 msgstr "폴더 내용 표시"
 
-#: ../src/gtk/fm-standard-view.c:818
+#: ../src/gtk/fm-standard-view.c:830
 #, c-format
 msgid "_Hide %s"
 msgstr "%s 숨기기(_H)"
 
-#: ../src/gtk/fm-standard-view.c:826
+#: ../src/gtk/fm-standard-view.c:838
 msgid "_Move Left"
 msgstr "왼쪽으로 이동(_M)"
 
-#: ../src/gtk/fm-standard-view.c:832
+#: ../src/gtk/fm-standard-view.c:844
 msgid "Move _Right"
 msgstr "오른쪽으로 이동(_R)"
 
-#: ../src/gtk/fm-standard-view.c:855
+#: ../src/gtk/fm-standard-view.c:867
 #, c-format
 msgid "Show %s"
 msgstr "%s 표시"
 
-#: ../src/gtk/fm-standard-view.c:867
+#: ../src/gtk/fm-standard-view.c:879
 msgid "_Forget Width"
 msgstr "폭 기억하지 않기(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1859
+#: ../src/gtk/fm-standard-view.c:1876
 msgid "_Icon View"
 msgstr "아이콘 보기(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1860
+#: ../src/gtk/fm-standard-view.c:1877
 msgid "_Compact View"
 msgstr "최소화 보기(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1861
+#: ../src/gtk/fm-standard-view.c:1878
 msgid "_Thumbnail View"
 msgstr "섬네일 보기(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1862
+#: ../src/gtk/fm-standard-view.c:1879
 msgid "Detailed _List View"
 msgstr "자세한 목록 보기(_L)"
 
@@ -1553,10 +1558,6 @@ msgstr "검색 결과"
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
 msgstr "실행 파일 선택"
-
-#: ../src/modules/gtk-fileprop-x-desktop.c:72
-msgid "Executable files"
-msgstr "실행 파일"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"

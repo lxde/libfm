@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 14:43+0200\n"
+"POT-Creation-Date: 2024-12-03 13:55+0100\n"
 "PO-Revision-Date: 2018-04-19 19:01+0000\n"
 "Last-Translator: Anari Jalakas <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -547,16 +547,16 @@ msgstr "<b>Järelejäänud aeg:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Tekkinud vead:</b>"
 
-#: ../src/base/fm-action.c:274
+#: ../src/base/fm-action.c:275
 msgid "Empty value"
 msgstr "Tühi väärtus"
 
-#: ../src/base/fm-action.c:282
+#: ../src/base/fm-action.c:283
 msgid "Invalid selection"
 msgstr "Vigane valik"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:811 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "Toimingut ei toetata"
@@ -743,7 +743,12 @@ msgstr "fm_xml_file_to_data: XML andmete viga"
 msgid "Customize"
 msgstr "Kohanda"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:325
+#: ../src/gtk/fm-app-chooser-dlg.c:234
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
+msgid "Executable files"
+msgstr "Käivitatavad failid"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:326
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Vali \"%s\" liiki failide avamiseks rakendus</b>"
@@ -764,24 +769,24 @@ msgstr "Laadimine..."
 msgid "Shows tree of directories in sidebar"
 msgstr "Kataloogipuu näitamine külgribal"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Cancel"
 msgstr "_Tühista"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "C_opy Here"
 msgstr "_Kopeeri siia"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Move Here"
 msgstr "_Liiguta siia"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:416
+#: ../src/gtk/fm-dnd-dest.c:417
 msgid "_Link Here"
 msgstr "_Lingi siia"
 
-#: ../src/gtk/fm-dnd-dest.c:876
+#: ../src/gtk/fm-dnd-dest.c:880
 msgid "XDirectSave failed."
 msgstr "XDirectSave ebaõnnestus."
 
@@ -842,45 +847,45 @@ msgstr "Viska _prügikasti"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Sellele kaustale juba viitab üks järjehoidja."
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:369
 msgid "Image files"
 msgstr "Pildifailid"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:495 ../src/gtk/fm-file-properties.c:504
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bait"
 msgstr[1] "baiti"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:511
 #, c-format
 msgid "scanning... %d"
 msgstr "Skannimine... %d"
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:589
 msgid "Please enter a valid user name or numeric id."
 msgstr "Palun sisesta kehtiv kasutajanimi või id number."
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:619
 msgid "Please enter a valid group name or numeric id."
 msgstr "Palun sisesta kehtiv grupi nimetus või id number."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:828
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Kas soovid rakendada need toimingud kõigile failidele ja alamkataloogidele?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:961
 msgid "Hide or unhide the file"
 msgstr "Peida või too fail nähtavale"
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:966
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "See fail on varjatud, kuna selle nimi algab punktiga ('.')."
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:970
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -889,23 +894,23 @@ msgstr ""
 "('.'). Vajuta <Ctrl+H>, et lülitada varjatud failide kuvamine sisse või "
 "välja."
 
-#: ../src/gtk/fm-file-properties.c:1026
+#: ../src/gtk/fm-file-properties.c:1027
 msgid "scanning..."
 msgstr "Skannimine..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr "<b>Sisule _juurdepääs:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1239
+#: ../src/gtk/fm-file-properties.c:1240
 msgid "Files of different types"
 msgstr "Erinevat tüüpi failid"
 
-#: ../src/gtk/fm-file-properties.c:1283
+#: ../src/gtk/fm-file-properties.c:1284
 msgid "<b>File:</b>"
 msgstr "<b>Fail:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1349
+#: ../src/gtk/fm-file-properties.c:1350
 msgid "Multiple files"
 msgstr "Mitmed failid"
 
@@ -1135,53 +1140,53 @@ msgstr "Rakendused"
 msgid "Filesystem Root"
 msgstr "Failisüsteemi juurkataloog"
 
-#: ../src/gtk/fm-places-view.c:131
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Mount Volume"
 msgstr "_Andmekandja haakimine"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Unmount Volume"
 msgstr "Andmekandja _lahtihaakimine"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Eject Removable Media"
 msgstr "Eemaldatava andmekandja _väljastamine"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "_Format Volume"
 msgstr "_Köite vormindamine"
 
-#: ../src/gtk/fm-places-view.c:150
+#: ../src/gtk/fm-places-view.c:151
 msgid "_Rename Bookmark Item"
 msgstr "_Muuda järjehoidja nime"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:152
 msgid "Re_move from Bookmarks"
 msgstr "_Eemalda järjehoidja"
 
-#: ../src/gtk/fm-places-view.c:152
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Up"
 msgstr "Liiguta _järjehoidja üles"
 
-#: ../src/gtk/fm-places-view.c:153
+#: ../src/gtk/fm-places-view.c:154
 msgid "Move Bookmark _Down"
 msgstr "Liiguta järjehoidja _alla"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/gtk/fm-places-view.c:167 ../src/modules/gtk-menu-trash.c:87
 #: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "_Tühjenda prügikast"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-places-view.c:536 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 "Külgribal näidatakse tavaliste asukohtade, seadmete ja järjehoidjate loendit"
 
-#: ../src/gtk/fm-places-view.c:1124
+#: ../src/gtk/fm-places-view.c:1127
 msgid "Rename Bookmark Item"
 msgstr "Muuda järjehoidja nime"
 
-#: ../src/gtk/fm-places-view.c:1125
+#: ../src/gtk/fm-places-view.c:1128
 msgid "Enter a new name:"
 msgstr "Sisesta uus nimi:"
 
@@ -1341,45 +1346,45 @@ msgstr "Asukohad"
 msgid "Directory Tree"
 msgstr "Kataloogipuu"
 
-#: ../src/gtk/fm-standard-view.c:255
+#: ../src/gtk/fm-standard-view.c:265
 msgid "View of folder contents"
 msgstr "Vaata kausta sisu"
 
-#: ../src/gtk/fm-standard-view.c:818
+#: ../src/gtk/fm-standard-view.c:830
 #, c-format
 msgid "_Hide %s"
 msgstr "_Peida %s"
 
-#: ../src/gtk/fm-standard-view.c:826
+#: ../src/gtk/fm-standard-view.c:838
 msgid "_Move Left"
 msgstr "Liiguta _vasakule"
 
-#: ../src/gtk/fm-standard-view.c:832
+#: ../src/gtk/fm-standard-view.c:844
 msgid "Move _Right"
 msgstr "Liiguta _paremale"
 
-#: ../src/gtk/fm-standard-view.c:855
+#: ../src/gtk/fm-standard-view.c:867
 #, c-format
 msgid "Show %s"
 msgstr "Näita %s"
 
-#: ../src/gtk/fm-standard-view.c:867
+#: ../src/gtk/fm-standard-view.c:879
 msgid "_Forget Width"
 msgstr "_Unusta laius"
 
-#: ../src/gtk/fm-standard-view.c:1859
+#: ../src/gtk/fm-standard-view.c:1876
 msgid "_Icon View"
 msgstr "_Ikoonivaade"
 
-#: ../src/gtk/fm-standard-view.c:1860
+#: ../src/gtk/fm-standard-view.c:1877
 msgid "_Compact View"
 msgstr "_Kompaktne vaade"
 
-#: ../src/gtk/fm-standard-view.c:1861
+#: ../src/gtk/fm-standard-view.c:1878
 msgid "_Thumbnail View"
 msgstr "_Pisipildivaade"
 
-#: ../src/gtk/fm-standard-view.c:1862
+#: ../src/gtk/fm-standard-view.c:1879
 msgid "Detailed _List View"
 msgstr "Detailne _loendivaade"
 
@@ -1551,10 +1556,6 @@ msgstr "Otsingu tulemused"
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
 msgstr "Käivitatava faili valimine"
-
-#: ../src/modules/gtk-fileprop-x-desktop.c:72
-msgid "Executable files"
-msgstr "Käivitatavad failid"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"

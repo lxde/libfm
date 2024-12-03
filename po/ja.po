@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2.0-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 14:43+0200\n"
+"POT-Creation-Date: 2024-12-03 13:55+0100\n"
 "PO-Revision-Date: 2015-05-04 04:25+0000\n"
 "Last-Translator: rago1975 <take1975@kumamoto.email.ne.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -552,18 +552,18 @@ msgstr "<b>残り時間:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>エラーが発生しました:</b>"
 
-#: ../src/base/fm-action.c:274
+#: ../src/base/fm-action.c:275
 #, fuzzy
 msgid "Empty value"
 msgstr "空のファイル"
 
-#: ../src/base/fm-action.c:282
+#: ../src/base/fm-action.c:283
 #, fuzzy
 msgid "Invalid selection"
 msgstr "不正な移動先です"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:811 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "サポートされていない動作"
@@ -752,7 +752,12 @@ msgstr "fm_xml_file_to_data: XML データのエラーです"
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:325
+#: ../src/gtk/fm-app-chooser-dlg.c:234
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
+msgid "Executable files"
+msgstr "実行ファイル"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:326
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>ファイル \"%s\" を開くアプリケーションを選択してください</b>"
@@ -773,24 +778,24 @@ msgstr "読み込み中..."
 msgid "Shows tree of directories in sidebar"
 msgstr "サイドバーにディレクトリツリーを表示する"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "C_opy Here"
 msgstr "ここにコピー(_O)"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Move Here"
 msgstr "ここへ移動(_M)"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:416
+#: ../src/gtk/fm-dnd-dest.c:417
 msgid "_Link Here"
 msgstr "ここにリンク(_L)"
 
-#: ../src/gtk/fm-dnd-dest.c:876
+#: ../src/gtk/fm-dnd-dest.c:880
 msgid "XDirectSave failed."
 msgstr "XDirectSave に失敗。"
 
@@ -851,43 +856,43 @@ msgstr "ゴミ箱へ移動(_T)"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "このフォルダはすでにブックマークされています。"
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:369
 msgid "Image files"
 msgstr "画像ファイル"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:495 ../src/gtk/fm-file-properties.c:504
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "バイト"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:511
 #, c-format
 msgid "scanning... %d"
 msgstr "スキャン中... %d"
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:589
 msgid "Please enter a valid user name or numeric id."
 msgstr "正しいユーザ名、またはIDの数値を入力してください。"
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:619
 msgid "Please enter a valid group name or numeric id."
 msgstr "正しいグループ名、またはIDの数値を入力してください。"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:828
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "これらの変更をすべてのファイルと下位フォルダに適用しますか?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:961
 msgid "Hide or unhide the file"
 msgstr "ファイルを隠しファイルにする、あるいはそれを解除します"
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:966
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "名前が . で始まっているので、このファイルは隠しファイルとなります。"
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:970
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -895,23 +900,23 @@ msgstr ""
 "このシステムでは、名前が . で始まるファイルは隠しファイルとなります。<Ctrl"
 "+H> を押すことで、隠しファイルの表示を切り替え出来ます。"
 
-#: ../src/gtk/fm-file-properties.c:1026
+#: ../src/gtk/fm-file-properties.c:1027
 msgid "scanning..."
 msgstr "スキャン中..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr "<b>内容へのアクセス(_A):</b>"
 
-#: ../src/gtk/fm-file-properties.c:1239
+#: ../src/gtk/fm-file-properties.c:1240
 msgid "Files of different types"
 msgstr "異なるタイプのファイル"
 
-#: ../src/gtk/fm-file-properties.c:1283
+#: ../src/gtk/fm-file-properties.c:1284
 msgid "<b>File:</b>"
 msgstr "<b>ファイル:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1349
+#: ../src/gtk/fm-file-properties.c:1350
 msgid "Multiple files"
 msgstr "複数のファイル"
 
@@ -1138,52 +1143,52 @@ msgstr "アプリケーション"
 msgid "Filesystem Root"
 msgstr "ファイルシステムのルート"
 
-#: ../src/gtk/fm-places-view.c:131
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Mount Volume"
 msgstr "ボリュームをマウントする(_M)"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Unmount Volume"
 msgstr "ボリュームをマウント解除する(_U)"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Eject Removable Media"
 msgstr "リムーバブル・メディアを取り出す(_E)"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "_Format Volume"
 msgstr "ボリュームをフォーマットする(_F)"
 
-#: ../src/gtk/fm-places-view.c:150
+#: ../src/gtk/fm-places-view.c:151
 msgid "_Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する(_R)"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:152
 msgid "Re_move from Bookmarks"
 msgstr "ブックマークから削除する(_M)"
 
-#: ../src/gtk/fm-places-view.c:152
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Up"
 msgstr "ブックマークを上へ移動(_U)"
 
-#: ../src/gtk/fm-places-view.c:153
+#: ../src/gtk/fm-places-view.c:154
 msgid "Move Bookmark _Down"
 msgstr "ブックマークを下へ移動(_D)"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/gtk/fm-places-view.c:167 ../src/modules/gtk-menu-trash.c:87
 #: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "ゴミ箱を空にする(_E)"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-places-view.c:536 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "よく使う場所・デバイス・ブックマークのリストをサイドバーで表示する"
 
-#: ../src/gtk/fm-places-view.c:1124
+#: ../src/gtk/fm-places-view.c:1127
 msgid "Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する"
 
-#: ../src/gtk/fm-places-view.c:1125
+#: ../src/gtk/fm-places-view.c:1128
 msgid "Enter a new name:"
 msgstr "新しい名前を入力してください:"
 
@@ -1344,45 +1349,45 @@ msgstr "場所"
 msgid "Directory Tree"
 msgstr "ディレクトリツリー"
 
-#: ../src/gtk/fm-standard-view.c:255
+#: ../src/gtk/fm-standard-view.c:265
 msgid "View of folder contents"
 msgstr "フォルダの内容を表示する"
 
-#: ../src/gtk/fm-standard-view.c:818
+#: ../src/gtk/fm-standard-view.c:830
 #, c-format
 msgid "_Hide %s"
 msgstr "%s を隠す(_H)"
 
-#: ../src/gtk/fm-standard-view.c:826
+#: ../src/gtk/fm-standard-view.c:838
 msgid "_Move Left"
 msgstr "左へ移動(_M)"
 
-#: ../src/gtk/fm-standard-view.c:832
+#: ../src/gtk/fm-standard-view.c:844
 msgid "Move _Right"
 msgstr "右へ移動(_R)"
 
-#: ../src/gtk/fm-standard-view.c:855
+#: ../src/gtk/fm-standard-view.c:867
 #, c-format
 msgid "Show %s"
 msgstr "%s を表示する"
 
-#: ../src/gtk/fm-standard-view.c:867
+#: ../src/gtk/fm-standard-view.c:879
 msgid "_Forget Width"
 msgstr "幅を記憶しない(_F)"
 
-#: ../src/gtk/fm-standard-view.c:1859
+#: ../src/gtk/fm-standard-view.c:1876
 msgid "_Icon View"
 msgstr "アイコン(_I)"
 
-#: ../src/gtk/fm-standard-view.c:1860
+#: ../src/gtk/fm-standard-view.c:1877
 msgid "_Compact View"
 msgstr "コンパクト(_C)"
 
-#: ../src/gtk/fm-standard-view.c:1861
+#: ../src/gtk/fm-standard-view.c:1878
 msgid "_Thumbnail View"
 msgstr "サムネイル(_T)"
 
-#: ../src/gtk/fm-standard-view.c:1862
+#: ../src/gtk/fm-standard-view.c:1879
 msgid "Detailed _List View"
 msgstr "詳細(_L)"
 
@@ -1554,10 +1559,6 @@ msgstr "検索結果"
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
 msgstr "実行ファイルの選択"
-
-#: ../src/modules/gtk-fileprop-x-desktop.c:72
-msgid "Executable files"
-msgstr "実行ファイル"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"

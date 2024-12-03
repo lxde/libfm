@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 14:43+0200\n"
+"POT-Creation-Date: 2024-12-03 13:55+0100\n"
 "PO-Revision-Date: 2018-05-16 06:15+0000\n"
 "Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
@@ -553,16 +553,16 @@ msgstr "<b>Pozostały czas:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Wystąpiły błędy:</b>"
 
-#: ../src/base/fm-action.c:274
+#: ../src/base/fm-action.c:275
 msgid "Empty value"
 msgstr "Pusta wartość"
 
-#: ../src/base/fm-action.c:282
+#: ../src/base/fm-action.c:283
 msgid "Invalid selection"
 msgstr "Nieprawidłowy wybór"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:811 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "Nieobsługiwana operacja"
@@ -754,7 +754,12 @@ msgstr "fm_xml_file_to_data: błąd danych XML"
 msgid "Customize"
 msgstr "Dostosuj..."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:325
+#: ../src/gtk/fm-app-chooser-dlg.c:234
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
+msgid "Executable files"
+msgstr "Pliki wykonywalne"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:326
 #, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "<b>Proszę wybrać program służący do otwierania plików typu „%s”.</b>"
@@ -775,24 +780,24 @@ msgstr "Wczytywanie..."
 msgid "Shows tree of directories in sidebar"
 msgstr "Wyświetla drzewo katalogów w panelu bocznym"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "C_opy Here"
 msgstr "S_kopiuj tutaj"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Move Here"
 msgstr "_Przenieś tutaj"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:416
+#: ../src/gtk/fm-dnd-dest.c:417
 msgid "_Link Here"
 msgstr "_Dowiąż tutaj"
 
-#: ../src/gtk/fm-dnd-dest.c:876
+#: ../src/gtk/fm-dnd-dest.c:880
 msgid "XDirectSave failed."
 msgstr "Nieudane działanie XDirectSave."
 
@@ -853,45 +858,45 @@ msgstr "Przeni_eś do kosza"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "Utworzono już zakładkę do tego katalogu."
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:369
 msgid "Image files"
 msgstr "Pliki obrazów"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:495 ../src/gtk/fm-file-properties.c:504
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bajt"
 msgstr[1] "bajty"
 msgstr[2] "bajtów"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:511
 #, c-format
 msgid "scanning... %d"
 msgstr "przeszukiwanie... %d"
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:589
 msgid "Please enter a valid user name or numeric id."
 msgstr "Proszę wprowadzić prawidłową nazwę użytkownika lub jego identyfikator."
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:619
 msgid "Please enter a valid group name or numeric id."
 msgstr "Proszę wprowadzić prawidłową nazwę grupy lub jej identyfikator."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:828
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Zatwierdzić zmiany rekursywnie dla wszystkich plików i podkatalogów?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:961
 msgid "Hide or unhide the file"
 msgstr "Ukryj lub wyświetlaj plik"
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:966
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Ten plik jest ukryty, ponieważ jego nazwa zaczyna się od kropki („.”)."
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:970
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -899,23 +904,23 @@ msgstr ""
 "Pliki są ukrywane, jeśli ich nazwy zaczynają się od kropki („.”). Proszę "
 "wcisnąć <Ctrl+H>, aby przełączyć wyświetlanie ukrytych plików."
 
-#: ../src/gtk/fm-file-properties.c:1026
+#: ../src/gtk/fm-file-properties.c:1027
 msgid "scanning..."
 msgstr "przeszukiwanie..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Dostęp do zawartości:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1239
+#: ../src/gtk/fm-file-properties.c:1240
 msgid "Files of different types"
 msgstr "Pliki różnych typów"
 
-#: ../src/gtk/fm-file-properties.c:1283
+#: ../src/gtk/fm-file-properties.c:1284
 msgid "<b>File:</b>"
 msgstr "<b>Plik:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1349
+#: ../src/gtk/fm-file-properties.c:1350
 msgid "Multiple files"
 msgstr "Wiele plików"
 
@@ -1148,52 +1153,52 @@ msgstr "Programy"
 msgid "Filesystem Root"
 msgstr "Katalog główny systemu plików"
 
-#: ../src/gtk/fm-places-view.c:131
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Mount Volume"
 msgstr "Za_montuj wolumen"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Unmount Volume"
 msgstr "Odmont_uj wolumen"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Eject Removable Media"
 msgstr "Wysuń nośnik wymi_enny"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "_Format Volume"
 msgstr "_Formatuj wolumen"
 
-#: ../src/gtk/fm-places-view.c:150
+#: ../src/gtk/fm-places-view.c:151
 msgid "_Rename Bookmark Item"
 msgstr "_Zmień nazwę zakładki"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:152
 msgid "Re_move from Bookmarks"
 msgstr "_Usuń zakładkę"
 
-#: ../src/gtk/fm-places-view.c:152
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Up"
 msgstr "Przenieś zakładkę _wyżej"
 
-#: ../src/gtk/fm-places-view.c:153
+#: ../src/gtk/fm-places-view.c:154
 msgid "Move Bookmark _Down"
 msgstr "Przenieś zakładkę _niżej"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/gtk/fm-places-view.c:167 ../src/modules/gtk-menu-trash.c:87
 #: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "Opróżnij _kosz"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-places-view.c:536 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "Pokazuj listę miejsc, urządzeń i zakładek w panelu bocznym"
 
-#: ../src/gtk/fm-places-view.c:1124
+#: ../src/gtk/fm-places-view.c:1127
 msgid "Rename Bookmark Item"
 msgstr "Zmień nazwę zakładki"
 
-#: ../src/gtk/fm-places-view.c:1125
+#: ../src/gtk/fm-places-view.c:1128
 msgid "Enter a new name:"
 msgstr "Proszę wprowadzić nową nazwę:"
 
@@ -1353,45 +1358,45 @@ msgstr "Położenia"
 msgid "Directory Tree"
 msgstr "Drzewo katalogów"
 
-#: ../src/gtk/fm-standard-view.c:255
+#: ../src/gtk/fm-standard-view.c:265
 msgid "View of folder contents"
 msgstr "Podgląd zawartości katalogu"
 
-#: ../src/gtk/fm-standard-view.c:818
+#: ../src/gtk/fm-standard-view.c:830
 #, c-format
 msgid "_Hide %s"
 msgstr "_Ukryj %s"
 
-#: ../src/gtk/fm-standard-view.c:826
+#: ../src/gtk/fm-standard-view.c:838
 msgid "_Move Left"
 msgstr "_Przesuń w lewo"
 
-#: ../src/gtk/fm-standard-view.c:832
+#: ../src/gtk/fm-standard-view.c:844
 msgid "Move _Right"
 msgstr "P_rzesuń w prawo"
 
-#: ../src/gtk/fm-standard-view.c:855
+#: ../src/gtk/fm-standard-view.c:867
 #, c-format
 msgid "Show %s"
 msgstr "Wyświetl %s"
 
-#: ../src/gtk/fm-standard-view.c:867
+#: ../src/gtk/fm-standard-view.c:879
 msgid "_Forget Width"
 msgstr "Zapomnij _szerokość"
 
-#: ../src/gtk/fm-standard-view.c:1859
+#: ../src/gtk/fm-standard-view.c:1876
 msgid "_Icon View"
 msgstr "W_idok ikon"
 
-#: ../src/gtk/fm-standard-view.c:1860
+#: ../src/gtk/fm-standard-view.c:1877
 msgid "_Compact View"
 msgstr "Lista _zwarta"
 
-#: ../src/gtk/fm-standard-view.c:1861
+#: ../src/gtk/fm-standard-view.c:1878
 msgid "_Thumbnail View"
 msgstr "_Miniatury"
 
-#: ../src/gtk/fm-standard-view.c:1862
+#: ../src/gtk/fm-standard-view.c:1879
 msgid "Detailed _List View"
 msgstr "Lista _szczegółowa"
 
@@ -1564,10 +1569,6 @@ msgstr "Wyniki wyszukiwania"
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose Executable File"
 msgstr "Wybór pliku wykonywalnego"
-
-#: ../src/modules/gtk-fileprop-x-desktop.c:72
-msgid "Executable files"
-msgstr "Pliki wykonywalne"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"

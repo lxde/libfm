@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 14:43+0200\n"
+"POT-Creation-Date: 2024-12-03 13:55+0100\n"
 "PO-Revision-Date: 2014-03-26 11:28+0000\n"
 "Last-Translator: Smokey <smokey490@gmail.com>\n"
 "Language-Team: Romanian <diacritice@googlegroups.com>\n"
@@ -569,18 +569,18 @@ msgstr "<b>Timp rămas:</b>"
 msgid "<b>Errors occurred:</b>"
 msgstr "<b>Au intervenit anumite erori:</b>"
 
-#: ../src/base/fm-action.c:274
+#: ../src/base/fm-action.c:275
 #, fuzzy
 msgid "Empty value"
 msgstr "Execută fișierul"
 
-#: ../src/base/fm-action.c:282
+#: ../src/base/fm-action.c:283
 #, fuzzy
 msgid "Invalid selection"
 msgstr "_Inversează selecția"
 
 #. ---- GFile implementation ----
-#: ../src/base/fm-action.c:803 ../src/job/fm-file-ops-job.c:271
+#: ../src/base/fm-action.c:811 ../src/job/fm-file-ops-job.c:271
 #: ../src/modules/vfs-menu.c:1176 ../src/modules/vfs-search.c:928
 msgid "Operation not supported"
 msgstr "Nu există suport pentru această operațiune"
@@ -762,7 +762,13 @@ msgstr ""
 msgid "Customize"
 msgstr "Personalizare"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:325
+#: ../src/gtk/fm-app-chooser-dlg.c:234
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
+#, fuzzy
+msgid "Executable files"
+msgstr "Execută fișierul"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:326
 #, fuzzy, c-format
 msgid "<b>Select an application to open \"%s\" files</b>"
 msgstr "Utilizează programul selectat pentru a deschide fișierele"
@@ -784,25 +790,25 @@ msgstr "Se încarcă..."
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 #, fuzzy
 msgid "_Cancel"
 msgstr "Anulat"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "C_opy Here"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Move Here"
 msgstr ""
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:416
+#: ../src/gtk/fm-dnd-dest.c:417
 msgid "_Link Here"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:876
+#: ../src/gtk/fm-dnd-dest.c:880
 msgid "XDirectSave failed."
 msgstr "XDirectSave a eșuat."
 
@@ -867,72 +873,72 @@ msgstr "Coș de gunoi"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:368
+#: ../src/gtk/fm-file-properties.c:369
 #, fuzzy
 msgid "Image files"
 msgstr "Fișiere _imagine"
 
-#: ../src/gtk/fm-file-properties.c:494 ../src/gtk/fm-file-properties.c:503
+#: ../src/gtk/fm-file-properties.c:495 ../src/gtk/fm-file-properties.c:504
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "bytes"
 msgstr[2] "de bytes"
 
-#: ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:511
 #, c-format
 msgid "scanning... %d"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:588
+#: ../src/gtk/fm-file-properties.c:589
 msgid "Please enter a valid user name or numeric id."
 msgstr "Introduceți un nume valid de utilizator sau un ID numeric."
 
-#: ../src/gtk/fm-file-properties.c:618
+#: ../src/gtk/fm-file-properties.c:619
 msgid "Please enter a valid group name or numeric id."
 msgstr "Introduceți un nume valid de grup sau un ID numeric."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:827
+#: ../src/gtk/fm-file-properties.c:828
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Doriți să aplicați recursiv aceste schimbări tuturor fișierelor și "
 "subdirectoarelor?"
 
-#: ../src/gtk/fm-file-properties.c:960
+#: ../src/gtk/fm-file-properties.c:961
 msgid "Hide or unhide the file"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:965
+#: ../src/gtk/fm-file-properties.c:966
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:969
+#: ../src/gtk/fm-file-properties.c:970
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1026
+#: ../src/gtk/fm-file-properties.c:1027
 #, fuzzy
 msgid "scanning..."
 msgstr "Se încarcă..."
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr "<b>_Accesare conținut:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1239
+#: ../src/gtk/fm-file-properties.c:1240
 msgid "Files of different types"
 msgstr "Fișiere de diferite tipuri"
 
-#: ../src/gtk/fm-file-properties.c:1283
+#: ../src/gtk/fm-file-properties.c:1284
 #, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>Tip de fișier:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1349
+#: ../src/gtk/fm-file-properties.c:1350
 #, fuzzy
 msgid "Multiple files"
 msgstr "Fișiere multiple"
@@ -1176,56 +1182,56 @@ msgstr "Programe"
 msgid "Filesystem Root"
 msgstr "_Tipul de fișier"
 
-#: ../src/gtk/fm-places-view.c:131
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Mount Volume"
 msgstr "_Montează volumul"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Unmount Volume"
 msgstr "_Demontează volumul"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Eject Removable Media"
 msgstr "_Ejectează mediul detașabil"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 #, fuzzy
 msgid "_Format Volume"
 msgstr "_Montează volumul"
 
-#: ../src/gtk/fm-places-view.c:150
+#: ../src/gtk/fm-places-view.c:151
 msgid "_Rename Bookmark Item"
 msgstr "_Redenumire a favoritului"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:152
 #, fuzzy
 msgid "Re_move from Bookmarks"
 msgstr "_Eliminare dintre favorite"
 
-#: ../src/gtk/fm-places-view.c:152
+#: ../src/gtk/fm-places-view.c:153
 #, fuzzy
 msgid "Move Bookmark _Up"
 msgstr "_Eliminare dintre favorite"
 
-#: ../src/gtk/fm-places-view.c:153
+#: ../src/gtk/fm-places-view.c:154
 #, fuzzy
 msgid "Move Bookmark _Down"
 msgstr "_Eliminare dintre favorite"
 
-#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:87
+#: ../src/gtk/fm-places-view.c:167 ../src/modules/gtk-menu-trash.c:87
 #: ../src/modules/gtk-menu-trash.c:114
 msgid "_Empty Trash Can"
 msgstr "_Golește coșul"
 
-#: ../src/gtk/fm-places-view.c:533 ../src/gtk/fm-side-pane.c:645
+#: ../src/gtk/fm-places-view.c:536 ../src/gtk/fm-side-pane.c:645
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:1124
+#: ../src/gtk/fm-places-view.c:1127
 msgid "Rename Bookmark Item"
 msgstr "Redenumire a favoritului"
 
-#: ../src/gtk/fm-places-view.c:1125
+#: ../src/gtk/fm-places-view.c:1128
 msgid "Enter a new name:"
 msgstr "Introduceți un nou nume:"
 
@@ -1398,45 +1404,45 @@ msgstr "Locuri"
 msgid "Directory Tree"
 msgstr "Arbore de directoare"
 
-#: ../src/gtk/fm-standard-view.c:255
+#: ../src/gtk/fm-standard-view.c:265
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:818
+#: ../src/gtk/fm-standard-view.c:830
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:826
+#: ../src/gtk/fm-standard-view.c:838
 msgid "_Move Left"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:832
+#: ../src/gtk/fm-standard-view.c:844
 msgid "Move _Right"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:855
+#: ../src/gtk/fm-standard-view.c:867
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:867
+#: ../src/gtk/fm-standard-view.c:879
 msgid "_Forget Width"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1859
+#: ../src/gtk/fm-standard-view.c:1876
 msgid "_Icon View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1860
+#: ../src/gtk/fm-standard-view.c:1877
 msgid "_Compact View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1861
+#: ../src/gtk/fm-standard-view.c:1878
 msgid "_Thumbnail View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1862
+#: ../src/gtk/fm-standard-view.c:1879
 msgid "Detailed _List View"
 msgstr ""
 
@@ -1610,11 +1616,6 @@ msgstr "Căutare de fișiere"
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 #, fuzzy
 msgid "Choose Executable File"
-msgstr "Execută fișierul"
-
-#: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
-msgid "Executable files"
 msgstr "Execută fișierul"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
