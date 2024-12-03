@@ -3,6 +3,7 @@
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2012-2015 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2024 Ingo Brückl
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -230,7 +231,7 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
     char* binary;
     gtk_file_filter_add_custom(filter,
         GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
-    /* gtk_file_filter_set_name(filter, _("Executable files")); */
+    gtk_file_filter_set_name(filter, _("Executable files"));
     file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
 
     if (file == NULL)
