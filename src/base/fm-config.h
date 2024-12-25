@@ -171,7 +171,6 @@ struct _FmConfig
     gint drop_default_action;
 
     gboolean single_click;
-    gboolean middle_click;
     gboolean use_trash;
     gboolean confirm_del;
     gboolean confirm_trash;
@@ -181,7 +180,6 @@ struct _FmConfig
     gboolean si_unit;
     gboolean advanced_mode;
     gboolean force_startup_notify;
-    gboolean date_iso_8601;
     gboolean backup_as_hidden;
     gboolean no_usb_trash;
     gboolean no_child_non_expandable;
@@ -215,9 +213,9 @@ struct _FmConfig
     gboolean smart_desktop_autodrop;
     gchar *saved_search;
     /*< private >*/
-    gpointer _reserved1; /* reserved space for updates until next ABI */
-    gpointer _reserved2;
-    gpointer _reserved3;
+    gintptr middle_click;
+    gintptr date_iso_8601;
+    gpointer _reserved3; /* reserved space for updates until next ABI */
     gpointer _reserved4;
     gpointer _reserved5;
     gpointer _reserved6;

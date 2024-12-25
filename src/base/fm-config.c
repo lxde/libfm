@@ -260,10 +260,12 @@ static void _parse_drop_default_action(GKeyFile *kf, gint *action)
 void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 {
     char **strv;
+    gboolean bool_val;
 
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
-    fm_key_file_get_bool(kf, "config", "middle_click", &cfg->middle_click);
+    fm_key_file_get_bool(kf, "config", "middle_click", &bool_val);
+    cfg->middle_click = bool_val;
     if(cfg->single_click && cfg->middle_click)
         cfg->middle_click = FALSE;
     fm_key_file_get_int(kf, "config", "auto_selection_delay", &cfg->auto_selection_delay);
@@ -280,7 +282,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
     fm_key_file_get_bool(kf, "config", "si_unit", &cfg->si_unit);
     fm_key_file_get_bool(kf, "config", "force_startup_notify", &cfg->force_startup_notify);
-    fm_key_file_get_bool(kf, "config", "date_iso_8601", &cfg->date_iso_8601);
+    fm_key_file_get_bool(kf, "config", "date_iso_8601", &bool_val);
+    cfg->date_iso_8601 = bool_val;
     fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
     fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
     fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
