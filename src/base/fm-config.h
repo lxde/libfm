@@ -212,9 +212,17 @@ struct _FmConfig
 
     gboolean smart_desktop_autodrop;
     gchar *saved_search;
+    union
+    {
+        gboolean date_iso_8601;
+        gpointer _reserved1;    /*< private >*/
+    };
+    union
+    {
+        gboolean middle_click;
+        gpointer _reserved2;    /*< private >*/
+    };
     /*< private >*/
-    gintptr middle_click;
-    gintptr date_iso_8601;
     gpointer _reserved3; /* reserved space for updates until next ABI */
     gpointer _reserved4;
     gpointer _reserved5;
