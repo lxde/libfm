@@ -1191,10 +1191,13 @@ static void update_ui(FmFilePropData* data)
                 if(ficon)
                     icon = G_ICON(ficon);
             }
-            text = fm_mime_type_get_desc(data->mime_type);
+            char *text = g_strdup_printf("%s (%s)",
+                                         fm_mime_type_get_desc(data->mime_type),
+                                         fm_mime_type_get_type(data->mime_type));
             gtk_label_set_text(data->type, text);
             if(strlen(text) > 16)
                 gtk_widget_set_tooltip_text(GTK_WIDGET(data->type), text);
+            g_free(text);
         }
 
         if(icon)
