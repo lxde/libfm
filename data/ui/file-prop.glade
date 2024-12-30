@@ -6,9 +6,8 @@
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
     <property name="title" translatable="yes">File Properties</property>
-    <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">360</property>
+    <property name="default_width">600</property>
     <property name="type_hint">dialog</property>
     <property name="gravity">center</property>
     <signal name="response" handler="on_filePropertiesDlg_response" swapped="no"/>
