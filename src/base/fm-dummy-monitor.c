@@ -37,7 +37,7 @@
 
 G_DEFINE_TYPE(FmDummyMonitor, fm_dummy_monitor, G_TYPE_FILE_MONITOR);
 
-static gboolean cancel(GFileMonitor *)
+static gboolean cancel(GFileMonitor *monitor)
 {
     return TRUE;
 }
