@@ -1,3 +1,42 @@
+Changes in 1.4.0 since 1.3.2:
+
+* Updated translations.
+
+* Fixed a vulnerability related to trusted locations.
+
+* GCC 14 compilation support.
+
+* Updated the list of mime types handled by xarchiver.
+
+* Removed mime type definitions provided by shared-mime-info.
+
+* Terminals in terminals.list are allowed to have no open_arg entry.
+
+* Added germinal, kitty, mintty, and alacritty to terminals.list.
+
+* Added a setting for the ISO 8601 date format.
+
+* Fixed not setting $DISPLAY on Wayland.
+
+* Added a setting to open files with a single middle-click.
+
+* Fixed various drag and drop bugs with XDirectSave.
+
+* Added a missing filter name.
+
+* Enabled smooth scrolling.
+
+* Fixed background color with GTK3.
+
+* Increased the width of the file properties dialog.
+
+* Added the MIME type to the file properties dialog.
+
+* Source cache is now cleared after data drop.
+
+* Corrected check for the stamp file to rebuild the vala code.
+
+
 Changes on 1.3.2 since 1.3.1:
 
 * Fixed all/allfiles parse conditions in FmAction, it was inverted.
