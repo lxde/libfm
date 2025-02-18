@@ -1006,7 +1006,7 @@ exo_icon_view_class_init (ExoIconViewClass *klass)
    *
    * Determines whether items can be activated by single middle-clicks.
    *
-   * Since: 1.3.3
+   * Since: 1.4.0
    **/
   g_object_class_install_property (gobject_class,
                                    PROP_MIDDLE_CLICK,
@@ -8426,7 +8426,7 @@ exo_icon_view_single_click_timeout_destroy (gpointer user_data)
  *
  * Return value: whether @icon_view is currently in middle click mode.
  *
- * Since: 1.3.3
+ * Since: 1.4.0
  **/
 gboolean
 exo_icon_view_get_middle_click (const ExoIconView *icon_view)
@@ -8445,7 +8445,7 @@ exo_icon_view_get_middle_click (const ExoIconView *icon_view)
  * If @middle_click is %TRUE, @icon_view will be in middle click mode
  * afterwards, else @icon_view will be in double click mode.
  *
- * Since: 1.3.3
+ * Since: 1.4.0
  **/
 void
 exo_icon_view_set_middle_click (ExoIconView *icon_view,

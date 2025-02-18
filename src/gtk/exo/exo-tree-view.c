@@ -233,7 +233,7 @@ exo_tree_view_class_init (ExoTreeViewClass *klass)
    * %TRUE to activate items using a middle click instead of a
    * double click.
    *
-   * Since: 1.3.3
+   * Since: 1.4.0
    **/
   g_object_class_install_property (gobject_class,
                                    PROP_MIDDLE_CLICK,
@@ -996,7 +996,7 @@ exo_tree_view_set_single_click_timeout (ExoTreeView *tree_view,
  *
  * Return value: whether @tree_view is in middle-click mode.
  *
- * Since: 1.3.3
+ * Since: 1.4.0
  **/
 gboolean
 exo_tree_view_get_middle_click (const ExoTreeView *tree_view)
@@ -1015,7 +1015,7 @@ exo_tree_view_get_middle_click (const ExoTreeView *tree_view)
  * If @middle_click is %TRUE, @tree_view will use middle-click mode, else
  * the default double-click mode will be used.
  *
- * Since: 1.3.3
+ * Since: 1.4.0
  **/
 void
 exo_tree_view_set_middle_click (ExoTreeView *tree_view,

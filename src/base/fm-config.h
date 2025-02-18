@@ -116,7 +116,7 @@ typedef enum
  * @auto_selection_delay: (since 1.2.0) delay for autoselection in single-click mode, in ms
  * @drop_default_action: (since 1.2.0) default action on drop (see #FmDndDestDropAction)
  * @single_click: single click to open file
- * @middle_click: (since 1.3.3) middle click to open file
+ * @middle_click: (since 1.4.0) middle click to open file
  * @use_trash: delete file to trash can
  * @confirm_del: ask before deleting files
  * @confirm_trash: (since 1.2.0) ask before moving files to trash can
@@ -126,7 +126,7 @@ typedef enum
  * @si_unit: use SI prefix for file sizes
  * @advanced_mode: enable advanced features for experienced user
  * @force_startup_notify: (since 1.0.1) use startup notify by default
- * @date_iso_8601: (since 1.3.3) show date in ISO 8601 format instead of current locale format
+ * @date_iso_8601: (since 1.4.0) show date in ISO 8601 format instead of current locale format
  * @backup_as_hidden: (since 1.0.1) treat backup files as hidden
  * @no_usb_trash: (since 1.0.1) don't create trash folder on removable media
  * @no_child_non_expandable: (since 1.0.1) hide expanders on empty folder
