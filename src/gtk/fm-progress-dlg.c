@@ -174,6 +174,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     GtkLabel *src_fi, *dest_fi;
     GtkEntry *filename;
     GtkToggleButton *apply_all;
+    char* comparedate;
+    char* comparesize;
     char* tmp;
     const char* disp_size;
     FmPath* path;
@@ -208,18 +210,34 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(data->dlg));
 
     gtk_image_set_from_gicon(src_icon, G_ICON(icon), GTK_ICON_SIZE_DIALOG);
+    if (fm_file_info_get_mtime(src) > fm_file_info_get_mtime(dest))
+        comparedate = _("newer");
+    else
+    if (fm_file_info_get_mtime(src) < fm_file_info_get_mtime(dest))
+        comparedate = _("older");
+    else
+    if (fm_file_info_get_mtime(src) == fm_file_info_get_mtime(dest))
+        comparedate = _("same date/time");
     disp_size = fm_file_info_get_disp_size(src);
     if(disp_size)
     {
-        tmp = g_strdup_printf(_("Type: %s\nSize: %s\nModified: %s"),
-                              fm_file_info_get_desc(src), disp_size,
-                              fm_file_info_get_disp_mtime(src));
+        if (fm_file_info_get_size(src) > fm_file_info_get_size(dest))
+            comparesize = _("larger");
+        else
+        if (fm_file_info_get_size(src) < fm_file_info_get_size(dest))
+            comparesize = _("less");
+        else
+        if (fm_file_info_get_size(src) == fm_file_info_get_size(dest))
+            comparesize = _("same size");
+        tmp = g_strdup_printf(_("Type: %s\nSize: %s (%s)\nModified: %s (%s)"),
+                              fm_file_info_get_desc(src), disp_size, comparesize,
+                              fm_file_info_get_disp_mtime(src), comparedate);
     }
     else
     {
-        tmp = g_strdup_printf(_("Type: %s\nModified: %s"),
+        tmp = g_strdup_printf(_("Type: %s\nModified: %s (%s)"),
                               fm_file_info_get_desc(src),
-                              fm_file_info_get_disp_mtime(src));
+                              fm_file_info_get_disp_mtime(src), comparedate);
     }
 
     gtk_label_set_text(src_fi, tmp);
