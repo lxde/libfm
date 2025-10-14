@@ -2779,7 +2779,7 @@ exo_icon_view_scroll_event (GtkWidget      *widget,
 {
   GtkAdjustment *adjustment;
   ExoIconView   *icon_view = EXO_ICON_VIEW (widget);
-  gdouble        delta, delta_x;
+  gdouble        delta, delta_x, delta_y;
   gdouble        value;
 
   /* we don't care for scroll events in "rows" layout mode, as
@@ -2807,12 +2807,13 @@ exo_icon_view_scroll_event (GtkWidget      *widget,
 
   /* determine the scroll delta */
   delta = pow (gtk_adjustment_get_page_size(adjustment), 2.0 / 3.0);
-  delta = (event->direction == GDK_SCROLL_UP) ? -delta : delta;
 #if GTK_CHECK_VERSION(3, 4, 0)
-  if (gdk_event_get_scroll_deltas((GdkEvent *) event, &delta_x, NULL))
-    /* it was smooth scrolling - try to approach the usual scrolling speed */
-    delta = delta_x * 33.3;
+  if (gdk_event_get_scroll_deltas((GdkEvent *) event, &delta_x, &delta_y))
+    /* it is smooth scrolling - either up/down or left/right */
+    delta *= CLAMP(delta_y != 0.0 ? delta_y : delta_x, -1.0, 1.0);
+  else
 #endif
+  delta = (event->direction == GDK_SCROLL_UP) ? -delta : delta;
 
   /* apply the new adjustment value */
   value = CLAMP (gtk_adjustment_get_value(adjustment) + delta, gtk_adjustment_get_lower(adjustment), gtk_adjustment_get_upper(adjustment) - gtk_adjustment_get_page_size(adjustment));
