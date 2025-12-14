@@ -1,3 +1,13 @@
+Changes in 1.4.1 since 1.4.0:
+
+* Fixed missing smooth up/down scrolling in compact view.
+
+* Updated the list of mime types handled by xarchiver, file-roller,
+  engrampa and ark.
+
+* Updated Catalan translation.
+
+
 Changes in 1.4.0 since 1.3.2:
 
 * Updated translations.
