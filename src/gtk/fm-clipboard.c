@@ -49,8 +49,8 @@ static GtkTargetEntry targets[]=
 {
     {"text/uri-list", 0, URI_LIST},
     {"x-special/gnome-copied-files", 0, GNOME_COPIED_FILES},
-    {"application/x-kde-cutselection", 0, KDE_CUT_SEL}/*,
-    { "UTF8_STRING", 0, UTF8_STRING }*/
+    {"application/x-kde-cutselection", 0, KDE_CUT_SEL},
+    {"UTF8_STRING", 0, UTF8_STRING}
 };
 
 static GdkAtom target_atom[N_CLIPBOARD_TARGETS];
