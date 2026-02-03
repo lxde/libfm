@@ -47,6 +47,7 @@
 #include "fm-cell-renderer-text.h"
 #include "fm-cell-renderer-pixbuf.h"
 #include "fm-gtk-utils.h"
+#include "fm-clipboard.h"
 
 #include "exo/exo-icon-view.h"
 #include "exo/exo-tree-view.h"
@@ -131,6 +132,7 @@ static void on_middle_click_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
+static void on_clipboard_changed(gpointer user_data);
 
 static FmFolderViewColumnInfo* _sv_column_info_new(FmFolderModelCol col_id)
 {
@@ -195,6 +197,14 @@ static void on_middle_click_changed(FmConfig* cfg, FmStandardView* fv)
         fv->set_middle_click(fv->view, cfg->middle_click);
 }
 
+static void on_clipboard_changed(gpointer user_data)
+{
+    FmStandardView* fv = FM_STANDARD_VIEW(user_data);
+    /* Redraw the view to update cut file visual indication */
+    if(fv->view)
+        gtk_widget_queue_draw(fv->view);
+}
+
 static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmStandardView* fv)
 {
     fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
@@ -215,6 +225,9 @@ static void fm_standard_view_init(FmStandardView *self)
     g_signal_connect(fm_config, "changed::single_click", G_CALLBACK(on_single_click_changed), self);
     g_signal_connect(fm_config, "changed::auto_selection_delay", G_CALLBACK(on_auto_selection_delay_changed), self);
     g_signal_connect(fm_config, "changed::middle_click", G_CALLBACK(on_middle_click_changed), self);
+
+    /* clipboard change notification for cut file visual indication */
+    fm_clipboard_add_change_callback(on_clipboard_changed, self);
 
     /* dnd support */
     self->dnd_src = fm_dnd_src_new(NULL);
@@ -371,6 +384,9 @@ static void fm_standard_view_dispose(GObject *object)
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
     g_signal_handlers_disconnect_by_func(fm_config, on_auto_selection_delay_changed, object);
     g_signal_handlers_disconnect_by_func(fm_config, on_middle_click_changed, object);
+
+    /* Unregister clipboard change callback */
+    fm_clipboard_remove_change_callback(on_clipboard_changed, self);
 
     if(self->sel_changed_idle)
     {

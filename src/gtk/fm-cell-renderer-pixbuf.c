@@ -40,6 +40,7 @@
 #include "fm-config.h"
 
 #include "fm-cell-renderer-pixbuf.h"
+#include "fm-clipboard.h"
 
 static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
 
@@ -313,13 +314,75 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 {
     FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     FmFileInfo *info = NULL;
+    gboolean file_is_cut = FALSE;
+    gboolean file_is_copied = FALSE;
+
+    /* Check if this file is in the cut clipboard */
+    if(render->fi)
+    {
+        FmPath* path = fm_file_info_get_path(render->fi);
+        if(path)
+            file_is_cut = fm_clipboard_is_file_cut(path);
+        if(path)
+            file_is_copied = fm_clipboard_is_file_copied(path);
+    }
+
     if(fm_config->shadow_hidden)
     {
         g_object_get(render, "info", &info, NULL); // FIXME: is info certainly FmFileInfo?
         gtk_cell_renderer_set_sensitive(cell, !(info && fm_file_info_is_hidden(info)));
     }
+
 #if GTK_CHECK_VERSION(3, 0, 0)
+    /* Apply reduced opacity for cut files */
+    if(file_is_cut)
+    {
+        cairo_save(cr);
+        cairo_push_group(cr);
+    }
+    /* Apply green tint for copied files */
+    if(file_is_copied)
+    {
+        cairo_save(cr);
+        cairo_push_group(cr);
+    }
+
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, cr, widget, background_area, cell_area, flags);
+
+    if(file_is_cut)
+    {
+        GdkPixbuf* pix;
+        int icon_x, icon_y, icon_w, icon_h;
+
+        cairo_pop_group_to_source(cr);
+        cairo_paint_with_alpha(cr, 0.4); /* 40% opacity for cut files */
+        cairo_restore(cr);
+    }
+    if(file_is_copied)
+    {
+        /*
+         * Paint the original icon, then overlay a uniform green tint using the icon alpha as mask.
+         * This avoids clearing the icon and keeps color consistent across all view modes.
+         */
+        cairo_pattern_t* mask = NULL;
+
+        /* The pushed group contains the rendered icon; keep a reference to reuse as mask. */
+        cairo_pop_group_to_source(cr);
+        mask = cairo_pattern_reference(cairo_get_source(cr));
+
+        /* First paint the untouched icon. */
+        cairo_paint(cr);
+
+        /* Now overlay green where the icon is opaque. */
+        cairo_set_source_rgba(cr, 0.2, 0.8, 0.2, 0.6); /* consistent green tint */
+        cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
+        cairo_mask(cr, mask);
+
+        if(mask)
+            cairo_pattern_destroy(mask);
+
+        cairo_restore(cr);
+    }
 #else
     /* we don't need to follow state for prelit items */
     if(flags & GTK_CELL_RENDERER_PRELIT)
