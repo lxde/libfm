@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-GtkTreeView* fm_app_menu_view_new(void);
+GtkTreeView* fm_app_menu_view_new(GtkDialog* dlg);
 
 GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view);
 

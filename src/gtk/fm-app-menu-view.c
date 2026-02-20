@@ -142,6 +142,29 @@ static void on_menu_cache_reload(gpointer mc, gpointer user_data)
     }
 }
 
+static void on_row_activated (GtkTreeView* treeview, GtkTreePath* path, GtkTreeViewColumn* col, gpointer userdata)
+{
+    GtkTreeModel* model;
+    GtkTreeIter iter;
+    GtkDialog* dialog = GTK_DIALOG(userdata);
+
+    model = gtk_tree_view_get_model(treeview);
+
+    if (gtk_tree_model_get_iter(model, &iter, path))
+    {
+        if (fm_app_menu_view_is_item_app(treeview, &iter)) {
+            gtk_dialog_response(dialog, GTK_RESPONSE_OK);
+            return;
+        }
+
+        if (gtk_tree_view_row_expanded(treeview, path)) {
+            gtk_tree_view_collapse_row(treeview, path);
+        } else {
+            gtk_tree_view_expand_row(treeview, path, FALSE);
+        }
+    }
+}
+
 /**
  * fm_app_menu_view_new
  *
@@ -151,7 +174,7 @@ static void on_menu_cache_reload(gpointer mc, gpointer user_data)
  *
  * Since: 0.1.0
  */
-GtkTreeView *fm_app_menu_view_new(void)
+GtkTreeView *fm_app_menu_view_new(GtkDialog* dlg)
 {
     GtkTreeView* view;
     GtkTreeViewColumn* col;
@@ -201,6 +224,8 @@ GtkTreeView *fm_app_menu_view_new(void)
         g_object_ref(store);
 
     view = (GtkTreeView*)gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+
+    g_signal_connect(view, "row-activated", G_CALLBACK(on_row_activated), dlg);
 
     render = gtk_cell_renderer_pixbuf_new();
     col = gtk_tree_view_column_new();
