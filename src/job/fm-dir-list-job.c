@@ -424,7 +424,7 @@ _retry:
                 fi = fm_file_info_new_from_g_file_data(child, inf, sub);
                 fm_path_unref(sub);
                 fm_path_unref(dir);
-                g_object_unref(child);
+                if (child) g_object_unref(child);
                 fm_dir_list_job_add_found_file(job, fi);
                 fm_file_info_unref(fi);
             }
