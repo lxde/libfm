@@ -810,7 +810,8 @@ static void generate_thumbnails(ThumbnailTask* task)
         (fm_config->thumbnail_max == 0 ||
          fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10)))
     {
-        generate_thumbnails_with_builtin(task);
+	if (!generate_thumbnails_with_builtin(task))
+	generate_thumbnails_with_thumbnailers(task);
     }
     else
         generate_thumbnails_with_thumbnailers(task);
