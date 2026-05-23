@@ -251,7 +251,8 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
         }
 
         file_info = g_file_enumerator_next_file(iter->enu, cancellable, &err);
-        if(file_info && g_file_info_get_name(file_info))
+        if(file_info && g_file_info_has_attribute (file_info, G_FILE_ATTRIBUTE_STANDARD_NAME) &&
+           g_file_info_get_name(file_info))
         {
             /* check if directory itself matches criteria */
             if(fm_search_job_match_file(enu, file_info, iter->folder_path,
@@ -266,10 +267,13 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
                /* SF bug #969: very possibly we get multiple instances of the
                   same file if we follow symlink to a directory
                   FIXME: make it optional? */
-               !g_file_info_get_is_symlink(file_info) &&
+               !(g_file_info_has_attribute(file_info, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK) &&
+                 g_file_info_get_is_symlink(file_info)) &&
                g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
             {
-                if(enu->show_hidden || !g_file_info_get_is_hidden(file_info))
+                if(enu->show_hidden ||
+                   !(g_file_info_has_attribute(file_info, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) &&
+                     g_file_info_get_is_hidden(file_info)))
                 {
                     const char * name = g_file_info_get_name(file_info);
                     GFile * file = g_file_get_child(iter->folder_path, name);
@@ -829,8 +833,10 @@ static gboolean fm_search_job_match_file_type(FmVfsSearchEnumerator* priv, GFile
 
 static gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
-    guint64 size = g_file_info_get_size(info);
     gboolean ret = TRUE;
+    guint64 size = 0;
+    if (g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_SIZE))
+        size = g_file_info_get_size(info);
     if(priv->min_size > 0 && size < priv->min_size)
         ret = FALSE;
     else if(priv->max_size > 0 && size > priv->max_size)
@@ -862,7 +868,8 @@ static gboolean fm_search_job_match_file(FmVfsSearchEnumerator * priv,
 {
     //g_print("matching file %s\n", g_file_info_get_name(info));
 
-    if(!priv->show_hidden && g_file_info_get_is_hidden(info))
+    if(!priv->show_hidden && g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) &&
+        g_file_info_get_is_hidden(info))
         return FALSE;
 
     if(!fm_search_job_match_filename(priv, info))

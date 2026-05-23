@@ -111,6 +111,7 @@ static inline gboolean
 _fm_file_info_job_update_fs_readonly(GFile *gf, GFileInfo *inf, GCancellable *cancellable, GError **error)
 {
     /* check if FS is R/O and set attr. into inf */
+    if (!gf) return FALSE;
     GFileInfo *fs_inf = g_file_query_filesystem_info(gf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
                                                      cancellable, error);
     if (fs_inf)
