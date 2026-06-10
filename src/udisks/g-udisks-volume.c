@@ -299,8 +299,8 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
             if(!*p) /* OUT_mount_path is not in mount_paths */
             {
                 int len = g_strv_length(data->vol->dev->mount_paths);
-                data->vol->dev->mount_paths = g_realloc(data->vol->dev->mount_paths, + 2);
-                memcpy(data->vol->dev->mount_paths, data->vol->dev->mount_paths + sizeof(char*), len * sizeof(char*));
+                data->vol->dev->mount_paths = g_realloc(data->vol->dev->mount_paths, (len + 2) * sizeof(char*));
+                memmove(data->vol->dev->mount_paths + 1, data->vol->dev->mount_paths, (len + 1) * sizeof(char*));
                 data->vol->dev->mount_paths[0] = g_strdup(OUT_mount_path);
             }
         }
