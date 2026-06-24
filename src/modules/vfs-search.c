@@ -481,6 +481,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                     name = g_strdup(params);
 
                 /* g_printf("parameter name/value: %s = %s\n", name, value); */
+                if (!value) goto _search_uri_invalid_value;
 
                 if(strcmp(name, "show_hidden") == 0)
                     priv->show_hidden = (value[0] == '1') ? TRUE : FALSE;
@@ -552,6 +553,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 else if(strcmp(name, "max_mtime") == 0)
                     priv->max_mtime = (guint64)parse_date_str(value);
 
+_search_uri_invalid_value:
                 g_free(name);
                 g_free(value);
 
