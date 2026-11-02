@@ -1030,8 +1030,13 @@ static gboolean _fm_action_menu_do_delete(GAppInfo *appinfo)
 #if GLIB_CHECK_VERSION(2, 24, 0)
 static const char * _fm_action_menu_get_display_name(GAppInfo *appinfo)
 {
-//    _expand_params(str, menu->desc, menu, NULL);
-    return FM_ACTION_MENU(appinfo)->tooltip;
+    FmActionMenu *menu = FM_ACTION_MENU(appinfo);
+
+    /* Name is the context-menu title. Tooltip is optional; using it alone
+     * left parent menus with a NULL label when Tooltip was unset. */
+    if (menu->name != NULL && menu->name[0] != '\0')
+        return menu->name;
+    return menu->tooltip;
 }
 #endif
 
