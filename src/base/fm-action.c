@@ -2075,6 +2075,36 @@ static FmAction *_action_matches(FmAction *action, FmFileInfo *location,
     return NULL;
 }
 
+/* Sort custom action entries by their .desktop filenames.
+ * Preserve separator positions and sort entries within each separator group. */
+static gint _fm_action_compare_ids(gconstpointer a, gconstpointer b)
+{
+    return g_strcmp0(g_app_info_get_id((GAppInfo *)a),
+                     g_app_info_get_id((GAppInfo *)b));
+}
+
+static void _fm_action_sort_children_by_id(GList *children)
+{
+    GList *start, *end, *node, *sorted, *item;
+
+    for (start = children; start != NULL; start = end)
+    {
+        while (start != NULL && start->data == NULL)
+            start = start->next;
+        if (start == NULL)
+            break;
+
+        sorted = NULL;
+        for (end = start; end != NULL && end->data != NULL; end = end->next)
+            sorted = g_list_prepend(sorted, end->data);
+        sorted = g_list_sort(sorted, _fm_action_compare_ids);
+        item = sorted;
+        for (node = start; node != end; node = node->next, item = item->next)
+            node->data = item->data;
+        g_list_free(sorted);
+    }
+}
+
 /* moves elem to root->children after composing */
 static void _insert_menu(FmActionMenu *root, GList *elem, GList **menus,
                          GList **actions, GList **zero_level_menus)
@@ -2213,6 +2243,7 @@ static FmActionMenu *fm_action_get_for_content(FmActionCache *cache,
         }
         root->children = g_list_concat(root->children, actions);
     }
+    _fm_action_sort_children_by_id(root->children);
     return root;
 }
 
