@@ -869,9 +869,15 @@ static GObject* scale_pix(GObject* ori_pix, int size)
 /* in thread */
 static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char* path)
 {
-    /* do not save thumbnails generated in thumbail cache directory
-     * (prevents runaway thumbnailing when browsing thumbail cache directory) */
-    if(strncmp(path,thumb_dir,strlen(thumb_dir)) == 0)
+    /* do not save thumbnails for files in the thumbnail cache directory
+     * (prevents runaway thumbnailing when browsing thumbnail cache directory) */
+    char* src = fm_path_to_str(fm_file_info_get_path(task->fi));
+    gsize thumb_dir_len = strlen(thumb_dir);
+    gboolean in_cache = strncmp(src, thumb_dir, thumb_dir_len) == 0 &&
+                        (src[thumb_dir_len] == '\0' ||
+                         src[thumb_dir_len] == G_DIR_SEPARATOR);
+    g_free(src);
+    if(in_cache)
     {
         return;
     }
