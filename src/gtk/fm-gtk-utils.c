@@ -533,6 +533,52 @@ FmPath* fm_select_file(GtkWindow* parent,
     return path;
 }
 
+/*
+ * fm_select_folder_with_default
+ * @parent: parent window
+ * @default_folder: (nullable) FmPath whose directory should be used as starting folder
+ * @title: dialog title
+ *
+ * Similar to fm_select_folder but sets the chooser's current folder
+ * to @default_folder (if not NULL) before running dialog.
+ */
+FmPath* fm_select_folder_with_default(GtkWindow* parent, FmPath* default_folder, const char* title)
+{
+    FmPath* path;
+    GtkFileChooser* chooser;
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
+                                        title ? title : _("Select Folder"),
+                                        parent, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+    gtk_dialog_set_alternative_button_order(GTK_DIALOG(chooser),
+                                        GTK_RESPONSE_CANCEL,
+                                        GTK_RESPONSE_OK, NULL);
+
+    if (default_folder != NULL)
+    {
+        char* start = fm_path_to_str(default_folder);
+        if (start)
+        {
+            /* gtk_file_chooser_set_current_folder accepts a filesystem path */
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(chooser), start);
+            g_free(start);
+        }
+    }
+
+    if( gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_OK )
+    {
+        GFile* file = gtk_file_chooser_get_file(chooser);
+        path = fm_path_new_for_gfile(file);
+        g_object_unref(file);
+    }
+    else
+        path = NULL;
+    gtk_widget_destroy(GTK_WIDGET(chooser));
+    return path;
+}
+
 /**
  * fm_select_folder
  * @parent: a window to place dialog over it

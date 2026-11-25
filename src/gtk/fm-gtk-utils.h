@@ -54,6 +54,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 #endif
 
 /* Ask the user to select a folder. */
+FmPath* fm_select_folder_with_default(GtkWindow* parent, FmPath* default_folder, const char* title);
 FmPath* fm_select_folder(GtkWindow* parent, const char* title);
 /* TODO: support selecting multiple files */
 FmPath* fm_select_file(GtkWindow* parent, 
