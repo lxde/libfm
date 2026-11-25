@@ -482,6 +482,21 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
 
                 /* g_printf("parameter name/value: %s = %s\n", name, value); */
 
+                /* a parameter with no value (e.g. "show_hidden" instead of
+                 * "show_hidden=1") carries no information; skip it rather than
+                 * dereferencing the NULL value below */
+                if(value == NULL)
+                {
+                    g_free(name);
+                    if(sep)
+                    {
+                        params = sep + 1;
+                        continue;
+                    }
+                    else
+                        break;
+                }
+
                 if(strcmp(name, "show_hidden") == 0)
                     priv->show_hidden = (value[0] == '1') ? TRUE : FALSE;
                 else if(strcmp(name, "recursive") == 0)
