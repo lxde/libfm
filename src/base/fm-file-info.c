@@ -559,14 +559,20 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
 
     g_return_if_fail(fi->path);
 
-    tmp = g_file_info_get_edit_name(inf);
+    tmp = NULL;
+    if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME))
+        tmp = g_file_info_get_edit_name(inf);
     if (!tmp || strcmp(tmp, "/") == 0)
         tmp = g_file_info_get_display_name(inf);
     _fm_path_set_display_name(fi->path, tmp);
 
-    fi->size = g_file_info_get_size(inf);
+    fi->size = 0;
+    if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_SIZE))
+        fi->size = g_file_info_get_size(inf);
 
-    tmp = g_file_info_get_content_type(inf);
+    tmp = NULL;
+    if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
+        tmp = g_file_info_get_content_type(inf);
     if(tmp)
         fi->mime_type = fm_mime_type_from_name(tmp);
 
@@ -623,7 +629,8 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
         fi->accessible = TRUE;
 
     /* special handling for symlinks */
-    if (g_file_info_get_is_symlink(inf))
+    if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK) &&
+        g_file_info_get_is_symlink(inf))
     {
         fi->mode &= ~S_IFMT; /* reset type */
         fi->mode |= S_IFLNK; /* set type to symlink */
@@ -714,8 +721,10 @@ _file_is_symlink:
     fi->mtime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_MODIFIED);
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
     fi->ctime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_CHANGED);
-    fi->hidden = g_file_info_get_is_hidden(inf);
-    fi->backup = g_file_info_get_is_backup(inf);
+    fi->hidden = (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) &&
+        g_file_info_get_is_hidden(inf));
+    fi->backup =  (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP) &&
+        g_file_info_get_is_backup(inf));
     fi->name_is_changeable = TRUE; /* GVFS tends to ignore this attribute */
     fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
     if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME))

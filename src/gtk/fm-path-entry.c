@@ -485,7 +485,8 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
                 GFileType type = g_file_info_get_file_type(inf);
                 if(type == G_FILE_TYPE_DIRECTORY)
                 {
-                    const char* name = g_file_info_get_edit_name(inf);
+                    const char* name = g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) ?
+                        g_file_info_get_edit_name(inf) : NULL;
                     if (!name)
                         name = g_file_info_get_display_name(inf);
                     data->subdirs = g_list_prepend(data->subdirs, g_strdup(name));
