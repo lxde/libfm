@@ -120,19 +120,34 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     }
     gtk_selection_data_set(sel, target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
-    if(is_cut && info == GNOME_COPIED_FILES)
-    {
-        /* info about is_cut is already on clipboard so reset it */
-        gtk_clipboard_clear(clip);
-        is_cut = FALSE;
-    }
+    /* NOTE: Do NOT call gtk_clipboard_clear() here! The previous code did:
+     *   if(is_cut && info == GNOME_COPIED_FILES) { gtk_clipboard_clear(clip); is_cut = FALSE; 
+     * This was wrong because gtk_clipboard_clear() destroys ALL clipboard contents,
+     * causing subsequent paste requests to fail (clipboard appears empty to other apps).
+     * The is_cut flag is properly reset in clear_data() callback when clipboard is
+     * actually released or overwritten. */
 }
 
 static void clear_data(GtkClipboard* clip, gpointer user_data)
 {
     FmPathList* files = (FmPathList*)user_data;
+    g_debug("fm-clipboard: clear_data called, files=%p, is_cut was %d", (void*)files, is_cut);
     fm_path_list_unref(files);
     is_cut = FALSE;
+    is_copy = FALSE;
+    /* Clear the cut/copied files list used for visual indication */
+    if(cut_files)
+    {
+        fm_path_list_unref(cut_files);
+        cut_files = NULL;
+    }
+    if(copied_files)
+    {
+        fm_path_list_unref(copied_files);
+        copied_files = NULL;
+    }
+    /* Notify views to redraw (cut/copied files no longer marked) */
+    notify_clipboard_changed();
 }
 
 /**
