@@ -105,7 +105,7 @@ static GtkActionEntry main_win_actions[]=
         {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
         {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
         {"Rename", NULL, N_("Rename"), "F2", NULL, G_CALLBACK(on_rename)},
-        {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
+        {"Link", NULL, N_("Create Symlin_k..."), "<Ctrl>K", NULL, NULL},
         {"MoveTo", NULL, N_("Move To..."), NULL, NULL, G_CALLBACK(on_move_to)},
         {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, G_CALLBACK(on_copy_to)},
         {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
