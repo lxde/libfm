@@ -246,10 +246,19 @@ exo_tree_view_class_init (ExoTreeViewClass *klass)
 }
 
 
+gboolean
+exo_icon_view_search_equal_func (GtkTreeModel *model,
+                 gint     column,
+                 const gchar *key,
+                 GtkTreeIter *iter,
+                 gpointer   user_data);
+
 
 static void
 exo_tree_view_init (ExoTreeView *tree_view)
 {
+  gtk_tree_view_set_search_equal_func(&tree_view->__parent__, exo_icon_view_search_equal_func, 0, 0);
+
   /* grab a pointer on the private data */
   tree_view->priv = EXO_TREE_VIEW_GET_PRIVATE (tree_view);
   tree_view->priv->single_click_timeout_id = -1;
